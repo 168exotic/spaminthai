@@ -1,0 +1,13 @@
+{
+  "name": "spaminthai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SpamInThai /check page — Cloudflare Pages (static + Functions + KV)",
+  "scripts": {
+    "dev": "wrangler pages dev . --kv SPAM_KV --port 8788 --persist-to /tmp/wrangler-state",
+    "deploy": "wrangler pages deploy ."
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}
