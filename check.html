@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เช็คเบอร์โทร — เบอร์นี้ใครโทรมา? | SpamInThai</title>
+<meta name="description" content="เช็คเบอร์โทรศัพท์ฟรี เบอร์นี้ใครโทรมา? เบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ หรือเบอร์สแปม ตรวจสอบจากฐานข้อมูลรายงานของคนไทย โดย SpamInThai">
+<meta name="keywords" content="เช็คเบอร์โทร, เบอร์นี้ใครโทรมา, เบอร์มิจฉาชีพ, แก๊งคอลเซ็นเตอร์, เบอร์สแปม, ตรวจสอบเบอร์โทรศัพท์">
+<link rel="canonical" href="https://spaminthai.com/check">
+<meta property="og:title" content="เช็คเบอร์โทร — เบอร์นี้ใครโทรมา? | SpamInThai">
+<meta property="og:description" content="ตรวจสอบเบอร์โทรฟรี จากฐานข้อมูลรายงานเบอร์มิจฉาชีพของคนไทย">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spaminthai.com/check">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "เบอร์นี้ใครโทรมา เช็คยังไง?", "acceptedAnswer": {"@type": "Answer", "text": "พิมพ์เบอร์โทรศัพท์ 9-10 หลักในช่องค้นหาด้านบน ระบบจะตรวจสอบกับฐานข้อมูลรายงานเบอร์สแปมและมิจฉาชีพจากผู้ใช้ทั่วประเทศทันที ฟรี ไม่ต้องสมัครสมาชิก"},
+    {"@type": "Question", "name": "ถ้าโดนแก๊งคอลเซ็นเตอร์โทรมา ต้องทำยังไง?", "acceptedAnswer": {"@type": "Answer", "text": "วางสายทันที อย่าโอนเงินหรือให้ข้อมูลส่วนตัว รายงานเบอร์ในหน้านี้เพื่อเตือนคนอื่น และแจ้งความออนไลน์ได้ที่ thaipoliceonline.go.th หรือโทรสายด่วนตำรวจไซเบอร์ 1441"},
+    {"@type": "Question", "name": "SpamInThai บล็อกเบอร์อัตโนมัติได้ไหม?", "acceptedAnswer": {"@type": "Answer", "text": "ได้ ดาวน์โหลดแอป SpamInThai บน Android เพื่อบล็อกสายมิจฉาชีพและสแปมอัตโนมัติจากฐานข้อมูลเดียวกันนี้"}}
+  ]
+}
+</script>
+<style>
+:root{
+  --indigo:#4F46E5; --indigo-deep:#3730A3; --ink:#1E1B4B; --muted:#6B7280;
+  --bg:#F8F9FF; --card:#FFFFFF; --line:#E5E7F5;
+  --danger:#DC2626; --danger-bg:#FEF2F2; --warn:#D97706; --warn-bg:#FFFBEB;
+  --safe:#059669; --safe-bg:#ECFDF5;
+  --radius:16px; --shadow:0 4px 24px rgba(79,70,229,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;min-height:100vh}
+a{color:var(--indigo);text-decoration:none}
+.wrap{max-width:640px;margin:0 auto;padding:0 20px}
+
+header{padding:20px 0;border-bottom:1px solid var(--line);background:#fff}
+header .wrap{display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:700;font-size:1.1rem;color:var(--ink)}
+.logo span{color:var(--indigo)}
+.dl-btn{background:var(--indigo);color:#fff;padding:8px 16px;border-radius:99px;font-size:.85rem;font-weight:600}
+
+.hero{padding:48px 0 32px;text-align:center}
+.hero h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:700;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--indigo)}
+.hero p{color:var(--muted);margin-top:8px;font-size:.95rem}
+
+.search-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-top:24px}
+.search-row{display:flex;gap:10px}
+#numInput{flex:1;font-family:'IBM Plex Mono',monospace;font-size:1.35rem;font-weight:600;letter-spacing:.06em;padding:14px 16px;border:2px solid var(--line);border-radius:12px;outline:none;color:var(--ink);min-width:0;background:var(--bg);transition:border-color .15s}
+#numInput:focus{border-color:var(--indigo)}
+#numInput::placeholder{color:#B4B7D6;font-weight:500}
+#checkBtn{background:var(--indigo);color:#fff;border:none;border-radius:12px;padding:0 22px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:background .15s}
+#checkBtn:hover{background:var(--indigo-deep)}
+#checkBtn:disabled{opacity:.6;cursor:wait}
+.hint{font-size:.8rem;color:var(--muted);margin-top:10px;text-align:center}
+
+.result{margin-top:20px;border-radius:var(--radius);padding:24px;display:none;animation:pop .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.result.show{display:block}
+.result.danger{background:var(--danger-bg);border:1.5px solid #FCA5A5}
+.result.warn{background:var(--warn-bg);border:1.5px solid #FCD34D}
+.result.safe{background:var(--safe-bg);border:1.5px solid #6EE7B7}
+.verdict{display:flex;align-items:center;gap:12px}
+.verdict .icon{font-size:2rem;line-height:1}
+.verdict .txt b{font-size:1.15rem;display:block}
+.result.danger .verdict .txt b{color:var(--danger)}
+.result.warn .verdict .txt b{color:var(--warn)}
+.result.safe .verdict .txt b{color:var(--safe)}
+.verdict .txt span{font-size:.85rem;color:var(--muted)}
+.stats{display:flex;gap:16px;margin-top:16px;flex-wrap:wrap}
+.stat{flex:1;min-width:120px;background:#fff;border-radius:10px;padding:10px 14px;border:1px solid var(--line)}
+.stat b{font-size:1.2rem;font-family:'IBM Plex Mono',monospace}
+.stat small{display:block;color:var(--muted);font-size:.75rem}
+.tags{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{background:#fff;border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:.8rem;color:var(--ink)}
+
+.report-box{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+.report-box p{font-size:.85rem;color:var(--muted);margin-bottom:10px}
+.cat-row{display:flex;gap:8px;flex-wrap:wrap}
+.cat-btn{background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:7px 14px;font-family:inherit;font-size:.85rem;cursor:pointer;color:var(--ink);transition:all .15s}
+.cat-btn:hover{border-color:var(--indigo);color:var(--indigo)}
+.cat-btn.sent{background:var(--indigo);border-color:var(--indigo);color:#fff;pointer-events:none}
+
+.cta{margin-top:40px;background:linear-gradient(135deg,var(--indigo),#6366F1);border-radius:var(--radius);padding:28px;color:#fff;text-align:center}
+.cta h2{font-size:1.2rem;font-weight:700}
+.cta p{font-size:.9rem;opacity:.9;margin:6px 0 16px}
+.cta a{display:inline-block;background:#fff;color:var(--indigo);font-weight:700;padding:12px 28px;border-radius:99px}
+
+.faq{margin:48px 0 24px}
+.faq h2{font-size:1.25rem;margin-bottom:16px}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+summary{font-weight:600;cursor:pointer;font-size:.95rem}
+details p{margin-top:8px;font-size:.9rem;color:var(--muted)}
+details a{font-weight:600}
+
+footer{border-top:1px solid var(--line);padding:24px 0 40px;text-align:center;font-size:.8rem;color:var(--muted)}
+footer a{margin:0 8px}
+
+@media(max-width:480px){
+  .search-row{flex-direction:column}
+  #checkBtn{padding:13px}
+}
+@media(prefers-reduced-motion:reduce){.result{animation:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="/">Spam<span>InThai</span></a>
+    <a class="dl-btn" href="/#download">ดาวน์โหลดแอป</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>เบอร์นี้<em>ใครโทรมา?</em></h1>
+    <p>เช็คเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ และเบอร์สแปม ฟรี จากรายงานของคนไทยทั่วประเทศ</p>
+
+    <div class="search-card">
+      <div class="search-row">
+        <input id="numInput" type="tel" inputmode="numeric" maxlength="12" placeholder="08X-XXX-XXXX" autocomplete="off" aria-label="กรอกเบอร์โทรศัพท์ที่ต้องการตรวจสอบ">
+        <button id="checkBtn">เช็คเบอร์</button>
+      </div>
+      <div class="hint">กรอกเบอร์ 9–10 หลัก ไม่เก็บข้อมูลผู้ค้นหา</div>
+    </div>
+
+    <div id="result" class="result" role="status" aria-live="polite">
+      <div class="verdict">
+        <div class="icon" id="rIcon"></div>
+        <div class="txt"><b id="rTitle"></b><span id="rNum"></span></div>
+      </div>
+      <div class="stats" id="rStats"></div>
+      <div class="tags" id="rTags"></div>
+      <div class="report-box">
+        <p>เบอร์นี้โทรหาคุณเหรอ? ช่วยรายงานเพื่อเตือนคนอื่น</p>
+        <div class="cat-row" id="catRow">
+          <button class="cat-btn" data-cat="scam">😡 มิจฉาชีพ/หลอกโอนเงิน</button>
+          <button class="cat-btn" data-cat="callcenter">📞 แก๊งคอลเซ็นเตอร์</button>
+          <button class="cat-btn" data-cat="ads">📢 โฆษณา/ขายของ</button>
+          <button class="cat-btn" data-cat="loan">💸 เงินกู้</button>
+          <button class="cat-btn" data-cat="safe">✅ เบอร์ปกติ</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>บล็อกเบอร์พวกนี้อัตโนมัติ</h2>
+    <p>แอป SpamInThai บล็อกสายมิจฉาชีพให้ทันที ก่อนโทรศัพท์คุณจะดังด้วยซ้ำ</p>
+    <a href="/#download">ติดตั้งฟรีบน Android</a>
+  </section>
+
+  <section class="faq">
+    <h2>คำถามที่พบบ่อย</h2>
+    <details>
+      <summary>เช็คแล้ว "ไม่พบรายงาน" แปลว่าปลอดภัยไหม?</summary>
+      <p>ไม่เสมอไป — มิจฉาชีพเปลี่ยนเบอร์บ่อย เบอร์ใหม่อาจยังไม่มีใครรายงาน ถ้าสายนั้นอ้างเป็นธนาคาร ตำรวจ หรือขู่เรื่องพัสดุ/คดี ให้สงสัยไว้ก่อนเสมอ</p>
+    </details>
+    <details>
+      <summary>โดนหลอกโอนเงินไปแล้ว ทำยังไงดี?</summary>
+      <p>โทรแจ้งธนาคารเพื่ออายัดบัญชีทันที จากนั้นแจ้งความออนไลน์ที่ <a href="https://thaipoliceonline.go.th" rel="noopener">thaipoliceonline.go.th</a> หรือสายด่วน 1441 ยิ่งเร็วยิ่งมีโอกาสได้เงินคืน</p>
+    </details>
+    <details>
+      <summary>ข้อมูลรายงานมาจากไหน?</summary>
+      <p>จากผู้ใช้แอป SpamInThai และผู้ใช้เว็บไซต์ทั่วประเทศที่ช่วยกันรายงาน ทุกรายงานถูกเก็บแบบไม่ระบุตัวตน</p>
+    </details>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="/">หน้าแรก</a><a href="/#privacy">นโยบายความเป็นส่วนตัว</a><a href="mailto:admin@spaminthai.com">ติดต่อ</a>
+    <p style="margin-top:8px">© 2026 SpamInThai — ปกป้องคนไทยจากมิจฉาชีพ</p>
+  </div>
+</footer>
+
+<script>
+const input = document.getElementById('numInput');
+const btn = document.getElementById('checkBtn');
+const box = document.getElementById('result');
+let currentNum = '';
+
+const clean = v => v.replace(/\D/g,'').slice(0,10);
+
+input.addEventListener('input', () => {
+  const d = clean(input.value);
+  input.value = d.length > 6 ? d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6)
+              : d.length > 3 ? d.slice(0,3)+'-'+d.slice(3) : d;
+});
+input.addEventListener('keydown', e => { if(e.key === 'Enter') doCheck(); });
+btn.addEventListener('click', doCheck);
+
+async function doCheck(){
+  const num = clean(input.value);
+  if(num.length < 9){ input.focus(); return; }
+  currentNum = num;
+  btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
+  try{
+    const r = await fetch('/api/lookup?number='+num);
+    const data = r.ok ? await r.json() : {reports:0};
+    render(num, data);
+    history.replaceState(null,'','/check?number='+num);
+    document.title = 'เบอร์ '+fmt(num)+' ใครโทรมา? เช็คเบอร์สแปม | SpamInThai';
+  }catch(e){
+    render(num, {reports:0, error:true});
+  }
+  btn.disabled = false; btn.textContent = 'เช็คเบอร์';
+}
+
+const fmt = n => n.length > 6 ? n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6) : n;
+
+const CATS = {scam:'มิจฉาชีพ/หลอกโอนเงิน', callcenter:'แก๊งคอลเซ็นเตอร์', ads:'โฆษณา/ขายของ', loan:'เงินกู้', safe:'เบอร์ปกติ'};
+
+function render(num, d){
+  const n = d.reports || 0;
+  const safeVotes = (d.categories && d.categories.safe) || 0;
+  const badVotes = n - safeVotes;
+  let cls, icon, title, sub;
+  if(badVotes >= 5){ cls='danger'; icon='🚨'; title='เบอร์อันตราย — มีรายงานจำนวนมาก'; sub='ไม่ควรรับสาย และห้ามโอนเงินเด็ดขาด'; }
+  else if(badVotes >= 1){ cls='warn'; icon='⚠️'; title='เบอร์น่าสงสัย — มีคนรายงาน'; sub='รับสายด้วยความระมัดระวัง'; }
+  else { cls='safe'; icon='🔍'; title='ยังไม่พบรายงาน'; sub='ไม่ได้แปลว่าปลอดภัย 100% — มิจฉาชีพเปลี่ยนเบอร์บ่อย'; }
+
+  box.className = 'result show ' + cls;
+  document.getElementById('rIcon').textContent = icon;
+  document.getElementById('rTitle').textContent = title;
+  document.getElementById('rNum').textContent = fmt(num) + ' — ' + sub;
+
+  document.getElementById('rStats').innerHTML =
+    '<div class="stat"><b>'+n+'</b><small>รายงานทั้งหมด</small></div>' +
+    (d.lastReport ? '<div class="stat"><b>'+new Date(d.lastReport).toLocaleDateString('th-TH',{day:'numeric',month:'short'})+'</b><small>รายงานล่าสุด</small></div>' : '');
+
+  const tags = document.getElementById('rTags');
+  tags.innerHTML = '';
+  if(d.categories){
+    Object.entries(d.categories).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{
+      if(v > 0 && CATS[k]) tags.innerHTML += '<span class="tag">'+CATS[k]+' × '+v+'</span>';
+    });
+  }
+  document.querySelectorAll('.cat-btn').forEach(b => { b.classList.remove('sent'); b.disabled = false; });
+}
+
+document.getElementById('catRow').addEventListener('click', async e => {
+  const b = e.target.closest('.cat-btn');
+  if(!b || !currentNum) return;
+  b.classList.add('sent'); b.textContent = '✓ รายงานแล้ว ขอบคุณ!';
+  try{
+    await fetch('/api/report', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({number: currentNum, category: b.dataset.cat})
+    });
+  }catch(e){}
+});
+
+const q = new URLSearchParams(location.search).get('number');
+if(q){ input.value = fmt(clean(q)); doCheck(); }
+</script>
+</body>
+</html>

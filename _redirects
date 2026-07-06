@@ -1,0 +1,3 @@
+# Cloudflare Pages routing
+# /check (pretty URL) -> check.html
+/check    /check.html    200
