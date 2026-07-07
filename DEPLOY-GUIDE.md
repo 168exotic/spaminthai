@@ -70,6 +70,10 @@ git push origin main
 
 **เปิด browser ทดสอบ:**
 
+0. **หน้าแรก:** https://spaminthai.com/
+   - เห็น homepage พร้อม widget เช็คเบอร์ (เรียก `/api/lookup`)
+   - ลิงก์ไป `/check` และ `#download` ทำงาน
+
 1. **หน้าเช็ค:** https://spaminthai.com/check
    - เห็น UI indigo theme
    - พิมพ์เบอร์ 0812345678 → กด "เช็คเบอร์"
