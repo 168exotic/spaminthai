@@ -103,9 +103,9 @@ footer a{margin:0 8px}
     <a class="logo" href="/">Spam<span>InThai</span></a>
     <nav>
       <a href="/check">เช็คเบอร์</a>
-      <a href="#download">ดาวน์โหลด</a>
+      <a href="/download">ดาวน์โหลด</a>
       <a href="#privacy">ความเป็นส่วนตัว</a>
-      <a class="dl-btn" href="#download">ดาวน์โหลดแอป</a>
+      <a class="dl-btn" href="/download">ดาวน์โหลดแอป</a>
     </nav>
   </div>
 </header>
@@ -165,8 +165,8 @@ footer a{margin:0 8px}
       <div class="download-box">
         <h2>ดาวน์โหลดแอป SpamInThai</h2>
         <p>บล็อกเบอร์มิจฉาชีพอัตโนมัติ ใช้ฐานข้อมูลเดียวกับหน้าเช็คเบอร์บนเว็บ</p>
-        <a class="store-btn" href="mailto:admin@spaminthai.com?subject=ขอลิงก์ดาวน์โหลดแอป%20SpamInThai">ขอลิงก์ดาวน์โหลด Android</a>
-        <p class="coming">แอปเวอร์ชันล่าสุดกำลังเผยแพร่บน Google Play — ติดต่อเราเพื่อรับลิงก์ทดลองใช้ก่อน</p>
+        <a class="store-btn" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK บน Android</a>
+        <p class="coming">เวอร์ชันล่าสุดจาก <a href="/api/app">/api/app</a> · หรือไปหน้า <a href="/download">ดาวน์โหลด</a></p>
       </div>
     </div>
   </section>
@@ -190,7 +190,7 @@ footer a{margin:0 8px}
 
 <footer>
   <div class="wrap">
-    <a href="/">หน้าแรก</a><a href="/check">เช็คเบอร์</a><a href="#privacy">นโยบายความเป็นส่วนตัว</a><a href="mailto:admin@spaminthai.com">ติดต่อ</a>
+    <a href="/">หน้าแรก</a><a href="/check">เช็คเบอร์</a><a href="/download">ดาวน์โหลดแอป</a><a href="#privacy">นโยบายความเป็นส่วนตัว</a><a href="mailto:admin@spaminthai.com">ติดต่อ</a>
     <p style="margin-top:8px">© 2026 SpamInThai — ปกป้องคนไทยจากมิจฉาชีพ</p>
   </div>
 </footer>
@@ -241,5 +241,6 @@ function render(num, d){
   fullLink.href = '/check?number=' + num;
 }
 </script>
+<script src="/assets/site.js"></script>
 </body>
 </html>

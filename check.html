@@ -115,7 +115,7 @@ footer a{margin:0 8px}
     <a class="logo" href="/">Spam<span>InThai</span></a>
     <nav style="display:flex;align-items:center;gap:12px">
       <a href="/check" style="font-size:.9rem;font-weight:500;color:var(--muted)">เช็คเบอร์</a>
-      <a class="dl-btn" href="/#download">ดาวน์โหลดแอป</a>
+      <a class="dl-btn" href="/download">ดาวน์โหลดแอป</a>
     </nav>
   </div>
 </header>
@@ -156,7 +156,7 @@ footer a{margin:0 8px}
   <section class="cta">
     <h2>บล็อกเบอร์พวกนี้อัตโนมัติ</h2>
     <p>แอป SpamInThai บล็อกสายมิจฉาชีพให้ทันที ก่อนโทรศัพท์คุณจะดังด้วยซ้ำ</p>
-    <a href="/#download">ติดตั้งฟรีบน Android</a>
+    <a data-download href="/download/spaminthai-latest.apk" download>ติดตั้งฟรีบน Android</a>
   </section>
 
   <section class="faq">
@@ -178,7 +178,7 @@ footer a{margin:0 8px}
 
 <footer>
   <div class="wrap">
-    <a href="/">หน้าแรก</a><a href="/#privacy">นโยบายความเป็นส่วนตัว</a><a href="mailto:admin@spaminthai.com">ติดต่อ</a>
+    <a href="/">หน้าแรก</a><a href="/download">ดาวน์โหลดแอป</a><a href="/#privacy">นโยบายความเป็นส่วนตัว</a><a href="mailto:admin@spaminthai.com">ติดต่อ</a>
     <p style="margin-top:8px">© 2026 SpamInThai — ปกป้องคนไทยจากมิจฉาชีพ</p>
   </div>
 </footer>
@@ -263,5 +263,6 @@ document.getElementById('catRow').addEventListener('click', async e => {
 const q = new URLSearchParams(location.search).get('number');
 if(q){ input.value = fmt(clean(q)); doCheck(); }
 </script>
+<script src="/assets/site.js"></script>
 </body>
 </html>
