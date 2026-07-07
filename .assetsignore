@@ -1,0 +1,12 @@
+node_modules/
+.wrangler/
+.git/
+scripts/
+data/
+docs/
+package-lock.json
+.gitignore
+.assetsignore
+AGENTS.md
+DEPLOY-GUIDE.md
+README.md

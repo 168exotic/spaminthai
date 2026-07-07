@@ -9,8 +9,9 @@
 ## 📂 โครงสร้างไฟล์
 
 ```
-mysite/                          <- root ของ repo 168exotic/mysite
-├── check.html                   <- หน้าเช็คเบอร์ (Thai, indigo theme)
+spaminthai/                      <- root ของ repo 168exotic/spaminthai
+├── index.html                   <- หน้าแรก (ฝัง API เช็คเบอร์)
+├── check.html                   <- หน้าเช็คเบอร์เต็มรูปแบบ
 ├── _redirects                   <- Cloudflare Pages routing (pretty URL)
 └── functions/
     └── api/
@@ -53,7 +54,7 @@ git push origin main
 
 ### Step 3: Connect KV กับ Cloudflare Pages
 
-1. Cloudflare Dashboard → **Workers & Pages** → เลือก project ที่ deploy `168exotic/mysite`
+1. Cloudflare Dashboard → **Workers & Pages** → เลือก project `spaminthai` (repo `168exotic/spaminthai`)
 2. **Settings** → **Bindings** → **Add binding** → **KV Namespace**
 3. Variable name: `SPAM_KV` (ต้องตรงกับที่ใช้ใน code!)
 4. KV namespace: เลือก `SPAM_KV` ที่สร้างใน Step 2
@@ -62,6 +63,7 @@ git push origin main
 ### Step 4: Redeploy Pages
 
 - Cloudflare Pages จะ auto-deploy หลัง git push
+- หรือ deploy manual: `npm run deploy` (ต้องมี `CLOUDFLARE_API_TOKEN`)
 - ถ้ายังไม่ deploy → ไปที่ Deployments tab → คลิก **Retry deployment** ที่ deployment ล่าสุด
 
 ### Step 5: Test

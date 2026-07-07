@@ -1,0 +1,6 @@
+[
+  { "number": "021365777", "category": "scam", "reports": 12 },
+  { "number": "026114777", "category": "callcenter", "reports": 8 },
+  { "number": "0812345678", "category": "ads", "reports": 3 },
+  { "number": "0999999999", "category": "loan", "reports": 6 }
+]
