@@ -145,7 +145,17 @@ for (const {number, category} of numbers) {
 }
 ```
 
-**บอกผมถ้าอยากทำ** — ต้องการ Cloudflare API token + KV Namespace ID
+**Token policy สำคัญ:** token ต้องเป็น **account-scoped** + permission `Workers KV Storage Edit`  
+token แบบ zone-scoped (เช่น `broken-lab-8596`) จะ seed KV ไม่ได้ — อ่านรายละเอียดใน `docs/TOKEN-POLICY.md`
+
+```bash
+export CLOUDFLARE_API_TOKEN="your-token-secret"
+export CLOUDFLARE_ACCOUNT_ID="2fa3f2f325707bab89ef1c7452d3adb8"
+export KV_NAMESPACE_ID="d1417790ca5841bebf80cbc25443e070"
+
+node scripts/verify-token.js
+node scripts/seed-spam-numbers.js data/spam-numbers-sample.json
+```
 
 ---
 

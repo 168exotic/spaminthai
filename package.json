@@ -1,0 +1,9 @@
+{
+  "name": "spaminthai",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "verify-token": "node scripts/verify-token.js",
+    "seed": "node scripts/seed-spam-numbers.js data/spam-numbers-sample.json"
+  }
+}
