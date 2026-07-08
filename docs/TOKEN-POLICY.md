@@ -73,7 +73,7 @@ Note the account resource value is `"*"` (the whole account), not a nested `zone
 | Variable | Value |
 |---|---|
 | Account ID | `2fa3f2f325707bab89ef1c7452d3adb8` |
-| KV Namespace ID | `d1417790ca5841bebf80cbc25443e070` (from `wrangler.jsonc`) |
+| KV Namespace ID | `d1417790ca5841bebf80cbc25443e070` (from `wrangler.toml`) |
 | KV binding name | `SPAM_KV` |
 
 ## Verify and seed

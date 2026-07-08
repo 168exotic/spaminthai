@@ -102,10 +102,10 @@ footer a{margin:0 8px}
   <div class="wrap">
     <a class="logo" href="/">Spam<span>InThai</span></a>
     <nav>
-      <a href="/check">เช็คเบอร์</a>
-      <a href="/download">ดาวน์โหลด</a>
+      <a data-check-url href="https://xn--42c7b1ab1c2gya5e.com/">เช็คเบอร์</a>
+      <a href="https://api.spaminthai.com/download/apk">ดาวน์โหลด</a>
       <a href="/privacy">ความเป็นส่วนตัว</a>
-      <a class="dl-btn" href="/download">ดาวน์โหลดแอป</a>
+      <a class="dl-btn" data-download href="https://api.spaminthai.com/download/apk">ดาวน์โหลดแอป</a>
     </nav>
   </div>
 </header>
@@ -131,7 +131,7 @@ footer a{margin:0 8px}
               <span id="rNum"></span>
             </div>
           </div>
-          <a class="full-link" id="fullLink" href="/check">ดูรายละเอียดและรายงานเบอร์ →</a>
+          <a class="full-link" id="fullLink" data-check-url href="https://xn--42c7b1ab1c2gya5e.com/">ดูรายละเอียดและรายงานเบอร์ →</a>
         </div>
       </div>
     </div>
@@ -165,8 +165,8 @@ footer a{margin:0 8px}
       <div class="download-box">
         <h2>ดาวน์โหลดแอป SpamInThai</h2>
         <p>บล็อกเบอร์มิจฉาชีพอัตโนมัติ ใช้ฐานข้อมูลเดียวกับหน้าเช็คเบอร์บนเว็บ</p>
-        <a class="store-btn" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK บน Android</a>
-        <p class="coming"><a href="/download/police.vcf">ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a> · <a href="/download">หน้าดาวน์โหลด</a></p>
+        <a class="store-btn" data-download href="https://api.spaminthai.com/download/apk" download>ดาวน์โหลด APK บน Android</a>
+        <p class="coming"><a data-police-vcf href="https://api.spaminthai.com/download/police.vcf">ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a> · <a href="/download">หน้าดาวน์โหลด</a></p>
       </div>
     </div>
   </section>
@@ -215,7 +215,7 @@ async function doCheck(){
   if(num.length < 9){ input.focus(); return; }
   btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
   try{
-    const r = await fetch('/api/lookup?number='+num);
+    const r = await fetch('https://api.spaminthai.com/api/lookup?number='+num);
     const data = r.ok ? await r.json() : {reports:0};
     render(num, data);
   }catch(e){
@@ -237,7 +237,7 @@ function render(num, d){
   document.getElementById('rIcon').textContent = icon;
   document.getElementById('rTitle').textContent = title;
   document.getElementById('rNum').textContent = fmt(num) + ' — ' + sub + (n ? ' ('+n+' รายงาน)' : '');
-  fullLink.href = '/check?number=' + num;
+  fullLink.href = 'https://xn--42c7b1ab1c2gya5e.com/?number=' + num;
 }
 </script>
 <script src="/assets/site.js"></script>

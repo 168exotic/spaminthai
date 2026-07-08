@@ -1,0 +1,28 @@
+# SpamInThai — Cloudflare Worker
+# Serves spaminthai.com (apex) + api.spaminthai.com
+
+name = "spaminthai"
+account_id = "2fa3f2f325707bab89ef1c7452d3adb8"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[assets]
+directory = "./"
+not_found_handling = "404-page"
+
+[[kv_namespaces]]
+binding = "SPAM_KV"
+id = "d1417790ca5841bebf80cbc25443e070"
+
+# Custom domains (replaces Canva on apex + www; keeps api host)
+[[routes]]
+pattern = "spaminthai.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.spaminthai.com"
+custom_domain = true
+
+[[routes]]
+pattern = "api.spaminthai.com"
+custom_domain = true
