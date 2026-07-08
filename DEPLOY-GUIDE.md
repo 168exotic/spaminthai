@@ -9,7 +9,7 @@
 ## 📂 โครงสร้างไฟล์
 
 ```
-mysite/                          <- root ของ repo 168exotic/mysite
+mysite/                          <- root ของ repo
 ├── check.html                   <- หน้าเช็คเบอร์ (Thai, indigo theme)
 ├── _redirects                   <- Cloudflare Pages routing (pretty URL)
 └── functions/
@@ -27,7 +27,7 @@ mysite/                          <- root ของ repo 168exotic/mysite
 ### Step 1: Commit + Push ไป GitHub
 
 **Option A — ผ่าน GitHub Web UI (ง่ายสุด):**
-1. เข้า https://github.com/168exotic/mysite
+1. เข้า GitHub repository ของโปรเจกต์
 2. Add file → Upload files → ลาก 3 ไฟล์เข้า:
    - `check.html`
    - `_redirects`  (ต้องใส่ตัวจุดหน้าชื่อ! ถ้า GitHub ไม่ยอมให้ upload → สร้าง `redirects.txt` ก่อน แล้ว rename)
@@ -53,7 +53,7 @@ git push origin main
 
 ### Step 3: Connect KV กับ Cloudflare Pages
 
-1. Cloudflare Dashboard → **Workers & Pages** → เลือก project ที่ deploy `168exotic/mysite`
+1. Cloudflare Dashboard → **Workers & Pages** → เลือก project ที่ deploy repository ของคุณ
 2. **Settings** → **Bindings** → **Add binding** → **KV Namespace**
 3. Variable name: `SPAM_KV` (ต้องตรงกับที่ใช้ใน code!)
 4. KV namespace: เลือก `SPAM_KV` ที่สร้างใน Step 2
