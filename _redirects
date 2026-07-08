@@ -1,3 +1,5 @@
 # Cloudflare Pages routing
-# /check (pretty URL) -> check.html
-/check    /check.html    200
+/check      /check.html       200
+/download   /download.html    200
+/privacy    /privacy.html     200
+/terms      /terms.html       200

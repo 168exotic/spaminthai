@@ -113,7 +113,10 @@ footer a{margin:0 8px}
 <header>
   <div class="wrap">
     <a class="logo" href="/">Spam<span>InThai</span></a>
-    <a class="dl-btn" href="/#download">ดาวน์โหลดแอป</a>
+    <nav style="display:flex;align-items:center;gap:12px">
+      <a href="/check" style="font-size:.9rem;font-weight:500;color:var(--muted)">เช็คเบอร์</a>
+      <a class="dl-btn" href="/download">ดาวน์โหลดแอป</a>
+    </nav>
   </div>
 </header>
 
@@ -153,7 +156,7 @@ footer a{margin:0 8px}
   <section class="cta">
     <h2>บล็อกเบอร์พวกนี้อัตโนมัติ</h2>
     <p>แอป SpamInThai บล็อกสายมิจฉาชีพให้ทันที ก่อนโทรศัพท์คุณจะดังด้วยซ้ำ</p>
-    <a href="/#download">ติดตั้งฟรีบน Android</a>
+    <a data-download href="/download/spaminthai-latest.apk" download>ติดตั้งฟรีบน Android</a>
   </section>
 
   <section class="faq">
@@ -167,16 +170,19 @@ footer a{margin:0 8px}
       <p>โทรแจ้งธนาคารเพื่ออายัดบัญชีทันที จากนั้นแจ้งความออนไลน์ที่ <a href="https://thaipoliceonline.go.th" rel="noopener">thaipoliceonline.go.th</a> หรือสายด่วน 1441 ยิ่งเร็วยิ่งมีโอกาสได้เงินคืน</p>
     </details>
     <details>
+      <summary>โดนมิจฉาชีพโทรมา เก็บเบอร์ตำรวจไว้ในเครื่องยังไง?</summary>
+      <p>ดาวน์โหลดไฟล์ <a href="/download/police.vcf">police.vcf</a> แล้วเปิดเพื่อเพิ่มเบอร์สายด่วนตำรวจไซเบอร์ 1441 และเบอร์ฉุกเฉินลงในรายชื่อ</p>
+    </details>
+    <details>
       <summary>ข้อมูลรายงานมาจากไหน?</summary>
-      <p>จากผู้ใช้แอป SpamInThai และผู้ใช้เว็บไซต์ทั่วประเทศที่ช่วยกันรายงาน ทุกรายงานถูกเก็บแบบไม่ระบุตัวตน</p>
+      <p>จากผู้ใช้แอป spaminthai และผู้ใช้เว็บไซต์ทั่วประเทศที่ช่วยกันรายงาน ทุกรายงานถูกเก็บแบบไม่ระบุตัวตน</p>
     </details>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <a href="/">หน้าแรก</a><a href="/#privacy">นโยบายความเป็นส่วนตัว</a><a href="mailto:admin@spaminthai.com">ติดต่อ</a>
-    <p style="margin-top:8px">© 2026 SpamInThai — ปกป้องคนไทยจากมิจฉาชีพ</p>
+    <p>spaminthai</p>
   </div>
 </footer>
 
@@ -260,5 +266,6 @@ document.getElementById('catRow').addEventListener('click', async e => {
 const q = new URLSearchParams(location.search).get('number');
 if(q){ input.value = fmt(clean(q)); doCheck(); }
 </script>
+<script src="/assets/site.js"></script>
 </body>
 </html>
