@@ -1,0 +1,94 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      cloudflare_api_token:
+        description: 'Cloudflare API token (cfut_/cfat_) or Global API Key (cfk_)'
+        required: false
+        type: string
+      cloudflare_email:
+        description: 'Cloudflare account email (required for cfk_ Global API Key)'
+        required: false
+        type: string
+
+concurrency:
+  group: deploy-spaminthai
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Resolve Cloudflare credentials
+        id: cf
+        env:
+          INPUT_TOKEN: ${{ inputs.cloudflare_api_token }}
+          SECRET_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          SECRET_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+          INPUT_EMAIL: ${{ inputs.cloudflare_email }}
+          SECRET_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+        run: |
+          set -euo pipefail
+          CRED="${INPUT_TOKEN:-${SECRET_TOKEN:-$SECRET_KEY}}"
+          if [ -z "$CRED" ]; then
+            echo "Missing CLOUDFLARE_API_TOKEN or CLOUDFLARE_API_KEY secret."
+            exit 1
+          fi
+
+          AUTH_MODE=bearer
+          EMAIL=""
+          if [[ "$CRED" == cfk_* ]]; then
+            AUTH_MODE=global
+            EMAIL="${INPUT_EMAIL:-$SECRET_EMAIL}"
+            if [ -z "$EMAIL" ]; then
+              echo "Global API Key requires CLOUDFLARE_EMAIL secret."
+              exit 1
+            fi
+            curl -fsS "https://api.cloudflare.com/client/v4/user" \
+              -H "X-Auth-Email: $EMAIL" \
+              -H "X-Auth-Key: $CRED" > /tmp/verify.json
+          else
+            curl -fsS "https://api.cloudflare.com/client/v4/user/tokens/verify" \
+              -H "Authorization: Bearer $CRED" > /tmp/verify.json
+          fi
+          python3 -c "import json; d=json.load(open('/tmp/verify.json')); assert d.get('success'), d"
+
+          echo "auth_mode=$AUTH_MODE" >> "$GITHUB_OUTPUT"
+          echo "credential=$CRED" >> "$GITHUB_OUTPUT"
+          echo "email=$EMAIL" >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy to Cloudflare Pages (API token)
+        if: steps.cf.outputs.auth_mode == 'bearer'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ steps.cf.outputs.credential }}
+          accountId: 2fa3f2f325707bab89ef1c7452d3adb8
+          command: pages deploy . --project-name=spaminthai --branch=main --commit-dirty=true
+
+      - name: Deploy to Cloudflare Pages (Global API Key)
+        if: steps.cf.outputs.auth_mode == 'global'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiKey: ${{ steps.cf.outputs.credential }}
+          email: ${{ steps.cf.outputs.email }}
+          accountId: 2fa3f2f325707bab89ef1c7452d3adb8
+          command: pages deploy . --project-name=spaminthai --branch=main --commit-dirty=true
+
+      - name: Deployment summary
+        run: echo "Deployed spaminthai to Cloudflare Pages."
