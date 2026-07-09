@@ -1,6 +1,5 @@
 # Cloudflare Pages routing
+# Clean URLs (/check, /download, /privacy, /terms) are handled automatically by
+# Pages' built-in HTML handling; explicit `/x /x.html 200` rules here create a
+# 308 redirect loop with the automatic /x.html -> /x redirect.
 /download/spaminthai-latest.apk   https://api.spaminthai.com/download/apk   302
-/check      /check.html       200
-/download   /download.html    200
-/privacy    /privacy.html     200
-/terms      /terms.html       200
