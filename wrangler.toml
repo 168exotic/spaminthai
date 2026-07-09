@@ -14,6 +14,12 @@ not_found_handling = "404-page"
 binding = "SPAM_KV"
 id = "d1417790ca5841bebf80cbc25443e070"
 
+[vars]
+APP_VERSION = "1.0.7"
+APP_UPDATED_AT = "2026-07-09T00:00:00Z"
+APP_MIN_SDK = "26"
+# APK_SOURCE_URL — ตั้งเป็น Secret ใน Cloudflare Dashboard (ลิงก์ Google Drive โดยตรง)
+
 # Custom domains (replaces Canva on apex + www; keeps api host)
 [[routes]]
 pattern = "spaminthai.com"

@@ -1,13 +1,13 @@
 import { corsOrigin, APK_URL } from '../_lib/urls.js';
 
-export async function onRequestGet({ request }) {
+export async function onRequestGet({ request, env }) {
   return json({
     name: 'SpamInThai',
-    version: '1.0.6',
+    version: env.APP_VERSION || '1.0.7',
     platform: 'android',
     downloadUrl: APK_URL,
-    minSdk: 26,
-    updatedAt: '2026-07-09T00:00:00Z'
+    minSdk: Number(env.APP_MIN_SDK || 26),
+    updatedAt: env.APP_UPDATED_AT || '2026-07-09T00:00:00Z'
   }, 200, request);
 }
 

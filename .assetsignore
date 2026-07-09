@@ -4,6 +4,7 @@ node_modules/
 scripts/
 data/
 docs/
+download/*.apk
 package-lock.json
 .gitignore
 .assetsignore
