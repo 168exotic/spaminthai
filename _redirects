@@ -1,4 +1,5 @@
 # Cloudflare Pages routing
+/download/spaminthai-latest.apk   https://api.spaminthai.com/download/apk   302
 /check      /check.html       200
 /download   /download.html    200
 /privacy    /privacy.html     200
