@@ -7,17 +7,18 @@ on:
   workflow_dispatch:
     inputs:
       cloudflare_api_token:
-        description: 'Cloudflare API token (cfut_/cfat_) or Global API Key (cfk_)'
-        required: false
-        type: string
-      cloudflare_email:
-        description: 'Cloudflare account email (required for cfk_ Global API Key)'
+        description: 'Cloudflare API token (only if CLOUDFLARE_API_TOKEN secret is missing)'
         required: false
         type: string
 
 concurrency:
   group: deploy-spaminthai
   cancel-in-progress: true
+
+env:
+  PAGES_PROJECT: spaminthai
+  # Default account; override with CLOUDFLARE_ACCOUNT_ID repo secret if needed
+  CLOUDFLARE_ACCOUNT_ID: 2fa3f2f325707bab89ef1c7452d3adb8
 
 jobs:
   deploy:
@@ -31,64 +32,47 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: npm
 
       - name: Resolve Cloudflare credentials
         id: cf
         env:
           INPUT_TOKEN: ${{ inputs.cloudflare_api_token }}
           SECRET_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          SECRET_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
-          INPUT_EMAIL: ${{ inputs.cloudflare_email }}
-          SECRET_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+          SECRET_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -euo pipefail
-          CRED="${INPUT_TOKEN:-${SECRET_TOKEN:-$SECRET_KEY}}"
-          if [ -z "$CRED" ]; then
-            echo "Missing CLOUDFLARE_API_TOKEN or CLOUDFLARE_API_KEY secret."
+          TOKEN="${INPUT_TOKEN:-${SECRET_TOKEN:-}}"
+          if [ -z "$TOKEN" ]; then
+            echo "::error title=Missing Cloudflare token::Add repository secret CLOUDFLARE_API_TOKEN (Account → Cloudflare Pages → Edit). See .github/SECRETS-SETUP.md"
             exit 1
           fi
 
-          AUTH_MODE=bearer
-          EMAIL=""
-          if [[ "$CRED" == cfk_* ]]; then
-            AUTH_MODE=global
-            EMAIL="${INPUT_EMAIL:-$SECRET_EMAIL}"
-            if [ -z "$EMAIL" ]; then
-              echo "Global API Key requires CLOUDFLARE_EMAIL secret."
-              exit 1
-            fi
-            curl -fsS "https://api.cloudflare.com/client/v4/user" \
-              -H "X-Auth-Email: $EMAIL" \
-              -H "X-Auth-Key: $CRED" > /tmp/verify.json
-          else
-            curl -fsS "https://api.cloudflare.com/client/v4/user/tokens/verify" \
-              -H "Authorization: Bearer $CRED" > /tmp/verify.json
-          fi
+          ACCOUNT="${SECRET_ACCOUNT:-2fa3f2f325707bab89ef1c7452d3adb8}"
+          curl -fsS "https://api.cloudflare.com/client/v4/user/tokens/verify" \
+            -H "Authorization: Bearer $TOKEN" > /tmp/verify.json
           python3 -c "import json; d=json.load(open('/tmp/verify.json')); assert d.get('success'), d"
 
-          echo "auth_mode=$AUTH_MODE" >> "$GITHUB_OUTPUT"
-          echo "credential=$CRED" >> "$GITHUB_OUTPUT"
-          echo "email=$EMAIL" >> "$GITHUB_OUTPUT"
+          echo "account_id=$ACCOUNT" >> "$GITHUB_OUTPUT"
+          echo "Cloudflare token verified for account $ACCOUNT"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Deploy to Cloudflare Pages (API token)
-        if: steps.cf.outputs.auth_mode == 'bearer'
+      - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ steps.cf.outputs.credential }}
-          accountId: 2fa3f2f325707bab89ef1c7452d3adb8
-          command: pages deploy . --project-name=spaminthai --branch=main --commit-dirty=true
+          apiToken: ${{ inputs.cloudflare_api_token || secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ steps.cf.outputs.account_id }}
+          command: pages deploy . --project-name=${{ env.PAGES_PROJECT }} --branch=main
 
-      - name: Deploy to Cloudflare Pages (Global API Key)
-        if: steps.cf.outputs.auth_mode == 'global'
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiKey: ${{ steps.cf.outputs.credential }}
-          email: ${{ steps.cf.outputs.email }}
-          accountId: 2fa3f2f325707bab89ef1c7452d3adb8
-          command: pages deploy . --project-name=spaminthai --branch=main --commit-dirty=true
-
-      - name: Deployment summary
-        run: echo "Deployed spaminthai to Cloudflare Pages."
+      - name: Verify deployment
+        run: |
+          set -euo pipefail
+          echo "Checking Pages preview..."
+          curl -fsSI "https://${PAGES_PROJECT}.pages.dev/" | head -1
+          curl -fsS "https://${PAGES_PROJECT}.pages.dev/api/app" | python3 -c "import json,sys; d=json.load(sys.stdin); assert d.get('downloadUrl')"
+          HTML=$(curl -fsS "https://${PAGES_PROJECT}.pages.dev/")
+          echo "$HTML" | grep -q '0a0e1a' && echo "OK: dark landing theme detected" || echo "WARN: dark theme token not found in HTML"
+          echo "$HTML" | grep -q '/api/lookup' && echo "OK: check widget wired to /api/lookup"
+          echo "$HTML" | grep -q 'api.spaminthai.com/download/apk' && echo "OK: APK download URL present"
