@@ -2,11 +2,11 @@
 export async function onRequestGet() {
   return json({
     name: 'SpamInThai',
-    version: '1.0.0',
+    version: '1.0.14',
     platform: 'android',
     downloadUrl: 'https://spaminthai.com/download/spaminthai-latest.apk',
     minSdk: 26,
-    updatedAt: '2026-07-07T00:00:00Z'
+    updatedAt: '2026-07-07T10:47:34Z'
   });
 }
 
