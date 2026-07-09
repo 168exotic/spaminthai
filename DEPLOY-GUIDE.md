@@ -39,6 +39,16 @@ spaminthai/
 - https://spaminthai.com/download/police.vcf
 - https://api.spaminthai.com/download/police.vcf
 - https://spaminthai.com/api/lookup?number=0812345678
+- https://spaminthai.com/api/app  → คืน `downloadUrl` ของ APK ล่าสุด
+- https://api.spaminthai.com/download/apk  → APK จริงบน VPS (72.62.71.137, เสิร์ฟผ่าน nginx + Cloudflare proxy)
+- https://spaminthai.com/download/spaminthai-latest.apk  → 302 redirect ไปที่ api.spaminthai.com/download/apk
+
+## APK hosting
+
+ไฟล์ APK (~50 MB) **ไม่ได้** อยู่บน Cloudflare Pages เพราะเกิน limit 25 MB ต่อไฟล์ static asset
+จึงโฮสต์ไว้บน VPS `72.62.71.137` (nginx) แล้วเสิร์ฟผ่าน `api.spaminthai.com/download/apk`
+โดย DNS record `api` เป็น **Proxied** (orange) ผ่าน Cloudflare — ทดสอบแล้วว่าดาวน์โหลดไฟล์ใหญ่ผ่าน proxy ได้ปกติ
+เว็บ (`/api/app`, ปุ่มดาวน์โหลด, และ redirect `/download/spaminthai-latest.apk`) ชี้มาที่ endpoint นี้ทั้งหมด
 
 ## Seed KV (optional)
 
