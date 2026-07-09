@@ -31,14 +31,14 @@ spaminthai/
 
 ## Deploy
 
-1. Push ไป GitHub — Cloudflare Git integration auto-deploys Worker `spaminthai`
+1. Push ไป GitHub — Cloudflare Git integration auto-deploys Pages project `spaminthai`
 2. หรือรัน `npm run deploy` (ต้องมี `CLOUDFLARE_API_TOKEN`)
-3. ตรวจว่า custom domains ใน `wrangler.toml` ถูก attach แล้ว:
+3. ตรวจว่า custom domains attach กับ Pages project:
    - `spaminthai.com`
    - `www.spaminthai.com`
    - `api.spaminthai.com`
 
-หลัง merge จาก Canva: ลบ Canva Website design แล้วชี้ DNS apex ไป Cloudflare (zone อยู่ใน account แล้ว)
+> **APK size:** Cloudflare Workers/Pages assets จำกัดไฟล์ละ 25 MiB — `download/spaminthai-latest.apk` ใช้ v1.0.6 (~23 MiB). สำหรับ APK ใหญ่กว่า ตั้ง `APK_SOURCE_URL` ใน Worker env แล้ว `apk.js` จะ proxy จาก URL นั้น
 
 ---
 

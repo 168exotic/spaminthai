@@ -3,11 +3,11 @@ import { corsOrigin, APK_URL } from '../_lib/urls.js';
 export async function onRequestGet({ request }) {
   return json({
     name: 'SpamInThai',
-    version: '1.0.0',
+    version: '1.0.6',
     platform: 'android',
     downloadUrl: APK_URL,
     minSdk: 26,
-    updatedAt: '2026-07-07T00:00:00Z'
+    updatedAt: '2026-07-09T00:00:00Z'
   }, 200, request);
 }
 
