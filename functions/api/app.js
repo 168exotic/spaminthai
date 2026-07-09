@@ -2,9 +2,11 @@
 export async function onRequestGet() {
   return json({
     name: 'SpamInThai',
-    version: '1.0.0',
+    version: null,
     platform: 'android',
-    downloadUrl: 'https://spaminthai.com/download/spaminthai-latest.apk',
+    status: 'coming_soon',
+    downloadUrl: null,
+    fallbackDownloadUrl: '/download/police.vcf',
     minSdk: 26,
     updatedAt: '2026-07-07T00:00:00Z'
   });

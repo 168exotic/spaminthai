@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ดาวน์โหลดแอป SpamInThai บน Android</title>
-<meta name="description" content="ดาวน์โหลดแอป SpamInThai เวอร์ชันล่าสุด บล็อกเบอร์มิจฉาชีพและสแปมอัตโนมัติบน Android">
+<title>ดาวน์โหลด SpamInThai บน Android</title>
+<meta name="description" content="ติดตามสถานะดาวน์โหลดแอป SpamInThai และดาวน์โหลดเบอร์ตำรวจสำหรับเพิ่มลงรายชื่อบน Android">
 <link rel="canonical" href="https://spaminthai.com/download">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +23,7 @@ p{color:var(--muted);margin-bottom:20px}
 .dl-btn{display:inline-block;background:var(--indigo);color:#fff;padding:14px 32px;border-radius:99px;font-weight:700;font-size:1rem}
 .dl-btn:hover{background:var(--indigo-deep);color:#fff}
 .meta{margin-top:16px;font-size:.85rem;color:var(--muted)}
+.notice{background:#F8F9FF;border:1px solid var(--line);border-radius:12px;padding:12px;margin:0 0 20px;font-size:.9rem}
 .back{display:inline-block;margin-top:24px;font-size:.9rem}
 </style>
 </head>
@@ -30,11 +31,11 @@ p{color:var(--muted);margin-bottom:20px}
 <div class="wrap">
   <a class="logo" href="/">Spam<span>InThai</span></a>
   <div class="card">
-    <h1>ดาวน์โหลดแอป Android</h1>
-    <p>บล็อกเบอร์มิจฉาชีพอัตโนมัติ ใช้ฐานข้อมูลเดียวกับหน้าเช็คเบอร์บนเว็บ</p>
-    <a class="dl-btn" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK เวอร์ชันล่าสุด</a>
-    <p class="meta"><a href="/download/police.vcf">ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a></p>
-    <p class="meta" id="ver">กำลังโหลดข้อมูลเวอร์ชัน…</p>
+    <h1>ดาวน์โหลดสำหรับ Android</h1>
+    <p>APK ของ SpamInThai กำลังเตรียมปล่อย จึงไม่ส่งผู้ใช้ไปยังไฟล์ที่ยังไม่มีอยู่</p>
+    <p class="notice" id="ver">กำลังโหลดข้อมูลดาวน์โหลด…</p>
+    <a class="dl-btn" data-download data-ready-label="ดาวน์โหลด APK เวอร์ชันล่าสุด" data-pending-label="ดาวน์โหลดเบอร์ตำรวจ (police.vcf)" href="/download/police.vcf" download>ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a>
+    <p class="meta">ไฟล์นี้เพิ่มสายด่วนตำรวจไซเบอร์และเบอร์ฉุกเฉินลงในรายชื่อได้ทันที</p>
   </div>
   <a class="back" href="/">← กลับหน้าแรก</a>
 </div>
@@ -42,8 +43,11 @@ p{color:var(--muted);margin-bottom:20px}
 <script src="/assets/site.js"></script>
 <script>
 fetch('/api/app').then(r=>r.json()).then(d=>{
-  document.getElementById('ver').textContent = 'เวอร์ชัน '+d.version+' · อัปเดต '+new Date(d.updatedAt).toLocaleDateString('th-TH');
-}).catch(()=>{ document.getElementById('ver').textContent = ''; });
+  const date = new Date(d.updatedAt).toLocaleDateString('th-TH');
+  document.getElementById('ver').textContent = d.status === 'available'
+    ? 'เวอร์ชัน '+d.version+' · อัปเดต '+date
+    : 'APK ยังไม่พร้อมให้ดาวน์โหลด · อัปเดตสถานะล่าสุด '+date;
+}).catch(()=>{ document.getElementById('ver').textContent = 'ยังโหลดสถานะ APK ไม่ได้ แต่ปุ่มเบอร์ตำรวจยังใช้งานได้'; });
 </script>
 </body>
 </html>

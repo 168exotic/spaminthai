@@ -1,22 +1,33 @@
 // Shared download link wiring for all pages.
 (function () {
-  const FALLBACK = '/download/spaminthai-latest.apk';
+  const FALLBACK_DOWNLOAD = '/download/police.vcf';
 
-  function apply(url) {
+  function apply(url, { ready = false } = {}) {
     document.querySelectorAll('[data-download]').forEach((el) => {
       if (el.tagName === 'A') {
         el.href = url;
-        if (url.endsWith('.apk')) el.setAttribute('download', '');
+        if (url.endsWith('.apk') || url.endsWith('.vcf')) {
+          el.setAttribute('download', '');
+        } else {
+          el.removeAttribute('download');
+        }
+
+        const label = ready ? el.dataset.readyLabel : el.dataset.pendingLabel;
+        if (label) el.textContent = label;
       }
     });
   }
 
-  apply(FALLBACK);
+  apply(FALLBACK_DOWNLOAD);
 
   fetch('/api/app')
     .then((r) => (r.ok ? r.json() : null))
     .then((data) => {
-      if (data?.downloadUrl) apply(data.downloadUrl);
+      if (data?.status === 'available' && data?.downloadUrl) {
+        apply(data.downloadUrl, { ready: true });
+      } else {
+        apply(data?.fallbackDownloadUrl || FALLBACK_DOWNLOAD);
+      }
     })
     .catch(() => {});
 })();
