@@ -38,6 +38,7 @@ spaminthai/
 - https://spaminthai.com/download
 - https://spaminthai.com/download/police.vcf
 - https://api.spaminthai.com/download/police.vcf
+- https://api.spaminthai.com/download/apk (APK จริงอยู่บน VPS 72.62.71.137 — ไฟล์ ~51 MB เกินลิมิต 25 MiB ของ Pages)
 - https://spaminthai.com/api/lookup?number=0812345678
 
 ## Seed KV (optional)
