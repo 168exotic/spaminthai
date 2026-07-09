@@ -3,243 +3,661 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SpamInThai — บล็อกเบอร์มิจฉาชีพและเช็คเบอร์สแปมฟรี</title>
-<meta name="description" content="SpamInThai ช่วยบล็อกสายมิจฉาชีพ แก๊งคอลเซ็นเตอร์ และเบอร์สแปม บน Android พร้อมเช็คเบอร์โทรฟรีจากฐานข้อมูลรายงานของคนไทย">
-<link rel="canonical" href="https://spaminthai.com/">
-<meta property="og:title" content="SpamInThai — บล็อกเบอร์มิจฉาชีพและเช็คเบอร์สแปมฟรี">
-<meta property="og:description" content="เช็คเบอร์โทรฟรี บล็อกสายมิจฉาชีพอัตโนมัติ จากฐานข้อมูลรายงานของคนไทย">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://spaminthai.com/">
+<title>spaminthai · ปล่อยให้สายแปลกหน้าเงียบไป</title>
+<meta name="description" content="ระบบกรองสายอัจฉริยะ ทำงานบนเครื่อง 100% ไม่ส่งข้อมูลขึ้น Cloud ปลอดภัยตามมาตรฐาน PDPA ฟรี ไม่มีโฆษณา">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --indigo:#4F46E5; --indigo-deep:#3730A3; --ink:#1E1B4B; --muted:#6B7280;
-  --bg:#F8F9FF; --card:#FFFFFF; --line:#E5E7F5;
-  --danger:#DC2626; --danger-bg:#FEF2F2; --warn:#D97706; --warn-bg:#FFFBEB;
-  --safe:#059669; --safe-bg:#ECFDF5;
-  --radius:16px; --shadow:0 4px 24px rgba(79,70,229,.08);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
-a{color:var(--indigo);text-decoration:none}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px}
-.narrow{max-width:640px;margin:0 auto}
+  :root{
+    --bg:#0a0e1a;
+    --bg2:#0d1424;
+    --card:#111a2e;
+    --card2:#0f1729;
+    --line:rgba(255,255,255,.08);
+    --line2:rgba(255,255,255,.12);
+    --text:#eef2fb;
+    --muted:#9aa6c2;
+    --muted2:#6b7799;
+    --accent:#6d5efc;
+    --accent2:#7c6cff;
+    --accent-soft:rgba(124,108,255,.15);
+    --green:#33d17a;
+    --green-soft:rgba(51,209,122,.14);
+    --pink:#ff5a7a;
+    --pink-soft:rgba(255,90,122,.14);
+    --radius:18px;
+    --radius-sm:12px;
+    --maxw:1140px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"IBM Plex Sans Thai","Segoe UI",system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .accent{color:var(--accent2)}
+  section{position:relative}
 
-header{padding:20px 0;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{font-weight:700;font-size:1.1rem;color:var(--ink)}
-.logo span{color:var(--indigo)}
-nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-nav a{font-size:.9rem;font-weight:500;color:var(--muted)}
-nav a:hover{color:var(--indigo)}
-.dl-btn{background:var(--indigo);color:#fff;padding:8px 16px;border-radius:99px;font-size:.85rem;font-weight:600;white-space:nowrap}
-.dl-btn:hover{background:var(--indigo-deep);color:#fff}
+  /* ===== BUTTONS ===== */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:inherit;font-size:15px;font-weight:600;
+    padding:13px 24px;border-radius:12px;border:1px solid transparent;
+    cursor:pointer;transition:.2s ease;white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
+    color:#fff;box-shadow:0 8px 24px -6px rgba(109,94,252,.55);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px -6px rgba(109,94,252,.7)}
+  .btn-outline{
+    background:rgba(255,255,255,.02);color:var(--text);
+    border:1px solid var(--line2);
+  }
+  .btn-outline:hover{background:rgba(255,255,255,.06);border-color:var(--accent2)}
+  .btn-sm{padding:10px 18px;font-size:14px}
 
-.hero{padding:56px 0 40px;text-align:center}
-.hero h1{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.2}
-.hero h1 em{font-style:normal;color:var(--indigo)}
-.hero p{color:var(--muted);margin-top:12px;font-size:1rem;max-width:560px;margin-left:auto;margin-right:auto}
+  /* ===== HEADER ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,14,26,.72);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:-.3px}
+  .brand .logo{width:30px;height:30px;flex:none}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{color:var(--muted);font-size:15px;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:8px}
+  .burger span{display:block;width:22px;height:2px;background:var(--text);margin:4px 0;border-radius:2px;transition:.25s}
+  .burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 
-.widget{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-top:32px;text-align:left}
-.widget h2{font-size:1.05rem;margin-bottom:14px}
-.search-row{display:flex;gap:10px}
-#numInput{flex:1;font-family:'IBM Plex Mono',monospace;font-size:1.25rem;font-weight:600;letter-spacing:.06em;padding:14px 16px;border:2px solid var(--line);border-radius:12px;outline:none;color:var(--ink);min-width:0;background:var(--bg)}
-#numInput:focus{border-color:var(--indigo)}
-#checkBtn{background:var(--indigo);color:#fff;border:none;border-radius:12px;padding:0 22px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer}
-#checkBtn:hover{background:var(--indigo-deep)}
-#checkBtn:disabled{opacity:.6;cursor:wait}
-.hint{font-size:.8rem;color:var(--muted);margin-top:10px;text-align:center}
+  /* ===== HERO ===== */
+  .hero{padding:70px 0 80px;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(700px 380px at 15% 5%,rgba(109,94,252,.22),transparent 60%),
+      radial-gradient(620px 420px at 92% 20%,rgba(124,108,255,.16),transparent 62%),
+      linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:radial-gradient(760px 500px at 30% 15%,#000 0%,transparent 75%);
+    mask-image:radial-gradient(760px 500px at 30% 15%,#000 0%,transparent 75%);
+  }
+  .hero .wrap{position:relative;z-index:1}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:500;color:#c9d0e6;
+    background:var(--accent-soft);border:1px solid rgba(124,108,255,.35);
+    padding:7px 14px;border-radius:999px;margin-bottom:24px;
+  }
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);box-shadow:0 0 10px var(--accent2)}
+  h1{
+    font-size:clamp(34px,5.2vw,56px);line-height:1.12;font-weight:700;
+    letter-spacing:-.5px;margin-bottom:22px;
+    background:linear-gradient(180deg,#ffffff 30%,#c3cae4 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .hero-sub{color:var(--muted);font-size:17px;max-width:520px;margin-bottom:30px}
+  .hero-sub b{color:#d4dbf0;font-weight:600}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px}
+  .chips{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:#cdd4ea;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);
+    padding:9px 14px;border-radius:12px;
+  }
+  .note{font-size:13px;color:var(--muted2)}
 
-.result{margin-top:18px;border-radius:12px;padding:18px;display:none}
-.result.show{display:block}
-.result.danger{background:var(--danger-bg);border:1.5px solid #FCA5A5}
-.result.warn{background:var(--warn-bg);border:1.5px solid #FCD34D}
-.result.safe{background:var(--safe-bg);border:1.5px solid #6EE7B7}
-.verdict{display:flex;align-items:center;gap:12px}
-.verdict .icon{font-size:1.6rem}
-.verdict b{font-size:1rem;display:block}
-.result.danger b{color:var(--danger)}
-.result.warn b{color:var(--warn)}
-.result.safe b{color:var(--safe)}
-.verdict span{font-size:.85rem;color:var(--muted)}
-.full-link{display:inline-block;margin-top:14px;font-weight:600;font-size:.9rem}
+  /* ===== PHONE / APP MOCKUP ===== */
+  .mock{
+    position:relative;background:linear-gradient(160deg,var(--card) 0%,var(--card2) 100%);
+    border:1px solid var(--line2);border-radius:24px;padding:20px;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,.7),0 0 0 1px rgba(124,108,255,.08),0 0 60px -20px rgba(109,94,252,.4);
+  }
+  .mock-glow{
+    position:absolute;inset:-2px;border-radius:26px;z-index:-1;
+    background:linear-gradient(135deg,rgba(109,94,252,.5),transparent 55%);
+    filter:blur(24px);opacity:.5;
+  }
+  .mock-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .mock-head .status{display:flex;align-items:center;gap:9px;font-weight:600;font-size:14.5px}
+  .mock-head .status .live{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--green-soft);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(51,209,122,.5)}50%{box-shadow:0 0 0 6px rgba(51,209,122,0)}}
+  .mock-head .count{font-size:12px;color:var(--muted);background:rgba(255,255,255,.05);padding:5px 11px;border-radius:999px;border:1px solid var(--line)}
+  .call{
+    display:flex;align-items:center;gap:13px;padding:13px;border-radius:14px;
+    background:rgba(255,255,255,.025);border:1px solid var(--line);margin-bottom:10px;
+  }
+  .call .av{width:42px;height:42px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center}
+  .call .av svg{width:22px;height:22px}
+  .av-ok{background:var(--green-soft);color:var(--green)}
+  .av-block{background:var(--pink-soft);color:var(--pink)}
+  .call .info{flex:1;min-width:0}
+  .call .name{font-weight:600;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .call .name.strike{text-decoration:line-through;color:var(--muted);text-decoration-color:rgba(255,90,122,.6)}
+  .call .desc{font-size:12px;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .badge{font-size:11.5px;font-weight:600;padding:6px 11px;border-radius:999px;white-space:nowrap;flex:none}
+  .badge-ok{background:var(--green-soft);color:var(--green);border:1px solid rgba(51,209,122,.3)}
+  .badge-block{background:var(--pink-soft);color:var(--pink);border:1px solid rgba(255,90,122,.3)}
+  .mock-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:15px;border-top:1px solid var(--line)}
+  .mock-foot .l{font-size:12px;color:var(--muted)}
+  .mock-foot .r{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--accent2)}
 
-.features{padding:24px 0 56px}
-.features h2,.section h2{text-align:center;font-size:1.4rem;margin-bottom:24px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
-.card .ico{font-size:1.6rem;margin-bottom:8px}
-.card h3{font-size:1rem;margin-bottom:6px}
-.card p{font-size:.9rem;color:var(--muted)}
+  /* ===== CHECK WIDGET ===== */
+  .check-sec .sec-head{margin-bottom:34px}
+  .check-card{max-width:620px;margin:0 auto;background:linear-gradient(160deg,var(--card) 0%,var(--card2) 100%);border:1px solid var(--line2);border-radius:var(--radius);padding:26px;box-shadow:0 20px 50px -25px rgba(0,0,0,.7)}
+  .search-row{display:flex;gap:12px}
+  #numInput{flex:1;min-width:0;font-family:"IBM Plex Sans Thai",monospace;font-size:20px;font-weight:600;letter-spacing:.05em;padding:15px 16px;border-radius:12px;border:1.5px solid var(--line2);background:rgba(255,255,255,.03);color:var(--text);outline:none}
+  #numInput::placeholder{color:var(--muted2)}
+  #numInput:focus{border-color:var(--accent2)}
+  #checkBtn{border:0;border-radius:12px;padding:0 26px;font-family:inherit;font-size:15px;font-weight:600;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);box-shadow:0 8px 24px -6px rgba(109,94,252,.55);transition:.2s ease}
+  #checkBtn:hover{transform:translateY(-1px)}
+  #checkBtn:disabled{opacity:.6;cursor:wait;transform:none}
+  .check-hint{font-size:12.5px;color:var(--muted2);margin-top:12px;text-align:center}
+  .result{margin-top:18px;border-radius:12px;padding:18px;display:none}
+  .result.show{display:block}
+  .result.danger{background:var(--pink-soft);border:1px solid rgba(255,90,122,.4)}
+  .result.warn{background:rgba(217,119,6,.16);border:1px solid rgba(245,158,11,.4)}
+  .result.safe{background:var(--green-soft);border:1px solid rgba(51,209,122,.4)}
+  .verdict{display:flex;align-items:center;gap:12px}
+  .verdict .icon{font-size:26px}
+  .verdict b{font-size:16px;display:block}
+  .result.danger b{color:#ff8098}
+  .result.warn b{color:#f5b44a}
+  .result.safe b{color:var(--green)}
+  .verdict span{font-size:13px;color:var(--muted)}
+  .full-link{display:inline-block;margin-top:14px;font-weight:600;font-size:14px;color:var(--accent2)}
+  @media(max-width:560px){.search-row{flex-direction:column}#checkBtn{padding:14px}}
 
-.section{padding:56px 0}
-.section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.download-box{max-width:520px;margin:0 auto;text-align:center}
-.download-box p{color:var(--muted);margin:10px 0 20px}
-.store-btn{display:inline-block;background:var(--ink);color:#fff;padding:14px 28px;border-radius:12px;font-weight:700}
-.store-btn:hover{color:#fff;opacity:.92}
-.coming{font-size:.85rem;color:var(--muted);margin-top:12px}
+  /* ===== STATS ===== */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.015),transparent)}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:44px 0}
+  .stat{text-align:center}
+  .stat .n{font-size:clamp(30px,4vw,42px);font-weight:700;letter-spacing:-1px;background:linear-gradient(180deg,#fff,var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .l{font-size:13.5px;color:var(--muted);margin-top:4px}
+  .stat+.stat{border-left:1px solid var(--line)}
 
-.privacy{max-width:720px;margin:0 auto}
-.privacy p,.privacy li{font-size:.95rem;color:var(--muted);margin-bottom:10px}
-.privacy ul{margin:0 0 16px 20px}
+  /* ===== SECTION SHELL ===== */
+  .sec{padding:88px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 52px}
+  .eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:1px;color:var(--accent2);text-transform:uppercase;margin-bottom:12px}
+  .sec-head h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.5px;line-height:1.2}
+  .sec-head p{color:var(--muted);margin-top:14px;font-size:16px}
 
-footer{border-top:1px solid var(--line);padding:24px 0 40px;text-align:center;font-size:.8rem;color:var(--muted);background:#fff}
-footer a{margin:0 8px}
+  /* ===== FEATURES ===== */
+  .feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .feat{
+    background:linear-gradient(160deg,var(--card) 0%,var(--card2) 100%);
+    border:1px solid var(--line);border-radius:var(--radius);padding:30px;
+    transition:.25s ease;position:relative;overflow:hidden;
+  }
+  .feat:hover{transform:translateY(-4px);border-color:rgba(124,108,255,.4);box-shadow:0 20px 50px -20px rgba(0,0,0,.6)}
+  .feat .ic{
+    width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    background:var(--accent-soft);border:1px solid rgba(124,108,255,.3);color:var(--accent2);margin-bottom:18px;
+  }
+  .feat .ic svg{width:26px;height:26px}
+  .feat h3{font-size:19px;font-weight:600;margin-bottom:8px}
+  .feat p{color:var(--muted);font-size:14.5px}
 
-@media(max-width:640px){
-  .search-row{flex-direction:column}
-  #checkBtn{padding:13px}
-  nav a:not(.dl-btn){display:none}
-}
+  /* ===== PRIVACY ===== */
+  .privacy{background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .priv-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
+  .shield-wrap{display:flex;align-items:center;justify-content:center;position:relative}
+  .shield-wrap::before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(109,94,252,.35),transparent 65%);filter:blur(20px)}
+  .shield-big{width:210px;height:auto;position:relative;filter:drop-shadow(0 20px 40px rgba(109,94,252,.4))}
+  .checklist{list-style:none;display:flex;flex-direction:column;gap:16px}
+  .checklist li{display:flex;gap:14px;align-items:flex-start;font-size:16px;color:#d7ddf1}
+  .checklist .ck{width:26px;height:26px;border-radius:50%;flex:none;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;margin-top:2px}
+  .checklist .ck svg{width:15px;height:15px}
+  .checklist b{color:#fff;font-weight:600}
+
+  /* ===== FAQ ===== */
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .faq{background:linear-gradient(160deg,var(--card) 0%,var(--card2) 100%);border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;transition:border-color .2s}
+  .faq.open{border-color:rgba(124,108,255,.4)}
+  .faq-q{width:100%;text-align:left;background:none;border:0;cursor:pointer;color:var(--text);font-family:inherit;font-size:16.5px;font-weight:600;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .faq-q .plus{width:24px;height:24px;flex:none;position:relative;transition:transform .25s}
+  .faq-q .plus::before,.faq-q .plus::after{content:"";position:absolute;background:var(--accent2);border-radius:2px;top:50%;left:50%;transform:translate(-50%,-50%)}
+  .faq-q .plus::before{width:14px;height:2px}
+  .faq-q .plus::after{width:2px;height:14px;transition:transform .25s}
+  .faq.open .plus::after{transform:translate(-50%,-50%) rotate(90deg);opacity:0}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .faq-a p{padding:0 22px 20px;color:var(--muted);font-size:15px}
+
+  /* ===== CLOSING CTA ===== */
+  .cta-band{text-align:center;padding:20px}
+  .cta-card{
+    max-width:820px;margin:0 auto;padding:52px 32px;border-radius:26px;
+    background:radial-gradient(600px 300px at 50% 0%,rgba(109,94,252,.28),transparent 70%),linear-gradient(160deg,var(--card),var(--card2));
+    border:1px solid rgba(124,108,255,.28);box-shadow:0 30px 70px -30px rgba(109,94,252,.5);
+  }
+  .cta-card h2{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.5px;margin-bottom:14px}
+  .cta-card p{color:var(--muted);margin-bottom:26px;font-size:16px}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);padding:52px 0 40px;background:var(--bg)}
+  .foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;align-items:flex-start}
+  .foot-brand{max-width:320px}
+  .foot-brand .brand{margin-bottom:12px}
+  .foot-brand p{color:var(--muted);font-size:14px}
+  .foot-links{display:flex;gap:28px;flex-wrap:wrap}
+  .foot-links a{color:var(--muted);font-size:15px;transition:color .2s}
+  .foot-links a:hover{color:var(--text)}
+  .copy{text-align:center;color:var(--muted2);font-size:13px;margin-top:38px;padding-top:26px;border-top:1px solid var(--line)}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:44px}
+    .priv-grid{grid-template-columns:1fr;gap:40px}
+    .shield-wrap{order:-1}
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:0}
+    .stat{padding:22px 10px}
+    .stat:nth-child(2){border-left:1px solid var(--line)}
+    .stat:nth-child(4){border-left:1px solid var(--line)}
+    .stat:nth-child(3),.stat:nth-child(4){border-top:1px solid var(--line)}
+    .stat:nth-child(3){border-left:0}
+  }
+  @media(max-width:760px){
+    .nav-links,.nav-right .btn{display:none}
+    .burger{display:block}
+    .nav-links.mobile{
+      display:flex;flex-direction:column;position:absolute;top:66px;left:0;right:0;
+      background:var(--bg2);border-bottom:1px solid var(--line);padding:20px 22px;gap:18px;
+    }
+    .nav-links.mobile a{color:var(--text);font-size:16px}
+    .nav-links.mobile .btn{display:inline-flex;margin-top:6px}
+    .feat-grid{grid-template-columns:1fr}
+    .hero{padding:44px 0 60px}
+    .sec{padding:66px 0}
+    .foot-grid{flex-direction:column}
+  }
 </style>
 </head>
 <body>
 
+<!-- ===== HEADER ===== -->
 <header>
-  <div class="wrap">
-    <a class="logo" href="/">Spam<span>InThai</span></a>
-    <nav>
-      <a href="/check">เช็คเบอร์</a>
-      <a href="/download">ดาวน์โหลด</a>
-      <a href="/privacy">ความเป็นส่วนตัว</a>
-      <a class="dl-btn" href="/download">ดาวน์โหลดแอป</a>
+  <div class="wrap nav">
+    <a href="#" class="brand" aria-label="spaminthai">
+      <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#7c6cff"/><stop offset="1" stop-color="#6d5efc"/>
+        </linearGradient></defs>
+        <path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z" fill="url(#lg)"/>
+        <path d="m8.6 11.8 2.3 2.3 4.5-4.6" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span><span style="color:#fff">spam</span><span class="accent">inthai</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#check">เช็คเบอร์</a>
+      <a href="#features">ฟีเจอร์</a>
+      <a href="#privacy">ความเป็นส่วนตัว</a>
+      <a href="#faq">คำถาม</a>
+      <a href="#recommend">แนะนำ</a>
+      <a href="#download" class="btn btn-primary btn-sm" style="color:#fff">ดาวน์โหลด</a>
     </nav>
+    <div class="nav-right">
+      <a href="#download" class="btn btn-primary btn-sm">ดาวน์โหลด</a>
+      <button class="burger" id="burger" aria-label="เมนู"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 
-<main>
-  <section class="hero">
-    <div class="wrap narrow">
-      <h1>ปกป้องคุณจาก<em>เบอร์มิจฉาชีพ</em></h1>
-      <p>บล็อกสายสแปมและแก๊งคอลเซ็นเตอร์อัตโนมัติบน Android พร้อมเช็คเบอร์โทรฟรีจากฐานข้อมูลรายงานของคนไทย</p>
-
-      <div class="widget" id="checkWidget">
-        <h2>เช็คเบอร์ทันที — ใช้ API ล่าสุด</h2>
-        <div class="search-row">
-          <input id="numInput" type="tel" inputmode="numeric" maxlength="12" placeholder="08X-XXX-XXXX" autocomplete="off" aria-label="กรอกเบอร์โทรศัพท์">
-          <button id="checkBtn" type="button">เช็คเบอร์</button>
-        </div>
-        <div class="hint">กรอกเบอร์ 9–10 หลัก ระบบเชื่อมต่อ /api/lookup แบบเรียลไทม์</div>
-        <div id="result" class="result" role="status" aria-live="polite">
-          <div class="verdict">
-            <div class="icon" id="rIcon"></div>
-            <div>
-              <b id="rTitle"></b>
-              <span id="rNum"></span>
-            </div>
-          </div>
-          <a class="full-link" id="fullLink" href="/check">ดูรายละเอียดและรายงานเบอร์ →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="features">
-    <div class="wrap">
-      <h2>ทำไมต้อง SpamInThai</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="ico">🛡️</div>
-          <h3>บล็อกอัตโนมัติ</h3>
-          <p>แอป Android บล็อกสายมิจฉาชีพก่อนโทรศัพท์จะดัง จากฐานข้อมูลที่อัปเดตตลอด</p>
-        </div>
-        <div class="card">
-          <div class="ico">🔍</div>
-          <h3>เช็คเบอร์ฟรี</h3>
-          <p>ค้นหาเบอร์ที่โทรมาได้ทันทีบนเว็บ ไม่ต้องสมัครสมาชิก ไม่เก็บข้อมูลผู้ค้นหา</p>
-        </div>
-        <div class="card">
-          <div class="ico">🇹🇭</div>
-          <h3>ข้อมูลจากคนไทย</h3>
-          <p>รายงานจากผู้ใช้ทั่วประเทศ ช่วยกันเตือนภัยมิจฉาชีพและแก๊งคอลเซ็นเตอร์</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section alt" id="download">
-    <div class="wrap">
-      <div class="download-box">
-        <h2>ดาวน์โหลดแอป SpamInThai</h2>
-        <p>บล็อกเบอร์มิจฉาชีพอัตโนมัติ ใช้ฐานข้อมูลเดียวกับหน้าเช็คเบอร์บนเว็บ</p>
-        <a class="store-btn" data-download href="https://api.spaminthai.com/download/apk" download>ดาวน์โหลด APK บน Android</a>
-        <p class="coming"><a href="/download/police.vcf">ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a> · <a href="/download">หน้าดาวน์โหลด</a></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="privacy">
-    <div class="wrap">
-      <h2>นโยบายความเป็นส่วนตัว</h2>
-      <div class="privacy">
-        <p>SpamInThai ออกแบบมาเพื่อปกป้องผู้ใช้โดยเก็บข้อมูลน้อยที่สุด:</p>
-        <ul>
-          <li>การเช็คเบอร์บนเว็บไม่บันทึกตัวตนผู้ค้นหา</li>
-          <li>การรายงานเบอร์เก็บเฉพาะหมายเลขโทรศัพท์ ประเภทรายงาน และจำนวนครั้ง</li>
-          <li>ระบบจำกัดการรายงาน 1 ครั้งต่อ IP ต่อเบอร์ต่อวัน เพื่อป้องกันข้อมูลปลอม</li>
-          <li>ไม่ขายข้อมูลส่วนบุคคลให้บุคคลที่สาม</li>
-        </ul>
-        <p>รายละเอียดเพิ่มเติมที่ <a href="/privacy">นโยบายความเป็นส่วนตัว</a></p>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
+<!-- ===== HERO ===== -->
+<section class="hero">
   <div class="wrap">
-    <p>spaminthai</p>
+    <div class="hero-grid">
+      <div>
+        <span class="pill"><span class="dot"></span>TH · สร้างเพื่อคนไทย · PDPA-compliant</span>
+        <h1>ปล่อยให้สายแปลกหน้าเงียบไป</h1>
+        <p class="hero-sub">
+          <b>ระบบกรองสายอัจฉริยะ ทำงานบนเครื่อง 100% ไม่ส่งข้อมูลขึ้น Cloud</b><br>
+          ปลอดภัยตามมาตรฐาน PDPA · ฟรี · ไม่มีโฆษณา
+        </p>
+        <div class="cta-row">
+          <a href="https://api.spaminthai.com/download/apk" class="btn btn-primary" download="spaminthai.apk" rel="nofollow">ดาวน์โหลดแอป</a>
+          <a href="#features" class="btn btn-outline">ดูฟีเจอร์ทั้งหมด</a>
+        </div>
+        <div class="chips">
+          <span class="chip">🚓 เบอร์สถานีตำรวจ 76 จังหวัด</span>
+          <span class="chip">📞 ตำรวจไซเบอร์ 1441</span>
+        </div>
+        <p class="note">Android 10 ขึ้นไป · ฟรี ไม่ต้องสมัครสมาชิก</p>
+      </div>
+
+      <!-- APP MOCKUP -->
+      <div class="mock">
+        <div class="mock-glow"></div>
+        <div class="mock-head">
+          <div class="status"><span class="live"></span>🟢 spaminthai · กำลังปกป้อง</div>
+          <div class="count">บล็อกเดือนนี้ 23 สาย</div>
+        </div>
+
+        <div class="call">
+          <div class="av av-ok">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .56 3.5 1 1 0 0 1-.25 1l-2.2 2.3Z" fill="currentColor"/></svg>
+          </div>
+          <div class="info">
+            <div class="name">พี่บอส งาน</div>
+            <div class="desc">อยู่ในรายชื่อของคุณ</div>
+          </div>
+          <span class="badge badge-ok">✓ ผ่าน</span>
+        </div>
+
+        <div class="call">
+          <div class="av av-block">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .56 3.5 1 1 0 0 1-.25 1l-2.2 2.3Z" fill="currentColor"/><path d="M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="info">
+            <div class="name strike">062-XXX-9023</div>
+            <div class="desc">ไม่อยู่ในรายชื่อ · ยังไม่ยืนยัน</div>
+          </div>
+          <span class="badge badge-block">บล็อกแล้ว</span>
+        </div>
+
+        <div class="call">
+          <div class="av av-block">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .56 3.5 1 1 0 0 1-.25 1l-2.2 2.3Z" fill="currentColor"/><path d="M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="info">
+            <div class="name strike">+66-98-XXX-4471</div>
+            <div class="desc">ไม่อยู่ในรายชื่อ · ผู้ใช้รายงานว่าน่าสงสัย</div>
+          </div>
+          <span class="badge badge-block">บล็อกแล้ว</span>
+        </div>
+
+        <div class="call">
+          <div class="av av-block">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .56 3.5 1 1 0 0 1-.25 1l-2.2 2.3Z" fill="currentColor"/><path d="M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="info">
+            <div class="name strike">02-XXX-1188</div>
+            <div class="desc">ไม่อยู่ในรายชื่อ · อ้างเป็นธนาคาร</div>
+          </div>
+          <span class="badge badge-block">บล็อกแล้ว</span>
+        </div>
+
+        <div class="mock-foot">
+          <span class="l">ประมวลผลในเครื่องเท่านั้น</span>
+          <span class="r">LOCAL CORE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CHECK WIDGET ===== -->
+<section class="sec check-sec" id="check">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Check</span>
+      <h2>เช็คเบอร์ทันที</h2>
+      <p>พิมพ์เบอร์ที่โทรเข้ามา เช็คว่ามีคนรายงานว่าเป็นมิจฉาชีพไหม — ฟรี ไม่ต้องสมัครสมาชิก</p>
+    </div>
+    <div class="check-card">
+      <div class="search-row">
+        <input id="numInput" type="tel" inputmode="numeric" maxlength="12" placeholder="08X-XXX-XXXX" autocomplete="off" aria-label="กรอกเบอร์โทรศัพท์">
+        <button id="checkBtn" type="button">เช็คเบอร์</button>
+      </div>
+      <div class="check-hint">กรอกเบอร์ 9–10 หลัก ระบบเชื่อม /api/lookup แบบเรียลไทม์</div>
+      <div id="result" class="result" role="status" aria-live="polite">
+        <div class="verdict">
+          <div class="icon" id="rIcon"></div>
+          <div>
+            <b id="rTitle"></b>
+            <span id="rNum"></span>
+          </div>
+        </div>
+        <a class="full-link" id="fullLink" href="/check">ดูรายละเอียดและรายงานเบอร์ →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat"><div class="n">100%</div><div class="l">ประมวลผลในเครื่อง</div></div>
+      <div class="stat"><div class="n">0฿</div><div class="l">ค่าใช้จ่าย — ฟรีตลอดชีพ</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">ads ไม่มีโฆษณา ไม่ขายข้อมูล</div></div>
+      <div class="stat"><div class="n">76</div><div class="l">จว. เบอร์สถานีตำรวจครบทุกจังหวัด</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="sec" id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Features</span>
+      <h2>ฟีเจอร์เด่น</h2>
+      <p>ทุกอย่างที่คุณต้องการเพื่อหยุดสายกวนใจ ทำงานเงียบ ๆ อยู่เบื้องหลังบนเครื่องของคุณ</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 4 6v5c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>กรองสายอัจฉริยะ</h3>
+        <p>บล็อกเบอร์แปลกหน้าและมิจฉาชีพโดยอัตโนมัติ วิเคราะห์ทุกสายเรียกเข้าแบบเรียลไทม์ ก่อนที่โทรศัพท์คุณจะดังด้วยซ้ำ</p>
+      </div>
+      <div class="feat">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="9" width="16" height="12" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M8 9V7a4 4 0 0 1 8 0v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="15" r="1.6" fill="currentColor"/></svg>
+        </div>
+        <h3>ทำงานบนเครื่อง 100%</h3>
+        <p>ประมวลผลทั้งหมดแบบ local บนอุปกรณ์คุณ ไม่ส่งข้อมูลการโทรออกไปที่ไหน ไม่มีเซิร์ฟเวอร์กลาง ความเป็นส่วนตัวสูงสุด</p>
+      </div>
+      <div class="feat">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 20V9l8-5 8 5v11" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 20h16M9 20v-6h6v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>ฐานข้อมูลเบอร์ราชการ</h3>
+        <p>รวมเบอร์สถานีตำรวจครบ 76 จังหวัด พร้อมสายด่วนตำรวจไซเบอร์ 1441 เพื่อให้สายสำคัญจากหน่วยงานรัฐผ่านได้เสมอ</p>
+      </div>
+      <div class="feat">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M17 5a3 3 0 0 1 0 6M18.5 20a5 5 0 0 0-3-4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>รายงานโดยชุมชน</h3>
+        <p>ผู้ใช้ทั่วประเทศช่วยกันรายงานเบอร์น่าสงสัย ยิ่งมีคนใช้มาก ยิ่งกรองแม่นยำ สร้างเกราะป้องกันร่วมกันเพื่อคนไทย</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRIVACY ===== -->
+<section class="sec privacy" id="privacy">
+  <div class="wrap">
+    <div class="priv-grid">
+      <div class="shield-wrap">
+        <svg class="shield-big" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sh" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7c6cff"/><stop offset="1" stop-color="#5a4bd6"/>
+            </linearGradient>
+          </defs>
+          <path d="M60 6 12 24v40c0 32 21 52 48 64 27-12 48-32 48-64V24L60 6Z" fill="url(#sh)"/>
+          <path d="M60 16 22 30v34c0 26 17 43 38 53 21-10 38-27 38-53V30L60 16Z" fill="rgba(255,255,255,.06)"/>
+          <path d="m42 68 12 12 26-28" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <span class="eyebrow">Privacy</span>
+        <h2 style="font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.5px;margin-bottom:26px">ความเป็นส่วนตัวเป็นอันดับ 1</h2>
+        <ul class="checklist">
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>PDPA-compliant</b> ตามกฎหมายไทย 100%</span></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>ข้อมูลทั้งหมดเก็บในเครื่องคุณ <b>ไม่ส่งเข้า Cloud</b></span></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>ไม่มีโฆษณา ไม่ขายข้อมูล ไม่มี subscription</span></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><b>ConsentActivity</b> ขออนุญาตก่อนใช้งานทุกครั้ง</span></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>คุณมีสิทธิตามกฎหมาย PDPA ทุกข้อ ตรวจสอบและลบข้อมูลได้</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>คำถามที่พบบ่อย</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq">
+        <button class="faq-q">ฟรีจริงไหม?<span class="plus"></span></button>
+        <div class="faq-a"><p>ฟรีตลอดชีพ ไม่มีค่าใช้จ่ายแอบแฝง ไม่มีระบบสมาชิกแบบเสียเงิน และไม่มีโฆษณา เราสร้างขึ้นเพื่อคนไทยจริง ๆ</p></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">เก็บข้อมูลการโทรของฉันไหม?<span class="plus"></span></button>
+        <div class="faq-a"><p>ไม่ ประมวลผลในเครื่องทั้งหมด ข้อมูลการโทรไม่เคยถูกส่งออกจากอุปกรณ์ของคุณ และไม่มีเซิร์ฟเวอร์ที่เก็บข้อมูลของคุณ</p></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">รองรับเครื่องอะไร?<span class="plus"></span></button>
+        <div class="faq-a"><p>รองรับ Android 10 ขึ้นไป ติดตั้งง่าย ไม่ต้อง root เครื่อง และไม่ต้องสมัครสมาชิก</p></div>
+      </div>
+      <div class="faq">
+        <button class="faq-q">บล็อกเบอร์ผิดพลาดทำไง?<span class="plus"></span></button>
+        <div class="faq-a"><p>คุณเพิ่มเบอร์เข้ารายชื่อปลอดภัย (whitelist) ได้เองทุกเมื่อ เมื่ออยู่ในรายชื่อแล้ว สายจากเบอร์นั้นจะผ่านเข้ามาได้ตามปกติ</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSING CTA ===== -->
+<section class="sec cta-band" id="download">
+  <div class="wrap">
+    <div class="cta-card">
+      <h2>พร้อมหยุดสายกวนใจแล้วหรือยัง?</h2>
+      <p>ดาวน์โหลด spaminthai วันนี้ — ฟรี ไม่มีโฆษณา ปลอดภัยตามมาตรฐาน PDPA</p>
+      <a href="https://api.spaminthai.com/download/apk" class="btn btn-primary" style="font-size:16px;padding:15px 32px" download="spaminthai.apk" rel="nofollow">ดาวน์โหลดแอป</a>
+      <p class="note" style="margin-top:18px">Android 10 ขึ้นไป · ไม่ต้องสมัครสมาชิก</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="recommend">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand">
+          <svg class="logo" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z" fill="url(#lg)"/>
+            <path d="m8.6 11.8 2.3 2.3 4.5-4.6" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span><span style="color:#fff">spam</span><span class="accent">inthai</span></span>
+        </div>
+        <p>สร้างเพื่อคนไทย · ปลอดภัยตามมาตรฐาน PDPA</p>
+      </div>
+      <div class="foot-links">
+        <a href="#features">ฟีเจอร์</a>
+        <a href="#privacy">ความเป็นส่วนตัว</a>
+        <a href="#faq">คำถาม</a>
+        <a href="#recommend">แนะนำ</a>
+        <a href="#download">ดาวน์โหลด</a>
+      </div>
+    </div>
+    <div class="copy">© 2026 spaminthai</div>
   </div>
 </footer>
 
 <script>
-const input = document.getElementById('numInput');
-const btn = document.getElementById('checkBtn');
-const box = document.getElementById('result');
-const fullLink = document.getElementById('fullLink');
-const clean = v => v.replace(/\D/g,'').slice(0,10);
-const fmt = n => n.length > 6 ? n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6) : n;
+  // Mobile nav toggle
+  var burger=document.getElementById('burger');
+  var navLinks=document.getElementById('navLinks');
+  burger.addEventListener('click',function(){
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('mobile');
+  });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      burger.classList.remove('open');
+      navLinks.classList.remove('mobile');
+    });
+  });
 
-input.addEventListener('input', () => {
-  const d = clean(input.value);
-  input.value = d.length > 6 ? d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6)
-              : d.length > 3 ? d.slice(0,3)+'-'+d.slice(3) : d;
-});
-input.addEventListener('keydown', e => { if(e.key === 'Enter') doCheck(); });
-btn.addEventListener('click', doCheck);
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item=q.parentElement;
+      var ans=item.querySelector('.faq-a');
+      var isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq').forEach(function(f){
+        f.classList.remove('open');
+        f.querySelector('.faq-a').style.maxHeight=null;
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        ans.style.maxHeight=ans.scrollHeight+'px';
+      }
+    });
+  });
 
-async function doCheck(){
-  const num = clean(input.value);
-  if(num.length < 9){ input.focus(); return; }
-  btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
-  try{
-    const r = await fetch('/api/lookup?number='+num);
-    const data = r.ok ? await r.json() : {reports:0};
-    render(num, data);
-  }catch(e){
-    render(num, {reports:0});
-  }
-  btn.disabled = false; btn.textContent = 'เช็คเบอร์';
-}
-
-function render(num, d){
-  const n = d.reports || 0;
-  const safeVotes = (d.categories && d.categories.safe) || 0;
-  const badVotes = n - safeVotes;
-  let cls, icon, title, sub;
-  if(badVotes >= 5){ cls='danger'; icon='🚨'; title='เบอร์อันตราย'; sub='มีรายงานจำนวนมาก — ไม่ควรรับสาย'; }
-  else if(badVotes >= 1){ cls='warn'; icon='⚠️'; title='เบอร์น่าสงสัย'; sub='มีคนรายงาน — รับสายด้วยความระมัดระวัง'; }
-  else { cls='safe'; icon='🔍'; title='ยังไม่พบรายงาน'; sub='ไม่ได้แปลว่าปลอดภัย 100%'; }
-
-  box.className = 'result show ' + cls;
-  document.getElementById('rIcon').textContent = icon;
-  document.getElementById('rTitle').textContent = title;
-  document.getElementById('rNum').textContent = fmt(num) + ' — ' + sub + (n ? ' ('+n+' รายงาน)' : '');
-  fullLink.href = '/check?number=' + num;
-}
+  // Number check widget → /api/lookup
+  (function(){
+    var input=document.getElementById('numInput');
+    var btn=document.getElementById('checkBtn');
+    var box=document.getElementById('result');
+    var fullLink=document.getElementById('fullLink');
+    if(!input||!btn)return;
+    var clean=function(v){return v.replace(/\D/g,'').slice(0,10);};
+    var fmt=function(n){return n.length>6?n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6):n;};
+    input.addEventListener('input',function(){
+      var d=clean(input.value);
+      input.value=d.length>6?d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6):d.length>3?d.slice(0,3)+'-'+d.slice(3):d;
+    });
+    input.addEventListener('keydown',function(e){if(e.key==='Enter')doCheck();});
+    btn.addEventListener('click',doCheck);
+    function doCheck(){
+      var num=clean(input.value);
+      if(num.length<9){input.focus();return;}
+      btn.disabled=true;btn.textContent='กำลังเช็ค…';
+      fetch('/api/lookup?number='+num)
+        .then(function(r){return r.ok?r.json():{reports:0};})
+        .then(function(data){render(num,data);})
+        .catch(function(){render(num,{reports:0});})
+        .then(function(){btn.disabled=false;btn.textContent='เช็คเบอร์';});
+    }
+    function render(num,d){
+      var n=d.reports||0;
+      var safeVotes=(d.categories&&d.categories.safe)||0;
+      var badVotes=n-safeVotes;
+      var cls,icon,title,sub;
+      if(badVotes>=5){cls='danger';icon='🚨';title='เบอร์อันตราย';sub='มีรายงานจำนวนมาก — ไม่ควรรับสาย';}
+      else if(badVotes>=1){cls='warn';icon='⚠️';title='เบอร์น่าสงสัย';sub='มีคนรายงาน — รับสายด้วยความระมัดระวัง';}
+      else{cls='safe';icon='🔍';title='ยังไม่พบรายงาน';sub='ไม่ได้แปลว่าปลอดภัย 100%';}
+      box.className='result show '+cls;
+      document.getElementById('rIcon').textContent=icon;
+      document.getElementById('rTitle').textContent=title;
+      document.getElementById('rNum').textContent=fmt(num)+' — '+sub+(n?' ('+n+' รายงาน)':'');
+      fullLink.href='/check?number='+num;
+    }
+  })();
 </script>
-<script src="/assets/site.js"></script>
 </body>
 </html>
