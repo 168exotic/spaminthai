@@ -582,7 +582,7 @@
         <a href="#download">ดาวน์โหลด</a>
       </div>
     </div>
-    <div class="copy">© 2026 spaminthai</div>
+    <div class="copy">© 2026 spaminthai · <span id="siteVer">v1.1.0</span></div>
   </div>
 </footer>
 
@@ -643,17 +643,25 @@
         .catch(function(){render(num,{reports:0});})
         .then(function(){btn.disabled=false;btn.textContent='เช็คเบอร์';});
     }
+    // Map the server verdict to a CSS class + icon. Falls back to a local
+    // computation when the API response predates server-side scoring.
+    var VMAP={danger:{cls:'danger',icon:'🚨'},caution:{cls:'warn',icon:'⚠️'},safe:{cls:'safe',icon:'✅'},unknown:{cls:'safe',icon:'🔍'}};
     function render(num,d){
       var n=d.reports||0;
-      var safeVotes=(d.categories&&d.categories.safe)||0;
-      var badVotes=n-safeVotes;
-      var cls,icon,title,sub;
-      if(badVotes>=5){cls='danger';icon='🚨';title='เบอร์อันตราย';sub='มีรายงานจำนวนมาก — ไม่ควรรับสาย';}
-      else if(badVotes>=1){cls='warn';icon='⚠️';title='เบอร์น่าสงสัย';sub='มีคนรายงาน — รับสายด้วยความระมัดระวัง';}
-      else{cls='safe';icon='🔍';title='ยังไม่พบรายงาน';sub='ไม่ได้แปลว่าปลอดภัย 100%';}
-      box.className='result show '+cls;
-      document.getElementById('rIcon').textContent=icon;
-      document.getElementById('rTitle').textContent=title;
+      var verdict=d.verdict,title=d.label,sub=d.advice;
+      if(!verdict){
+        var safeVotes=(d.categories&&d.categories.safe)||0;
+        var badVotes=n-safeVotes;
+        if(badVotes>=5){verdict='danger';title='เบอร์อันตราย';sub='มีรายงานจำนวนมาก — ไม่ควรรับสาย';}
+        else if(badVotes>=1){verdict='caution';title='เบอร์น่าสงสัย';sub='มีคนรายงาน — รับสายด้วยความระมัดระวัง';}
+        else if(n>0){verdict='safe';title='น่าจะเป็นเบอร์ปกติ';sub='มีผู้ใช้ยืนยันว่าเป็นเบอร์ปกติ';}
+        else{verdict='unknown';title='ยังไม่พบรายงาน';sub='ไม่ได้แปลว่าปลอดภัย 100%';}
+      }
+      var v=VMAP[verdict]||VMAP.unknown;
+      box.className='result show '+v.cls;
+      var scoreTxt=(typeof d.score==='number'&&n>0)?' · ความเสี่ยง '+d.score+'/100':'';
+      document.getElementById('rIcon').textContent=v.icon;
+      document.getElementById('rTitle').textContent=title+scoreTxt;
       document.getElementById('rNum').textContent=fmt(num)+' — '+sub+(n?' ('+n+' รายงาน)':'');
       fullLink.href='/check?number='+num;
     }

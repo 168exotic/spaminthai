@@ -1,0 +1,68 @@
+name: Weekly release
+
+# Ships a new, improved SpamInThai version every Tuesday.
+# Runs Tuesday 00:00 Asia/Bangkok (UTC+7) == Monday 17:00 UTC, and can be
+# triggered manually. Opens a release PR; a maintainer or Cursor scheduled agent
+# fills in the week's actual improvement before merging. See RELEASING.md.
+
+on:
+  schedule:
+    - cron: '0 17 * * 1'
+  workflow_dispatch:
+    inputs:
+      release_date:
+        description: 'Release date (YYYY-MM-DD). Defaults to the upcoming Tuesday.'
+        required: false
+        type: string
+
+concurrency:
+  group: weekly-release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Prepare weekly release (bump + changelog stub)
+        id: bump
+        run: |
+          if [ -n "${{ inputs.release_date }}" ]; then
+            node scripts/prepare-weekly-release.mjs --date="${{ inputs.release_date }}"
+          else
+            node scripts/prepare-weekly-release.mjs
+          fi
+
+      - name: Run tests
+        run: npm test
+
+      - name: Create release pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: release/weekly-v${{ steps.bump.outputs.new_version }}
+          base: main
+          title: 'Weekly release v${{ steps.bump.outputs.new_version }} (${{ steps.bump.outputs.release_date }})'
+          commit-message: 'chore(release): prepare v${{ steps.bump.outputs.new_version }}'
+          labels: release
+          body: |
+            Automated **weekly release** scaffold for **v${{ steps.bump.outputs.new_version }}**
+            (target ${{ steps.bump.outputs.release_date }}), bumped from
+            v${{ steps.bump.outputs.old_version }}.
+
+            ## Before merging
+            - [ ] Implement a concrete improvement that makes SpamInThai **better than
+                  v${{ steps.bump.outputs.old_version }}** (new feature, stronger detection,
+                  better UX/accessibility, or a meaningful fix).
+            - [ ] Replace the `TODO` stub in `CHANGELOG.md` with the real change notes.
+            - [ ] `npm test` passes and the app was smoke-tested (`npm run dev`).
+
+            Merging to `main` deploys to Cloudflare Pages via `deploy.yml`.
