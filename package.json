@@ -1,11 +1,14 @@
 {
   "name": "spaminthai",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "wrangler pages dev . --kv SPAM_KV --port 8788 --persist-to /tmp/wrangler-state",
     "deploy": "wrangler pages deploy . --project-name spaminthai",
     "verify-token": "node scripts/verify-token.js",
-    "seed": "node scripts/seed-spam-numbers.js data/spam-numbers-sample.json"
+    "seed": "node scripts/seed-spam-numbers.js data/spam-numbers-sample.json",
+    "test": "node scripts/test-assess.mjs",
+    "release:weekly": "node scripts/prepare-weekly-release.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

@@ -223,21 +223,31 @@ const fmt = n => n.length > 6 ? n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6) : n
 
 const CATS = {scam:'มิจฉาชีพ/หลอกโอนเงิน', callcenter:'แก๊งคอลเซ็นเตอร์', ads:'โฆษณา/ขายของ', loan:'เงินกู้', safe:'เบอร์ปกติ'};
 
+// Map the server verdict to a CSS class + icon. Falls back to a local
+// computation when the API response predates server-side scoring.
+const VMAP = {danger:{cls:'danger',icon:'🚨'}, caution:{cls:'warn',icon:'⚠️'}, safe:{cls:'safe',icon:'✅'}, unknown:{cls:'safe',icon:'🔍'}};
+
 function render(num, d){
   const n = d.reports || 0;
-  const safeVotes = (d.categories && d.categories.safe) || 0;
-  const badVotes = n - safeVotes;
-  let cls, icon, title, sub;
-  if(badVotes >= 5){ cls='danger'; icon='🚨'; title='เบอร์อันตราย — มีรายงานจำนวนมาก'; sub='ไม่ควรรับสาย และห้ามโอนเงินเด็ดขาด'; }
-  else if(badVotes >= 1){ cls='warn'; icon='⚠️'; title='เบอร์น่าสงสัย — มีคนรายงาน'; sub='รับสายด้วยความระมัดระวัง'; }
-  else { cls='safe'; icon='🔍'; title='ยังไม่พบรายงาน'; sub='ไม่ได้แปลว่าปลอดภัย 100% — มิจฉาชีพเปลี่ยนเบอร์บ่อย'; }
+  let verdict = d.verdict, title = d.label, sub = d.advice;
+  if(!verdict){
+    const safeVotes = (d.categories && d.categories.safe) || 0;
+    const badVotes = n - safeVotes;
+    if(badVotes >= 5){ verdict='danger'; title='เบอร์อันตราย — มีรายงานจำนวนมาก'; sub='ไม่ควรรับสาย และห้ามโอนเงินเด็ดขาด'; }
+    else if(badVotes >= 1){ verdict='caution'; title='เบอร์น่าสงสัย — มีคนรายงาน'; sub='รับสายด้วยความระมัดระวัง'; }
+    else if(n > 0){ verdict='safe'; title='น่าจะเป็นเบอร์ปกติ'; sub='มีผู้ใช้ยืนยันว่าเป็นเบอร์ปกติ'; }
+    else { verdict='unknown'; title='ยังไม่พบรายงาน'; sub='ไม่ได้แปลว่าปลอดภัย 100% — มิจฉาชีพเปลี่ยนเบอร์บ่อย'; }
+  }
+  const v = VMAP[verdict] || VMAP.unknown;
 
-  box.className = 'result show ' + cls;
-  document.getElementById('rIcon').textContent = icon;
+  box.className = 'result show ' + v.cls;
+  document.getElementById('rIcon').textContent = v.icon;
   document.getElementById('rTitle').textContent = title;
   document.getElementById('rNum').textContent = fmt(num) + ' — ' + sub;
 
+  const hasScore = typeof d.score === 'number' && n > 0;
   document.getElementById('rStats').innerHTML =
+    (hasScore ? '<div class="stat"><b>'+d.score+'<small style="font-size:.7rem">/100</small></b><small>คะแนนความเสี่ยง</small></div>' : '') +
     '<div class="stat"><b>'+n+'</b><small>รายงานทั้งหมด</small></div>' +
     (d.lastReport ? '<div class="stat"><b>'+new Date(d.lastReport).toLocaleDateString('th-TH',{day:'numeric',month:'short'})+'</b><small>รายงานล่าสุด</small></div>' : '');
 
