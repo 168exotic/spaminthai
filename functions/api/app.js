@@ -1,16 +1,17 @@
 // GET /api/app — latest SpamInThai Android app metadata
-// Primary: GitHub Releases (v1.0.15+). Fallback VPS: api.spaminthai.com/download/apk
-const APK_DOWNLOAD_URL =
-  'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk';
-
+// APK is hosted on GitHub Releases (permanent, CDN-backed, version-locked URLs).
+// Previously hosted on VPS but GitHub is cleaner: no bandwidth cost, version pinning,
+// same URL forever, and Cloudflare Pages functions can't host >25MB APK directly.
 export async function onRequestGet() {
   return json({
     name: 'SpamInThai',
     version: '1.0.15',
     platform: 'android',
-    downloadUrl: APK_DOWNLOAD_URL,
+    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk',
+    releasePage: 'https://github.com/168exotic/spaminthai/releases/tag/v1.0.15',
     minSdk: 29,
-    updatedAt: '2026-07-15T01:00:00Z'
+    updatedAt: '2026-07-15T01:05:00Z',
+    changelog: 'Cyber Shield UI, crowdsource spam upload, 162 blocked numbers synced to KV.'
   });
 }
 
