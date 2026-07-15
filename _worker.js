@@ -4,6 +4,8 @@
 // like Cloudflare Pages does. Once we migrate to a true Pages project we can
 // delete this file and let Pages Functions handle routing directly.
 
+import { identifyCarrier } from './functions/api/carrier.js';
+
 const WEB_VERSION = '1.1.0';
 const RELEASED_AT = '2026-07-14';
 
@@ -87,7 +89,7 @@ async function handleLookup(request, env) {
   }
   const raw = await env.SPAM_KV.get('num:' + number);
   const data = raw ? JSON.parse(raw) : { reports: 0, categories: {}, lastReport: null };
-  return json({ number, ...data, ...assess(data) }, 200, 60);
+  return json({ number, ...data, ...assess(data), ...identifyCarrier(number) }, 200, 60);
 }
 
 function handleVersion() {

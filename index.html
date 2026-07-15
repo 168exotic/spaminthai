@@ -323,7 +323,11 @@ function render(num,d){
   document.getElementById('rTitle').textContent=fmt(num)+' — '+title;
   document.getElementById('rSub').textContent=sub;
   const hasScore=typeof d.score==='number'&&n>0;
+  const carrierStat=d.carrierLabel
+    ?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+d.carrierLabel+'</b> <small>เครือข่าย</small></div>'
+    :'';
   document.getElementById('rStats').innerHTML=
+    carrierStat+
     (hasScore?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+d.score+'</b><small>/100 ความเสี่ยง</small></div>':'')+
     '<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+n+'</b> <small>รายงาน</small></div>'+
     (d.lastReport?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><small>รายงานล่าสุด: '+new Date(d.lastReport).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'})+'</small></div>':'');

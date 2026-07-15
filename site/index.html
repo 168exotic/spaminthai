@@ -236,7 +236,8 @@ function render(num, d){
   box.className = 'result show ' + cls;
   document.getElementById('rIcon').textContent = icon;
   document.getElementById('rTitle').textContent = title;
-  document.getElementById('rNum').textContent = fmt(num) + ' — ' + sub + (n ? ' ('+n+' รายงาน)' : '');
+  const carrier = d.carrierLabel ? ' · '+d.carrierLabel : '';
+  document.getElementById('rNum').textContent = fmt(num) + carrier + ' — ' + sub + (n ? ' ('+n+' รายงาน)' : '');
   fullLink.href = '/check?number=' + num;
 }
 </script>

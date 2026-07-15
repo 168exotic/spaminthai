@@ -2,8 +2,10 @@
 // KV binding: SPAM_KV  (key: num:<เบอร์> -> JSON {reports, categories, lastReport})
 //
 // Returns the raw community report data plus a server-computed risk assessment
-// (score 0-100, verdict, Thai label + advice) so the website widgets and the
-// Android app all share one consistent source of truth.
+// (score 0-100, verdict, Thai label + advice) and carrier/network info so the
+// website widgets and the Android app all share one consistent source of truth.
+
+import { identifyCarrier } from './carrier.js';
 
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
@@ -16,7 +18,7 @@ export async function onRequestGet({ request, env }) {
   const raw = await env.SPAM_KV.get('num:' + number);
   const data = raw ? JSON.parse(raw) : { reports: 0, categories: {}, lastReport: null };
 
-  return json({ number, ...data, ...assess(data) }, 200, 60); // cache at edge 60 sec
+  return json({ number, ...data, ...assess(data), ...identifyCarrier(number) }, 200, 60); // cache at edge 60 sec
 }
 
 // How much each report category contributes to the risk score. Scam and
