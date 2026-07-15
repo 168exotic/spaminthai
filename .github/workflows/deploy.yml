@@ -49,8 +49,14 @@ jobs:
           fi
 
           ACCOUNT="${SECRET_ACCOUNT:-2fa3f2f325707bab89ef1c7452d3adb8}"
-          curl -fsS "https://api.cloudflare.com/client/v4/user/tokens/verify" \
-            -H "Authorization: Bearer $TOKEN" > /tmp/verify.json
+          # Account-owned tokens (cfat_) do not work with /user/tokens/verify.
+          if [[ "$TOKEN" == cfat_* ]]; then
+            curl -fsS "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT}" \
+              -H "Authorization: Bearer $TOKEN" > /tmp/verify.json
+          else
+            curl -fsS "https://api.cloudflare.com/client/v4/user/tokens/verify" \
+              -H "Authorization: Bearer $TOKEN" > /tmp/verify.json
+          fi
           python3 -c "import json; d=json.load(open('/tmp/verify.json')); assert d.get('success'), d"
 
           echo "account_id=$ACCOUNT" >> "$GITHUB_OUTPUT"
