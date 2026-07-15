@@ -4,7 +4,7 @@ The workflow `.github/workflows/deploy.yml` requires these repository secrets:
 
 | Secret | Value | Required |
 |---|---|---|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API token **secret string** (shown once at creation) | Yes |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API token **secret string** (shown once at creation). User tokens (`cfut_`) and account tokens (`cfat_`) both work. | Yes |
 | `CLOUDFLARE_ACCOUNT_ID` | `2fa3f2f325707bab89ef1c7452d3adb8` | Optional (default in workflow) |
 
 ## Create the API token
