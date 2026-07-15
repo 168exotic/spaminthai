@@ -79,8 +79,8 @@ jobs:
           set -euo pipefail
           echo "Checking Pages preview..."
           curl -fsSI "https://${PAGES_PROJECT}.pages.dev/" | head -1
-          curl -fsS "https://${PAGES_PROJECT}.pages.dev/api/app" | python3 -c "import json,sys; d=json.load(sys.stdin); assert d.get('downloadUrl')"
+          curl -fsS "https://${PAGES_PROJECT}.pages.dev/api/app" | python3 -c "import json,sys; d=json.load(sys.stdin); assert d.get('downloadUrl') and '1.0.15' in d.get('version','')"
           HTML=$(curl -fsS "https://${PAGES_PROJECT}.pages.dev/")
           echo "$HTML" | grep -q '0a0e1a' && echo "OK: dark landing theme detected" || echo "WARN: dark theme token not found in HTML"
           echo "$HTML" | grep -q '/api/lookup' && echo "OK: check widget wired to /api/lookup"
-          echo "$HTML" | grep -q 'api.spaminthai.com/download/apk' && echo "OK: APK download URL present"
+          echo "$HTML" | grep -q 'releases/download/v1.0.15' && echo "OK: APK download URL present"

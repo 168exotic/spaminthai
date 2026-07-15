@@ -3,7 +3,8 @@
 // proxy at api.spaminthai.com/download/apk. It cannot be served as a Pages
 // static asset because it exceeds the 25 MB per-file limit, so we redirect
 // instead of 404ing this documented/legacy path.
-const APK_URL = 'https://api.spaminthai.com/download/apk';
+const APK_URL =
+  'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk';
 
 export function onRequestGet() {
   return redirect();
