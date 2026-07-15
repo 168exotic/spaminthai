@@ -107,17 +107,16 @@ function handleVersion() {
   });
 }
 
-const APK_DOWNLOAD_URL =
-  'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk';
-
 function handleApp() {
   return new Response(JSON.stringify({
     name: 'SpamInThai',
     version: '1.0.15',
     platform: 'android',
-    downloadUrl: APK_DOWNLOAD_URL,
+    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk',
+    releasePage: 'https://github.com/168exotic/spaminthai/releases/tag/v1.0.15',
     minSdk: 29,
-    updatedAt: '2026-07-15T01:00:00Z'
+    updatedAt: '2026-07-15T01:05:00Z',
+    changelog: 'Cyber Shield UI, crowdsource spam upload, 162 blocked numbers synced to KV.'
   }), {
     status: 200,
     headers: {
