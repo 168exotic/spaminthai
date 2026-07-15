@@ -1,6 +1,7 @@
 // Shared download link wiring for all pages.
 (function () {
-  const FALLBACK = 'https://api.spaminthai.com/download/apk';
+  const FALLBACK =
+    'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk';
 
   function apply(url) {
     document.querySelectorAll('[data-download]').forEach((el) => {

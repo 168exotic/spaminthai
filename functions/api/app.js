@@ -1,13 +1,14 @@
 // GET /api/app — latest SpamInThai Android app metadata
-// APK is hosted on the VPS (72.62.71.137) behind the Cloudflare proxy and
-// served by nginx at api.spaminthai.com/download/apk. Cloudflare Pages cannot
-// host the APK directly because the file exceeds the 25 MB per-asset limit.
+// Primary: GitHub Releases (v1.0.15+). Fallback VPS: api.spaminthai.com/download/apk
+const APK_DOWNLOAD_URL =
+  'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk';
+
 export async function onRequestGet() {
   return json({
     name: 'SpamInThai',
     version: '1.0.15',
     platform: 'android',
-    downloadUrl: 'https://api.spaminthai.com/download/apk',
+    downloadUrl: APK_DOWNLOAD_URL,
     minSdk: 29,
     updatedAt: '2026-07-15T01:00:00Z'
   });

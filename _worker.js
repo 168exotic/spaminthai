@@ -107,12 +107,15 @@ function handleVersion() {
   });
 }
 
+const APK_DOWNLOAD_URL =
+  'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk';
+
 function handleApp() {
   return new Response(JSON.stringify({
     name: 'SpamInThai',
     version: '1.0.15',
     platform: 'android',
-    downloadUrl: 'https://api.spaminthai.com/download/apk',
+    downloadUrl: APK_DOWNLOAD_URL,
     minSdk: 29,
     updatedAt: '2026-07-15T01:00:00Z'
   }), {
