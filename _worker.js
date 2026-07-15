@@ -110,11 +110,11 @@ function handleVersion() {
 function handleApp() {
   return new Response(JSON.stringify({
     name: 'SpamInThai',
-    version: '1.0.14',
+    version: '1.0.15',
     platform: 'android',
     downloadUrl: 'https://api.spaminthai.com/download/apk',
     minSdk: 29,
-    updatedAt: '2026-07-07T10:47:34Z'
+    updatedAt: '2026-07-15T01:00:00Z'
   }), {
     status: 200,
     headers: {

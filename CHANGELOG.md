@@ -16,6 +16,9 @@ project follows [Semantic Versioning](https://semver.org/).
 
 First release of the weekly cadence.
 
+### Changed
+- **Android app metadata** bumped to **v1.0.15** on `/api/app` and download pages (Cyber Shield UI, crowdsource spam upload).
+
 ### Added
 - **Server-side risk scoring.** `/api/lookup` now returns a computed risk
   assessment (`score` 0–100, `verdict`, Thai `label` + `advice`, and
