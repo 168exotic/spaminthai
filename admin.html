@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — SpamInThai</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--indigo:#4F46E5;--danger:#DC2626;--safe:#059669;--bg:#F8F9FF;--card:#fff;--line:#E5E7F5}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,sans-serif;background:var(--bg);color:#1E1B4B;padding:20px}
+h1{font-size:1.4rem;margin-bottom:16px}
+.toolbar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+button{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+.btn-primary{background:var(--indigo);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-safe{background:var(--safe);color:#fff}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:.9rem}
+th{background:#f0f0ff;font-weight:600}
+.badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.75rem;background:#FEE2E2;color:#991B1B}
+.empty{padding:40px;text-align:center;color:#6B7280}
+#authBox{max-width:400px;margin:80px auto;padding:24px;background:var(--card);border-radius:12px;border:1px solid var(--line)}
+#authBox input{width:100%;padding:10px;margin:8px 0;border:1px solid var(--line);border-radius:8px}
+</style>
+</head>
+<body>
+
+<div id="authBox">
+  <h1>Admin Login</h1>
+  <p style="font-size:.85rem;color:#6B7280;margin-bottom:12px">ใช้ Cloudflare Access หรือ Admin Token</p>
+  <input id="tokenInput" type="password" placeholder="Admin Bearer Token">
+  <button class="btn-primary" style="width:100%;margin-top:8px" onclick="saveToken()">เข้าสู่ระบบ</button>
+</div>
+
+<div id="app" style="display:none">
+  <h1>คิวรายงานรออนุมัติ</h1>
+  <div class="toolbar">
+    <button class="btn-safe" onclick="approveAll()">อนุมัติทั้งหมด</button>
+    <button class="btn-primary" onclick="loadQueue()">รีเฟรช</button>
+    <span id="count" style="align-self:center;color:#6B7280"></span>
+  </div>
+  <table>
+    <thead>
+      <tr><th>เบอร์</th><th>หมวด</th><th>รายละเอียด</th><th>ซ้ำ</th><th>เวลา</th><th>จัดการ</th></tr>
+    </thead>
+    <tbody id="queueBody"></tbody>
+  </table>
+</div>
+
+<script>
+const CATS={scam:'มิจฉาชีพ',callcenter:'คอลเซ็นเตอร์',ads:'โฆษณา',loan:'เงินกู้',safe:'ปกติ'};
+
+function getToken(){ return localStorage.getItem('admin_token')||''; }
+function saveToken(){
+  localStorage.setItem('admin_token', document.getElementById('tokenInput').value);
+  document.getElementById('authBox').style.display='none';
+  document.getElementById('app').style.display='block';
+  loadQueue();
+}
+
+async function api(path, method='GET', body){
+  const r=await fetch('/api/admin/'+path,{
+    method,
+    headers:{'Authorization':'Bearer '+getToken(),'Content-Type':'application/json'},
+    body: body?JSON.stringify(body):undefined
+  });
+  if(r.status===404){ alert('ไม่มีสิทธิ์เข้าถึง'); return null; }
+  return r.json();
+}
+
+async function loadQueue(){
+  const d=await api('queue');
+  if(!d)return;
+  const tbody=document.getElementById('queueBody');
+  document.getElementById('count').textContent=d.total+' รายการ';
+  if(!d.items.length){
+    tbody.innerHTML='<tr><td colspan="6" class="empty">ไม่มีรายการรออนุมัติ</td></tr>';
+    return;
+  }
+  tbody.innerHTML=d.items.map(item=>`
+    <tr>
+      <td><b>${item.phone}</b></td>
+      <td>${CATS[item.category]||item.category}</td>
+      <td>${item.detail||'-'}</td>
+      <td>${item.dupes>1?'<span class="badge">×'+item.dupes+'</span>':'1'}</td>
+      <td>${new Date(item.ts).toLocaleString('th-TH')}</td>
+      <td>
+        <button class="btn-safe" onclick="approve('${item.id}')">อนุมัติ</button>
+        <button class="btn-danger" onclick="reject('${item.id}')">ปฏิเสธ</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function approve(id){ await api('approve','POST',{id}); loadQueue(); }
+async function reject(id){ await api('reject','POST',{id}); loadQueue(); }
+async function approveAll(){
+  if(!confirm('อนุมัติทั้งหมด?'))return;
+  await api('approve','POST',{all:true});
+  loadQueue();
+}
+
+// ถ้ามี token เก็บไว้แล้ว ข้าม login
+if(getToken()){
+  document.getElementById('authBox').style.display='none';
+  document.getElementById('app').style.display='block';
+  loadQueue();
+}
+</script>
+</body>
+</html>

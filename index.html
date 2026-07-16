@@ -136,6 +136,8 @@
                   <button onclick="reportPhone('ads')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100">📢 โฆษณา</button>
                   <button onclick="reportPhone('safe')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-green-50 text-green-700 border-green-200 hover:bg-green-100">✅ เบอร์ปกติ</button>
                 </div>
+                <div id="turnstileBox" class="mt-3" style="display:none"></div>
+                <p id="reportErr" class="hidden text-xs text-red-600 mt-2"></p>
               </div>
             </div>
           </div>
@@ -333,18 +335,47 @@ function render(num,d){
 
 async function reportPhone(cat){
   if(!lastCheckedNumber)return;
+  const errEl=document.getElementById('reportErr');
+  errEl.classList.add('hidden');
+  const token=window.turnstileToken||'';
+  if(!token&&turnstileSiteKey){
+    errEl.textContent='กรุณายืนยันตัวตนก่อนรายงาน';
+    errEl.classList.remove('hidden');
+    return;
+  }
   try{
-    const r=await fetch(API_BASE+'/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({number:lastCheckedNumber,category:cat})});
+    const r=await fetch(API_BASE+'/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({number:lastCheckedNumber,category:cat,turnstile:token})});
+    if(r.status===403){
+      errEl.textContent='ยืนยันตัวตนไม่สำเร็จ กรุณาลองใหม่';
+      errEl.classList.remove('hidden');
+      if(window.turnstile)window.turnstile.reset();
+      return;
+    }
     const d=await r.json();
     if(d.ok){
-      const rn=d.deduped?'คุณเคยรายงานเบอร์นี้แล้ววันนี้':'ขอบคุณสำหรับรายงาน — เก็บเข้าฐานข้อมูลแล้ว ✅';
-      alert(rn);
+      alert('ขอบคุณสำหรับรายงาน ✅');
+      if(window.turnstile)window.turnstile.reset();
       doCheck(new Event('submit',{cancelable:true}));
-    }else{
-      alert('รายงานไม่สำเร็จ: '+(d.error||''));
     }
   }catch(e){alert('เกิดข้อผิดพลาด');}
 }
+
+let turnstileSiteKey='';
+(async()=>{
+  try{
+    const cfg=await fetch(API_BASE+'/api/config').then(r=>r.json());
+    turnstileSiteKey=cfg.turnstileSiteKey;
+    if(!turnstileSiteKey)return;
+    const s=document.createElement('script');
+    s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    s.defer=true;
+    s.onload=()=>{
+      document.getElementById('turnstileBox').style.display='block';
+      window.turnstile.render('#turnstileBox',{sitekey:turnstileSiteKey,language:'th',callback:(t)=>{window.turnstileToken=t;}});
+    };
+    document.head.appendChild(s);
+  }catch(e){}
+})();
 
 // Live count from health endpoint
 (async()=>{
