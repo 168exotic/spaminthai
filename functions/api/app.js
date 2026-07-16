@@ -8,7 +8,7 @@ export async function onRequestGet() {
     version: '1.0.15',
     platform: 'android',
     downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk',
-    releasePage: 'https://github.com/168exotic/spaminthai/releases/tag/v1.0.15',
+    releasePage: 'https://spaminthai.com/download',
     minSdk: 29,
     updatedAt: '2026-07-15T01:05:00Z',
     changelog: 'Cyber Shield UI, crowdsource spam upload, 162 blocked numbers synced to KV.'
