@@ -11,7 +11,7 @@ export async function onRequestGet() {
     version: WEB_VERSION,
     released: RELEASED_AT,
     channel: 'weekly',
-    changelog: 'https://github.com/168exotic/spaminthai/blob/main/CHANGELOG.md'
+    changelog: 'https://spaminthai.com/changelog'
   });
 }
 
