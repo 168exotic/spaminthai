@@ -149,6 +149,8 @@ footer a{margin:0 8px}
           <button class="cat-btn" data-cat="loan">💸 เงินกู้</button>
           <button class="cat-btn" data-cat="safe">✅ เบอร์ปกติ</button>
         </div>
+        <div id="turnstileBox" style="margin-top:12px;display:none"></div>
+        <p id="reportErr" style="display:none;color:var(--danger);font-size:.85rem;margin-top:8px"></p>
       </div>
     </div>
   </section>
@@ -268,14 +270,58 @@ function render(num, d){
 document.getElementById('catRow').addEventListener('click', async e => {
   const b = e.target.closest('.cat-btn');
   if(!b || !currentNum) return;
-  b.classList.add('sent'); b.textContent = '✓ รายงานแล้ว ขอบคุณ!';
+  const errEl = document.getElementById('reportErr');
+  errEl.style.display = 'none';
+
+  // ดึง Turnstile token
+  const token = window.turnstileToken || '';
+  if(!token && turnstileSiteKey){
+    errEl.textContent = 'กรุณายืนยันตัวตนก่อนรายงาน';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  b.classList.add('sent'); b.textContent = 'กำลังส่ง…';
   try{
-    await fetch('/api/report', {
+    const r = await fetch('/api/report', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({number: currentNum, category: b.dataset.cat})
+      body: JSON.stringify({number: currentNum, category: b.dataset.cat, turnstile: token})
     });
-  }catch(e){}
+    if(r.status === 403){
+      errEl.textContent = 'ยืนยันตัวตนไม่สำเร็จ กรุณาลองใหม่';
+      errEl.style.display = 'block';
+      b.classList.remove('sent'); b.textContent = b.dataset.cat === 'safe' ? '✅ เบอร์ปกติ' : b.textContent;
+      if(window.turnstile) window.turnstile.reset();
+      return;
+    }
+    b.textContent = '✓ รายงานแล้ว ขอบคุณ!';
+    if(window.turnstile) window.turnstile.reset();
+  }catch(e){
+    b.classList.remove('sent');
+  }
 });
+
+// โหลด Turnstile site key จาก /api/config แล้ว render widget
+let turnstileSiteKey = '';
+(async()=>{
+  try{
+    const cfg = await fetch('/api/config').then(r=>r.json());
+    turnstileSiteKey = cfg.turnstileSiteKey;
+    if(!turnstileSiteKey) return;
+    const s = document.createElement('script');
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    s.defer = true;
+    s.onload = ()=>{
+      document.getElementById('turnstileBox').style.display = 'block';
+      window.turnstile.render('#turnstileBox', {
+        sitekey: turnstileSiteKey,
+        language: 'th',
+        callback: (t) => { window.turnstileToken = t; }
+      });
+    };
+    document.head.appendChild(s);
+  }catch(e){}
+})();
 
 const q = new URLSearchParams(location.search).get('number');
 if(q){ input.value = fmt(clean(q)); doCheck(); }

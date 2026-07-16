@@ -1,0 +1,28 @@
+name: Security Check
+
+on:
+  schedule:
+    # ทุก 5 ชั่วโมง (00:00, 05:00, 10:00, 15:00, 20:00 UTC)
+    - cron: '0 */5 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: security-check-spaminthai
+  cancel-in-progress: false
+
+jobs:
+  security-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run security checks against production
+        run: bash scripts/security-check.sh
+        env:
+          SITE_URL: https://spaminthai.com
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::error title=Security check failed::One or more security checks failed on spaminthai.com"
+          echo "Review the workflow log and docs/SECURITY.md for remediation steps."
