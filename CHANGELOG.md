@@ -12,6 +12,25 @@ full process.
 The format is based on [Keep a Changelog](https://keepachangelog.com/) and this
 project follows [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] — 2026-07-21
+
+### Added
+- **Recency-aware risk scoring.** `/api/lookup` now boosts scores for numbers
+  reported in the last 7 days (+12) or 30 days (+6), and gently decays very old
+  reports (120+ days, −6) so stale data does not over-penalise recycled numbers.
+  The response includes `freshness` / `freshnessLabel` for clients.
+- **Freshness badge** on the homepage widget and `/check` page when a number has
+  recent community reports (within 30 days).
+- Unit tests for recency modifiers (`recencyModifier` + assess with fixed clock).
+
+### Changed
+- Homepage footer version label now loads from `/api/version` instead of being
+  hard-coded.
+- `_worker.js` imports `assess` from `functions/api/lookup.js` so Worker and
+  Pages Functions share one scoring implementation.
+
+### Fixed
+-
 ## [1.1.0] — 2026-07-14
 
 First release of the weekly cadence.

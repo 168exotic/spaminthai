@@ -1,6 +1,9 @@
 // Unit tests for the risk-scoring logic in functions/api/lookup.js
 // Run with: npm test
-import { assess } from '../functions/api/lookup.js';
+import { assess, recencyModifier } from '../functions/api/lookup.js';
+
+const NOW = Date.parse('2026-07-21T12:00:00Z');
+const daysAgo = (n) => NOW - n * 24 * 60 * 60 * 1000;
 
 let passed = 0;
 let failed = 0;
@@ -66,6 +69,30 @@ function check(name, cond, detail) {
 {
   const r = assess({});
   check('missing fields default to unknown', r.verdict === 'unknown', JSON.stringify(r));
+}
+
+// 9. Recent reports boost the score (hot within 7 days)
+{
+  const r = assess({ reports: 2, categories: { scam: 2 }, lastReport: daysAgo(3) }, NOW);
+  check('recent scam reports get recency boost', r.score >= 64, JSON.stringify(r));
+  check('recent report freshness is hot', r.freshness === 'hot', JSON.stringify(r));
+  check('recent report advice mentions freshness', r.advice.includes('7 วัน'), JSON.stringify(r));
+}
+
+// 10. Stale reports decay the score
+{
+  const recent = assess({ reports: 1, categories: { ads: 1 }, lastReport: daysAgo(3) }, NOW);
+  const stale = assess({ reports: 1, categories: { ads: 1 }, lastReport: daysAgo(200) }, NOW);
+  check('stale report scores lower than recent', stale.score < recent.score, `recent=${recent.score} stale=${stale.score}`);
+  check('stale freshness label set', stale.freshness === 'stale', JSON.stringify(stale));
+}
+
+// 11. recencyModifier edge cases
+{
+  const r = recencyModifier(null, NOW);
+  check('null lastReport has no boost', r.boost === 0 && r.freshness === null);
+  const r2 = recencyModifier(daysAgo(15), NOW);
+  check('15-day-old report is recent', r2.freshness === 'recent' && r2.boost === 6);
 }
 
 console.log(`\n${passed} passed, ${failed} failed`);

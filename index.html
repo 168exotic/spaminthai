@@ -323,8 +323,12 @@ function render(num,d){
   const carrierStat=d.carrierLabel
     ?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+d.carrierLabel+'</b> <small>เครือข่าย</small></div>'
     :'';
+  const freshStat=d.freshnessLabel&&(d.freshness==='hot'||d.freshness==='recent')
+    ?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>🔥</b> <small>'+d.freshnessLabel+'</small></div>'
+    :'';
   document.getElementById('rStats').innerHTML=
     carrierStat+
+    freshStat+
     (hasScore?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+d.score+'</b><small>/100 ความเสี่ยง</small></div>':'')+
     '<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+n+'</b> <small>รายงาน</small></div>'+
     (d.lastReport?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><small>รายงานล่าสุด: '+new Date(d.lastReport).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'})+'</small></div>':'');
@@ -346,13 +350,20 @@ async function reportPhone(cat){
   }catch(e){alert('เกิดข้อผิดพลาด');}
 }
 
-// Live count from health endpoint
+// Live count from health endpoint + version from /api/version
 (async()=>{
   try{
     const r=await fetch('https://xn--42c7b1ab1c2gya5e.com/health');
     const d=await r.json();
     if(d&&d.numbers_in_db){
       document.getElementById('reportCount').textContent=d.numbers_in_db;
+    }
+  }catch(e){}
+  try{
+    const r=await fetch(API_BASE+'/api/version');
+    const d=await r.json();
+    if(d&&d.version){
+      document.getElementById('siteVer').textContent='v'+d.version;
     }
   }catch(e){}
 })();
