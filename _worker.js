@@ -6,6 +6,7 @@
 
 import { identifyCarrier } from './functions/api/carrier.js';
 import { assess } from './functions/api/lookup.js';
+import { countNumbersInKv } from './functions/api/stats.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 
 const WEB_VERSION = '1.2.0';
@@ -105,6 +106,21 @@ async function handleReport(request, env) {
   return json({ ok: true, ...data }, 200);
 }
 
+async function handleStats(env) {
+  let numbersInDb = null;
+  try {
+    const r = await fetch('https://xn--42c7b1ab1c2gya5e.com/health');
+    if (r.ok) {
+      const d = await r.json();
+      if (typeof d.numbers_in_db === 'number') numbersInDb = d.numbers_in_db;
+    }
+  } catch {
+    // KV fallback below
+  }
+  if (numbersInDb == null) numbersInDb = await countNumbersInKv(env);
+  return json({ status: 'ok', numbers_in_db: numbersInDb }, 200, 300);
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -115,6 +131,7 @@ export default {
     if (path === '/api/version') return handleVersion();
     if (path === '/api/app') return handleApp();
     if (path === '/api/report') return handleReport(request, env);
+    if (path === '/api/stats') return handleStats(env);
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
     if (checkNumber) return renderNumberPage(checkNumber[1], env);

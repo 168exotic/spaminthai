@@ -107,7 +107,7 @@
     </div>
     <div class="flex items-center gap-2.5 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-[11px] text-slate-300 font-medium shrink-0">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-rose-400"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
-      <span>ร่วมกันรายงานแล้ว <span id="reportCount" class="font-bold text-rose-400">216</span> เบอร์</span>
+      <span>ร่วมกันรายงานแล้ว <span id="reportCount" class="font-bold text-rose-400">…</span> เบอร์</span>
     </div>
   </div>
 
@@ -389,12 +389,12 @@ async function reportPhone(cat){
   }catch(e){alert('เกิดข้อผิดพลาด');}
 }
 
-// Live count from health endpoint + version from /api/version
+// Live count from /api/stats + version from /api/version
 (async()=>{
   try{
-    const r=await fetch('https://xn--42c7b1ab1c2gya5e.com/health');
+    const r=await fetch(API_BASE+'/api/stats');
     const d=await r.json();
-    if(d&&d.numbers_in_db){
+    if(d&&d.numbers_in_db!=null){
       document.getElementById('reportCount').textContent=d.numbers_in_db;
     }
   }catch(e){}
