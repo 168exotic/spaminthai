@@ -123,10 +123,13 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"><path d="M13 2a9 9 0 0 1 9 9"></path><path d="M13 6a5 5 0 0 1 5 5"></path><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>
               <input id="phoneInput" placeholder="กรอกเบอร์โทรศัพท์ เช่น 0812345678, 1441..." class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-mono placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-rose-500 focus:ring-2 focus:ring-rose-500/10 transition" type="tel" inputmode="tel" pattern="[0-9+\-\s]*">
             </div>
-            <button id="checkBtn" type="submit" class="px-6 py-3.5 bg-rose-500 hover:bg-rose-600 disabled:bg-rose-300 text-white font-semibold rounded-xl flex items-center justify-center gap-2 shadow-sm shadow-rose-500/10 transition active:scale-[0.98]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
-              <span>ตรวจสอบเบอร์</span>
-            </button>
+            <div class="flex gap-2 shrink-0">
+              <button id="checkBtn" type="submit" class="flex-1 sm:flex-none px-6 py-3.5 bg-rose-500 hover:bg-rose-600 disabled:bg-rose-300 text-white font-semibold rounded-xl flex items-center justify-center gap-2 shadow-sm shadow-rose-500/10 transition active:scale-[0.98]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
+                <span>ตรวจสอบเบอร์</span>
+              </button>
+              <a id="disputeBtn" href="mailto:admin@spaminthai.com?subject=%E0%B8%82%E0%B8%AD%E0%B9%82%E0%B8%95%E0%B9%89%E0%B9%81%E0%B8%A2%E0%B9%89%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5%E0%B9%80%E0%B8%9A%E0%B8%AD%E0%B8%A3%E0%B9%82%E0%B8%97%E0%B8%A3%E0%B8%A8%E0%B8%B1%E0%B8%9E%E0%B8%97%E0%B9%8C" class="px-3 py-3.5 text-[11px] font-semibold leading-tight text-slate-600 bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:text-slate-800 rounded-xl transition whitespace-nowrap flex items-center">โต้แย้ง<br>ข้อมูล</a>
+            </div>
           </form>
           <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs text-slate-400">
             <span>ตัวอย่างเบอร์ลองเช็ค:</span>
@@ -311,6 +314,15 @@ function setPhone(n){
   document.getElementById('phoneInput').value=n;
   document.getElementById('checkForm').dispatchEvent(new Event('submit',{cancelable:true}));
 }
+
+document.getElementById('disputeBtn').addEventListener('click', (e) => {
+  const num = String(document.getElementById('phoneInput').value).replace(/\D/g, '').replace(/^66/, '0');
+  if (num.length >= 9) {
+    e.preventDefault();
+    const subject = encodeURIComponent('ขอโต้แย้งข้อมูลเบอร์ ' + num);
+    location.href = 'mailto:admin@spaminthai.com?subject=' + subject;
+  }
+});
 
 function fmt(n){
   n=String(n||'').replace(/\D/g,'');

@@ -55,7 +55,10 @@ header .wrap{display:flex;align-items:center;justify-content:space-between}
 .hero p{color:var(--muted);margin-top:8px;font-size:.95rem}
 
 .search-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-top:24px}
-.search-row{display:flex;gap:10px}
+.search-row{display:flex;gap:10px;align-items:stretch}
+.search-row .actions{display:flex;gap:8px;flex-shrink:0}
+.dispute-btn{padding:0 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);font-family:inherit;font-size:.72rem;font-weight:600;line-height:1.25;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center;white-space:nowrap}
+.dispute-btn:hover{border-color:var(--indigo);color:var(--indigo)}
 #numInput{flex:1;font-family:'IBM Plex Mono',monospace;font-size:1.35rem;font-weight:600;letter-spacing:.06em;padding:14px 16px;border:2px solid var(--line);border-radius:12px;outline:none;color:var(--ink);min-width:0;background:var(--bg);transition:border-color .15s}
 #numInput:focus{border-color:var(--indigo)}
 #numInput::placeholder{color:#B4B7D6;font-weight:500}
@@ -139,7 +142,10 @@ footer a{margin:0 8px}
     <div class="search-card">
       <div class="search-row">
         <input id="numInput" type="tel" inputmode="numeric" maxlength="12" placeholder="08X-XXX-XXXX" autocomplete="off" aria-label="กรอกเบอร์โทรศัพท์ที่ต้องการตรวจสอบ">
-        <button id="checkBtn">เช็คเบอร์</button>
+        <div class="actions">
+          <button id="checkBtn">เช็คเบอร์</button>
+          <a id="disputeBtn" class="dispute-btn" href="mailto:admin@spaminthai.com?subject=%E0%B8%82%E0%B8%AD%E0%B9%82%E0%B8%95%E0%B9%89%E0%B9%81%E0%B8%A2%E0%B9%89%E0%B8%87%E0%B8%82%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%B9%E0%B8%A5%E0%B9%80%E0%B8%9A%E0%B8%AD%E0%B8%A3%E0%B9%82%E0%B8%97%E0%B8%A3%E0%B8%A8%E0%B8%B1%E0%B8%9E%E0%B8%97%E0%B9%8C">โต้แย้ง<br>ข้อมูล</a>
+        </div>
       </div>
       <div class="hint">กรอกเบอร์ 9–10 หลัก ไม่เก็บข้อมูลผู้ค้นหา</div>
     </div>
@@ -238,6 +244,14 @@ input.addEventListener('input', () => {
 });
 input.addEventListener('keydown', e => { if(e.key === 'Enter') doCheck(); });
 btn.addEventListener('click', doCheck);
+
+document.getElementById('disputeBtn').addEventListener('click', (e) => {
+  const num = clean(input.value);
+  if (num.length >= 9) {
+    e.preventDefault();
+    location.href = 'mailto:admin@spaminthai.com?subject=' + encodeURIComponent('ขอโต้แย้งข้อมูลเบอร์ ' + num);
+  }
+});
 
 async function doCheck(){
   const num = clean(input.value);
