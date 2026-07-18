@@ -257,10 +257,10 @@ footer .links{margin-top:8px;display:flex;gap:16px;justify-content:center;flex-w
       <textarea id="detail" name="detail" required placeholder="เล่าเหตุการณ์ที่เกิดขึ้น เช่น โทรมาอ้างเป็นเจ้าหน้าที่ตำรวจ ให้โอนเงินตรวจสอบบัญชี วันที่และเวลาโดยประมาณ"></textarea>
       <div class="hint">ยิ่งละเอียด ยิ่งช่วยให้ทีมงานตรวจสอบและเตือนภัยผู้อื่นได้แม่นยำขึ้น</div>
 
-      <label>อัปโหลดภาพหลักฐาน <span class="opt">(ถ้ามี — รองรับ .jpg สูงสุด 2MB)</span></label>
+      <label>อัปโหลดภาพหลักฐาน <span class="opt">(ถ้ามี — JPG, PNG, WebP สูงสุด 2MB)</span></label>
       <div class="file-upload">
-        <input type="file" id="evidenceImage" accept=".jpg,.jpeg,image/jpeg">
-        <label for="evidenceImage">📷 เลือกไฟล์ .jpg</label>
+        <input type="file" id="evidenceImage" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+        <label for="evidenceImage">📷 เลือกรูปหลักฐาน</label>
         <div class="file-name" id="fileName">ยังไม่ได้เลือกไฟล์</div>
         <img id="filePreview" class="file-preview" alt="ตัวอย่างภาพหลักฐาน">
       </div>
@@ -344,6 +344,16 @@ const imageInput = document.getElementById('evidenceImage');
 const fileName = document.getElementById('fileName');
 const filePreview = document.getElementById('filePreview');
 
+const ERROR_MSG = {
+  bad_json: 'ข้อมูลไม่ถูกต้อง กรุณาลองใหม่',
+  invalid_number: 'เบอร์โทรไม่ถูกต้อง (กรอก 9–10 หลัก)',
+  invalid_category: 'กรุณาเลือกประเภทพฤติกรรม',
+  detail_too_short: 'รายละเอียดสั้นเกินไป กรุณาเล่าเพิ่มอีกนิด',
+  consent_required: 'กรุณาติ๊กยืนยันความถูกต้องของข้อมูล',
+  invalid_image_type: 'รูปหลักฐานต้องเป็น JPG, PNG หรือ WebP',
+  image_too_large: 'รูปใหญ่เกิน 2MB กรุณาลดขนาดแล้วลองใหม่',
+};
+
 imageInput.addEventListener('change', () => {
   const file = imageInput.files[0];
   if (!file) {
@@ -351,8 +361,9 @@ imageInput.addEventListener('change', () => {
     filePreview.style.display = 'none';
     return;
   }
-  if (!/\.jpe?g$/i.test(file.name) && file.type !== 'image/jpeg') {
-    alert('กรุณาเลือกไฟล์ .jpg เท่านั้น');
+  const okType = /\.(jpe?g|png|webp)$/i.test(file.name) || /^image\/(jpeg|png|webp)/i.test(file.type);
+  if (!okType) {
+    alert('กรุณาเลือกรูป JPG, PNG หรือ WebP');
     imageInput.value = '';
     return;
   }
@@ -385,7 +396,11 @@ form.addEventListener('submit', async (e) => {
 
   try {
     const res = await fetch('/api/report', { method: 'POST', body: fd });
-    if (!res.ok) throw new Error('server');
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const msg = ERROR_MSG[data.error] || 'ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง';
+      throw new Error(msg);
+    }
     box.className = 'result ok';
     box.textContent = '✅ ส่งเบาะแสเรียบร้อยแล้ว ขอบคุณที่ช่วยกันเตือนภัยสังคม ทีมงานจะตรวจสอบข้อมูลก่อนเผยแพร่';
     form.reset();
@@ -393,7 +408,7 @@ form.addEventListener('submit', async (e) => {
     filePreview.style.display = 'none';
   } catch (err) {
     box.className = 'result err';
-    box.textContent = '❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือแจ้งผ่าน admin@spaminthai.com';
+    box.textContent = '❌ ' + (err.message || 'ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือแจ้งผ่าน admin@spaminthai.com');
   } finally {
     btn.disabled = false;
     btn.textContent = '🚨 ส่งเบาะแส';

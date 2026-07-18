@@ -26,6 +26,33 @@ export const TIP_STATUSES = new Set(['pending', 'reviewed', 'actioned', 'dismiss
 
 export const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
 
+const IMAGE_TYPES = new Set([
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+  'image/heic',
+  'image/heif',
+]);
+
+const IMAGE_EXT = /\.(jpe?g|png|webp|heic|heif)$/i;
+
+export function isAllowedImage(file) {
+  if (!file || typeof file.arrayBuffer !== 'function') return false;
+  const type = String(file.type || '').toLowerCase();
+  const name = String(file.name || '').toLowerCase();
+  if (IMAGE_TYPES.has(type)) return true;
+  return IMAGE_EXT.test(name);
+}
+
+export function imageExtension(file) {
+  const name = String(file.name || '').toLowerCase();
+  if (name.endsWith('.png')) return 'png';
+  if (name.endsWith('.webp')) return 'webp';
+  if (name.endsWith('.heic') || name.endsWith('.heif')) return 'heic';
+  return 'jpg';
+}
+
 export function json(obj, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(obj), {
     status,
@@ -60,15 +87,15 @@ export function newTipId() {
   return crypto.randomUUID();
 }
 
-export async function storeEvidence(env, tipId, bytes, contentType = 'image/jpeg') {
-  const r2Key = `evidence/${tipId}.jpg`;
+export async function storeEvidence(env, tipId, bytes, contentType = 'image/jpeg', ext = 'jpg') {
+  const r2Key = `evidence/${tipId}.${ext}`;
   if (env.EVIDENCE_R2) {
     await env.EVIDENCE_R2.put(r2Key, bytes, { httpMetadata: { contentType } });
-    return { storage: 'r2', key: r2Key };
+    return { storage: 'r2', key: r2Key, contentType };
   }
   const kvKey = `evidence:${tipId}`;
   await env.SPAM_KV.put(kvKey, bytes, { expirationTtl: 60 * 60 * 24 * 365 });
-  return { storage: 'kv', key: kvKey };
+  return { storage: 'kv', key: kvKey, contentType };
 }
 
 export async function getEvidence(env, tip) {

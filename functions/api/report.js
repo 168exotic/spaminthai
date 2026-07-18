@@ -7,6 +7,8 @@
 import {
   MAX_IMAGE_BYTES,
   isAdmin,
+  isAllowedImage,
+  imageExtension,
   json,
   mapCategory,
   newTipId,
@@ -40,13 +42,6 @@ async function parseReportBody(request) {
   }
 }
 
-function isJpeg(file) {
-  if (!file || typeof file.arrayBuffer !== 'function') return false;
-  const type = String(file.type || '').toLowerCase();
-  const name = String(file.name || '').toLowerCase();
-  return type === 'image/jpeg' || type === 'image/jpg' || name.endsWith('.jpg') || name.endsWith('.jpeg');
-}
-
 export async function handleReportPost({ request, env }) {
   const body = await parseReportBody(request);
   if (!body) return json({ error: 'bad_json' }, 400);
@@ -74,11 +69,13 @@ export async function handleReportPost({ request, env }) {
   const tipId = isDetailed ? newTipId() : null;
 
   if (isDetailed && body.imageFile) {
-    if (!isJpeg(body.imageFile)) return json({ error: 'invalid_image_type' }, 400);
     const bytes = await body.imageFile.arrayBuffer();
-    if (bytes.byteLength > MAX_IMAGE_BYTES) return json({ error: 'image_too_large' }, 400);
     if (bytes.byteLength > 0) {
-      imageMeta = await storeEvidence(env, tipId, bytes);
+      if (!isAllowedImage(body.imageFile)) return json({ error: 'invalid_image_type' }, 400);
+      if (bytes.byteLength > MAX_IMAGE_BYTES) return json({ error: 'image_too_large' }, 400);
+      const ext = imageExtension(body.imageFile);
+      const contentType = String(body.imageFile.type || `image/${ext}`).toLowerCase();
+      imageMeta = await storeEvidence(env, tipId, bytes, contentType, ext);
     }
   }
 
@@ -93,7 +90,7 @@ export async function handleReportPost({ request, env }) {
         status: 'pending',
         imageKey: imageMeta?.key || null,
         imageStorage: imageMeta?.storage || null,
-        imageContentType: 'image/jpeg',
+        imageContentType: imageMeta?.contentType || null,
       }
     : null;
 
