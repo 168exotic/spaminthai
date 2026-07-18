@@ -6,6 +6,7 @@
 
 import { identifyCarrier } from './functions/api/carrier.js';
 import { assess } from './functions/api/lookup.js';
+import { handleReportPost } from './functions/api/report.js';
 import { countNumbersInKv } from './functions/api/stats.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 
@@ -71,41 +72,6 @@ function handleApp() {
   });
 }
 
-const VALID_CATEGORIES = new Set(['scam', 'callcenter', 'ads', 'loan', 'safe']);
-
-async function handleReport(request, env) {
-  if (request.method !== 'POST') {
-    return json({ error: 'method_not_allowed' }, 405);
-  }
-  let body;
-  try {
-    body = await request.json();
-  } catch (e) {
-    return json({ error: 'invalid_json' }, 400);
-  }
-  const number = String(body.number || '').replace(/\D/g, '');
-  const category = String(body.category || '').toLowerCase();
-  if (number.length < 9 || number.length > 10) return json({ error: 'invalid_number' }, 400);
-  if (!VALID_CATEGORIES.has(category)) return json({ error: 'invalid_category' }, 400);
-
-  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-  const dayKey = 'rl:' + ip + ':' + number + ':' + new Date().toISOString().slice(0, 10);
-  const existing = await env.SPAM_KV.get(dayKey);
-  if (existing) return json({ ok: true, deduped: true }, 200);
-  await env.SPAM_KV.put(dayKey, '1', { expirationTtl: 60 * 60 * 24 * 2 });
-
-  const key = 'num:' + number;
-  const raw = await env.SPAM_KV.get(key);
-  const data = raw ? JSON.parse(raw) : { reports: 0, categories: {}, lastReport: null };
-  data.reports = (data.reports || 0) + 1;
-  data.categories = data.categories || {};
-  data.categories[category] = (data.categories[category] || 0) + 1;
-  data.lastReport = new Date().toISOString();
-  await env.SPAM_KV.put(key, JSON.stringify(data));
-
-  return json({ ok: true, ...data }, 200);
-}
-
 async function handleStats(env) {
   let numbersInDb = null;
   try {
@@ -130,7 +96,7 @@ export default {
     if (path === '/api/lookup') return handleLookup(request, env);
     if (path === '/api/version') return handleVersion();
     if (path === '/api/app') return handleApp();
-    if (path === '/api/report') return handleReport(request, env);
+    if (path === '/api/report') return handleReportPost({ request, env });
     if (path === '/api/stats') return handleStats(env);
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);

@@ -125,6 +125,7 @@ footer a{margin:0 8px}
     <a class="logo" href="/">Spam<span>InThai</span></a>
     <nav style="display:flex;align-items:center;gap:12px">
       <a href="/check" style="font-size:.9rem;font-weight:500;color:var(--muted)">เช็คเบอร์</a>
+      <a href="/report" style="font-size:.9rem;font-weight:600;color:var(--indigo)">แจ้งเบาะแส</a>
       <a class="dl-btn" href="/download">ดาวน์โหลดแอป</a>
     </nav>
   </div>
@@ -167,6 +168,12 @@ footer a{margin:0 8px}
     <h2>บล็อกเบอร์พวกนี้อัตโนมัติ</h2>
     <p>แอป SpamInThai บล็อกสายมิจฉาชีพให้ทันที ก่อนโทรศัพท์คุณจะดังด้วยซ้ำ</p>
     <a data-download href="https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk" download>ติดตั้งฟรีบน Android</a>
+  </section>
+
+  <section class="cta-official" style="margin-top:20px">
+    <h2>แจ้งรายงานเบาะแสมิจฉาชีพ</h2>
+    <p>มีรายละเอียดเหตุการณ์หรือหลักฐานเพิ่มเติม? ส่งแบบฟอร์มเบาะแสให้ทีมงานตรวจสอบ</p>
+    <a href="/report" id="reportTipLink">🚨 แจ้งเบาะแสมิจฉาชีพ</a>
   </section>
 
   <section class="cta-official">
@@ -235,6 +242,8 @@ async function doCheck(){
   const num = clean(input.value);
   if(num.length < 9){ input.focus(); return; }
   currentNum = num;
+  const tipLink = document.getElementById('reportTipLink');
+  if (tipLink) tipLink.href = '/report?phone=' + encodeURIComponent(num);
   btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
   try{
     const r = await fetch('/api/lookup?number='+num);

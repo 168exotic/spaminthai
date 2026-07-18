@@ -64,9 +64,9 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
           <span>เช็คเบอร์โทร</span>
         </a>
-        <a href="/check#report" class="px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
+        <a href="/report" class="px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
-          <span>แจ้งเบอร์สแปม</span>
+          <span>แจ้งเบาะแสมิจฉาชีพ</span>
         </a>
         <a href="#official" class="px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
@@ -85,7 +85,7 @@
     <!-- mobile tabs -->
     <div class="flex md:hidden items-center gap-2 overflow-x-auto pb-3 -mx-2 px-2">
       <a href="/check" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-rose-500 text-white">เช็คเบอร์โทร</a>
-      <a href="/check" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:bg-slate-800">แจ้งเบอร์สแปม</a>
+      <a href="/report" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:bg-slate-800">แจ้งเบาะแส</a>
       <a href="#official" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:bg-slate-800">เบอร์ทางการ</a>
       <a href="/download" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:bg-slate-800">ดาวน์โหลด</a>
     </div>
@@ -264,6 +264,12 @@
         <a href="https://api.spaminthai.com/privacy" class="mt-3 inline-block text-[10px] text-rose-400 hover:text-rose-300 underline">อ่านนโยบายเต็ม →</a>
       </div>
 
+      <!-- Report tip -->
+      <a href="/report" class="block bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl p-5 shadow-md fade-up transition">
+        <h3 class="text-sm font-bold flex items-center gap-2">🚨 แจ้งรายงานเบาะแสมิจฉาชีพ</h3>
+        <p class="text-xs text-indigo-100 mt-1.5 leading-relaxed">มีเบอร์หรือเหตุการณ์น่าสงสัย? ส่งรายละเอียดให้ทีมงานตรวจสอบและเตือนภัยสังคม</p>
+      </a>
+
       <!-- SEO links -->
       <div class="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-2 fade-up">
         <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">บทความแนะนำ</h3>
@@ -286,6 +292,8 @@
     </div>
     <div class="flex flex-wrap items-center justify-center gap-4 text-[10px] text-slate-500 font-mono">
       <a href="/check" class="hover:text-rose-400 transition">เช็คเบอร์โทร</a>
+      <span>•</span>
+      <a href="/report" class="hover:text-rose-400 transition">แจ้งเบาะแส</a>
       <span>•</span>
       <a href="/download" class="hover:text-rose-400 transition">ดาวน์โหลดแอป</a>
       <span>•</span>

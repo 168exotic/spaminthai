@@ -29,7 +29,7 @@
     .catch(() => {});
 
   function shouldShowPopup() {
-    if (location.pathname.startsWith('/download')) return false;
+    if (location.pathname.startsWith('/download') || location.pathname.startsWith('/report')) return false;
     try {
       const raw = localStorage.getItem(POPUP_KEY);
       if (!raw) return true;

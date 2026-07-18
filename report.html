@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แจ้งเบาะแสมิจฉาชีพ | SpamInThai — ศูนย์รับแจ้งเบอร์โทรมิจฉาชีพ</title>
+<meta name="description" content="แจ้งเบาะแสเบอร์โทรมิจฉาชีพ แก๊งคอลเซ็นเตอร์ เงินกู้นอกระบบ SMS หลอกลวง ช่วยกันเตือนภัยคนไทย ข้อมูลของคุณจะถูกส่งต่อเพื่อประโยชน์สาธารณะ">
+<link rel="canonical" href="https://spaminthai.com/report">
+<meta property="og:title" content="แจ้งเบาะแสมิจฉาชีพ | SpamInThai">
+<meta property="og:description" content="แจ้งเบาะแสเบอร์โทรมิจฉาชีพ ช่วยกันเตือนภัยคนไทย">
+<meta property="og:url" content="https://spaminthai.com/report">
+<meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=Anuphan:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --indigo:#3F51B5;
+  --indigo-dark:#303F9F;
+  --indigo-deep:#1A237E;
+  --indigo-soft:#E8EAF6;
+  --bg:#F7F8FC;
+  --card:#FFFFFF;
+  --text:#1E2235;
+  --muted:#5C6178;
+  --line:#DDE1F0;
+  --danger:#C62828;
+  --danger-soft:#FDECEA;
+  --ok:#2E7D32;
+  --ok-soft:#E8F5E9;
+  --warn-soft:#FFF8E1;
+  --warn-line:#F0E1A8;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Anuphan',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.brand{font-family:'Bai Jamjuree',sans-serif}
+a{color:var(--indigo);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:760px;margin:0 auto;padding:0 20px}
+
+header{
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;
+}
+.nav{
+  max-width:1080px;margin:0 auto;padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.brand{font-weight:700;font-size:1.15rem;color:var(--indigo-deep);display:flex;align-items:center;gap:8px}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--indigo);display:inline-block}
+.nav-links{display:flex;gap:18px;font-size:.95rem}
+.nav-links a{color:var(--muted);font-weight:500}
+.nav-links a.active{color:var(--indigo);font-weight:600}
+
+.hero{
+  background:linear-gradient(160deg,var(--indigo-soft) 0%,var(--bg) 70%);
+  padding:44px 0 28px;
+  text-align:center;
+}
+.hero h1{font-size:1.7rem;color:var(--indigo-deep);margin-bottom:10px}
+.hero p{color:var(--muted);max-width:560px;margin:0 auto;font-size:1rem}
+.hero .shield{font-size:2.2rem;margin-bottom:8px}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:26px 24px;
+  margin:22px 0;
+  box-shadow:0 2px 10px rgba(48,63,159,.05);
+}
+.card h2{font-size:1.15rem;color:var(--indigo-deep);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+
+.notice{
+  border-radius:10px;
+  padding:14px 16px;
+  font-size:.92rem;
+  margin-bottom:18px;
+}
+.notice.warn{background:var(--warn-soft);border:1px solid var(--warn-line);color:#6d5a10}
+.notice.info{background:var(--indigo-soft);border:1px solid #C5CAE9;color:var(--indigo-deep)}
+.notice strong{font-weight:600}
+
+label{display:block;font-weight:600;font-size:.95rem;margin:16px 0 6px;color:var(--text)}
+label .req{color:var(--danger)}
+label .opt{color:var(--muted);font-weight:400;font-size:.85rem}
+input[type=text],input[type=tel],select,textarea{
+  width:100%;
+  padding:12px 14px;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  font-family:'Anuphan',sans-serif;
+  font-size:1rem;
+  background:#FBFCFF;
+  color:var(--text);
+  transition:border-color .15s, box-shadow .15s;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:var(--indigo);
+  box-shadow:0 0 0 3px rgba(63,81,181,.12);
+}
+textarea{min-height:120px;resize:vertical}
+.hint{font-size:.85rem;color:var(--muted);margin-top:5px}
+
+.check-row{
+  display:flex;align-items:flex-start;gap:10px;
+  margin:18px 0 0;
+  padding:14px;
+  background:var(--indigo-soft);
+  border-radius:10px;
+  font-size:.9rem;
+}
+.check-row input{margin-top:4px;width:18px;height:18px;accent-color:var(--indigo);flex-shrink:0}
+.check-row span{color:var(--text)}
+
+button.submit{
+  width:100%;
+  margin-top:22px;
+  padding:15px;
+  background:var(--indigo);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  font-family:'Bai Jamjuree',sans-serif;
+  font-size:1.05rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .15s, transform .1s;
+}
+button.submit:hover{background:var(--indigo-dark)}
+button.submit:active{transform:scale(.99)}
+button.submit:disabled{background:#9FA8DA;cursor:not-allowed}
+
+.result{
+  display:none;
+  margin-top:16px;
+  padding:14px 16px;
+  border-radius:10px;
+  font-size:.95rem;
+}
+.result.ok{display:block;background:var(--ok-soft);color:var(--ok);border:1px solid #C8E6C9}
+.result.err{display:block;background:var(--danger-soft);color:var(--danger);border:1px solid #FFCDD2}
+
+.legal{font-size:.88rem;color:var(--muted)}
+.legal h3{font-size:.98rem;color:var(--text);margin:16px 0 6px}
+.legal ul{padding-left:20px;margin:6px 0}
+.legal li{margin-bottom:6px}
+details.dispute{
+  margin-top:14px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#FBFCFF;
+}
+details.dispute summary{
+  padding:13px 16px;
+  cursor:pointer;
+  font-weight:600;
+  color:var(--indigo-dark);
+  font-size:.95rem;
+  list-style:none;
+}
+details.dispute summary::-webkit-details-marker{display:none}
+details.dispute summary::before{content:"▸ ";transition:transform .15s}
+details.dispute[open] summary::before{content:"▾ "}
+details.dispute .inner{padding:0 16px 16px;font-size:.9rem;color:var(--muted)}
+
+footer{
+  margin-top:40px;
+  padding:28px 20px;
+  background:var(--card);
+  border-top:1px solid var(--line);
+  text-align:center;
+  font-size:.88rem;
+  color:var(--muted);
+}
+footer .links{margin-top:8px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+@media(max-width:520px){
+  .hero h1{font-size:1.4rem}
+  .card{padding:20px 16px}
+  .nav-links{font-size:.85rem;gap:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="/" class="brand"><span class="dot"></span>SpamInThai</a>
+    <div class="nav-links">
+      <a href="/">หน้าแรก</a>
+      <a href="/check">เช็กเบอร์</a>
+      <a href="/report" class="active">แจ้งเบาะแส</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="shield">🛡️</div>
+    <h1>แจ้งเบาะแสเบอร์มิจฉาชีพ</h1>
+    <p>ทุกรายงานของคุณช่วยเตือนภัยคนไทยอีกนับพันคน ข้อมูลจะถูกตรวจสอบก่อนเผยแพร่ และส่งต่อให้หน่วยงานที่เกี่ยวข้องเมื่อจำเป็น</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <div class="card">
+    <h2>📋 แบบฟอร์มแจ้งเบาะแส</h2>
+
+    <div class="notice warn">
+      <strong>⚠️ โปรดแจ้งเฉพาะข้อมูลที่เป็นความจริง</strong> — การแจ้งข้อมูลอันเป็นเท็จเข้าสู่ระบบคอมพิวเตอร์ อาจมีความผิดตาม พ.ร.บ.คอมพิวเตอร์ฯ มาตรา 14 และผู้แจ้งต้องรับผิดชอบต่อข้อมูลที่ตนแจ้งเองทั้งหมด
+    </div>
+
+    <form id="reportForm">
+      <label for="phone">เบอร์โทรศัพท์ที่ต้องการแจ้ง <span class="req">*</span></label>
+      <input type="tel" id="phone" name="phone" placeholder="เช่น 0812345678" required pattern="[0-9+\- ]{9,15}" inputmode="tel">
+      <div class="hint">กรอกเฉพาะตัวเลข ไม่ต้องใส่ขีดหรือเว้นวรรคก็ได้</div>
+
+      <label for="category">ประเภทพฤติกรรม <span class="req">*</span></label>
+      <select id="category" name="category" required>
+        <option value="" disabled selected>— เลือกประเภท —</option>
+        <option value="scam">แก๊งคอลเซ็นเตอร์ / หลอกโอนเงิน</option>
+        <option value="loanshark">เงินกู้นอกระบบ / ทวงหนี้ผิดกฎหมาย</option>
+        <option value="sms">SMS หลอกลวง / ลิงก์ปลอม</option>
+        <option value="impersonate">แอบอ้างหน่วยงานรัฐ / ธนาคาร</option>
+        <option value="gambling">ชักชวนพนันออนไลน์</option>
+        <option value="other">อื่น ๆ</option>
+      </select>
+
+      <label for="detail">รายละเอียดเหตุการณ์ <span class="req">*</span></label>
+      <textarea id="detail" name="detail" required placeholder="เล่าเหตุการณ์ที่เกิดขึ้น เช่น โทรมาอ้างเป็นเจ้าหน้าที่ตำรวจ ให้โอนเงินตรวจสอบบัญชี วันที่และเวลาโดยประมาณ"></textarea>
+      <div class="hint">ยิ่งละเอียด ยิ่งช่วยให้ทีมงานตรวจสอบและเตือนภัยผู้อื่นได้แม่นยำขึ้น</div>
+
+      <label for="evidence">ลิงก์หลักฐาน <span class="opt">(ถ้ามี — เช่น ลิงก์ภาพแชต, ลิงก์ข่าว)</span></label>
+      <input type="text" id="evidence" name="evidence" placeholder="https://...">
+
+      <label for="contact">ช่องทางติดต่อกลับ <span class="opt">(ไม่บังคับ — ใช้กรณีทีมงานต้องการสอบถามเพิ่มเติมเท่านั้น)</span></label>
+      <input type="text" id="contact" name="contact" placeholder="อีเมลหรือ LINE ID">
+
+      <div class="check-row">
+        <input type="checkbox" id="consent" required>
+        <span>ข้าพเจ้ายืนยันว่าข้อมูลที่แจ้งเป็นความจริงตามที่ข้าพเจ้าประสบหรือรับทราบมา และยินยอมให้ SpamInThai เก็บรวบรวม ใช้ และเปิดเผยข้อมูลดังกล่าวเพื่อวัตถุประสงค์ในการเตือนภัยสาธารณะและส่งต่อให้หน่วยงานรัฐที่เกี่ยวข้อง ตาม<a href="/privacy" target="_blank">นโยบายความเป็นส่วนตัว</a></span>
+      </div>
+
+      <button type="submit" class="submit" id="submitBtn">🚨 ส่งเบาะแส</button>
+      <div class="result" id="resultBox"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>🔍 ข้อมูลของคุณถูกนำไปใช้อย่างไร</h2>
+    <div class="legal">
+      <ul>
+        <li><strong>ตรวจสอบก่อนเผยแพร่</strong> — ทีมงานพิจารณารายงานร่วมกับจำนวนครั้งที่ถูกแจ้งซ้ำ ก่อนแสดงสถานะเบอร์ในระบบเช็กเบอร์</li>
+        <li><strong>แสดงผลอย่างเป็นกลาง</strong> — ระบบจะแสดงว่าเบอร์ "ถูกรายงาน" พร้อมจำนวนครั้งและประเภทที่ถูกแจ้ง ไม่ใช่คำตัดสินว่าบุคคลใดกระทำผิด</li>
+        <li><strong>ส่งต่อหน่วยงานรัฐ</strong> — กรณีพบพฤติกรรมร้ายแรง ข้อมูลอาจถูกรวบรวมส่งให้ตำรวจไซเบอร์ (thaipoliceonline.go.th) หรือหน่วยงานที่เกี่ยวข้อง</li>
+        <li><strong>ไม่เปิดเผยตัวผู้แจ้ง</strong> — ช่องทางติดต่อกลับของคุณจะไม่ถูกเผยแพร่ต่อสาธารณะ และใช้ภายในทีมงานเท่านั้น</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>⚖️ ข้อจำกัดความรับผิดชอบ (Disclaimer)</h2>
+    <div class="legal">
+      <p>SpamInThai เป็นแพลตฟอร์มรวบรวมรายงานจากประชาชนเพื่อประโยชน์สาธารณะในการป้องกันภัยจากมิจฉาชีพ โดยมีข้อกำหนดดังนี้</p>
+      <h3>1. ลักษณะของข้อมูล</h3>
+      <p>ข้อมูลสถานะเบอร์โทรศัพท์บนเว็บไซต์นี้เป็น "ข้อมูลที่ได้รับรายงานจากผู้ใช้" มิใช่คำวินิจฉัยหรือคำตัดสินทางกฎหมายว่าเจ้าของเบอร์กระทำความผิด ผู้ใช้พึงใช้วิจารณญาณประกอบการตัดสินใจ</p>
+      <h3>2. ความรับผิดชอบของผู้แจ้ง</h3>
+      <p>ผู้แจ้งเบาะแสเป็นผู้รับผิดชอบต่อความถูกต้องของข้อมูลที่ตนแจ้งแต่เพียงผู้เดียว การแจ้งข้อมูลเท็จโดยเจตนาเพื่อกลั่นแกล้งผู้อื่น อาจมีความผิดตามประมวลกฎหมายอาญาและ พ.ร.บ.คอมพิวเตอร์ฯ</p>
+      <h3>3. การลบและแก้ไขข้อมูล (Notice &amp; Takedown)</h3>
+      <p>เมื่อได้รับแจ้งว่าข้อมูลใดไม่ถูกต้องพร้อมหลักฐานประกอบ ทีมงานจะตรวจสอบและดำเนินการระงับหรือลบข้อมูลนั้นโดยเร็ว</p>
+      <h3>4. การคุ้มครองข้อมูลส่วนบุคคล</h3>
+      <p>การเก็บรวบรวมและเปิดเผยหมายเลขโทรศัพท์เป็นไปเพื่อประโยชน์โดยชอบด้วยกฎหมาย (Legitimate Interest) ในการป้องกันอาชญากรรมและคุ้มครองสาธารณะ ตาม พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 อ่านรายละเอียดที่<a href="/privacy">นโยบายความเป็นส่วนตัว</a></p>
+
+      <details class="dispute">
+        <summary>📮 เจ้าของเบอร์ต้องการโต้แย้งข้อมูล / ขอลบข้อมูล คลิกที่นี่</summary>
+        <div class="inner">
+          <p>หากคุณเป็นเจ้าของหมายเลขที่ถูกรายงานและเห็นว่าข้อมูลไม่ถูกต้อง กรุณาส่งอีเมลมาที่ <a href="mailto:admin@spaminthai.com?subject=ขอโต้แย้งข้อมูลเบอร์โทรศัพท์">admin@spaminthai.com</a> โดยระบุ:</p>
+          <ul>
+            <li>หมายเลขโทรศัพท์ที่ต้องการโต้แย้ง</li>
+            <li>เหตุผลและหลักฐานยืนยันความเป็นเจ้าของเบอร์ (เช่น ใบแจ้งค่าบริการ)</li>
+            <li>คำขอที่ต้องการ (แก้ไข / ระงับการแสดงผล / ลบข้อมูล)</li>
+          </ul>
+          <p>ทีมงานจะตอบกลับภายใน 7 วันทำการ ตามสิทธิของเจ้าของข้อมูลภายใต้ PDPA</p>
+        </div>
+      </details>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>© 2026 SpamInThai.com — ร่วมกันเตือนภัย สังคมไทยปลอดมิจฉาชีพ</div>
+  <div class="links">
+    <a href="/terms">ข้อกำหนดการใช้งาน</a>
+    <a href="/privacy">นโยบายความเป็นส่วนตัว</a>
+    <a href="mailto:admin@spaminthai.com">ติดต่อทีมงาน</a>
+  </div>
+</footer>
+
+<script>
+const params = new URLSearchParams(location.search);
+const prefill = params.get('phone') || params.get('number');
+if (prefill) document.getElementById('phone').value = prefill;
+
+const form = document.getElementById('reportForm');
+const btn = document.getElementById('submitBtn');
+const box = document.getElementById('resultBox');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  btn.disabled = true;
+  btn.textContent = 'กำลังส่งข้อมูล...';
+  box.className = 'result';
+  box.textContent = '';
+
+  const payload = {
+    phone: document.getElementById('phone').value.replace(/[^0-9+]/g, ''),
+    category: document.getElementById('category').value,
+    detail: document.getElementById('detail').value.trim(),
+    evidence: document.getElementById('evidence').value.trim(),
+    contact: document.getElementById('contact').value.trim(),
+    consent: document.getElementById('consent').checked,
+    ts: new Date().toISOString()
+  };
+
+  try {
+    const res = await fetch('/api/report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('server');
+    box.className = 'result ok';
+    box.textContent = '✅ ส่งเบาะแสเรียบร้อยแล้ว ขอบคุณที่ช่วยกันเตือนภัยสังคม ทีมงานจะตรวจสอบข้อมูลก่อนเผยแพร่';
+    form.reset();
+  } catch (err) {
+    box.className = 'result err';
+    box.textContent = '❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือแจ้งผ่าน admin@spaminthai.com';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚨 ส่งเบาะแส';
+  }
+});
+</script>
+<script src="/assets/site.js"></script>
+</body>
+</html>

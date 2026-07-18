@@ -11,6 +11,11 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://spaminthai.com/report</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://spaminthai.com/download</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
