@@ -6,7 +6,13 @@
 
 import { identifyCarrier } from './functions/api/carrier.js';
 import { assess } from './functions/api/lookup.js';
-import { handleReportPost } from './functions/api/report.js';
+import {
+  handleReportPost,
+  handleAdminTipsList,
+  handleAdminTipGet,
+  handleAdminTipPatch,
+  handleAdminEvidence,
+} from './functions/api/report.js';
 import { countNumbersInKv } from './functions/api/stats.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 
@@ -98,6 +104,20 @@ export default {
     if (path === '/api/app') return handleApp();
     if (path === '/api/report') return handleReportPost({ request, env });
     if (path === '/api/stats') return handleStats(env);
+
+    if (path === '/api/admin/tips' && request.method === 'GET') {
+      return handleAdminTipsList({ request, env });
+    }
+    const adminTip = path.match(/^\/api\/admin\/tips\/([^/]+)$/);
+    if (adminTip) {
+      const tipId = adminTip[1];
+      if (request.method === 'GET') return handleAdminTipGet({ request, env, tipId });
+      if (request.method === 'PATCH') return handleAdminTipPatch({ request, env, tipId });
+    }
+    const adminEvidence = path.match(/^\/api\/admin\/evidence\/([^/]+)$/);
+    if (adminEvidence && request.method === 'GET') {
+      return handleAdminEvidence({ request, env, tipId: adminEvidence[1] });
+    }
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
     if (checkNumber) return renderNumberPage(checkNumber[1], env);

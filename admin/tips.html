@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ตรวจสอบเบาะแส | SpamInThai Admin</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--text:#f8fafc;--muted:#94a3b8;--accent:#f43f5e;--ok:#22c55e;--warn:#f59e0b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.4rem;margin-bottom:4px}
+.sub{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+.login{display:grid;gap:10px;max-width:360px}
+input,select,textarea,button{font:inherit}
+input[type=password],input[type=text],select,textarea{
+  width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+  background:#0b1220;color:var(--text)
+}
+button{
+  border:none;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-ghost{background:#334155;color:#fff}
+.btn-sm{padding:6px 10px;font-size:.82rem}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.78rem;text-transform:uppercase}
+.badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.72rem;font-weight:700}
+.badge.pending{background:#422006;color:#fdba74}
+.badge.reviewed{background:#1e3a5f;color:#93c5fd}
+.badge.actioned{background:#14532d;color:#86efac}
+.badge.dismissed{background:#3f3f46;color:#d4d4d8}
+.detail-grid{display:grid;gap:12px}
+.meta{font-size:.85rem;color:var(--muted)}
+.meta b{color:var(--text)}
+.evidence-img{max-width:100%;border-radius:10px;border:1px solid var(--line);margin-top:8px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.hidden{display:none!important}
+.err{color:#fca5a5;font-size:.85rem;margin-top:8px}
+.empty{color:var(--muted);padding:24px;text-align:center}
+a{color:#93c5fd}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🛡️ ตรวจสอบเบาะแสมิจฉาชีพ</h1>
+  <p class="sub">หลังบ้านสำหรับทีมงาน SpamInThai — ดูรายงานและหลักฐานภาพ</p>
+
+  <div id="loginCard" class="card login">
+    <label for="adminKey">รหัสผ่านแอดมิน</label>
+    <input type="password" id="adminKey" placeholder="TIP_ADMIN_PASSWORD" autocomplete="current-password">
+    <button class="btn-primary" id="loginBtn" type="button">เข้าสู่ระบบ</button>
+    <p class="err hidden" id="loginErr">รหัสผ่านไม่ถูกต้อง</p>
+    <p class="meta">ตั้งค่าใน Cloudflare Pages → Settings → Environment variables → <code>TIP_ADMIN_PASSWORD</code></p>
+  </div>
+
+  <div id="app" class="hidden">
+    <div class="card">
+      <div class="toolbar">
+        <select id="statusFilter">
+          <option value="">ทุกสถานะ</option>
+          <option value="pending" selected>รอตรวจสอบ</option>
+          <option value="reviewed">ตรวจแล้ว</option>
+          <option value="actioned">ดำเนินการแล้ว</option>
+          <option value="dismissed">ปิดเคส</option>
+        </select>
+        <button class="btn-ghost btn-sm" id="refreshBtn" type="button">รีเฟรช</button>
+        <button class="btn-ghost btn-sm" id="logoutBtn" type="button">ออกจากระบบ</button>
+      </div>
+      <div id="listWrap">
+        <table>
+          <thead>
+            <tr>
+              <th>เวลา</th>
+              <th>เบอร์</th>
+              <th>ประเภท</th>
+              <th>สถานะ</th>
+              <th>หลักฐาน</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tipsBody"></tbody>
+        </table>
+        <div class="empty hidden" id="emptyState">ยังไม่มีรายงานเบาะแส</div>
+      </div>
+    </div>
+
+    <div id="detailCard" class="card hidden">
+      <h2 style="font-size:1.05rem;margin-bottom:12px">รายละเอียดเบาะแส</h2>
+      <div class="detail-grid" id="detailContent"></div>
+      <div class="actions">
+        <select id="newStatus">
+          <option value="pending">รอตรวจสอบ</option>
+          <option value="reviewed">ตรวจแล้ว</option>
+          <option value="actioned">ดำเนินการแล้ว</option>
+          <option value="dismissed">ปิดเคส</option>
+        </select>
+        <input type="text" id="adminNote" placeholder="บันทึกภายใน (ไม่บังคับ)" style="flex:1;min-width:180px">
+        <button class="btn-primary btn-sm" id="saveStatusBtn" type="button">บันทึกสถานะ</button>
+        <button class="btn-ghost btn-sm" id="closeDetailBtn" type="button">ปิด</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY_STORAGE = 'spaminthai_admin_key';
+let adminKey = localStorage.getItem(KEY_STORAGE) || '';
+let labels = {};
+let currentTipId = null;
+
+const $ = (id) => document.getElementById(id);
+
+function headers() {
+  return { 'X-Admin-Key': adminKey, 'Content-Type': 'application/json' };
+}
+
+function statusBadge(s) {
+  const map = { pending:'รอตรวจ', reviewed:'ตรวจแล้ว', actioned:'ดำเนินการ', dismissed:'ปิดเคส' };
+  return `<span class="badge ${s}">${map[s] || s}</span>`;
+}
+
+function fmtTime(ts) {
+  try { return new Date(ts).toLocaleString('th-TH'); } catch { return ts || '-'; }
+}
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, { ...opts, headers: { ...headers(), ...(opts.headers || {}) } });
+  if (res.status === 401) throw new Error('unauthorized');
+  return res;
+}
+
+async function loadTips() {
+  const status = $('statusFilter').value;
+  const url = status ? `/api/admin/tips?status=${encodeURIComponent(status)}` : '/api/admin/tips';
+  const res = await api(url);
+  const data = await res.json();
+  labels = data.labels || {};
+  const tips = data.tips || [];
+  const body = $('tipsBody');
+  body.innerHTML = '';
+  $('emptyState').classList.toggle('hidden', tips.length > 0);
+  tips.forEach((t) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${fmtTime(t.ts)}</td>
+      <td><b>${t.phone || '-'}</b></td>
+      <td>${labels[t.category] || t.category || '-'}</td>
+      <td>${statusBadge(t.status || 'pending')}</td>
+      <td>${t.hasImage ? '📷 มีรูป' : '—'}</td>
+      <td><button class="btn-ghost btn-sm" data-id="${t.id}">ดู</button></td>`;
+    tr.querySelector('button').addEventListener('click', () => openTip(t.id));
+    body.appendChild(tr);
+  });
+}
+
+async function openTip(id) {
+  currentTipId = id;
+  const res = await api(`/api/admin/tips/${id}`);
+  const tip = await res.json();
+  $('newStatus').value = tip.status || 'pending';
+  $('adminNote').value = tip.adminNote || '';
+
+  let evidenceHtml = '';
+  if (tip.imageKey) {
+    const blob = await (await api(`/api/admin/evidence/${id}`)).blob();
+    const url = URL.createObjectURL(blob);
+    evidenceHtml = `<div><b>ภาพหลักฐาน</b><br><img class="evidence-img" src="${url}" alt="หลักฐาน"></div>`;
+  }
+
+  const linkHtml = tip.evidence
+    ? `<div><b>ลิงก์หลักฐาน</b><br><a href="${tip.evidence}" target="_blank" rel="noopener">${tip.evidence}</a></div>`
+    : '';
+
+  $('detailContent').innerHTML = `
+    <div class="meta"><b>เบอร์:</b> ${tip.phone}</div>
+    <div class="meta"><b>ประเภท:</b> ${labels[tip.category] || tip.category}</div>
+    <div class="meta"><b>เวลาแจ้ง:</b> ${fmtTime(tip.ts)}</div>
+    <div class="meta"><b>สถานะ:</b> ${statusBadge(tip.status || 'pending')}</div>
+    <div><b>รายละเอียด</b><p style="margin-top:6px;white-space:pre-wrap">${tip.detail || '-'}</p></div>
+    ${linkHtml}
+    ${evidenceHtml}
+    <div class="meta"><b>ติดต่อกลับ:</b> ${tip.contact || '—'}</div>
+    ${tip.adminNote ? `<div class="meta"><b>บันทึกเดิม:</b> ${tip.adminNote}</div>` : ''}`;
+
+  $('detailCard').classList.remove('hidden');
+  $('detailCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function saveStatus() {
+  if (!currentTipId) return;
+  await api(`/api/admin/tips/${currentTipId}`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status: $('newStatus').value, note: $('adminNote').value.trim() }),
+  });
+  await loadTips();
+  await openTip(currentTipId);
+}
+
+function showApp() {
+  $('loginCard').classList.add('hidden');
+  $('app').classList.remove('hidden');
+}
+
+function showLogin() {
+  $('loginCard').classList.remove('hidden');
+  $('app').classList.add('hidden');
+}
+
+async function tryLogin() {
+  adminKey = $('adminKey').value;
+  try {
+    const res = await api('/api/admin/tips?status=pending');
+    if (!res.ok) throw new Error('bad');
+    localStorage.setItem(KEY_STORAGE, adminKey);
+    $('loginErr').classList.add('hidden');
+    showApp();
+    await loadTips();
+  } catch {
+    $('loginErr').classList.remove('hidden');
+    showLogin();
+  }
+}
+
+$('loginBtn').addEventListener('click', tryLogin);
+$('adminKey').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
+$('refreshBtn').addEventListener('click', loadTips);
+$('statusFilter').addEventListener('change', loadTips);
+$('saveStatusBtn').addEventListener('click', saveStatus);
+$('closeDetailBtn').addEventListener('click', () => $('detailCard').classList.add('hidden'));
+$('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem(KEY_STORAGE);
+  adminKey = '';
+  showLogin();
+});
+
+if (adminKey) {
+  tryLogin();
+}
+</script>
+</body>
+</html>

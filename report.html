@@ -112,6 +112,18 @@ input:focus,select:focus,textarea:focus{
 textarea{min-height:120px;resize:vertical}
 .hint{font-size:.85rem;color:var(--muted);margin-top:5px}
 
+.file-upload{
+  border:1.5px dashed var(--line);
+  border-radius:10px;
+  padding:16px;
+  background:#FBFCFF;
+  text-align:center;
+}
+.file-upload input[type=file]{display:none}
+.file-upload label{display:inline-block;padding:10px 16px;background:var(--indigo-soft);color:var(--indigo-deep);border-radius:8px;font-weight:600;cursor:pointer}
+.file-upload label:hover{background:#C5CAE9}
+.file-preview{margin-top:10px;max-width:100%;max-height:200px;border-radius:8px;display:none}
+.file-name{font-size:.85rem;color:var(--muted);margin-top:8px}
 .check-row{
   display:flex;align-items:flex-start;gap:10px;
   margin:18px 0 0;
@@ -245,7 +257,15 @@ footer .links{margin-top:8px;display:flex;gap:16px;justify-content:center;flex-w
       <textarea id="detail" name="detail" required placeholder="เล่าเหตุการณ์ที่เกิดขึ้น เช่น โทรมาอ้างเป็นเจ้าหน้าที่ตำรวจ ให้โอนเงินตรวจสอบบัญชี วันที่และเวลาโดยประมาณ"></textarea>
       <div class="hint">ยิ่งละเอียด ยิ่งช่วยให้ทีมงานตรวจสอบและเตือนภัยผู้อื่นได้แม่นยำขึ้น</div>
 
-      <label for="evidence">ลิงก์หลักฐาน <span class="opt">(ถ้ามี — เช่น ลิงก์ภาพแชต, ลิงก์ข่าว)</span></label>
+      <label>อัปโหลดภาพหลักฐาน <span class="opt">(ถ้ามี — รองรับ .jpg สูงสุด 2MB)</span></label>
+      <div class="file-upload">
+        <input type="file" id="evidenceImage" accept=".jpg,.jpeg,image/jpeg">
+        <label for="evidenceImage">📷 เลือกไฟล์ .jpg</label>
+        <div class="file-name" id="fileName">ยังไม่ได้เลือกไฟล์</div>
+        <img id="filePreview" class="file-preview" alt="ตัวอย่างภาพหลักฐาน">
+      </div>
+
+      <label for="evidence">ลิงก์หลักฐานเพิ่มเติม <span class="opt">(ถ้ามี — เช่น ลิงก์ข่าว)</span></label>
       <input type="text" id="evidence" name="evidence" placeholder="https://...">
 
       <label for="contact">ช่องทางติดต่อกลับ <span class="opt">(ไม่บังคับ — ใช้กรณีทีมงานต้องการสอบถามเพิ่มเติมเท่านั้น)</span></label>
@@ -320,6 +340,31 @@ if (prefill) document.getElementById('phone').value = prefill;
 const form = document.getElementById('reportForm');
 const btn = document.getElementById('submitBtn');
 const box = document.getElementById('resultBox');
+const imageInput = document.getElementById('evidenceImage');
+const fileName = document.getElementById('fileName');
+const filePreview = document.getElementById('filePreview');
+
+imageInput.addEventListener('change', () => {
+  const file = imageInput.files[0];
+  if (!file) {
+    fileName.textContent = 'ยังไม่ได้เลือกไฟล์';
+    filePreview.style.display = 'none';
+    return;
+  }
+  if (!/\.jpe?g$/i.test(file.name) && file.type !== 'image/jpeg') {
+    alert('กรุณาเลือกไฟล์ .jpg เท่านั้น');
+    imageInput.value = '';
+    return;
+  }
+  if (file.size > 2 * 1024 * 1024) {
+    alert('ไฟล์ใหญ่เกิน 2MB');
+    imageInput.value = '';
+    return;
+  }
+  fileName.textContent = file.name + ' (' + Math.round(file.size / 1024) + ' KB)';
+  filePreview.src = URL.createObjectURL(file);
+  filePreview.style.display = 'block';
+});
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -328,26 +373,24 @@ form.addEventListener('submit', async (e) => {
   box.className = 'result';
   box.textContent = '';
 
-  const payload = {
-    phone: document.getElementById('phone').value.replace(/[^0-9+]/g, ''),
-    category: document.getElementById('category').value,
-    detail: document.getElementById('detail').value.trim(),
-    evidence: document.getElementById('evidence').value.trim(),
-    contact: document.getElementById('contact').value.trim(),
-    consent: document.getElementById('consent').checked,
-    ts: new Date().toISOString()
-  };
+  const fd = new FormData();
+  fd.append('phone', document.getElementById('phone').value.replace(/[^0-9+]/g, ''));
+  fd.append('category', document.getElementById('category').value);
+  fd.append('detail', document.getElementById('detail').value.trim());
+  fd.append('evidence', document.getElementById('evidence').value.trim());
+  fd.append('contact', document.getElementById('contact').value.trim());
+  fd.append('consent', document.getElementById('consent').checked ? 'true' : 'false');
+  fd.append('ts', new Date().toISOString());
+  if (imageInput.files[0]) fd.append('evidenceImage', imageInput.files[0]);
 
   try {
-    const res = await fetch('/api/report', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    const res = await fetch('/api/report', { method: 'POST', body: fd });
     if (!res.ok) throw new Error('server');
     box.className = 'result ok';
     box.textContent = '✅ ส่งเบาะแสเรียบร้อยแล้ว ขอบคุณที่ช่วยกันเตือนภัยสังคม ทีมงานจะตรวจสอบข้อมูลก่อนเผยแพร่';
     form.reset();
+    fileName.textContent = 'ยังไม่ได้เลือกไฟล์';
+    filePreview.style.display = 'none';
   } catch (err) {
     box.className = 'result err';
     box.textContent = '❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือแจ้งผ่าน admin@spaminthai.com';

@@ -13,5 +13,11 @@
       "binding": "SPAM_KV",
       "id": "0a479fd6d75c431b8e7018caf819f7b2"
     }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "EVIDENCE_R2",
+      "bucket_name": "spaminthai-evidence"
+    }
   ]
 }
