@@ -6,6 +6,7 @@
 
 import { identifyCarrier } from './functions/api/carrier.js';
 import { assess } from './functions/api/lookup.js';
+import { renderNumberPage } from './functions/check/render-number-page.js';
 
 const WEB_VERSION = '1.2.0';
 const RELEASED_AT = '2026-07-21';
@@ -114,6 +115,9 @@ export default {
     if (path === '/api/version') return handleVersion();
     if (path === '/api/app') return handleApp();
     if (path === '/api/report') return handleReport(request, env);
+
+    const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
+    if (checkNumber) return renderNumberPage(checkNumber[1], env);
 
     // Fall through to static assets for everything else
     return env.ASSETS.fetch(request);
