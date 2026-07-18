@@ -2,8 +2,8 @@
 // Bumped every Tuesday (see RELEASING.md + .github/workflows/weekly-release.yml).
 // Keep WEB_VERSION / RELEASED_AT in sync with package.json + CHANGELOG.md;
 // scripts/prepare-weekly-release.js updates all three automatically.
-const WEB_VERSION = '1.1.0';
-const RELEASED_AT = '2026-07-14';
+const WEB_VERSION = '1.2.0';
+const RELEASED_AT = '2026-07-21';
 
 export async function onRequestGet() {
   return json({

@@ -35,10 +35,39 @@ const CATEGORY_LABELS = {
   safe: 'เบอร์ปกติ'
 };
 
+// How recently a number was reported changes how alarming it is — scammers
+// rotate numbers quickly, so a report from last week matters more than one
+// from six months ago.
+const FRESHNESS_LABELS = {
+  hot: 'รายงานล่าสุดภายใน 7 วัน',
+  recent: 'รายงานภายใน 30 วัน',
+  normal: null,
+  stale: 'รายงานเก่า — อาจเปลี่ยนเจ้าของแล้ว'
+};
+
+export function recencyModifier(lastReport, now = Date.now()) {
+  if (lastReport == null) return { boost: 0, freshness: null, freshnessLabel: null };
+  const ts = typeof lastReport === 'string' ? Date.parse(lastReport) : Number(lastReport);
+  if (!Number.isFinite(ts)) return { boost: 0, freshness: null, freshnessLabel: null };
+
+  const ageDays = (now - ts) / (1000 * 60 * 60 * 24);
+  if (ageDays < 0) return { boost: 0, freshness: null, freshnessLabel: null };
+  if (ageDays <= 7) {
+    return { boost: 12, freshness: 'hot', freshnessLabel: FRESHNESS_LABELS.hot };
+  }
+  if (ageDays <= 30) {
+    return { boost: 6, freshness: 'recent', freshnessLabel: FRESHNESS_LABELS.recent };
+  }
+  if (ageDays >= 120) {
+    return { boost: -6, freshness: 'stale', freshnessLabel: FRESHNESS_LABELS.stale };
+  }
+  return { boost: 0, freshness: 'normal', freshnessLabel: null };
+}
+
 // Pure risk assessment. Exported for unit testing.
 // Input:  { reports, categories, lastReport }
-// Output: { score, verdict, label, advice, topCategory }
-export function assess(data) {
+// Output: { score, verdict, label, advice, topCategory, freshness, freshnessLabel }
+export function assess(data, now = Date.now()) {
   const reports = Number(data && data.reports) || 0;
   const categories = (data && data.categories) || {};
 
@@ -50,7 +79,9 @@ export function assess(data) {
     const n = Number(count) || 0;
     raw += (cat in WEIGHTS ? WEIGHTS[cat] : DEFAULT_WEIGHT) * n;
   }
-  const score = Math.max(0, Math.min(100, Math.round(raw)));
+
+  const { boost, freshness, freshnessLabel } = recencyModifier(data && data.lastReport, now);
+  const score = Math.max(0, Math.min(100, Math.round(raw + boost)));
 
   // Dominant "bad" category (ignore safe votes).
   let topCategory = null;
@@ -87,7 +118,11 @@ export function assess(data) {
     advice = `ส่วนใหญ่ถูกรายงานว่าเป็น "${catLabel}" — ${advice}`;
   }
 
-  return { score, verdict, label, advice, topCategory };
+  if (freshnessLabel && (verdict === 'danger' || verdict === 'caution')) {
+    advice = `${freshnessLabel} — ${advice}`;
+  }
+
+  return { score, verdict, label, advice, topCategory, freshness, freshnessLabel };
 }
 
 function json(obj, status = 200, cacheSec = 0) {

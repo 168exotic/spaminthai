@@ -249,8 +249,12 @@ function render(num, d){
   const carrierStat = d.carrierLabel
     ? '<div class="stat"><b>'+d.carrierLabel+'</b><small>เครือข่าย/ค่าย</small></div>'
     : '';
+  const freshStat = d.freshnessLabel && (d.freshness === 'hot' || d.freshness === 'recent')
+    ? '<div class="stat"><b>🔥</b><small>'+d.freshnessLabel+'</small></div>'
+    : '';
   document.getElementById('rStats').innerHTML =
     carrierStat +
+    freshStat +
     (hasScore ? '<div class="stat"><b>'+d.score+'<small style="font-size:.7rem">/100</small></b><small>คะแนนความเสี่ยง</small></div>' : '') +
     '<div class="stat"><b>'+n+'</b><small>รายงานทั้งหมด</small></div>' +
     (d.lastReport ? '<div class="stat"><b>'+new Date(d.lastReport).toLocaleDateString('th-TH',{day:'numeric',month:'short'})+'</b><small>รายงานล่าสุด</small></div>' : '');
