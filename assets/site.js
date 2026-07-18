@@ -50,7 +50,7 @@
     const el = document.getElementById('appPopup');
     if (el) {
       el.classList.add('hide');
-      setTimeout(() => el.remove(), 250);
+      setTimeout(() => el.remove(), 280);
     }
   }
 
@@ -59,44 +59,45 @@
 
     const style = document.createElement('style');
     style.textContent = `
-#appPopup{position:fixed;inset:0;z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:16px;background:rgba(15,23,42,.55);animation:appPopFade .25s ease}
-#appPopup.hide{opacity:0;pointer-events:none;transition:opacity .25s ease}
-#appPopupCard{width:100%;max-width:400px;background:#fff;border-radius:20px 20px 16px 16px;padding:22px 20px 18px;box-shadow:0 20px 50px rgba(15,23,42,.25);animation:appPopUp .3s ease;position:relative}
-@media(min-width:640px){#appPopup{align-items:center}#appPopupCard{border-radius:20px;padding:24px}}
-@keyframes appPopFade{from{opacity:0}to{opacity:1}}
-@keyframes appPopUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-#appPopupClose{position:absolute;top:10px;right:12px;border:none;background:#f1f5f9;color:#64748b;width:32px;height:32px;border-radius:99px;font-size:1.1rem;cursor:pointer;line-height:1}
-#appPopupIcon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#f43f5e,#e11d48);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:12px}
-#appPopup h2{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;font-size:1.15rem;font-weight:800;color:#0f172a;margin:0 0 6px}
-#appPopup p{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;font-size:.9rem;color:#64748b;margin:0 0 16px;line-height:1.55}
-#appPopupDownload{display:block;text-align:center;background:#f43f5e;color:#fff;font-family:system-ui,'IBM Plex Sans Thai',sans-serif;font-weight:700;font-size:1rem;padding:13px 20px;border-radius:99px;text-decoration:none;box-shadow:0 4px 14px rgba(244,63,94,.35)}
+#appPopup{position:fixed;top:0;left:0;right:0;z-index:10000;transform:translateY(0);animation:appPopSlideDown .35s cubic-bezier(.22,1,.36,1);font-family:system-ui,'IBM Plex Sans Thai',sans-serif}
+#appPopup.hide{animation:appPopSlideUp .28s ease forwards;pointer-events:none}
+#appPopupCard{display:flex;align-items:center;gap:10px;max-width:100%;margin:0 auto;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));background:linear-gradient(135deg,#0f172a,#1e293b);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 8px 24px rgba(15,23,42,.28)}
+@media(min-width:640px){#appPopupCard{gap:14px;padding:12px 20px;padding-top:max(12px,env(safe-area-inset-top))}}
+@keyframes appPopSlideDown{from{transform:translateY(-110%)}to{transform:translateY(0)}}
+@keyframes appPopSlideUp{from{transform:translateY(0)}to{transform:translateY(-110%)}}
+#appPopupIcon{flex-shrink:0;width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#f43f5e,#e11d48);display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+#appPopupBody{flex:1;min-width:0}
+#appPopupTitle{font-size:.88rem;font-weight:800;color:#fff;margin:0;line-height:1.3}
+#appPopupDesc{font-size:.72rem;color:#94a3b8;margin:2px 0 0;line-height:1.35;display:none}
+@media(min-width:480px){#appPopupDesc{display:block}}
+#appPopupActions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+#appPopupDownload{display:inline-block;background:#f43f5e;color:#fff;font-weight:700;font-size:.78rem;padding:8px 14px;border-radius:99px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(244,63,94,.35)}
 #appPopupDownload:hover{background:#e11d48;color:#fff}
-#appPopupLater{display:block;width:100%;margin-top:10px;border:none;background:none;color:#94a3b8;font-family:system-ui,'IBM Plex Sans Thai',sans-serif;font-size:.85rem;cursor:pointer;padding:8px}
-@media(prefers-reduced-motion:reduce){#appPopup,#appPopupCard{animation:none}}
+#appPopupClose{flex-shrink:0;border:none;background:rgba(255,255,255,.1);color:#cbd5e1;width:30px;height:30px;border-radius:99px;font-size:1rem;cursor:pointer;line-height:1}
+#appPopupLater{display:none}
+@media(prefers-reduced-motion:reduce){#appPopup{animation:none}#appPopup.hide{animation:none;opacity:0}}
 `;
     document.head.appendChild(style);
 
     const wrap = document.createElement('div');
     wrap.id = 'appPopup';
-    wrap.setAttribute('role', 'dialog');
-    wrap.setAttribute('aria-modal', 'true');
-    wrap.setAttribute('aria-labelledby', 'appPopupTitle');
+    wrap.setAttribute('role', 'banner');
+    wrap.setAttribute('aria-label', 'ดาวน์โหลดแอป SpamInThai');
     wrap.innerHTML = `
 <div id="appPopupCard">
-  <button id="appPopupClose" type="button" aria-label="ปิด">×</button>
   <div id="appPopupIcon">🛡️</div>
-  <h2 id="appPopupTitle">ดาวน์โหลดแอป SpamInThai</h2>
-  <p>บล็อกเบอร์มิจฉาชีพและแก๊งคอลเซ็นเตอร์อัตโนมัติ ก่อนโทรศัพท์จะดัง — ใช้ฐานข้อมูลเดียวกับเว็บ</p>
-  <a id="appPopupDownload" data-download href="${downloadUrl}">ติดตั้งฟรีบน Android</a>
-  <button id="appPopupLater" type="button">ไว้ทีหลัง</button>
+  <div id="appPopupBody">
+    <p id="appPopupTitle">ดาวน์โหลดแอป SpamInThai — บล็อกสายมิจฉาชีพอัตโนมัติ</p>
+    <p id="appPopupDesc">ใช้ฐานข้อมูลเดียวกับเว็บ ก่อนโทรศัพท์จะดัง</p>
+  </div>
+  <div id="appPopupActions">
+    <a id="appPopupDownload" data-download href="${downloadUrl}">ติดตั้งฟรี</a>
+    <button id="appPopupClose" type="button" aria-label="ปิด">×</button>
+  </div>
 </div>`;
     document.body.appendChild(wrap);
 
     document.getElementById('appPopupClose').addEventListener('click', dismissPopup);
-    document.getElementById('appPopupLater').addEventListener('click', dismissPopup);
-    wrap.addEventListener('click', (e) => {
-      if (e.target === wrap) dismissPopup();
-    });
     document.addEventListener('keydown', function onKey(e) {
       if (e.key === 'Escape') {
         dismissPopup();
