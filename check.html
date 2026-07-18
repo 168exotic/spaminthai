@@ -11,6 +11,8 @@
 <meta property="og:description" content="ตรวจสอบเบอร์โทรฟรี จากฐานข้อมูลรายงานเบอร์มิจฉาชีพของคนไทย">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://spaminthai.com/check">
+<meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -21,7 +23,10 @@
   "mainEntity": [
     {"@type": "Question", "name": "เบอร์นี้ใครโทรมา เช็คยังไง?", "acceptedAnswer": {"@type": "Answer", "text": "พิมพ์เบอร์โทรศัพท์ 9-10 หลักในช่องค้นหาด้านบน ระบบจะตรวจสอบกับฐานข้อมูลรายงานเบอร์สแปมและมิจฉาชีพจากผู้ใช้ทั่วประเทศทันที ฟรี ไม่ต้องสมัครสมาชิก"},
     {"@type": "Question", "name": "ถ้าโดนแก๊งคอลเซ็นเตอร์โทรมา ต้องทำยังไง?", "acceptedAnswer": {"@type": "Answer", "text": "วางสายทันที อย่าโอนเงินหรือให้ข้อมูลส่วนตัว รายงานเบอร์ในหน้านี้เพื่อเตือนคนอื่น และแจ้งความออนไลน์ได้ที่ thaipoliceonline.go.th หรือโทรสายด่วนตำรวจไซเบอร์ 1441"},
-    {"@type": "Question", "name": "SpamInThai บล็อกเบอร์อัตโนมัติได้ไหม?", "acceptedAnswer": {"@type": "Answer", "text": "ได้ ดาวน์โหลดแอป SpamInThai บน Android เพื่อบล็อกสายมิจฉาชีพและสแปมอัตโนมัติจากฐานข้อมูลเดียวกันนี้"}}
+    {"@type": "Question", "name": "SpamInThai บล็อกเบอร์อัตโนมัติได้ไหม?", "acceptedAnswer": {"@type": "Answer", "text": "ได้ ดาวน์โหลดแอป SpamInThai บน Android เพื่อบล็อกสายมิจฉาชีพและสแปมอัตโนมัติจากฐานข้อมูลเดียวกันนี้"},
+    {"@type": "Question", "name": "เช็คแล้วไม่พบรายงาน แปลว่าปลอดภัยไหม?", "acceptedAnswer": {"@type": "Answer", "text": "ไม่เสมอไป มิจฉาชีพเปลี่ยนเบอร์บ่อย เบอร์ใหม่อาจยังไม่มีใครรายงาน ถ้าสายนั้นอ้างเป็นธนาคาร ตำรวจ หรือขู่เรื่องพัสดุ ให้สงสัยไว้ก่อนเสมอ"},
+    {"@type": "Question", "name": "โดนหลอกโอนเงินไปแล้ว ทำยังไงดี?", "acceptedAnswer": {"@type": "Answer", "text": "โทรแจ้งธนาคารเพื่ออายัดบัญชีทันที จากนั้นแจ้งความออนไลน์ที่ thaipoliceonline.go.th หรือสายด่วน 1441"},
+    {"@type": "Question", "name": "ข้อมูลรายงานมาจากไหน?", "acceptedAnswer": {"@type": "Answer", "text": "จากผู้ใช้แอป SpamInThai และผู้ใช้เว็บไซต์ทั่วประเทศที่ช่วยกันรายงาน ทุกรายงานถูกเก็บแบบไม่ระบุตัวตน"}}
   ]
 }
 </script>
@@ -90,6 +95,11 @@ header .wrap{display:flex;align-items:center;justify-content:space-between}
 .cta h2{font-size:1.2rem;font-weight:700}
 .cta p{font-size:.9rem;opacity:.9;margin:6px 0 16px}
 .cta a{display:inline-block;background:#fff;color:var(--indigo);font-weight:700;padding:12px 28px;border-radius:99px}
+.cta-official{margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center;box-shadow:var(--shadow)}
+.cta-official h2{font-size:1.05rem;font-weight:700;color:var(--ink)}
+.cta-official p{font-size:.85rem;color:var(--muted);margin:8px 0 14px}
+.cta-official a{display:inline-block;background:var(--ink);color:#fff;font-weight:600;padding:11px 22px;border-radius:99px;font-size:.9rem}
+.cta-official a:hover{background:var(--indigo-deep)}
 
 .faq{margin:48px 0 24px}
 .faq h2{font-size:1.25rem;margin-bottom:16px}
@@ -140,7 +150,7 @@ footer a{margin:0 8px}
       </div>
       <div class="stats" id="rStats"></div>
       <div class="tags" id="rTags"></div>
-      <div class="report-box">
+      <div class="report-box" id="report">
         <p>เบอร์นี้โทรหาคุณเหรอ? ช่วยรายงานเพื่อเตือนคนอื่น</p>
         <div class="cat-row" id="catRow">
           <button class="cat-btn" data-cat="scam">😡 มิจฉาชีพ/หลอกโอนเงิน</button>
@@ -157,6 +167,18 @@ footer a{margin:0 8px}
     <h2>บล็อกเบอร์พวกนี้อัตโนมัติ</h2>
     <p>แอป SpamInThai บล็อกสายมิจฉาชีพให้ทันที ก่อนโทรศัพท์คุณจะดังด้วยซ้ำ</p>
     <a data-download href="https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk" download>ติดตั้งฟรีบน Android</a>
+  </section>
+
+  <section class="cta-official">
+    <h2>บริการทางการจากรัฐ</h2>
+    <p>ต้องการตรวจสอบประวัติอาชญากรรมอย่างเป็นทางการ ผ่านระบบของกรมคุมประพฤติ</p>
+    <a href="https://crd.go.th/bg/pdpa" target="_blank" rel="noopener noreferrer">ยื่นขอตรวจสอบประวัติอาชญากรรม</a>
+  </section>
+
+  <section class="faq" style="margin-top:32px">
+    <h2>ทำไมต้องเช็คเบอร์ก่อนรับสาย?</h2>
+    <p style="color:var(--muted);font-size:.95rem;margin-bottom:12px">มิจฉาชีพและแก๊งคอลเซ็นเตอร์ในไทยมักใช้เบอร์ที่เปลี่ยนบ่อย การเช็คเบอร์โทรก่อนรับสายช่วยลดความเสี่ยงจากการถูกหลอกโอนเงิน ให้ข้อมูล OTP หรือติดตั้งแอปมัลแวร์</p>
+    <p style="color:var(--muted);font-size:.95rem">SpamInThai รวบรวมรายงานจากผู้ใช้ทั่วประเทศ วิเคราะห์คะแนนความเสี่ยง และแสดงประเภทรายงาน เช่น มิจฉาชีพ แก๊งคอลเซ็นเตอร์ เงินกู้ หรือโฆษณา อ่านเพิ่มเติมที่ <a href="/guide/call-center-scam">คู่มือรับมือแก๊งคอลเซ็นเตอร์</a> หรือ <a href="/download">ดาวน์โหลดแอปบล็อกเบอร์อัตโนมัติ</a></p>
   </section>
 
   <section class="faq">
@@ -182,7 +204,14 @@ footer a{margin:0 8px}
 
 <footer>
   <div class="wrap">
-    <p>spaminthai</p>
+    <p><a href="/">SpamInThai</a> — เช็คเบอร์โทร เบอร์มิจฉาชีพ ฟรี</p>
+    <p style="margin-top:8px">
+      <a href="/check">เช็คเบอร์</a> ·
+      <a href="/download">ดาวน์โหลดแอป</a> ·
+      <a href="/guide/call-center-scam">คู่มือแก๊งคอลเซ็นเตอร์</a> ·
+      <a href="/privacy">ความเป็นส่วนตัว</a> ·
+      <a href="/terms">ข้อกำหนด</a>
+    </p>
   </div>
 </footer>
 
