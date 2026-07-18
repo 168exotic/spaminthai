@@ -1,7 +1,3 @@
-# Cloudflare Pages routing
-/check      /check.html       200
-/download   /download.html    200
-/privacy    /privacy.html     200
-/terms      /terms.html       200
-/changelog  /changelog.html   200
-/guide/call-center-scam  /guide/call-center-scam.html  200
+# Cloudflare Pages already serves *.html at clean URLs (/check, /download, …).
+# Do NOT add /check -> /check.html rewrites here — they loop with Pages' own
+# /check.html -> /check redirect (ERR_TOO_MANY_REDIRECTS). See AGENTS.md.
