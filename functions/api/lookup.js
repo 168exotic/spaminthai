@@ -1,6 +1,9 @@
 // /api/lookup?q=<value>&type=<auto|phone|pkg|domain|line>
 // Binding: SPAM_KV -> KV namespace (wrangler.jsonc)
 
+import { assess } from './risk-assess.js';
+import { identifyCarrier } from './carrier.js';
+
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json; charset=utf-8',
@@ -77,7 +80,7 @@ export async function onRequestGet({ request, env }) {
     })
   );
 
-  return json({
+  const payload = {
     ok: true,
     found: true,
     query: value,
@@ -85,7 +88,42 @@ export async function onRequestGet({ request, env }) {
     verdict: hits.some((h) => h.data.risk === 'high') ? 'dangerous' : 'suspicious',
     hits,
     related: relatedData.filter(Boolean),
-  });
+  };
+
+  // Legacy fields for check.html / index.html widgets (num: + risk scoring)
+  if (type === 'phone') {
+    const numHit = hits.find((h) => h.key === `num:${value}`);
+    const loanHit = hits.find((h) => h.key === `loanapp:phone:${value}`);
+    if (numHit) {
+      const numData = numHit.data;
+      const scored = assess(numData);
+      Object.assign(payload, {
+        number: value,
+        reports: numData.reports || 0,
+        categories: numData.categories || {},
+        lastReport: numData.lastReport || null,
+        verdict: scored.verdict,
+        label: loanHit?.data?.name || scored.label,
+        advice: scored.advice,
+        score: scored.score,
+        topCategory: scored.topCategory,
+        freshness: scored.freshness,
+        freshnessLabel: scored.freshnessLabel,
+        ...identifyCarrier(value),
+      });
+    } else if (loanHit) {
+      Object.assign(payload, {
+        number: value,
+        reports: loanHit.data.reports || 0,
+        verdict: loanHit.data.risk === 'high' ? 'danger' : 'caution',
+        label: loanHit.data.name,
+        advice: `รายงานว่าเป็น ${loanHit.data.type || 'สแปม'}`,
+        ...identifyCarrier(value),
+      });
+    }
+  }
+
+  return json(payload);
 }
 
 export async function onRequestOptions() {
