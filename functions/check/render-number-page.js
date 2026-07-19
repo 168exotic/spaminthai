@@ -1,6 +1,6 @@
 // Server-rendered SEO page for /check/:number (long-tail Thai search traffic).
 
-import { assess } from '../api/lookup.js';
+import { assess } from '../api/risk-assess.js';
 import { identifyCarrier } from '../api/carrier.js';
 
 const OG_IMAGE = 'https://spaminthai.com/assets/og-image.svg';

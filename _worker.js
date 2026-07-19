@@ -4,15 +4,8 @@
 // like Cloudflare Pages does. Once we migrate to a true Pages project we can
 // delete this file and let Pages Functions handle routing directly.
 
-import { identifyCarrier } from './functions/api/carrier.js';
-import { assess } from './functions/api/lookup.js';
-import {
-  handleReportPost,
-  handleAdminTipsList,
-  handleAdminTipGet,
-  handleAdminTipPatch,
-  handleAdminEvidence,
-} from './functions/api/report.js';
+import { onRequestGet as lookupHandler } from './functions/api/lookup.js';
+import { onRequestPost as reportHandler } from './functions/api/report.js';
 import { countNumbersInKv } from './functions/api/stats.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 
@@ -28,17 +21,6 @@ function json(obj, status = 200, cacheSec = 0) {
       ...(cacheSec ? { 'Cache-Control': `public, max-age=${cacheSec}` } : {})
     }
   });
-}
-
-async function handleLookup(request, env) {
-  const url = new URL(request.url);
-  const number = (url.searchParams.get('number') || '').replace(/\D/g, '');
-  if (number.length < 9 || number.length > 10) {
-    return json({ error: 'invalid_number' }, 400);
-  }
-  const raw = await env.SPAM_KV.get('num:' + number);
-  const data = raw ? JSON.parse(raw) : { reports: 0, categories: {}, lastReport: null };
-  return json({ number, ...data, ...assess(data), ...identifyCarrier(number) }, 200, 60);
 }
 
 function handleVersion() {
@@ -99,25 +81,11 @@ export default {
     const path = url.pathname;
 
     // API routes
-    if (path === '/api/lookup') return handleLookup(request, env);
+    if (path === '/api/lookup') return lookupHandler({ request, env });
     if (path === '/api/version') return handleVersion();
     if (path === '/api/app') return handleApp();
-    if (path === '/api/report') return handleReportPost({ request, env });
+    if (path === '/api/report' && request.method === 'POST') return reportHandler({ request, env });
     if (path === '/api/stats') return handleStats(env);
-
-    if (path === '/api/admin/tips' && request.method === 'GET') {
-      return handleAdminTipsList({ request, env });
-    }
-    const adminTip = path.match(/^\/api\/admin\/tips\/([^/]+)$/);
-    if (adminTip) {
-      const tipId = adminTip[1];
-      if (request.method === 'GET') return handleAdminTipGet({ request, env, tipId });
-      if (request.method === 'PATCH') return handleAdminTipPatch({ request, env, tipId });
-    }
-    const adminEvidence = path.match(/^\/api\/admin\/evidence\/([^/]+)$/);
-    if (adminEvidence && request.method === 'GET') {
-      return handleAdminEvidence({ request, env, tipId: adminEvidence[1] });
-    }
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
     if (checkNumber) return renderNumberPage(checkNumber[1], env);

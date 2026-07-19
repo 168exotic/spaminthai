@@ -1,6 +1,6 @@
 // Unit tests for the risk-scoring logic in functions/api/lookup.js
 // Run with: npm test
-import { assess, recencyModifier } from '../functions/api/lookup.js';
+import { assess, recencyModifier } from '../functions/api/risk-assess.js';
 
 const NOW = Date.parse('2026-07-21T12:00:00Z');
 const daysAgo = (n) => NOW - n * 24 * 60 * 60 * 1000;
