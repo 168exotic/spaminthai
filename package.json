@@ -7,7 +7,7 @@
     "deploy": "wrangler pages deploy . --project-name spaminthai",
     "verify-token": "node scripts/verify-token.js",
     "seed": "node scripts/seed-spam-numbers.js data/spam-numbers-sample.json",
-    "test": "node scripts/test-assess.mjs && node scripts/test-carrier.mjs",
+    "test": "node scripts/test-assess.mjs && node scripts/test-carrier.mjs && node scripts/test-lookup.mjs",
     "release:weekly": "node scripts/prepare-weekly-release.mjs"
   },
   "devDependencies": {
