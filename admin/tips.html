@@ -56,6 +56,7 @@ a{color:#93c5fd}
     <input type="password" id="adminKey" placeholder="TIP_ADMIN_PASSWORD" autocomplete="current-password">
     <button class="btn-primary" id="loginBtn" type="button">เข้าสู่ระบบ</button>
     <p class="err hidden" id="loginErr">รหัสผ่านไม่ถูกต้อง</p>
+    <p class="err hidden" id="configErr">ยังไม่ได้ตั้งค่า <code>TIP_ADMIN_PASSWORD</code> ใน Cloudflare Pages</p>
     <p class="meta">ตั้งค่าใน Cloudflare Pages → Settings → Environment variables → <code>TIP_ADMIN_PASSWORD</code></p>
   </div>
 
@@ -216,12 +217,24 @@ async function tryLogin() {
   adminKey = $('adminKey').value;
   try {
     const res = await api('/api/admin/tips?status=pending');
-    if (!res.ok) throw new Error('bad');
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      if (data.error === 'admin_not_configured') {
+        $('configErr').classList.remove('hidden');
+        $('loginErr').classList.add('hidden');
+      } else {
+        $('loginErr').classList.remove('hidden');
+        $('configErr').classList.add('hidden');
+      }
+      throw new Error('bad');
+    }
     localStorage.setItem(KEY_STORAGE, adminKey);
     $('loginErr').classList.add('hidden');
+    $('configErr').classList.add('hidden');
     showApp();
     await loadTips();
   } catch {
+    if (!$('configErr').classList.contains('hidden')) return;
     $('loginErr').classList.remove('hidden');
     showLogin();
   }

@@ -5,7 +5,13 @@
 // delete this file and let Pages Functions handle routing directly.
 
 import { onRequestGet as lookupHandler } from './functions/api/lookup.js';
-import { onRequestPost as reportHandler } from './functions/api/report.js';
+import { handleReportPost } from './functions/api/report.js';
+import {
+  handleAdminTipsList,
+  handleAdminTipGet,
+  handleAdminTipPatch,
+  handleAdminEvidence,
+} from './functions/api/admin-tips.js';
 import { countNumbersInKv } from './functions/api/stats.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 
@@ -84,8 +90,22 @@ export default {
     if (path === '/api/lookup') return lookupHandler({ request, env });
     if (path === '/api/version') return handleVersion();
     if (path === '/api/app') return handleApp();
-    if (path === '/api/report' && request.method === 'POST') return reportHandler({ request, env });
+    if (path === '/api/report' && request.method === 'POST') return handleReportPost({ request, env });
     if (path === '/api/stats') return handleStats(env);
+
+    if (path === '/api/admin/tips' && request.method === 'GET') {
+      return handleAdminTipsList({ request, env });
+    }
+    const adminTip = path.match(/^\/api\/admin\/tips\/([^/]+)$/);
+    if (adminTip) {
+      const tipId = adminTip[1];
+      if (request.method === 'GET') return handleAdminTipGet({ request, env, tipId });
+      if (request.method === 'PATCH') return handleAdminTipPatch({ request, env, tipId });
+    }
+    const adminEvidence = path.match(/^\/api\/admin\/evidence\/([^/]+)$/);
+    if (adminEvidence && request.method === 'GET') {
+      return handleAdminEvidence({ request, env, tipId: adminEvidence[1] });
+    }
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
     if (checkNumber) return renderNumberPage(checkNumber[1], env);
