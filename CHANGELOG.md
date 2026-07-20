@@ -12,6 +12,21 @@ full process.
 The format is based on [Keep a Changelog](https://keepachangelog.com/) and this
 project follows [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] — 2026-07-21
+
+> **TODO:** describe this week's improvement — it must make SpamInThai
+> better than v1.2.0 (new feature, stronger detection, better UX/a11y,
+> or a meaningful fix). Remove this note before merging.
+
+### Added
+-
+
+### Changed
+-
+
+### Fixed
+-
+
 ## [1.2.0] — 2026-07-21
 
 ### Added
