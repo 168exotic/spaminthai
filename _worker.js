@@ -15,7 +15,7 @@ import {
 import { countNumbersInKv } from './functions/api/stats.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 
-const WEB_VERSION = '1.2.0';
+const WEB_VERSION = '1.3.0';
 const RELEASED_AT = '2026-07-21';
 
 function json(obj, status = 200, cacheSec = 0) {

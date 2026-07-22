@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Prepares the weekly SpamInThai release:
 //   - bumps the minor version (1.1.0 -> 1.2.0)
-//   - syncs the version + release date into package.json and functions/api/version.js
+//   - syncs the version + release date into package.json, functions/api/version.js,
+//     and _worker.js (the production Worker entrypoint that actually serves /api/version)
 //   - prepends a dated stub section to CHANGELOG.md
 //
 // Run manually with `npm run release:weekly`, or automatically every Tuesday via
@@ -50,6 +51,16 @@ verSrc = verSrc
   .replace(/const WEB_VERSION = '[^']*';/, `const WEB_VERSION = '${newVersion}';`)
   .replace(/const RELEASED_AT = '[^']*';/, `const RELEASED_AT = '${releaseDate}';`);
 
+// --- _worker.js ---
+// The production Cloudflare Worker (advanced mode) inlines its own WEB_VERSION /
+// RELEASED_AT and serves /api/version from them; functions/api/version.js is not
+// used at runtime. Keep this file in sync so the deployed version label matches.
+const workerPath = join(ROOT, '_worker.js');
+let workerSrc = readFileSync(workerPath, 'utf8');
+workerSrc = workerSrc
+  .replace(/const WEB_VERSION = '[^']*';/, `const WEB_VERSION = '${newVersion}';`)
+  .replace(/const RELEASED_AT = '[^']*';/, `const RELEASED_AT = '${releaseDate}';`);
+
 // --- CHANGELOG.md ---
 const clPath = join(ROOT, 'CHANGELOG.md');
 const cl = readFileSync(clPath, 'utf8');
@@ -72,8 +83,9 @@ if (DRY_RUN) {
 } else {
   writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
   writeFileSync(verPath, verSrc);
+  writeFileSync(workerPath, workerSrc);
   writeFileSync(clPath, newCl);
-  console.log('Updated package.json, functions/api/version.js, CHANGELOG.md');
+  console.log('Updated package.json, functions/api/version.js, _worker.js, CHANGELOG.md');
 }
 
 // Expose values for the CI workflow.
