@@ -64,7 +64,11 @@ export async function onRequestGet({ request, env }) {
 
   const hits = results.filter(Boolean);
   if (hits.length === 0) {
-    return json({ ok: true, found: false, query: value, type });
+    const payload = { ok: true, found: false, query: value, type };
+    if (type === 'phone') {
+      Object.assign(payload, { number: value, reports: 0, ...identifyCarrier(value) });
+    }
+    return json(payload);
   }
 
   // ดึง related entities มาแสดงด้วย (1 ชั้น)

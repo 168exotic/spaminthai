@@ -307,7 +307,7 @@
 </footer>
 
 <script>
-const API_BASE = 'https://spaminthai.com';
+const API_BASE = '';
 let lastCheckedNumber = '';
 
 function setPhone(n){
@@ -336,13 +336,15 @@ async function doCheck(ev){
   ev.preventDefault();
   const raw=document.getElementById('phoneInput').value;
   const num=String(raw).replace(/\D/g,'').replace(/^66/,'0');
-  if(num.length<3){return false;}
+  if(num.length<9){return false;}
   lastCheckedNumber=num;
   const btn=document.getElementById('checkBtn');
   btn.disabled=true;btn.innerHTML='<svg class="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".25" stroke-width="4"></circle><path fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg><span>กำลังตรวจ...</span>';
   try{
     const r=await fetch(API_BASE+'/api/lookup?number='+encodeURIComponent(num));
+    if(!r.ok) throw new Error('api_'+r.status);
     const d=await r.json();
+    if(d.ok===false) throw new Error(d.error||'api_error');
     render(num,d);
   }catch(e){
     render(num,{reports:0,error:true});
@@ -354,6 +356,16 @@ async function doCheck(ev){
 
 function render(num,d){
   const box=document.getElementById('result');
+  box.classList.remove('hidden');
+  if(d.error){
+    box.className='mt-6 p-5 rounded-2xl border bg-red-50 border-red-200 text-red-800';
+    document.getElementById('rIcon').textContent='📡';
+    document.getElementById('rTitle').textContent=fmt(num)+' — เชื่อมต่อระบบไม่สำเร็จ';
+    document.getElementById('rSub').textContent='ไม่สามารถตรวจสอบเบอร์ได้ในขณะนี้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่ หรือเปิดหน้าเช็คเบอร์เต็มรูปแบบที่ /check';
+    document.getElementById('rStats').innerHTML='';
+    document.getElementById('rReport').classList.add('hidden');
+    return;
+  }
   const n=d.reports||0;
   let verdict=d.verdict,title=d.label,sub=d.advice;
   if(!verdict){

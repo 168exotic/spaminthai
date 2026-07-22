@@ -261,8 +261,10 @@ async function doCheck(){
   if (tipLink) tipLink.href = '/report?phone=' + encodeURIComponent(num);
   btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
   try{
-    const r = await fetch('/api/lookup?number='+num);
-    const data = r.ok ? await r.json() : {reports:0};
+    const r = await fetch('/api/lookup?number='+encodeURIComponent(num));
+    if(!r.ok) throw new Error('api_'+r.status);
+    const data = await r.json();
+    if(data.ok === false) throw new Error(data.error || 'api_error');
     render(num, data);
     history.replaceState(null,'','/check?number='+num);
     document.title = 'เบอร์ '+fmt(num)+' ใครโทรมา? เช็คเบอร์สแปม | SpamInThai';
@@ -281,6 +283,15 @@ const CATS = {scam:'มิจฉาชีพ/หลอกโอนเงิน',
 const VMAP = {danger:{cls:'danger',icon:'🚨'}, caution:{cls:'warn',icon:'⚠️'}, safe:{cls:'safe',icon:'✅'}, unknown:{cls:'safe',icon:'🔍'}};
 
 function render(num, d){
+  if(d.error){
+    box.className = 'result show warn';
+    document.getElementById('rIcon').textContent = '📡';
+    document.getElementById('rTitle').textContent = 'เชื่อมต่อระบบไม่สำเร็จ';
+    document.getElementById('rNum').textContent = fmt(num) + ' — ไม่สามารถตรวจสอบเบอร์ได้ในขณะนี้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่';
+    document.getElementById('rStats').innerHTML = '';
+    document.getElementById('rTags').innerHTML = '';
+    return;
+  }
   const n = d.reports || 0;
   let verdict = d.verdict, title = d.label, sub = d.advice;
   if(!verdict){
