@@ -14,18 +14,52 @@ project follows [Semantic Versioning](https://semver.org/).
 
 ## [1.3.0] — 2026-07-21
 
-> **TODO:** describe this week's improvement — it must make SpamInThai
-> better than v1.2.0 (new feature, stronger detection, better UX/a11y,
-> or a meaningful fix). Remove this note before merging.
+This release turns SpamInThai from a lookup-only tool into a full report-and-review
+loop: users can now file detailed scam tips with photo evidence, admins can review
+them, and the site is far more discoverable and mobile-friendly.
 
 ### Added
--
+- **Scam tip report page at `/report`.** A dedicated form for detailed reports
+  (phone number + description), with report entry points surfaced across the
+  homepage, `/check`, the guides, the footer, and the sitemap. `/api/report` now
+  accepts phone+detail payloads and stores tips in KV.
+- **Photo evidence upload.** Reports accept image evidence (JPG/PNG/WebP/HEIC, up
+  to 2 MB), stored in KV (R2 used when a bucket is bound).
+- **Admin tip review panel at `/admin/tips`.** Password-protected
+  (`TIP_ADMIN_PASSWORD`) dashboard for reviewing submitted tips and evidence.
+- **Loan-app entity lookups.** `/api/lookup` and `/api/report` now handle loan-app
+  entities alongside phone numbers, backed by a shared `functions/api/risk-assess.js`
+  scoring module.
+- **Dispute button** next to the phone-check result on the homepage and `/check`,
+  so users can flag an assessment they believe is wrong.
+- **Criminal-record check button** linking to the official CRD service
+  (crd.go.th) from the check page, the homepage official-services sidebar, and the
+  call-center guide.
+- **App-download banner** — a compact top banner that slides down from the browser
+  chrome (safe-area aware on mobile) inviting visitors to get the Android app.
+- **SEO & discoverability:** `robots.txt`, `sitemap.xml`, favicon, OG share image,
+  `WebSite` SearchAction schema, a call-center-scam guide, a changelog page, and
+  server-rendered `/check/:number` pages for long-tail Thai searches.
 
 ### Changed
--
+- **Mobile report flow reworked** — the phone-check form now sits above the report
+  button, the primary report entry point moved to the header/top of the page, and
+  duplicate mobile report buttons were removed.
+- `robots.txt` now disallows `/admin/`.
 
 ### Fixed
--
+- **Redirect loop (`ERR_TOO_MANY_REDIRECTS`) on `/check` and `/guide`** — removed
+  `_redirects` clean-URL rewrites that conflicted with Cloudflare Pages' automatic
+  `.html` stripping.
+- **Homepage report count stuck at 216** — the count now loads live from a
+  same-origin `/api/stats` proxy (the external health API blocks CORS), with a KV
+  fallback.
+- **Report form failures on mobile** — clearer Thai error messages, common photo
+  formats accepted, and empty image uploads skipped gracefully.
+- **Website lookup widgets** now merge legacy `num:` fields so older records
+  surface correctly.
+- Restored the admin tips API that was inadvertently dropped during the loan-app
+  report rewrite.
 
 ## [1.2.0] — 2026-07-21
 
