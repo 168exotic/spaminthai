@@ -12,6 +12,13 @@ import {
   handleAdminTipPatch,
   handleAdminEvidence,
 } from './functions/api/admin-tips.js';
+import { handleDisputePost } from './functions/api/dispute.js';
+import {
+  handleAdminDisputesList,
+  handleAdminDisputeGet,
+  handleAdminDisputePatch,
+  handleAdminDisputeEvidence,
+} from './functions/api/admin-disputes.js';
 import { countNumbersInKv } from './functions/api/stats.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 
@@ -91,6 +98,7 @@ export default {
     if (path === '/api/version') return handleVersion();
     if (path === '/api/app') return handleApp();
     if (path === '/api/report' && request.method === 'POST') return handleReportPost({ request, env });
+    if (path === '/api/dispute' && request.method === 'POST') return handleDisputePost({ request, env });
     if (path === '/api/stats') return handleStats(env);
 
     if (path === '/api/admin/tips' && request.method === 'GET') {
@@ -105,6 +113,20 @@ export default {
     const adminEvidence = path.match(/^\/api\/admin\/evidence\/([^/]+)$/);
     if (adminEvidence && request.method === 'GET') {
       return handleAdminEvidence({ request, env, tipId: adminEvidence[1] });
+    }
+
+    if (path === '/api/admin/disputes' && request.method === 'GET') {
+      return handleAdminDisputesList({ request, env });
+    }
+    const adminDispute = path.match(/^\/api\/admin\/disputes\/([^/]+)$/);
+    if (adminDispute) {
+      const id = adminDispute[1];
+      if (request.method === 'GET') return handleAdminDisputeGet({ request, env, id });
+      if (request.method === 'PATCH') return handleAdminDisputePatch({ request, env, id });
+    }
+    const adminDisputeEvidence = path.match(/^\/api\/admin\/dispute-evidence\/([^/]+)$/);
+    if (adminDisputeEvidence && request.method === 'GET') {
+      return handleAdminDisputeEvidence({ request, env, id: adminDisputeEvidence[1] });
     }
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);

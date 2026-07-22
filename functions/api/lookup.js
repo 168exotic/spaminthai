@@ -111,6 +111,14 @@ export async function onRequestGet({ request, env }) {
         freshnessLabel: scored.freshnessLabel,
         ...identifyCarrier(value),
       });
+      // Owner-dispute caveat: surfaced on /check once an admin approves a dispute.
+      if (numData.disputed_status === 'approved') {
+        payload.disputed = {
+          status: 'approved',
+          note: numData.disputed_note || null,
+          at: numData.disputed_at || null,
+        };
+      }
     } else if (loanHit) {
       Object.assign(payload, {
         number: value,
