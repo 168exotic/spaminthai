@@ -49,5 +49,6 @@ fetch('/api/app').then(r=>r.json()).then(d=>{
   document.getElementById('ver').textContent = 'เวอร์ชัน '+d.version+' · อัปเดต '+new Date(d.updatedAt).toLocaleDateString('th-TH');
 }).catch(()=>{ document.getElementById('ver').textContent = ''; });
 </script>
+<script src="/assets/line-widget.js" defer></script>
 </body>
 </html>
