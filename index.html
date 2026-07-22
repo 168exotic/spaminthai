@@ -128,7 +128,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
                 <span>ตรวจสอบเบอร์</span>
               </button>
-              <a id="disputeBtn" href="https://line.me/R/ti/p/@spaminthai" target="_blank" rel="noopener" class="px-3 py-3.5 text-[11px] font-semibold leading-tight text-slate-600 bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:text-slate-800 rounded-xl transition whitespace-nowrap flex items-center">โต้แย้ง<br>ข้อมูล</a>
+              <a id="disputeBtn" href="/dispute" class="px-3 py-3.5 text-[11px] font-semibold leading-tight text-slate-600 bg-slate-50 border border-slate-200 hover:bg-slate-100 hover:text-slate-800 rounded-xl transition whitespace-nowrap flex items-center">โต้แย้ง<br>ข้อมูล</a>
             </div>
           </form>
           <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs text-slate-400">
@@ -314,6 +314,14 @@ function setPhone(n){
   document.getElementById('phoneInput').value=n;
   document.getElementById('checkForm').dispatchEvent(new Event('submit',{cancelable:true}));
 }
+
+document.getElementById('disputeBtn').addEventListener('click', (e) => {
+  const num = String(document.getElementById('phoneInput').value).replace(/\D/g, '').replace(/^66/, '0');
+  if (num.length >= 9) {
+    e.preventDefault();
+    location.href = '/dispute?num=' + encodeURIComponent(num);
+  }
+});
 
 function fmt(n){
   n=String(n||'').replace(/\D/g,'');

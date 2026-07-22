@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>โต้แย้งข้อมูลเบอร์โทรศัพท์ | SpamInThai</title>
+<meta name="description" content="เจ้าของเบอร์ที่ถูกรายงานสามารถยื่นเรื่องโต้แย้งข้อมูลได้ ทีมงาน spaminthai จะตรวจสอบภายใน 24-48 ชั่วโมง">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#f8fafc;--card:#fff;--line:#e2e8f0;--text:#0f172a;--muted:#64748b;--rose:#f43f5e;--indigo:#4f46e5;--ok:#16a34a;--warn:#92400e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.wrap{max-width:640px;margin:0 auto;padding:28px 16px 60px}
+.back{display:inline-block;color:var(--muted);text-decoration:none;font-size:.9rem;margin-bottom:14px}
+.back:hover{color:var(--text)}
+h1{font-size:1.5rem;margin-bottom:6px}
+.lead{color:var(--muted);font-size:.95rem;margin-bottom:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.field{margin-bottom:18px}
+label{display:block;font-weight:600;font-size:.92rem;margin-bottom:6px}
+.req{color:var(--rose)}
+.opt{color:var(--muted);font-weight:400;font-size:.82rem}
+input[type=tel],input[type=email],input[type=text],select,textarea{
+  width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:11px;
+  background:#fff;color:var(--text);font:inherit
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 3px rgba(244,63,94,.1)}
+textarea{resize:vertical;min-height:110px}
+.hint{font-size:.8rem;color:var(--muted);margin-top:5px}
+.counter{float:right;font-variant-numeric:tabular-nums}
+.radios{display:grid;gap:8px}
+.radio{display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;cursor:pointer}
+.radio input{width:auto}
+.radio.sel{border-color:var(--rose);background:#fff1f2}
+.file-note{font-size:.8rem;color:var(--muted);margin-top:5px}
+.submit{width:100%;padding:13px;background:var(--rose);color:#fff;border:none;border-radius:12px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;margin-top:4px}
+.submit:disabled{background:#fda4af;cursor:not-allowed}
+.err{color:var(--rose);font-size:.88rem;margin-top:12px;min-height:1.2em}
+.fallback{margin-top:18px;padding:14px;border:1px dashed var(--line);border-radius:12px;font-size:.9rem;color:var(--muted);text-align:center}
+.fallback a{color:#06c755;font-weight:700;text-decoration:none}
+.success{text-align:center;padding:20px 8px}
+.success .tick{font-size:3rem}
+.success h2{font-size:1.3rem;margin:8px 0}
+.refbox{display:inline-block;margin:12px 0;padding:10px 18px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;font-size:1.15rem;font-weight:800;letter-spacing:1px;color:var(--ok)}
+.success p{color:var(--muted);font-size:.95rem}
+.pdpa{font-size:.78rem;color:var(--muted);margin-top:16px;line-height:1.5}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← กลับหน้าหลัก</a>
+
+  <div id="formView">
+    <h1>โต้แย้งข้อมูลเบอร์โทรศัพท์</h1>
+    <p class="lead">หากคุณเป็นเจ้าของเบอร์ที่ถูกรายงานและเห็นว่าข้อมูลไม่ถูกต้อง ยื่นเรื่องได้ที่นี่ ทีมงาน spaminthai จะตรวจสอบภายใน 24-48 ชั่วโมง</p>
+
+    <div class="card">
+      <form id="disputeForm" novalidate>
+        <div class="field">
+          <label for="num">เบอร์โทรศัพท์ที่ต้องการโต้แย้ง <span class="req">*</span></label>
+          <input type="tel" id="num" inputmode="numeric" maxlength="12" placeholder="0812345678" autocomplete="off">
+          <div class="hint">กรอกเบอร์ 9–10 หลัก</div>
+        </div>
+
+        <div class="field">
+          <label for="relationship">ความสัมพันธ์กับเบอร์นี้ <span class="req">*</span></label>
+          <select id="relationship">
+            <option value="">— เลือก —</option>
+            <option value="owner">เจ้าของเบอร์</option>
+            <option value="business">ธุรกิจ</option>
+            <option value="legal">ทนาย / ผู้ดูแล</option>
+            <option value="other">อื่น ๆ</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="reason">เหตุผลว่าทำไมข้อมูล/รายงานนี้ผิด <span class="req">*</span>
+            <span class="counter"><span id="rcount">0</span>/2000</span>
+          </label>
+          <textarea id="reason" maxlength="2000" placeholder="อธิบายว่าทำไมข้อมูลนี้ไม่ถูกต้อง เช่น เป็นเบอร์ธุรกิจที่ถูกแอบอ้าง หรือถูกรายงานผิดพลาด (อย่างน้อย 30 ตัวอักษร)"></textarea>
+          <div class="hint">อย่างน้อย 30 ตัวอักษร</div>
+        </div>
+
+        <div class="field">
+          <label for="evidence">หลักฐานประกอบ <span class="opt">(ไม่บังคับ — รูปภาพ ≤ 2MB)</span></label>
+          <input type="file" id="evidence" accept="image/jpeg,image/png,image/webp,image/heic,image/heif">
+          <div class="file-note">เช่น ใบแจ้งค่าบริการ / หลักฐานความเป็นเจ้าของ — เห็นเฉพาะทีมงานหลังบ้านเท่านั้น</div>
+        </div>
+
+        <div class="field">
+          <label>ช่องทางให้ติดต่อกลับ <span class="req">*</span></label>
+          <div class="radios" id="channelRadios">
+            <label class="radio"><input type="radio" name="channel" value="line"><span>LINE @spaminthai</span></label>
+            <label class="radio"><input type="radio" name="channel" value="email"><span>อีเมล</span></label>
+            <label class="radio"><input type="radio" name="channel" value="none"><span>ไม่ต้องติดต่อกลับ</span></label>
+          </div>
+          <div class="field hidden" id="emailField" style="margin-top:12px;margin-bottom:0">
+            <label for="contactEmail">อีเมลของคุณ <span class="req">*</span></label>
+            <input type="email" id="contactEmail" placeholder="you@example.com" autocomplete="email">
+          </div>
+        </div>
+
+        <!-- Turnstile captcha is disabled in v1 (TURNSTILE_SECRET not set on the
+             Pages project). Anti-abuse is a 3/IP/hour rate limit server-side.
+             To enable: set TURNSTILE_SECRET, then add the widget here + sitekey. -->
+
+        <button type="submit" class="submit" id="submitBtn">ส่งคำโต้แย้ง</button>
+        <div class="err" id="formErr"></div>
+      </form>
+
+      <div class="fallback">
+        หรือติดต่อ <a href="https://line.me/R/ti/p/@spaminthai" target="_blank" rel="noopener">LINE @spaminthai</a> ถ้าไม่สะดวกกรอกฟอร์ม
+      </div>
+    </div>
+
+    <p class="pdpa">การยื่นโต้แย้งนี้เป็นไปตามสิทธิของเจ้าของข้อมูลภายใต้ พ.ร.บ.คุ้มครองข้อมูลส่วนบุคคล (PDPA) ข้อมูลและหลักฐานที่ส่งจะถูกเก็บอย่างปลอดภัยและเห็นได้เฉพาะทีมงานที่ได้รับอนุญาต</p>
+  </div>
+
+  <div id="successView" class="card hidden">
+    <div class="success">
+      <div class="tick">✓</div>
+      <h2>รับเรื่องแล้ว</h2>
+      <div class="refbox" id="refCode">DSP-XXXXXX</div>
+      <p id="successMsg">ทีมงานจะรีวิวภายใน 24-48 ชั่วโมง</p>
+      <p style="margin-top:14px"><a class="back" href="/">← กลับหน้าหลัก</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const ERR_TH = {
+  invalid_number: 'เบอร์ไม่ถูกต้อง — ต้องมี 9–10 หลัก',
+  invalid_relationship: 'กรุณาเลือกความสัมพันธ์กับเบอร์นี้',
+  reason_too_short: 'เหตุผลสั้นเกินไป — อย่างน้อย 30 ตัวอักษร',
+  reason_too_long: 'เหตุผลยาวเกินไป',
+  invalid_contact_channel: 'กรุณาเลือกช่องทางให้ติดต่อกลับ',
+  email_required: 'กรุณากรอกอีเมลของคุณ',
+  invalid_email: 'อีเมลไม่ถูกต้อง',
+  invalid_image_type: 'ชนิดไฟล์ภาพไม่รองรับ (ใช้ JPG/PNG/WebP/HEIC)',
+  image_too_large: 'ไฟล์ภาพใหญ่เกิน 2MB',
+  rate_limited: 'ส่งคำโต้แย้งบ่อยเกินไป กรุณาลองใหม่ในอีก 1 ชั่วโมง',
+  captcha_failed: 'ยืนยันตัวตนไม่สำเร็จ กรุณาลองใหม่',
+  bad_request: 'ข้อมูลไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง',
+  server_error: 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง',
+};
+const CHANNEL_TH = { line: 'LINE @spaminthai', email: 'อีเมล', none: '' };
+
+// Prefill number from ?num
+const preNum = new URLSearchParams(location.search).get('num');
+if (preNum) $('num').value = preNum.replace(/\D/g, '');
+
+$('num').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, ''); });
+$('reason').addEventListener('input', () => { $('rcount').textContent = $('reason').value.length; });
+
+// Channel selection styling + conditional email field
+$('channelRadios').addEventListener('change', () => {
+  const val = (document.querySelector('input[name=channel]:checked') || {}).value;
+  document.querySelectorAll('.radio').forEach((r) => {
+    r.classList.toggle('sel', r.querySelector('input').checked);
+  });
+  $('emailField').classList.toggle('hidden', val !== 'email');
+});
+
+function selectedChannel() {
+  return (document.querySelector('input[name=channel]:checked') || {}).value || '';
+}
+
+$('disputeForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  $('formErr').textContent = '';
+
+  const num = $('num').value.replace(/\D/g, '');
+  const relationship = $('relationship').value;
+  const reason = $('reason').value.trim();
+  const channel = selectedChannel();
+  const email = $('contactEmail').value.trim();
+
+  // Client-side validation mirrors the server.
+  if (num.length < 9 || num.length > 10) return fail('invalid_number');
+  if (!relationship) return fail('invalid_relationship');
+  if (reason.length < 30) return fail('reason_too_short');
+  if (!channel) return fail('invalid_contact_channel');
+  if (channel === 'email' && !email) return fail('email_required');
+
+  const fd = new FormData();
+  fd.append('num', num);
+  fd.append('relationship', relationship);
+  fd.append('reason', reason);
+  fd.append('contact_channel', channel);
+  if (channel === 'email') fd.append('contact_value', email);
+  const file = $('evidence').files[0];
+  if (file) fd.append('evidence', file);
+
+  const btn = $('submitBtn');
+  btn.disabled = true; btn.textContent = 'กำลังส่ง…';
+  try {
+    const res = await fetch('/api/dispute', { method: 'POST', body: fd });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.ok) {
+      $('refCode').textContent = data.ref || 'DSP-------';
+      const chTxt = CHANNEL_TH[channel];
+      $('successMsg').textContent = 'ทีมงานจะรีวิวภายใน 24-48 ชั่วโมง'
+        + (chTxt ? ' และแจ้งผลผ่าน ' + chTxt : '');
+      $('formView').classList.add('hidden');
+      $('successView').classList.remove('hidden');
+      window.scrollTo(0, 0);
+      return;
+    }
+    fail(data.error || 'server_error');
+  } catch {
+    fail('server_error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'ส่งคำโต้แย้ง';
+  }
+});
+
+function fail(code) {
+  $('formErr').textContent = ERR_TH[code] || ERR_TH.server_error;
+}
+</script>
+</body>
+</html>

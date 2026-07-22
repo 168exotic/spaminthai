@@ -59,6 +59,7 @@ header .wrap{display:flex;align-items:center;justify-content:space-between}
 .search-row .actions{display:flex;gap:8px;flex-shrink:0}
 .dispute-btn{padding:0 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);font-family:inherit;font-size:.72rem;font-weight:600;line-height:1.25;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center;white-space:nowrap}
 .dispute-btn:hover{border-color:var(--indigo);color:var(--indigo)}
+.dispute-note{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:#fef3c7;border:1px solid #fcd34d;color:#92400e;font-size:.85rem;font-weight:600;line-height:1.4}
 #numInput{flex:1;font-family:'IBM Plex Mono',monospace;font-size:1.35rem;font-weight:600;letter-spacing:.06em;padding:14px 16px;border:2px solid var(--line);border-radius:12px;outline:none;color:var(--ink);min-width:0;background:var(--bg);transition:border-color .15s}
 #numInput:focus{border-color:var(--indigo)}
 #numInput::placeholder{color:#B4B7D6;font-weight:500}
@@ -144,7 +145,7 @@ footer a{margin:0 8px}
         <input id="numInput" type="tel" inputmode="numeric" maxlength="12" placeholder="08X-XXX-XXXX" autocomplete="off" aria-label="กรอกเบอร์โทรศัพท์ที่ต้องการตรวจสอบ">
         <div class="actions">
           <button id="checkBtn">เช็คเบอร์</button>
-          <a id="disputeBtn" class="dispute-btn" href="https://line.me/R/ti/p/@spaminthai" target="_blank" rel="noopener">โต้แย้ง<br>ข้อมูล</a>
+          <a id="disputeBtn" class="dispute-btn" href="/dispute">โต้แย้ง<br>ข้อมูล</a>
         </div>
       </div>
       <div class="hint">กรอกเบอร์ 9–10 หลัก ไม่เก็บข้อมูลผู้ค้นหา</div>
@@ -155,6 +156,7 @@ footer a{margin:0 8px}
         <div class="icon" id="rIcon"></div>
         <div class="txt"><b id="rTitle"></b><span id="rNum"></span></div>
       </div>
+      <div class="dispute-note" id="rDispute" hidden></div>
       <div class="stats" id="rStats"></div>
       <div class="tags" id="rTags"></div>
       <div class="report-box" id="report">
@@ -245,6 +247,14 @@ input.addEventListener('input', () => {
 input.addEventListener('keydown', e => { if(e.key === 'Enter') doCheck(); });
 btn.addEventListener('click', doCheck);
 
+document.getElementById('disputeBtn').addEventListener('click', (e) => {
+  const num = clean(input.value);
+  if (num.length >= 9) {
+    e.preventDefault();
+    location.href = '/dispute?num=' + encodeURIComponent(num);
+  }
+});
+
 async function doCheck(){
   const num = clean(input.value);
   if(num.length < 9){ input.focus(); return; }
@@ -289,6 +299,14 @@ function render(num, d){
   document.getElementById('rIcon').textContent = v.icon;
   document.getElementById('rTitle').textContent = title;
   document.getElementById('rNum').textContent = fmt(num) + ' — ' + sub;
+
+  const disputeEl = document.getElementById('rDispute');
+  if (d.disputed && d.disputed.status === 'approved') {
+    disputeEl.textContent = '⚠️ เจ้าของเบอร์ได้โต้แย้งข้อมูลนี้ และทีมงาน spaminthai รับรองแล้ว — โปรดใช้วิจารณญาณ';
+    disputeEl.hidden = false;
+  } else {
+    disputeEl.hidden = true;
+  }
 
   const hasScore = typeof d.score === 'number' && n > 0;
   const carrierStat = d.carrierLabel
