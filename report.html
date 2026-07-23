@@ -257,9 +257,9 @@ footer .links{margin-top:8px;display:flex;gap:16px;justify-content:center;flex-w
       <textarea id="detail" name="detail" required placeholder="เล่าเหตุการณ์ที่เกิดขึ้น เช่น โทรมาอ้างเป็นเจ้าหน้าที่ตำรวจ ให้โอนเงินตรวจสอบบัญชี วันที่และเวลาโดยประมาณ"></textarea>
       <div class="hint">ยิ่งละเอียด ยิ่งช่วยให้ทีมงานตรวจสอบและเตือนภัยผู้อื่นได้แม่นยำขึ้น</div>
 
-      <label>อัปโหลดภาพหลักฐาน <span class="opt">(ถ้ามี — JPG, PNG, WebP สูงสุด 2MB)</span></label>
+      <label>อัปโหลดภาพหลักฐาน <span class="req">*</span> <span class="opt">(JPG, PNG, WebP สูงสุด 2MB)</span></label>
       <div class="file-upload">
-        <input type="file" id="evidenceImage" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+        <input type="file" id="evidenceImage" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required>
         <label for="evidenceImage">📷 เลือกรูปหลักฐาน</label>
         <div class="file-name" id="fileName">ยังไม่ได้เลือกไฟล์</div>
         <img id="filePreview" class="file-preview" alt="ตัวอย่างภาพหลักฐาน">
@@ -268,8 +268,9 @@ footer .links{margin-top:8px;display:flex;gap:16px;justify-content:center;flex-w
       <label for="evidence">ลิงก์หลักฐานเพิ่มเติม <span class="opt">(ถ้ามี — เช่น ลิงก์ข่าว)</span></label>
       <input type="text" id="evidence" name="evidence" placeholder="https://...">
 
-      <label for="contact">ช่องทางติดต่อกลับ <span class="opt">(ไม่บังคับ — ใช้กรณีทีมงานต้องการสอบถามเพิ่มเติมเท่านั้น)</span></label>
-      <input type="text" id="contact" name="contact" placeholder="อีเมลหรือ LINE ID">
+      <label for="contact">ช่องทางติดต่อกลับ <span class="req">*</span></label>
+      <input type="text" id="contact" name="contact" placeholder="อีเมลหรือ LINE ID" required>
+      <div class="hint">ทีมงานใช้ติดต่อสอบถามเพิ่มเติมเท่านั้น จะไม่เปิดเผยต่อสาธารณะ</div>
 
       <div class="check-row">
         <input type="checkbox" id="consent" required>
@@ -352,6 +353,8 @@ const ERROR_MSG = {
   consent_required: 'กรุณาติ๊กยืนยันความถูกต้องของข้อมูล',
   invalid_image_type: 'รูปหลักฐานต้องเป็น JPG, PNG หรือ WebP',
   image_too_large: 'รูปใหญ่เกิน 2MB กรุณาลดขนาดแล้วลองใหม่',
+  image_required: 'กรุณาอัปโหลดภาพหลักฐาน',
+  contact_required: 'กรุณากรอกช่องทางติดต่อกลับ',
 };
 
 imageInput.addEventListener('change', () => {
@@ -379,20 +382,35 @@ imageInput.addEventListener('change', () => {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  btn.disabled = true;
-  btn.textContent = 'กำลังส่งข้อมูล...';
   box.className = 'result';
   box.textContent = '';
+
+  const contact = document.getElementById('contact').value.trim();
+  if (!contact) {
+    box.className = 'result err';
+    box.textContent = '❌ ' + ERROR_MSG.contact_required;
+    document.getElementById('contact').focus();
+    return;
+  }
+  if (!imageInput.files[0]) {
+    box.className = 'result err';
+    box.textContent = '❌ ' + ERROR_MSG.image_required;
+    imageInput.focus();
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'กำลังส่งข้อมูล...';
 
   const fd = new FormData();
   fd.append('phone', document.getElementById('phone').value.replace(/[^0-9+]/g, ''));
   fd.append('category', document.getElementById('category').value);
   fd.append('detail', document.getElementById('detail').value.trim());
   fd.append('evidence', document.getElementById('evidence').value.trim());
-  fd.append('contact', document.getElementById('contact').value.trim());
+  fd.append('contact', contact);
   fd.append('consent', document.getElementById('consent').checked ? 'true' : 'false');
   fd.append('ts', new Date().toISOString());
-  if (imageInput.files[0]) fd.append('evidenceImage', imageInput.files[0]);
+  fd.append('evidenceImage', imageInput.files[0]);
 
   try {
     const res = await fetch('/api/report', { method: 'POST', body: fd });
