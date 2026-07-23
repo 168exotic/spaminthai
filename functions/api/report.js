@@ -130,6 +130,7 @@ export async function handleReportPost({ request, env }) {
     detail = String(body.detail || '').trim();
     if (detail.length < 10) return json({ error: 'detail_too_short' }, 400);
     if (!body.consent) return json({ error: 'consent_required' }, 400);
+    if (!String(body.contact || '').trim()) return json({ error: 'contact_required' }, 400);
   }
 
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
@@ -140,15 +141,18 @@ export async function handleReportPost({ request, env }) {
   let imageMeta = null;
   const tipId = isDetailed ? newTipId() : null;
 
-  if (isDetailed && body.imageFile) {
-    const bytes = await body.imageFile.arrayBuffer();
-    if (bytes.byteLength > 0) {
-      if (!isAllowedImage(body.imageFile)) return json({ error: 'invalid_image_type' }, 400);
-      if (bytes.byteLength > MAX_IMAGE_BYTES) return json({ error: 'image_too_large' }, 400);
-      const ext = imageExtension(body.imageFile);
-      const contentType = String(body.imageFile.type || `image/${ext}`).toLowerCase();
-      imageMeta = await storeEvidence(env, tipId, bytes, contentType, ext);
+  if (isDetailed) {
+    const img = body.imageFile;
+    if (!img || typeof img.arrayBuffer !== 'function') {
+      return json({ error: 'image_required' }, 400);
     }
+    const bytes = await img.arrayBuffer();
+    if (bytes.byteLength === 0) return json({ error: 'image_required' }, 400);
+    if (!isAllowedImage(img)) return json({ error: 'invalid_image_type' }, 400);
+    if (bytes.byteLength > MAX_IMAGE_BYTES) return json({ error: 'image_too_large' }, 400);
+    const ext = imageExtension(img);
+    const contentType = String(img.type || `image/${ext}`).toLowerCase();
+    imageMeta = await storeEvidence(env, tipId, bytes, contentType, ext);
   }
 
   const extras = isDetailed
