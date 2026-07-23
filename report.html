@@ -265,8 +265,9 @@ footer .links{margin-top:8px;display:flex;gap:16px;justify-content:center;flex-w
         <img id="filePreview" class="file-preview" alt="ตัวอย่างภาพหลักฐาน">
       </div>
 
-      <label for="evidence">ลิงก์หลักฐานเพิ่มเติม <span class="opt">(ถ้ามี — เช่น ลิงก์ข่าว)</span></label>
-      <input type="text" id="evidence" name="evidence" placeholder="https://...">
+      <label for="evidence">ลิงก์หลักฐานเพิ่มเติม <span class="req">*</span></label>
+      <input type="url" id="evidence" name="evidence" placeholder="https://..." required inputmode="url">
+      <div class="hint">เช่น ลิงก์ข่าว โพสต์โซเชียล หรือหลักฐานออนไลน์ที่เกี่ยวข้อง</div>
 
       <label for="contact">ช่องทางติดต่อกลับ <span class="req">*</span></label>
       <input type="text" id="contact" name="contact" placeholder="อีเมลหรือ LINE ID" required>
@@ -355,6 +356,8 @@ const ERROR_MSG = {
   image_too_large: 'รูปใหญ่เกิน 2MB กรุณาลดขนาดแล้วลองใหม่',
   image_required: 'กรุณาอัปโหลดภาพหลักฐาน',
   contact_required: 'กรุณากรอกช่องทางติดต่อกลับ',
+  evidence_required: 'กรุณากรอกลิงก์หลักฐานเพิ่มเติม',
+  invalid_evidence_url: 'ลิงก์หลักฐานไม่ถูกต้อง กรุณาใส่ URL ที่ขึ้นต้นด้วย https://',
 };
 
 imageInput.addEventListener('change', () => {
@@ -391,10 +394,23 @@ form.addEventListener('submit', async (e) => {
   }
 
   const contact = document.getElementById('contact').value.trim();
+  const evidence = document.getElementById('evidence').value.trim();
   if (!contact) {
     box.className = 'result err';
     box.textContent = '❌ ' + ERROR_MSG.contact_required;
     document.getElementById('contact').focus();
+    return;
+  }
+  if (!evidence) {
+    box.className = 'result err';
+    box.textContent = '❌ ' + ERROR_MSG.evidence_required;
+    document.getElementById('evidence').focus();
+    return;
+  }
+  if (!/^https?:\/\/.+/i.test(evidence)) {
+    box.className = 'result err';
+    box.textContent = '❌ ' + ERROR_MSG.invalid_evidence_url;
+    document.getElementById('evidence').focus();
     return;
   }
   if (!imageInput.files[0]) {
@@ -411,7 +427,7 @@ form.addEventListener('submit', async (e) => {
   fd.append('phone', document.getElementById('phone').value.replace(/[^0-9+]/g, ''));
   fd.append('category', document.getElementById('category').value);
   fd.append('detail', document.getElementById('detail').value.trim());
-  fd.append('evidence', document.getElementById('evidence').value.trim());
+  fd.append('evidence', evidence);
   fd.append('contact', contact);
   fd.append('consent', document.getElementById('consent').checked ? 'true' : 'false');
   fd.append('ts', new Date().toISOString());

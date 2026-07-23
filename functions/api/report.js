@@ -131,6 +131,9 @@ export async function handleReportPost({ request, env }) {
     if (detail.length < 10) return json({ error: 'detail_too_short' }, 400);
     if (!body.consent) return json({ error: 'consent_required' }, 400);
     if (!String(body.contact || '').trim()) return json({ error: 'contact_required' }, 400);
+    const evidence = String(body.evidence || '').trim();
+    if (!evidence) return json({ error: 'evidence_required' }, 400);
+    if (!/^https?:\/\/.+/i.test(evidence)) return json({ error: 'invalid_evidence_url' }, 400);
   }
 
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
@@ -160,7 +163,7 @@ export async function handleReportPost({ request, env }) {
         id: tipId,
         category: String(body.category || '').toLowerCase(),
         detail: detail.slice(0, 2000),
-        evidence: String(body.evidence || '').trim().slice(0, 500),
+        evidence: evidence.slice(0, 500),
         contact: String(body.contact || '').trim().slice(0, 200),
         ts: body.ts || new Date().toISOString(),
         status: 'pending',
