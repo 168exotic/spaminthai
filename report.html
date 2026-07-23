@@ -385,6 +385,11 @@ form.addEventListener('submit', async (e) => {
   box.className = 'result';
   box.textContent = '';
 
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
   const contact = document.getElementById('contact').value.trim();
   if (!contact) {
     box.className = 'result err';
@@ -395,7 +400,7 @@ form.addEventListener('submit', async (e) => {
   if (!imageInput.files[0]) {
     box.className = 'result err';
     box.textContent = '❌ ' + ERROR_MSG.image_required;
-    imageInput.focus();
+    document.getElementById('evidenceImage').focus();
     return;
   }
 
