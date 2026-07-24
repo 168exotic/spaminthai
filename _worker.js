@@ -57,13 +57,13 @@ function handleVersion() {
 function handleApp() {
   return new Response(JSON.stringify({
     name: 'SpamInThai',
-    version: '1.0.15',
+    version: '1.0.17',
     platform: 'android',
-    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.15/spaminthai-v1.0.15.apk',
+    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.17/spaminthai-v1.0.17.apk',
     releasePage: 'https://spaminthai.com/download',
     minSdk: 29,
-    updatedAt: '2026-07-15T01:05:00Z',
-    changelog: 'Cyber Shield UI, crowdsource spam upload, 162 blocked numbers synced to KV.'
+    updatedAt: '2026-07-24T00:00:00Z',
+    changelog: 'Rose redesign to match the website + in-app updater.'
   }), {
     status: 200,
     headers: {
