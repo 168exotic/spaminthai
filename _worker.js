@@ -20,6 +20,7 @@ import {
   handleAdminDisputeEvidence,
 } from './functions/api/admin-disputes.js';
 import { countNumbersInKv } from './functions/api/stats.js';
+import { handleLatestVersion } from './functions/api/latest-version.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 
 const WEB_VERSION = '1.3.0';
@@ -97,6 +98,7 @@ export default {
     if (path === '/api/lookup') return lookupHandler({ request, env });
     if (path === '/api/version') return handleVersion();
     if (path === '/api/app') return handleApp();
+    if (path === '/api/latest-version') return handleLatestVersion({ request, env });
     if (path === '/api/report' && request.method === 'POST') return handleReportPost({ request, env });
     if (path === '/api/dispute' && request.method === 'POST') return handleDisputePost({ request, env });
     if (path === '/api/stats') return handleStats(env);
