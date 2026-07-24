@@ -121,6 +121,17 @@ export async function pushTipIndex(env, entry) {
   await env.SPAM_KV.put('tips:index', JSON.stringify(index.slice(0, 500)));
 }
 
+async function updateSeoTopNumbers(env, number, reports) {
+  const raw = await env.SPAM_KV.get('seo:top-numbers');
+  let list = raw ? JSON.parse(raw) : [];
+  if (!Array.isArray(list)) list = [];
+  list = list.filter((x) => String(x.number) !== String(number));
+  list.push({ number, reports, updated: new Date().toISOString() });
+  list.sort((a, b) => (b.reports || 0) - (a.reports || 0));
+  await env.SPAM_KV.put('seo:top-numbers', JSON.stringify(list.slice(0, 100)));
+  await env.SPAM_KV.delete('seo:sitemap:xml');
+}
+
 export async function recordReport(env, number, category, extras = null) {
   const key = 'num:' + number;
   const raw = await env.SPAM_KV.get(key);
@@ -132,6 +143,7 @@ export async function recordReport(env, number, category, extras = null) {
   data.lastReport = new Date().toISOString();
 
   await env.SPAM_KV.put(key, JSON.stringify(data));
+  await updateSeoTopNumbers(env, number, data.reports);
 
   if (extras) {
     const tipId = extras.id || newTipId();

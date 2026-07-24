@@ -22,6 +22,7 @@ import {
 import { countNumbersInKv } from './functions/api/stats.js';
 import { handleLatestVersion } from './functions/api/latest-version.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
+import { handleSitemapGet } from './functions/api/sitemap.js';
 
 const WEB_VERSION = '1.3.0';
 const RELEASED_AT = '2026-07-21';
@@ -133,6 +134,8 @@ export default {
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
     if (checkNumber) return renderNumberPage(checkNumber[1], env);
+
+    if (path === '/sitemap.xml') return handleSitemapGet(env);
 
     // Fall through to static assets for everything else
     return env.ASSETS.fetch(request);

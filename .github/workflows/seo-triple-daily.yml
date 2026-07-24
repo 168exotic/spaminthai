@@ -1,0 +1,46 @@
+name: SEO — 3× daily
+
+# Refresh sitemap cache + ping search engines 3 times per day.
+# Schedule (UTC): 01:00, 09:00, 17:00 = 08:00, 16:00, 00:00 Thailand (UTC+7)
+
+on:
+  schedule:
+    - cron: '0 1,9,17 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: seo-triple-daily
+  cancel-in-progress: false
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Bust sitemap cache (force regeneration)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || '2fa3f2f325707bab89ef1c7452d3adb8' }}
+          KV_NAMESPACE_ID: ${{ secrets.KV_NAMESPACE_ID || '0a479fd6d75c431b8e7018caf819f7b2' }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "No CLOUDFLARE_API_TOKEN — skip KV cache bust, sitemap TTL will refresh naturally"
+            exit 0
+          fi
+          curl -fsS -X DELETE \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/values/seo%3Asitemap%3Axml" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            && echo "Deleted seo:sitemap:xml cache" \
+            || echo "Cache key not found (ok)"
+
+      - name: Warm sitemap + ping search engines
+        run: node scripts/seo-ping.mjs https://spaminthai.com
+
+      - name: Warm pages.dev mirror
+        run: node scripts/seo-ping.mjs https://spaminthai.pages.dev
+        continue-on-error: true
