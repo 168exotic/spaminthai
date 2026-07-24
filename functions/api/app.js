@@ -5,13 +5,13 @@
 export async function onRequestGet() {
   return json({
     name: 'SpamInThai',
-    version: '1.0.18',
+    version: '1.0.19',
     platform: 'android',
-    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.18/spaminthai-v1.0.18.apk',
+    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.19/spaminthai-v1.0.19.apk',
     releasePage: 'https://spaminthai.com/download',
     minSdk: 29,
     updatedAt: '2026-07-24T00:00:00Z',
-    changelog: 'New home + history layout (mockup redesign).'
+    changelog: 'Cleaner home — removed placeholder stat chips.'
   });
 }
 
