@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "spaminthai",
+  "name": "spaminthai1",
   "main": "_worker.js",
   "compatibility_date": "2025-01-01",
   "assets": {
