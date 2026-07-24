@@ -4,7 +4,7 @@
 // static asset because it exceeds the 25 MB per-file limit, so we redirect
 // instead of 404ing this documented/legacy path.
 const APK_URL =
-  'https://github.com/168exotic/spaminthai/releases/download/v1.0.18/spaminthai-v1.0.18.apk';
+  'https://github.com/168exotic/spaminthai/releases/download/v1.0.19/spaminthai-v1.0.19.apk';
 
 export function onRequestGet() {
   return redirect();
