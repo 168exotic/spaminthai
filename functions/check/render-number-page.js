@@ -31,8 +31,8 @@ export async function renderNumberPage(number, env) {
   const result = { number: digits, ...data, ...assess(data), ...identifyCarrier(digits) };
 
   const display = fmt(digits);
-  const title = `เบอร์ ${display} ใครโทรมา? เช็คเบอร์มิจฉาชีพ | SpamInThai`;
-  const desc = `${result.label} — ${result.advice} ตรวจสอบเบอร์ ${display} ฟรีจากฐานข้อมูลรายงานของคนไทย`;
+  const title = `เบอร์ ${display} ใครโทรมา? เบอร์อะไร? เช็คเบอร์ ตรวจเบอร์ | SpamInThai`;
+  const desc = `${result.label} — ${result.advice} เช็คเบอร์ ตรวจเบอร์ ${display} ฟรี เบอร์ใคร เบอร์อะไร จากฐานข้อมูลรายงานของคนไทย`;
   const canonical = `https://spaminthai.com/check/${digits}`;
   const verdictClass =
     result.verdict === 'danger' ? 'danger' : result.verdict === 'caution' ? 'warn' : 'safe';
@@ -99,7 +99,7 @@ footer a{margin-right:12px}
     </div>
     <a class="cta" href="/check?number=${esc(digits)}">เช็คเบอร์นี้แบบละเอียด →</a>
   </main>
-  <p style="margin-top:20px;color:var(--muted);font-size:.9rem">ค้นหา <strong>เบอร์ ${esc(display)}</strong> บ่อย — ใช้ SpamInThai เช็คเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ และเบอร์สแปมฟรี ก่อนรับสายหรือโอนเงิน</p>
+  <p style="margin-top:20px;color:var(--muted);font-size:.9rem">ค้นหา <strong>เบอร์ ${esc(display)}</strong> บ่อย — ใช้ SpamInThai <strong>เช็คเบอร์ ตรวจเบอร์</strong> ฟรี <strong>เบอร์ใคร</strong>โทรมา <strong>เบอร์อะไร</strong>น่าสงสัย ก่อนรับสายหรือโอนเงิน</p>
   <footer>
     <a href="/check">เช็คเบอร์โทร</a>
     <a href="/download">ดาวน์โหลดแอป</a>
