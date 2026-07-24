@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ผู้ใช้ออนไลน์ | SpamInThai Admin</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--text:#f8fafc;--muted:#94a3b8;--accent:#f43f5e;--ok:#22c55e;--warn:#f59e0b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.4rem;margin-bottom:4px}
+.sub{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+.nav{font-size:.85rem;margin-bottom:16px}
+.nav a{color:#93c5fd;text-decoration:none;margin-right:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+.login{display:grid;gap:10px;max-width:360px}
+input,button{font:inherit}
+input[type=password]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#0b1220;color:var(--text)}
+button{border:none;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-ghost{background:#334155;color:#fff}
+.btn-sm{padding:6px 10px;font-size:.82rem}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.hidden{display:none!important}
+.err{color:#fca5a5;font-size:.85rem;margin-top:8px}
+.meta{font-size:.85rem;color:var(--muted)}
+.meta b{color:var(--text)}
+a{color:#93c5fd}
+.hero{text-align:center;padding:28px 16px}
+.hero .dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--ok);margin-right:10px;vertical-align:middle;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}70%{box-shadow:0 0 0 16px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.hero .big{font-size:4rem;font-weight:800;line-height:1;letter-spacing:-.03em}
+.hero .cap{color:var(--muted);margin-top:6px}
+.stat-row{display:flex;flex-wrap:wrap;gap:14px}
+.stat{flex:1;min-width:160px;background:#0b1220;border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+.stat .v{font-size:1.8rem;font-weight:800}
+.stat .k{color:var(--muted);font-size:.85rem;margin-top:2px}
+.chart-title{font-size:.95rem;margin-bottom:10px}
+svg{width:100%;height:200px;display:block}
+.axis{fill:var(--muted);font-size:10px}
+.upd{color:var(--muted);font-size:.82rem;text-align:right}
+.note{color:var(--warn);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🟢 ผู้ใช้ออนไลน์แบบเรียลไทม์</h1>
+  <p class="sub">หลังบ้านสำหรับทีมงาน SpamInThai — จำนวนอุปกรณ์ที่ใช้งานแอป (นับแบบไม่ระบุตัวตน)</p>
+  <div class="nav"><a href="/admin/tips">→ เบาะแส (tips)</a><a href="/admin/disputes">→ คำโต้แย้ง (disputes)</a></div>
+
+  <div id="loginCard" class="card login">
+    <label for="adminKey">รหัสผ่านแอดมิน</label>
+    <input type="password" id="adminKey" placeholder="TIP_ADMIN_PASSWORD" autocomplete="current-password">
+    <button class="btn-primary" id="loginBtn" type="button">เข้าสู่ระบบ</button>
+    <p class="err hidden" id="loginErr">รหัสผ่านไม่ถูกต้อง</p>
+    <p class="err hidden" id="configErr">ยังไม่ได้ตั้งค่า <code>TIP_ADMIN_PASSWORD</code> ใน Cloudflare Pages</p>
+    <p class="meta">ตั้งค่าใน Cloudflare Pages → Settings → Environment variables → <code>TIP_ADMIN_PASSWORD</code></p>
+  </div>
+
+  <div id="app" class="hidden">
+    <div class="card hero">
+      <div><span class="dot"></span><span class="big" id="liveNow">–</span></div>
+      <div class="cap">คนออนไลน์ตอนนี้ (ในช่วง ~2 นาทีที่ผ่านมา)</div>
+    </div>
+
+    <div class="card">
+      <div class="stat-row">
+        <div class="stat"><div class="v" id="a24">–</div><div class="k">24 ชั่วโมงล่าสุด</div></div>
+        <div class="stat"><div class="v" id="a7">–</div><div class="k">7 วันล่าสุด</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="chart-title">อุปกรณ์ที่ใช้งานต่อชั่วโมง (24 ชม.)</div>
+      <svg id="chart" viewBox="0 0 720 200" preserveAspectRatio="none" aria-label="hourly active devices"></svg>
+    </div>
+
+    <div class="card" id="versionCard">
+      <div class="chart-title">แยกตามเวอร์ชั่นแอป</div>
+      <p class="note" id="versionNote">เร็ว ๆ นี้ — heartbeat ยังไม่ส่งเลขเวอร์ชั่น (จะเพิ่มในแอปเวอร์ชั่นถัดไป)</p>
+      <div id="versionList"></div>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn-ghost btn-sm" id="refreshBtn" type="button">รีเฟรชเดี๋ยวนี้</button>
+      <button class="btn-ghost btn-sm" id="logoutBtn" type="button">ออกจากระบบ</button>
+    </div>
+    <p class="upd" id="updated">–</p>
+  </div>
+</div>
+
+<script>
+const KEY_STORAGE = 'spaminthai_admin_key';
+const REFRESH_MS = 30000;
+let adminKey = localStorage.getItem(KEY_STORAGE) || '';
+let timer = null, countdown = REFRESH_MS / 1000;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function api(path) {
+  const res = await fetch(path, { headers: { 'X-Admin-Key': adminKey } });
+  if (res.status === 401) throw new Error('unauthorized');
+  return res;
+}
+
+function fmtNum(n) { return (n == null ? 0 : n).toLocaleString('th-TH'); }
+
+function drawChart(hourly) {
+  const svg = $('chart');
+  const W = 720, H = 200, padL = 8, padB = 22, padT = 10;
+  const data = hourly || [];
+  const max = Math.max(1, ...data.map((h) => h.count || 0));
+  const n = data.length || 1;
+  const stepX = (W - padL * 2) / Math.max(1, n - 1);
+  const scaleY = (H - padB - padT) / max;
+  const pts = data.map((h, i) => {
+    const x = padL + i * stepX;
+    const y = H - padB - (h.count || 0) * scaleY;
+    return [x, y];
+  });
+  const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const area = pts.length
+    ? `M${pts[0][0].toFixed(1)},${(H - padB)} ` + pts.map((p) => 'L' + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') + ` L${pts[pts.length - 1][0].toFixed(1)},${(H - padB)} Z`
+    : '';
+  // hour labels every 4 buckets
+  let labels = '';
+  data.forEach((h, i) => {
+    if (i % 4 === 0 || i === n - 1) {
+      const x = padL + i * stepX;
+      const hh = (h.hour || '').slice(-2);
+      labels += `<text class="axis" x="${x.toFixed(1)}" y="${H - 6}" text-anchor="middle">${hh}</text>`;
+    }
+  });
+  svg.innerHTML =
+    `<path d="${area}" fill="rgba(244,63,94,.15)"/>` +
+    `<path d="${line}" fill="none" stroke="#f43f5e" stroke-width="2"/>` +
+    labels;
+}
+
+function renderVersions(dist) {
+  const card = $('versionCard'), note = $('versionNote'), list = $('versionList');
+  if (!dist || Object.keys(dist).length === 0) { note.classList.remove('hidden'); list.innerHTML = ''; return; }
+  note.classList.add('hidden');
+  const entries = Object.entries(dist).sort((a, b) => b[1] - a[1]);
+  const max = Math.max(1, ...entries.map((e) => e[1]));
+  list.innerHTML = entries.map(([v, c]) =>
+    `<div style="display:flex;align-items:center;gap:10px;margin:6px 0">
+       <span style="width:64px" class="meta">${esc(v)}</span>
+       <span style="flex:1;background:#0b1220;border-radius:6px;overflow:hidden"><span style="display:block;height:14px;width:${(c / max * 100).toFixed(1)}%;background:var(--accent)"></span></span>
+       <b style="width:56px;text-align:right">${fmtNum(c)}</b>
+     </div>`).join('');
+}
+
+async function load() {
+  const res = await api('/admin/api/live-stats');
+  if (!res.ok) throw new Error('bad');
+  const d = await res.json();
+  $('liveNow').textContent = fmtNum(d.live_now);
+  $('a24').textContent = fmtNum(d.active_24h);
+  $('a7').textContent = fmtNum(d.active_7d);
+  drawChart(d.hourly);
+  renderVersions(d.version_dist);
+  const t = d.last_updated ? new Date(d.last_updated) : new Date();
+  $('updated').dataset.base = 'อัพเดตล่าสุด: ' + t.toLocaleTimeString('th-TH');
+  countdown = REFRESH_MS / 1000;
+}
+
+function tick() {
+  countdown -= 1;
+  const base = $('updated').dataset.base || 'อัพเดตล่าสุด: –';
+  $('updated').textContent = `${base} · รีเฟรชใน ${Math.max(0, countdown)} วิ`;
+  if (countdown <= 0) { load().catch(() => {}); }
+}
+
+function showApp() { $('loginCard').classList.add('hidden'); $('app').classList.remove('hidden'); }
+function showLogin() { $('loginCard').classList.remove('hidden'); $('app').classList.add('hidden'); }
+
+async function tryLogin() {
+  adminKey = $('adminKey').value || adminKey;
+  try {
+    const res = await api('/admin/api/live-stats');
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      if (data.error === 'admin_not_configured') { $('configErr').classList.remove('hidden'); $('loginErr').classList.add('hidden'); }
+      else { $('loginErr').classList.remove('hidden'); $('configErr').classList.add('hidden'); }
+      throw new Error('bad');
+    }
+    localStorage.setItem(KEY_STORAGE, adminKey);
+    $('loginErr').classList.add('hidden'); $('configErr').classList.add('hidden');
+    showApp();
+    await load();
+    if (timer) clearInterval(timer);
+    timer = setInterval(tick, 1000);
+  } catch {
+    if (!$('configErr').classList.contains('hidden')) return;
+    $('loginErr').classList.remove('hidden');
+    showLogin();
+  }
+}
+
+$('loginBtn').addEventListener('click', tryLogin);
+$('adminKey').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
+$('refreshBtn').addEventListener('click', () => load().catch(() => {}));
+$('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem(KEY_STORAGE); adminKey = '';
+  if (timer) clearInterval(timer);
+  showLogin();
+});
+
+if (adminKey) tryLogin();
+</script>
+</body>
+</html>
