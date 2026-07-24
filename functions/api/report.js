@@ -126,14 +126,14 @@ export async function handleReportPost({ request, env }) {
   if (!category) return json({ error: 'invalid_category' }, 400);
 
   let detail = '';
+  let evidence = '';
   if (isDetailed) {
     detail = String(body.detail || '').trim();
     if (detail.length < 10) return json({ error: 'detail_too_short' }, 400);
     if (!body.consent) return json({ error: 'consent_required' }, 400);
     if (!String(body.contact || '').trim()) return json({ error: 'contact_required' }, 400);
-    const evidence = String(body.evidence || '').trim();
-    if (!evidence) return json({ error: 'evidence_required' }, 400);
-    if (!/^https?:\/\/.+/i.test(evidence)) return json({ error: 'invalid_evidence_url' }, 400);
+    evidence = String(body.evidence || '').trim();
+    if (evidence && !/^https?:\/\/.+/i.test(evidence)) return json({ error: 'invalid_evidence_url' }, 400);
   }
 
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
