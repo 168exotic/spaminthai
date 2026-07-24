@@ -110,9 +110,52 @@ async function handleLoanappReport(env, body) {
   return json({ ok: true, key, reports: record.reports });
 }
 
+// App-source reports (v1.0.20): native app posts { source:"app", phone, category,
+// detail, deviceId, appVersion } with an X-App-Key header. No Turnstile — the app
+// is authenticated by the shared key, and abuse is bounded by a per-device rate
+// limit. Kept fully separate so the web flow below is unchanged.
+const APP_RATE_LIMIT = 10; // reports / device / hour
+const APP_RATE_WINDOW = 60 * 60; // seconds
+
+export async function handleAppReport({ request, env, body }) {
+  const key = request.headers.get('X-App-Key');
+  if (!env.APP_REPORT_KEY || !key || key !== env.APP_REPORT_KEY) {
+    return json({ error: 'unauthorized' }, 401);
+  }
+
+  const deviceId = String(body.deviceId || '').slice(0, 64);
+  if (!deviceId) return json({ error: 'missing_deviceId' }, 400);
+
+  const rlKey = `rl:app:${deviceId}`;
+  const count = parseInt((await env.SPAM_KV.get(rlKey)) || '0', 10);
+  if (count >= APP_RATE_LIMIT) {
+    return json({ error: 'rate_limited' }, 429, { 'Retry-After': String(APP_RATE_WINDOW) });
+  }
+  await env.SPAM_KV.put(rlKey, String(count + 1), { expirationTtl: APP_RATE_WINDOW });
+
+  const phone = normalizePhone(body.phone);
+  if (phone.length < 9 || phone.length > 10) return json({ error: 'invalid_number' }, 400);
+
+  const record = {
+    phone,
+    category: String(body.category || 'other').toLowerCase().slice(0, 32),
+    detail: String(body.detail || '').slice(0, 500),
+    source: 'app',
+    appVersion: String(body.appVersion || '').slice(0, 16) || null,
+    status: 'pending',
+    createdAt: new Date().toISOString(),
+  };
+  await env.SPAM_KV.put(`report:${phone}:${Date.now()}`, JSON.stringify(record));
+  return json({ ok: true });
+}
+
 export async function handleReportPost({ request, env }) {
   const body = await parseReportBody(request);
   if (!body) return json({ error: 'bad_json' }, 400);
+
+  if (body.source === 'app') {
+    return handleAppReport({ request, env, body });
+  }
 
   if (body.entity_type) {
     return handleLoanappReport(env, body);
