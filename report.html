@@ -265,8 +265,8 @@ footer .links{margin-top:8px;display:flex;gap:16px;justify-content:center;flex-w
         <img id="filePreview" class="file-preview" alt="ตัวอย่างภาพหลักฐาน">
       </div>
 
-      <label for="evidence">ลิงก์หลักฐานเพิ่มเติม <span class="req">*</span></label>
-      <input type="url" id="evidence" name="evidence" placeholder="https://..." required inputmode="url">
+      <label for="evidence">ลิงก์หลักฐานเพิ่มเติม <span class="opt">(ไม่บังคับ)</span></label>
+      <input type="url" id="evidence" name="evidence" placeholder="https://..." inputmode="url">
       <div class="hint">เช่น ลิงก์ข่าว โพสต์โซเชียล หรือหลักฐานออนไลน์ที่เกี่ยวข้อง</div>
 
       <label for="contact">ช่องทางติดต่อกลับ <span class="req">*</span></label>
@@ -401,13 +401,7 @@ form.addEventListener('submit', async (e) => {
     document.getElementById('contact').focus();
     return;
   }
-  if (!evidence) {
-    box.className = 'result err';
-    box.textContent = '❌ ' + ERROR_MSG.evidence_required;
-    document.getElementById('evidence').focus();
-    return;
-  }
-  if (!/^https?:\/\/.+/i.test(evidence)) {
+  if (evidence && !/^https?:\/\/.+/i.test(evidence)) {
     box.className = 'result err';
     box.textContent = '❌ ' + ERROR_MSG.invalid_evidence_url;
     document.getElementById('evidence').focus();
