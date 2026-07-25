@@ -5,13 +5,13 @@
 export async function onRequestGet() {
   return json({
     name: 'SpamInThai',
-    version: '1.0.20',
+    version: '1.0.21',
     platform: 'android',
-    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.20/spaminthai-v1.0.20.apk',
+    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v1.0.21/spaminthai-v1.0.21.apk',
     releasePage: 'https://spaminthai.com/download',
     minSdk: 29,
     updatedAt: '2026-07-24T00:00:00Z',
-    changelog: 'Block by prefix + in-app spam report.'
+    changelog: 'Anonymous heartbeat now reports app version.'
   });
 }
 
