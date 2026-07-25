@@ -18,6 +18,7 @@ class MockKV {
     }
     this.store.set(k, String(v));
   }
+  async delete(k) { this.store.delete(k); }
   async list({ prefix = '', cursor, limit = 1000 } = {}) {
     const keys = [...this.store.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name }));
     return { keys, list_complete: true, cursor: undefined };
@@ -112,7 +113,7 @@ function req(key, ip = '203.0.113.5') {
 const PW = 'admin-secret';
 async function status(request, env) { return (await handleLiveStats({ request, env })).status; }
 
-check('no TIP_ADMIN_PASSWORD -> 401', (await status(req(PW), { SPAM_KV: new MockKV() })) === 401);
+check('no TIP_ADMIN_PASSWORD -> 503', (await status(req(PW), { SPAM_KV: new MockKV() })) === 503);
 check('wrong key -> 401', (await status(req('bad'), { TIP_ADMIN_PASSWORD: PW, SPAM_KV: new MockKV() })) === 401);
 {
   const env = { TIP_ADMIN_PASSWORD: PW, SPAM_KV: new MockKV() };

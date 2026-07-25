@@ -11,19 +11,14 @@ import {
   getDisputeEvidence,
   updateDisputeIndex,
 } from './dispute-utils.js';
+import { guardAdmin } from './_security.js';
 
-function adminGuard(request, env) {
-  if (!env.TIP_ADMIN_PASSWORD) {
-    return json({ error: 'admin_not_configured' }, 503);
-  }
-  if (!isAdmin(request, env)) {
-    return json({ error: 'unauthorized' }, 401);
-  }
-  return null;
+async function adminGuard(request, env) {
+  return guardAdmin(request, env, isAdmin, json);
 }
 
 export async function handleAdminDisputesList({ request, env }) {
-  const denied = adminGuard(request, env);
+  const denied = await adminGuard(request, env);
   if (denied) return denied;
 
   const status = new URL(request.url).searchParams.get('status');
@@ -42,7 +37,7 @@ export async function handleAdminDisputesList({ request, env }) {
 }
 
 export async function handleAdminDisputeGet({ request, env, id }) {
-  const denied = adminGuard(request, env);
+  const denied = await adminGuard(request, env);
   if (denied) return denied;
 
   const raw = await env.SPAM_KV.get(disputeKey(id));
@@ -51,7 +46,7 @@ export async function handleAdminDisputeGet({ request, env, id }) {
 }
 
 export async function handleAdminDisputePatch({ request, env, id }) {
-  const denied = adminGuard(request, env);
+  const denied = await adminGuard(request, env);
   if (denied) return denied;
 
   let body;
@@ -117,7 +112,7 @@ async function applyToNumberRecord(env, dispute, status, note) {
 }
 
 export async function handleAdminDisputeEvidence({ request, env, id }) {
-  const denied = adminGuard(request, env);
+  const denied = await adminGuard(request, env);
   if (denied) return denied;
 
   const raw = await env.SPAM_KV.get(disputeKey(id));

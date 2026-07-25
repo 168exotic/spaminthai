@@ -13,6 +13,12 @@ import {
   recordReport,
   storeEvidence,
 } from './tip-utils.js';
+import {
+  checkRateLimit,
+  clientIp,
+  RATE_LIMITS,
+  turnstileOk,
+} from './_security.js';
 
 const LOANAPP_TYPES = ['phone', 'pkg', 'domain', 'line', 'name'];
 const LOANAPP_CATEGORIES = ['loan_shark', 'scam', 'spam', 'gambling', 'other'];
@@ -30,10 +36,12 @@ async function parseReportBody(request) {
       consent: form.get('consent') === 'true' || form.get('consent') === 'on',
       ts: form.get('ts'),
       imageFile: form.get('evidenceImage'),
+      turnstileToken: form.get('cf-turnstile-response'),
     };
   }
   try {
-    return await request.json();
+    const body = await request.json();
+    return body;
   } catch {
     return null;
   }
@@ -161,6 +169,12 @@ export async function handleReportPost({ request, env }) {
     return handleLoanappReport(env, body);
   }
 
+  const ip = clientIp(request);
+  const rl = await checkRateLimit(env, 'report', ip, RATE_LIMITS.report);
+  if (!rl.allowed) {
+    return json({ error: 'rate_limited' }, 429, { 'Retry-After': String(rl.retryAfter || 3600) });
+  }
+
   const number = normalizePhone(body.number || body.phone);
   const category = mapCategory(body);
   const isDetailed = Boolean(body.detail);
@@ -171,6 +185,9 @@ export async function handleReportPost({ request, env }) {
   let detail = '';
   let evidence = '';
   if (isDetailed) {
+    if (!(await turnstileOk(env, body.turnstileToken, ip))) {
+      return json({ error: 'captcha_failed' }, 400);
+    }
     detail = String(body.detail || '').trim();
     if (detail.length < 10) return json({ error: 'detail_too_short' }, 400);
     if (!body.consent) return json({ error: 'consent_required' }, 400);
@@ -179,7 +196,6 @@ export async function handleReportPost({ request, env }) {
     if (evidence && !/^https?:\/\/.+/i.test(evidence)) return json({ error: 'invalid_evidence_url' }, 400);
   }
 
-  const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const rlKey = `rl:${ip}:${number}:${new Date().toISOString().slice(0, 10)}`;
   if (await env.SPAM_KV.get(rlKey)) return json({ ok: true, deduped: true });
   await env.SPAM_KV.put(rlKey, '1', { expirationTtl: 60 * 60 * 24 * 2 });

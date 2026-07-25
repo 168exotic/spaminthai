@@ -3,8 +3,15 @@
 
 import { trackEvent } from './_analytics.js';
 import { json } from './tip-utils.js';
+import { checkRateLimit, clientIp, RATE_LIMITS } from './_security.js';
 
 export async function handleEventPost({ request, env }) {
+  const ip = clientIp(request);
+  const rl = await checkRateLimit(env, 'event', ip, RATE_LIMITS.event);
+  if (!rl.allowed) {
+    return json({ error: 'rate_limited' }, 429, { 'Retry-After': String(rl.retryAfter || 60) });
+  }
+
   let body;
   try {
     body = await request.json();
