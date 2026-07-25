@@ -17,7 +17,7 @@ const EVENTS = new Set(['pageview', 'download', 'lookup', 'app_open', 'heartbeat
 const SOURCES = new Set(['web', 'app']);
 
 const PRESENCE_TTL = 120;
-const HEARTBEAT_MIN_INTERVAL = 30;
+const HEARTBEAT_MIN_INTERVAL = 60;
 const DAY_TTL = 24 * 60 * 60;
 const WEEK_TTL = 7 * 24 * 60 * 60;
 const HOUR_TTL = 25 * 60 * 60;
