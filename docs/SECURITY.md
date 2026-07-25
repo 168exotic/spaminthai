@@ -12,6 +12,8 @@
 |--------|-----|---------|
 | `Strict-Transport-Security` | 1 ปี + preload | downgrade HTTP |
 | `Content-Security-Policy` | จำกัด script/style/connect | XSS, data exfil |
+
+`frame-src` อนุญาต YouTube embed สำหรับวิดีโอสอนใช้งานบนหน้าแรก (`www.youtube.com`, `www.youtube-nocookie.com`)
 | `X-Frame-Options` | DENY | clickjacking |
 | `X-Content-Type-Options` | nosniff | MIME sniffing |
 | `Referrer-Policy` | strict-origin-when-cross-origin | รั่วข้อมูล referrer |
