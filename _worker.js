@@ -25,6 +25,12 @@ import { handleEventPost, onRequestOptions as eventOptions } from './functions/a
 import { handleLiveStats } from './functions/api/admin-live.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 import { handleSitemapGet } from './functions/api/sitemap.js';
+import {
+  detectThreat,
+  withSecurityHeaders,
+  jsonSec,
+  bodyTooLarge,
+} from './functions/api/_security.js';
 
 const WEB_VERSION = '1.3.0';
 const RELEASED_AT = '2026-07-21';
@@ -92,9 +98,7 @@ async function handleStats(env) {
   return json({ status: 'ok', numbers_in_db: numbersInDb }, 200, 300);
 }
 
-export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
+async function route(request, env, url) {
     const path = url.pathname;
 
     // API routes
@@ -144,5 +148,26 @@ export default {
 
     // Fall through to static assets for everything else
     return env.ASSETS.fetch(request);
-  }
+}
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+
+    const threat = detectThreat(request, url);
+    if (threat) {
+      return jsonSec({ error: 'forbidden', reason: threat }, 403, request);
+    }
+
+    if (
+      request.method === 'POST' &&
+      url.pathname.startsWith('/api/') &&
+      bodyTooLarge(request)
+    ) {
+      return jsonSec({ error: 'payload_too_large' }, 413, request);
+    }
+
+    const response = await route(request, env, url);
+    return withSecurityHeaders(response);
+  },
 };

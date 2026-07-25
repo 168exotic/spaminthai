@@ -7,19 +7,14 @@ import {
   TIP_STATUSES,
   FORM_CAT_LABELS,
 } from './tip-utils.js';
+import { guardAdmin } from './_security.js';
 
-function adminGuard(request, env) {
-  if (!env.TIP_ADMIN_PASSWORD) {
-    return json({ error: 'admin_not_configured' }, 503);
-  }
-  if (!isAdmin(request, env)) {
-    return json({ error: 'unauthorized' }, 401);
-  }
-  return null;
+async function adminGuard(request, env) {
+  return guardAdmin(request, env, isAdmin, json);
 }
 
 export async function handleAdminTipsList({ request, env }) {
-  const denied = adminGuard(request, env);
+  const denied = await adminGuard(request, env);
   if (denied) return denied;
 
   const status = new URL(request.url).searchParams.get('status');
@@ -34,7 +29,7 @@ export async function handleAdminTipsList({ request, env }) {
 }
 
 export async function handleAdminTipGet({ request, env, tipId }) {
-  const denied = adminGuard(request, env);
+  const denied = await adminGuard(request, env);
   if (denied) return denied;
 
   const raw = await env.SPAM_KV.get(`tip:${tipId}`);
@@ -43,7 +38,7 @@ export async function handleAdminTipGet({ request, env, tipId }) {
 }
 
 export async function handleAdminTipPatch({ request, env, tipId }) {
-  const denied = adminGuard(request, env);
+  const denied = await adminGuard(request, env);
   if (denied) return denied;
 
   let body;
@@ -79,7 +74,7 @@ export async function handleAdminTipPatch({ request, env, tipId }) {
 }
 
 export async function handleAdminEvidence({ request, env, tipId }) {
-  const denied = adminGuard(request, env);
+  const denied = await adminGuard(request, env);
   if (denied) return denied;
 
   const raw = await env.SPAM_KV.get(`tip:${tipId}`);

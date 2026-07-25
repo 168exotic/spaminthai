@@ -3,14 +3,24 @@
 
 import { assess } from './risk-assess.js';
 import { identifyCarrier } from './carrier.js';
+import {
+  checkRateLimit,
+  clientIp,
+  corsOrigin,
+  RATE_LIMITS,
+  securityHeaders,
+} from './_security.js';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json; charset=utf-8',
-};
-
-function json(data, status = 200) {
-  return new Response(JSON.stringify(data), { status, headers: CORS });
+function json(data, status = 200, request = null, extra = {}) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': request ? corsOrigin(request) : '*',
+      ...securityHeaders(),
+      ...extra,
+    },
+  });
 }
 
 function normalizePhone(v) {
@@ -31,9 +41,18 @@ function detectType(q) {
 }
 
 export async function onRequestGet({ request, env }) {
+  const ip = clientIp(request);
+  const rl = await checkRateLimit(env, 'lookup', ip, RATE_LIMITS.lookup);
+  if (!rl.allowed) {
+    return json({ ok: false, error: 'rate_limited' }, 429, request, {
+      'Retry-After': String(rl.retryAfter || 60),
+    });
+  }
+
   const url = new URL(request.url);
   const q = (url.searchParams.get('q') || url.searchParams.get('number') || '').trim();
-  if (!q) return json({ ok: false, error: 'missing q' }, 400);
+  if (!q) return json({ ok: false, error: 'missing q' }, 400, request);
+  if (q.length > 200) return json({ ok: false, error: 'query_too_long' }, 400, request);
 
   let type = url.searchParams.get('type') || 'auto';
   if (type === 'auto') type = detectType(q);
@@ -64,7 +83,7 @@ export async function onRequestGet({ request, env }) {
 
   const hits = results.filter(Boolean);
   if (hits.length === 0) {
-    return json({ ok: true, found: false, query: value, type });
+    return json({ ok: true, found: false, query: value, type }, 200, request);
   }
 
   // ดึง related entities มาแสดงด้วย (1 ชั้น)
@@ -131,11 +150,16 @@ export async function onRequestGet({ request, env }) {
     }
   }
 
-  return json(payload);
+  return json(payload, 200, request);
 }
 
-export async function onRequestOptions() {
+export async function onRequestOptions({ request } = {}) {
   return new Response(null, {
-    headers: { ...CORS, 'Access-Control-Allow-Methods': 'GET, OPTIONS' },
+    headers: {
+      'Access-Control-Allow-Origin': request ? corsOrigin(request) : '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Content-Type': 'application/json; charset=utf-8',
+      ...securityHeaders(),
+    },
   });
 }

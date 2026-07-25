@@ -89,28 +89,9 @@ export async function withinRateLimit(env, ipHashHex) {
   return true;
 }
 
-// --- Turnstile: verify only when the secret is configured on the project.
-// No-op (allow) otherwise, so we never ship a captcha that rejects everyone.
-// Enable end-to-end when BOSS sets TURNSTILE_SECRET on the Pages project.
+// --- Turnstile: re-export from central security module -----------------------
 
-export async function turnstileOk(env, token, ip) {
-  if (!env || !env.TURNSTILE_SECRET) return true; // not configured -> allow
-  if (!token) return false;
-  try {
-    const body = new FormData();
-    body.append('secret', env.TURNSTILE_SECRET);
-    body.append('response', token);
-    if (ip) body.append('remoteip', ip);
-    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      body,
-    });
-    const data = await res.json();
-    return Boolean(data.success);
-  } catch {
-    return false;
-  }
-}
+export { turnstileOk } from './_security.js';
 
 // --- evidence storage (namespaced R2 key; same EVIDENCE_R2 bucket) ----------
 
