@@ -21,6 +21,8 @@ import {
 } from './functions/api/admin-disputes.js';
 import { countNumbersInKv } from './functions/api/stats.js';
 import { handleLatestVersion } from './functions/api/latest-version.js';
+import { handleEventPost, onRequestOptions as eventOptions } from './functions/api/event.js';
+import { handleLiveStats } from './functions/api/admin-live.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 import { handleSitemapGet } from './functions/api/sitemap.js';
 
@@ -101,6 +103,9 @@ export default {
     if (path === '/api/app') return handleApp();
     if (path === '/api/latest-version') return handleLatestVersion({ request, env });
     if (path === '/api/report' && request.method === 'POST') return handleReportPost({ request, env });
+    if (path === '/api/event' && request.method === 'POST') return handleEventPost({ request, env });
+    if (path === '/api/event' && request.method === 'OPTIONS') return eventOptions();
+    if (path === '/admin/api/live-stats' && request.method === 'GET') return handleLiveStats({ request, env });
     if (path === '/api/dispute' && request.method === 'POST') return handleDisputePost({ request, env });
     if (path === '/api/stats') return handleStats(env);
 
