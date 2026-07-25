@@ -1,6 +1,6 @@
 // Unit tests for /admin/live analytics (functions/api/_analytics.js + admin-live.js)
 // Run with: npm test
-import { trackEvent, getLiveStats, isValidVid, last24Hours } from '../functions/api/_analytics.js';
+import { trackEvent, getLiveStats, isValidVid, isValidVersion, last24Hours } from '../functions/api/_analytics.js';
 import { handleLiveStats } from '../functions/api/admin-live.js';
 
 let passed = 0, failed = 0;
@@ -70,6 +70,40 @@ check('unknown event rejected',
 }
 
 check('last24Hours returns 24 labels', last24Hours(NOW).length === 24);
+
+// --- app_version / version_dist (v1.0.21) ---
+check('valid semver version', isValidVersion('1.0.21') === true);
+check('reject non-semver version', isValidVersion('1.0') === false);
+check('reject overlong version (>10 chars)', isValidVersion('100.200.300') === false);
+check('reject non-string version', isValidVersion(null) === false);
+{
+  const env = envKV();
+  const vid = 'a' + 'V'.repeat(20);
+  await trackEvent(env, { event: 'heartbeat', source: 'app', vid, app_version: '1.0.21' }, NOW);
+  const verKeys = [...env.SPAM_KV.store.keys()].filter((k) => k.startsWith('ver:'));
+  check('valid app_version -> ver key stored', verKeys.length === 1 && verKeys[0] === `ver:1.0.21:${vid}`, verKeys.join(','));
+}
+{
+  const env = envKV();
+  const r = await trackEvent(env, { event: 'heartbeat', source: 'app', vid: 'a' + 'X'.repeat(20), app_version: 'garbage' }, NOW);
+  check('invalid app_version -> heartbeat still ok', r.ok === true);
+  check('invalid app_version -> not stored', [...env.SPAM_KV.store.keys()].filter((k) => k.startsWith('ver:')).length === 0);
+}
+{
+  const env = envKV();
+  await trackEvent(env, { event: 'heartbeat', source: 'app', vid: 'a' + '1'.repeat(20), app_version: '1.0.21' }, NOW);
+  await trackEvent(env, { event: 'heartbeat', source: 'app', vid: 'a' + '2'.repeat(20), app_version: '1.0.21' }, NOW);
+  await trackEvent(env, { event: 'heartbeat', source: 'app', vid: 'a' + '3'.repeat(20), app_version: '1.0.20' }, NOW);
+  const s = await getLiveStats(env, NOW);
+  check('version_dist aggregates unique devices per version',
+    s.version_dist && s.version_dist['1.0.21'] === 2 && s.version_dist['1.0.20'] === 1, JSON.stringify(s.version_dist));
+}
+{
+  const env = envKV();
+  await trackEvent(env, { event: 'heartbeat', source: 'app', vid: 'a' + '9'.repeat(20) }, NOW); // no version
+  const s = await getLiveStats(env, NOW);
+  check('version_dist null when no version data', s.version_dist === null);
+}
 
 // --- handleLiveStats auth + rate limit ---
 function req(key, ip = '203.0.113.5') {

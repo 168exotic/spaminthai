@@ -23,6 +23,11 @@ const WEEK_TTL = 7 * 24 * 60 * 60;
 const HOUR_TTL = 25 * 60 * 60;
 
 const VID_RE = /^[a-zA-Z0-9_-]{8,64}$/;
+const VERSION_RE = /^\d+\.\d+\.\d+$/;
+
+export function isValidVersion(v) {
+  return typeof v === 'string' && v.length <= 10 && VERSION_RE.test(v);
+}
 
 export function isValidVid(source, vid) {
   if (!vid || !VID_RE.test(vid)) return false;
@@ -69,7 +74,7 @@ async function incHourly(env, vid, hour) {
   await env.SPAM_KV.put(cKey, String(cur + 1), { expirationTtl: HOUR_TTL });
 }
 
-async function recordHeartbeat(env, vid, now = new Date()) {
+async function recordHeartbeat(env, vid, now = new Date(), appVersion = null) {
   // Always refresh presence so the device stays "live".
   await env.SPAM_KV.put(`pres:${vid}`, '1', { expirationTtl: PRESENCE_TTL });
 
@@ -79,20 +84,20 @@ async function recordHeartbeat(env, vid, now = new Date()) {
 
   if (!(await has(env, `d1:${vid}`))) await env.SPAM_KV.put(`d1:${vid}`, '1', { expirationTtl: DAY_TTL });
   if (!(await has(env, `w1:${vid}`))) await env.SPAM_KV.put(`w1:${vid}`, '1', { expirationTtl: WEEK_TTL });
+  // v1.0.21: per-version dedup marker (refreshed each window -> rolling 24h).
+  // No PII: <version> is a public app version, <vid> is the random visitor id.
+  if (isValidVersion(appVersion)) {
+    await env.SPAM_KV.put(`ver:${appVersion}:${vid}`, '1', { expirationTtl: DAY_TTL });
+  }
   await incHourly(env, vid, hourBangkok(now));
 }
 
-export async function trackEvent(env, { event, source = 'app', vid }, now = new Date()) {
+export async function trackEvent(env, { event, source = 'app', vid, app_version }, now = new Date()) {
   if (!EVENTS.has(event)) return { ok: false, error: 'invalid_event' };
   const src = SOURCES.has(source) ? source : 'app';
   if (!isValidVid(src, vid)) return { ok: false, error: 'invalid_vid' };
-
-  if (event === 'heartbeat') {
-    await recordHeartbeat(env, vid, now);
-    return { ok: true };
-  }
-  // Non-heartbeat events count toward daily/weekly active too, but never PII.
-  await recordHeartbeat(env, vid, now);
+  // An invalid app_version is simply ignored (heartbeat still records).
+  await recordHeartbeat(env, vid, now, app_version);
   return { ok: true };
 }
 
@@ -107,24 +112,44 @@ async function countPrefix(env, prefix) {
   return count;
 }
 
+// Unique devices per app_version in the last 24h, from ver:<version>:<vid> keys.
+// Returns null when no version data exists (older app builds send no version).
+async function versionDist(env) {
+  const counts = {};
+  let cursor;
+  do {
+    const list = await env.SPAM_KV.list({ prefix: 'ver:', cursor, limit: 1000 });
+    for (const k of list.keys) {
+      const rest = k.name.slice('ver:'.length); // "<version>:<vid>"
+      const idx = rest.indexOf(':');
+      if (idx > 0) {
+        const ver = rest.slice(0, idx);
+        counts[ver] = (counts[ver] || 0) + 1;
+      }
+    }
+    cursor = list.list_complete ? undefined : list.cursor;
+  } while (cursor);
+  return Object.keys(counts).length ? counts : null;
+}
+
 export async function getLiveStats(env, now = new Date()) {
   const hours = last24Hours(now);
   const hourly = [];
   for (const h of hours) {
     hourly.push({ hour: h, count: parseInt((await env.SPAM_KV.get(`hc:${h}`)) || '0', 10) || 0 });
   }
-  const [liveNow, active24h, active7d] = await Promise.all([
+  const [liveNow, active24h, active7d, version_dist] = await Promise.all([
     countPrefix(env, 'pres:'),
     countPrefix(env, 'd1:'),
     countPrefix(env, 'w1:'),
+    versionDist(env),
   ]);
   return {
     live_now: liveNow,
     active_24h: active24h,
     active_7d: active7d,
     hourly,
-    // Heartbeat payload carries no app_version yet — filled in a future app release.
-    version_dist: null,
+    version_dist,
     last_updated: now.toISOString(),
   };
 }

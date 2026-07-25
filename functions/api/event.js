@@ -15,6 +15,7 @@ export async function handleEventPost({ request, env }) {
     event: body.event,
     source: body.source,
     vid: body.vid,
+    app_version: body.app_version,
   });
   if (!result.ok) return json(result, 400);
   return json({ ok: true });
