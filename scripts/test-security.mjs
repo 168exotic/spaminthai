@@ -66,6 +66,7 @@ check('oversized body rejected', bodyTooLarge(req({ contentLength: String(4 * 10
   const h = securityHeaders();
   check('HSTS present', h['Strict-Transport-Security']?.includes('max-age'));
   check('CSP present', h['Content-Security-Policy']?.includes("default-src 'self'"));
+  check('CSP allows YouTube embed', h['Content-Security-Policy']?.includes('www.youtube.com'));
   check('X-Frame-Options DENY', h['X-Frame-Options'] === 'DENY');
 }
 
