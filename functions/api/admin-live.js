@@ -6,8 +6,11 @@ import { isAdmin, json } from './tip-utils.js';
 import { getLiveStats } from './_analytics.js';
 
 const RATE_LIMIT = 60; // requests / IP / minute
-const CACHE_KEY = 'live_stats:cache';
-const CACHE_TTL = 15; // seconds
+const CACHE_TTL_MS = 15000; // 15s per-isolate cache (KV's minimum TTL is 60s, too coarse)
+
+// Best-effort in-memory cache — caps the heavy KV list scans to ~once per 15s
+// within a warm isolate, and never edge-caches the authenticated response.
+let memCache = { at: 0, data: null };
 
 // Hash the IP for the rate-limit key — never store it raw.
 async function ipHashPrefix(ip) {
@@ -33,17 +36,11 @@ export async function handleLiveStats({ request, env }) {
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   if (!(await withinRateLimit(env, ip))) return json({ error: 'rate_limited' }, 429);
 
-  // 15s result cache in KV: caps the heavy KV list scans to once per window,
-  // without ever edge-caching an authenticated response.
-  const cached = await env.SPAM_KV.get(CACHE_KEY);
-  if (cached) {
-    try {
-      return json(JSON.parse(cached), 200, { 'Cache-Control': 'no-store' });
-    } catch {
-      // fall through and recompute
-    }
+  const now = Date.now();
+  if (memCache.data && now - memCache.at < CACHE_TTL_MS) {
+    return json(memCache.data, 200, { 'Cache-Control': 'no-store' });
   }
   const stats = await getLiveStats(env);
-  await env.SPAM_KV.put(CACHE_KEY, JSON.stringify(stats), { expirationTtl: CACHE_TTL });
+  memCache = { at: now, data: stats };
   return json(stats, 200, { 'Cache-Control': 'no-store' });
 }

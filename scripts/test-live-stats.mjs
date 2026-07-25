@@ -12,7 +12,12 @@ function check(name, cond, detail) {
 class MockKV {
   constructor() { this.store = new Map(); }
   async get(k) { return this.store.has(k) ? this.store.get(k) : null; }
-  async put(k, v) { this.store.set(k, String(v)); }
+  async put(k, v, opts) {
+    if (opts && opts.expirationTtl != null && opts.expirationTtl < 60) {
+      throw new Error(`KV expirationTtl must be >= 60 (got ${opts.expirationTtl})`);
+    }
+    this.store.set(k, String(v));
+  }
   async list({ prefix = '', cursor, limit = 1000 } = {}) {
     const keys = [...this.store.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name }));
     return { keys, list_complete: true, cursor: undefined };
