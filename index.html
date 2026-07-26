@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>เช็คเบอร์ ตรวจเบอร์ เบอร์ใคร เบอร์อะไร ฟรี | SpamInThai</title>
-<meta name="description" content="เช็คเบอร์ ตรวจเบอร์ฟรี เบอร์ใครโทรมา? เบอร์อะไรน่าสงสัย? ตรวจสอบเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ เบอร์สแปม จากฐานข้อมูลรายงานของคนไทย บล็อกสายอัตโนมัติด้วยแอป Android">
+<title>เบอร์ใคร | ตรวจเบอร์โทรเข้ามา เช็คมิจฉาชีพฟรี — SpamInThai</title>
+<meta name="description" content="เว็บตรวจเบอร์ที่โทรเข้ามาว่าเบอร์ใคร เช็คเบอร์มิจฉาชีพและแก๊งคอลเซ็นเตอร์ในไทยฟรี ฐานข้อมูลจากคนไทยเพื่อคนไทย ไม่ต้องสมัคร ไม่ขายข้อมูล">
 <meta name="keywords" content="เช็คเบอร์, ตรวจเบอร์, เบอร์ใคร, เบอร์อะไร, เช็คเบอร์โทร, เบอร์มิจฉาชีพ, แก๊งคอลเซ็นเตอร์, เบอร์สแปม, เบอร์นี้ใครโทรมา">
-<meta property="og:title" content="เช็คเบอร์ ตรวจเบอร์ เบอร์ใคร เบอร์อะไร ฟรี | SpamInThai">
-<meta property="og:description" content="เช็คเบอร์ ตรวจเบอร์ฟรี เบอร์ใครโทรมา เบอร์อะไรน่าสงสัย ตรวจสอบเบอร์มิจฉาชีพจากฐานข้อมูลรายงานของคนไทย">
+<meta property="og:title" content="เบอร์ใคร | ตรวจเบอร์โทรเข้ามา เช็คมิจฉาชีพฟรี — SpamInThai">
+<meta property="og:description" content="ตรวจเบอร์ที่โทรมาว่าเป็นใคร เช็คเบอร์มิจฉาชีพและแก๊งคอลเซ็นเตอร์ในไทยฟรี ไม่ต้องสมัคร">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="เช็คเบอร์ ตรวจเบอร์ เบอร์ใคร เบอร์อะไร ฟรี | SpamInThai">
+<meta name="twitter:title" content="เบอร์ใคร | ตรวจเบอร์โทรเข้ามา เช็คมิจฉาชีพฟรี">
 <meta name="twitter:description" content="เช็คเบอร์ ตรวจเบอร์ฟรี เบอร์ใครโทรมา เบอร์อะไรน่าสงสัย ตรวจสอบเบอร์มิจฉาชีพจากฐานข้อมูลรายงานของคนไทย">
 <meta property="og:url" content="https://spaminthai.com/">
 <meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
@@ -28,7 +28,7 @@
   "description": "เช็คเบอร์ ตรวจเบอร์ เบอร์ใคร เบอร์อะไร ฟรี — ตรวจสอบเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://spaminthai.com/check?number={search_term_string}",
+    "target": "https://spaminthai.com/check/{search_term_string}",
     "query-input": "required name=search_term_string"
   }
 }
@@ -144,7 +144,7 @@
     <div class="lg:col-span-8 space-y-8">
       <div id="check" class="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm fade-up">
         <div class="max-w-2xl mx-auto text-center space-y-4">
-          <h1 class="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight">เช็คเบอร์ ตรวจเบอร์ — เบอร์ใคร เบอร์อะไร?</h1>
+          <h1 class="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight">ตรวจเบอร์ที่โทรเข้ามา รู้ทันทีว่าเบอร์ใคร — ฟรี ไม่ต้องสมัคร</h1>
           <p class="text-sm text-slate-500">ตรวจสอบเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ และเบอร์สแปมฟรี จากฐานข้อมูลรายงานของคนไทย — <a href="/check" class="text-rose-500 font-semibold hover:underline">เปิดหน้าเช็คเบอร์เต็มรูปแบบ</a></p>
           <form id="checkForm" class="mt-6 flex flex-col sm:flex-row gap-3" onsubmit="return doCheck(event)">
             <div class="relative flex-1">
