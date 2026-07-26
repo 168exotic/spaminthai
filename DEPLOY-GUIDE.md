@@ -45,10 +45,22 @@ spaminthai/
 
 ## APK hosting
 
-ไฟล์ APK (~50 MB) **ไม่ได้** อยู่บน Cloudflare Pages เพราะเกิน limit 25 MB ต่อไฟล์ static asset
-จึงโฮสต์ไว้บน VPS `72.62.71.137` (nginx) แล้วเสิร์ฟผ่าน `api.spaminthai.com/download/apk`
-โดย DNS record `api` เป็น **Proxied** (orange) ผ่าน Cloudflare — ทดสอบแล้วว่าดาวน์โหลดไฟล์ใหญ่ผ่าน proxy ได้ปกติ
-เว็บ (`/api/app`, ปุ่มดาวน์โหลด, และ redirect `/download/spaminthai-latest.apk`) ชี้มาที่ endpoint นี้ทั้งหมด
+APK ล่าสุดโฮสต์บน **GitHub Releases** (v1.0.21+) — `/api/app`, ปุ่มดาวน์โหลดบน spaminthai.com,
+และ redirect `/download/spaminthai-latest.apk` ชี้ไปที่ URL ของ release โดยตรง
+
+## www.เบอร์ใคร.com (VPS)
+
+โดเมน `xn--42c7b1ab1c2gya5e.com` (เบอร์ใคร.com) โฮสต์ frontend บน VPS แยกจาก Cloudflare Pages
+ไฟล์อยู่ใน `vps/www/` — deploy ด้วย workflow `.github/workflows/deploy-vps.yml` (ต้องตั้ง secrets):
+
+| Secret | ตัวอย่าง |
+|---|---|
+| `VPS_SSH_HOST` | `72.62.71.137` |
+| `VPS_SSH_USER` | `root` |
+| `VPS_SSH_KEY` | private key (PEM) |
+| `VPS_DEPLOY_PATH` | `/var/www/spaminthai/public` |
+
+ปุ่มดาวน์โหลดบน VPS ใช้ `data-download` + `vps/www/assets/site.js` ดึง URL ล่าสุดจาก `spaminthai.com/api/app`
 
 ## Seed KV (optional)
 

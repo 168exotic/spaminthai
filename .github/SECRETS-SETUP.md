@@ -48,6 +48,19 @@ gh secret set CLOUDFLARE_API_TOKEN --repo 168exotic/spaminthai
 gh secret set CLOUDFLARE_ACCOUNT_ID --repo 168exotic/spaminthai --body "2fa3f2f325707bab89ef1c7452d3adb8"
 ```
 
+## www.เบอร์ใคร.com (VPS deploy)
+
+Workflow `.github/workflows/deploy-vps.yml` — ตั้ง secrets เหล่านี้:
+
+```bash
+gh secret set VPS_SSH_HOST --repo 168exotic/spaminthai --body "72.62.71.137"
+gh secret set VPS_SSH_USER --repo 168exotic/spaminthai --body "root"
+gh secret set VPS_DEPLOY_PATH --repo 168exotic/spaminthai --body "/var/www/spaminthai/public"
+gh secret set VPS_SSH_KEY --repo 168exotic/spaminthai < ~/.ssh/id_rsa
+```
+
+จากนั้นรัน: `gh workflow run deploy-vps.yml --repo 168exotic/spaminthai`
+
 ## Re-run deploy
 
 After secrets are set:
