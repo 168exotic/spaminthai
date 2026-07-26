@@ -9,10 +9,33 @@
 const BASE = (process.argv[2] || process.env.SITE_URL || 'https://spaminthai.com').replace(/\/$/, '');
 const SITEMAP = `${BASE}/sitemap.xml`;
 
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY || '7f3a9e2b1c4d8e6f0a5b3c9d1e7f4a2';
+const INDEXNOW_HOST = new URL(BASE).hostname;
+
 const PING_TARGETS = [
   { name: 'Bing', url: `https://www.bing.com/ping?sitemap=${encodeURIComponent(SITEMAP)}` },
   { name: 'Google', url: `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP)}` },
 ];
+
+async function indexNow(urls) {
+  if (!INDEXNOW_KEY || urls.length === 0) return;
+  const body = {
+    host: INDEXNOW_HOST,
+    key: INDEXNOW_KEY,
+    keyLocation: `${BASE}/${INDEXNOW_KEY}.txt`,
+    urlList: urls.slice(0, 100),
+  };
+  try {
+    const r = await fetch('https://api.indexnow.org/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(body),
+    });
+    console.log(`IndexNow: HTTP ${r.status} (${urls.length} URLs)`);
+  } catch (err) {
+    console.warn(`IndexNow failed: ${err.message}`);
+  }
+}
 
 function fmtPhone(n) {
   const d = String(n).replace(/\D/g, '');
@@ -56,11 +79,26 @@ async function main() {
     }
   }
 
-  const pages = ['/', '/check', '/guide/check-phone'];
+  const pages = [
+    '/',
+    '/check',
+    '/download',
+    '/guide/check-phone',
+    '/guide/call-center-scam',
+    '/guide/block-spam-android',
+    '/guide/spam-numbers',
+  ];
   for (const p of pages) {
     const r = await fetch(`${BASE}${p}`, { method: 'HEAD' });
     console.log(`HEAD ${p}: ${r.status}`);
   }
+
+  const indexUrls = pages.map((p) => `${BASE}${p}`);
+  const checkUrls = [...smText.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)]
+    .map((m) => m[1])
+    .filter((u) => u.includes('/check/'))
+    .slice(0, 20);
+  await indexNow([...indexUrls, ...checkUrls]);
 
   console.log('SEO ping complete.');
 }

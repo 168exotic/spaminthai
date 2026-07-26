@@ -16,6 +16,7 @@
 <meta property="og:url" content="https://spaminthai.com/check">
 <meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -175,6 +176,7 @@ footer a{margin:0 8px}
           <button class="cat-btn" data-cat="safe">✅ เบอร์ปกติ</button>
         </div>
       </div>
+      <div id="shareBox"></div>
     </div>
   </section>
 
@@ -353,6 +355,21 @@ function render(num, d){
     });
   }
   document.querySelectorAll('.cat-btn').forEach(b => { b.classList.remove('sent'); b.disabled = false; });
+
+  const shareBox = document.getElementById('shareBox');
+  if (shareBox && window.SpamShare) {
+    shareBox.innerHTML = '';
+    if (n > 0 || verdict === 'danger' || verdict === 'caution') {
+      SpamShare.injectShareBar(shareBox, {
+        number: num,
+        label: title,
+        verdict,
+        source: 'check',
+        medium: 'share',
+        campaign: 'check_result',
+      });
+    }
+  }
 }
 
 document.getElementById('catRow').addEventListener('click', async e => {
@@ -370,6 +387,7 @@ document.getElementById('catRow').addEventListener('click', async e => {
 const q = new URLSearchParams(location.search).get('number');
 if(q){ input.value = fmt(clean(q)); doCheck(); }
 </script>
+<script src="/assets/share.js"></script>
 <script src="/assets/site.js"></script>
 </body>
 </html>

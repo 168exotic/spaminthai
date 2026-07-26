@@ -16,6 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="th_TH">
 <link rel="canonical" href="https://spaminthai.com/">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">
 {
@@ -186,6 +187,7 @@
                   <button onclick="reportPhone('safe')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-green-50 text-green-700 border-green-200 hover:bg-green-100">✅ เบอร์ปกติ</button>
                 </div>
               </div>
+              <div id="shareBox"></div>
             </div>
           </div>
         </div>
@@ -323,6 +325,8 @@
         <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">บทความแนะนำ</h3>
         <a href="/guide/check-phone" class="block text-sm text-slate-600 hover:text-rose-500">เช็คเบอร์ ตรวจเบอร์ เบอร์ใคร เบอร์อะไร — คู่มือฉบับเต็ม</a>
         <a href="/guide/call-center-scam" class="block text-sm text-slate-600 hover:text-rose-500">โดนแก๊งคอลเซ็นเตอร์โทรมา ต้องทำยังไง?</a>
+        <a href="/guide/block-spam-android" class="block text-sm text-slate-600 hover:text-rose-500">วิธีบล็อกเบอร์มิจฉาชีพ Android ฟรี</a>
+        <a href="/guide/spam-numbers" class="block text-sm text-slate-600 hover:text-rose-500">รายการเบอร์มิจฉาชีพอัพเดตล่าสุด</a>
         <a href="/check/021365777" class="block text-sm text-slate-600 hover:text-rose-500">เช็คเบอร์ 02-136-5777 — เบอร์ใคร?</a>
         <a href="/check/026114777" class="block text-sm text-slate-600 hover:text-rose-500">เช็คเบอร์ 02-611-4777 — เบอร์อะไร?</a>
       </div>
@@ -469,6 +473,21 @@ function render(num,d){
     '<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+n+'</b> <small>รายงาน</small></div>'+
     (d.lastReport?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><small>รายงานล่าสุด: '+new Date(d.lastReport).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'})+'</small></div>':'');
   document.getElementById('rReport').classList.remove('hidden');
+
+  const shareBox = document.getElementById('shareBox');
+  if (shareBox && window.SpamShare && (n > 0 || verdict === 'danger' || verdict === 'caution')) {
+    shareBox.innerHTML = '';
+    SpamShare.injectShareBar(shareBox, {
+      number: num,
+      label: title,
+      verdict,
+      source: 'home',
+      medium: 'share',
+      campaign: 'home_check',
+    });
+  } else if (shareBox) {
+    shareBox.innerHTML = '';
+  }
 }
 
 async function reportPhone(cat){
@@ -504,6 +523,7 @@ async function reportPhone(cat){
   }catch(e){}
 })();
 </script>
+<script src="/assets/share.js"></script>
 <script src="/assets/site.js"></script>
 
 </body>
