@@ -1,0 +1,4 @@
+{
+  "install": "npm install && mkdir -p ~/.ssh && if [ -n \"${VPS_SSH_KEY:-}\" ]; then printf '%s\\n' \"$VPS_SSH_KEY\" > ~/.ssh/vps_deploy_key && chmod 600 ~/.ssh/vps_deploy_key; fi",
+  "start": "true"
+}
