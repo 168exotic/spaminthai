@@ -26,6 +26,11 @@ import { handleLiveStats } from './functions/api/admin-live.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 import { handleSitemapGet } from './functions/api/sitemap.js';
 import {
+  handleMarketingFeedGet,
+  handleMarketingRssGet,
+  handleMarketingRunPost,
+} from './functions/api/marketing.js';
+import {
   detectThreat,
   withSecurityHeaders,
   jsonSec,
@@ -145,6 +150,11 @@ async function route(request, env, url) {
     if (checkNumber) return renderNumberPage(checkNumber[1], env);
 
     if (path === '/sitemap.xml') return handleSitemapGet(env);
+    if (path === '/feed.xml') return handleMarketingRssGet(env);
+    if (path === '/api/marketing/feed') return handleMarketingFeedGet(env);
+    if (path === '/api/marketing/run' && request.method === 'POST') {
+      return handleMarketingRunPost(request, env);
+    }
 
     // Fall through to static assets for everything else
     return env.ASSETS.fetch(request);
