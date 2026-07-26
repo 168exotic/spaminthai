@@ -23,6 +23,10 @@ import { countNumbersInKv } from './functions/api/stats.js';
 import { handleLatestVersion } from './functions/api/latest-version.js';
 import { handleEventPost, onRequestOptions as eventOptions } from './functions/api/event.js';
 import { handleLiveStats } from './functions/api/admin-live.js';
+import { handleSmsCheck, onRequestOptions as smsCheckOptions } from './functions/api/sms-check.js';
+import { handleSmsReport } from './functions/api/sms-report.js';
+import { handleSmsKeywords } from './functions/api/sms-keywords.js';
+import { handleAdminSmsReportsList, handleAdminSmsReportPatch } from './functions/api/admin-sms-reports.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
 import { handleSitemapGet } from './functions/api/sitemap.js';
 import {
@@ -115,6 +119,16 @@ async function route(request, env, url) {
     if (path === '/api/event' && request.method === 'POST') return handleEventPost({ request, env });
     if (path === '/api/event' && request.method === 'OPTIONS') return eventOptions();
     if (path === '/admin/api/live-stats' && request.method === 'GET') return handleLiveStats({ request, env });
+    // SMS blocking (v2.0.0, Path D)
+    if (path === '/api/sms-check' && request.method === 'POST') return handleSmsCheck({ request, env });
+    if (path === '/api/sms-check' && request.method === 'OPTIONS') return smsCheckOptions();
+    if (path === '/api/sms-report' && request.method === 'POST') return handleSmsReport({ request, env });
+    if (path === '/api/sms-keywords' && request.method === 'GET') return handleSmsKeywords({ env });
+    if (path === '/admin/api/sms-reports' && request.method === 'GET') return handleAdminSmsReportsList({ request, env });
+    const adminSmsReport = path.match(/^\/admin\/api\/sms-reports\/([^/]+)$/);
+    if (adminSmsReport && request.method === 'PATCH') {
+      return handleAdminSmsReportPatch({ request, env, id: adminSmsReport[1] });
+    }
     if (path === '/api/dispute' && request.method === 'POST') return handleDisputePost({ request, env });
     if (path === '/api/stats') return handleStats(env);
 

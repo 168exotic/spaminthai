@@ -74,7 +74,7 @@ async function incHourly(env, vid, hour) {
   await env.SPAM_KV.put(cKey, String(cur + 1), { expirationTtl: HOUR_TTL });
 }
 
-async function recordHeartbeat(env, vid, now = new Date(), appVersion = null) {
+async function recordHeartbeat(env, vid, now = new Date(), appVersion = null, smsEnabled = false) {
   // Always refresh presence so the device stays "live".
   await env.SPAM_KV.put(`pres:${vid}`, '1', { expirationTtl: PRESENCE_TTL });
 
@@ -89,15 +89,19 @@ async function recordHeartbeat(env, vid, now = new Date(), appVersion = null) {
   if (isValidVersion(appVersion)) {
     await env.SPAM_KV.put(`ver:${appVersion}:${vid}`, '1', { expirationTtl: DAY_TTL });
   }
+  // v2.0.0: SMS-blocking adoption (opt-in). Marker only, no PII.
+  if (smsEnabled === true) {
+    await env.SPAM_KV.put(`smson:${vid}`, '1', { expirationTtl: DAY_TTL });
+  }
   await incHourly(env, vid, hourBangkok(now));
 }
 
-export async function trackEvent(env, { event, source = 'app', vid, app_version }, now = new Date()) {
+export async function trackEvent(env, { event, source = 'app', vid, app_version, sms_enabled }, now = new Date()) {
   if (!EVENTS.has(event)) return { ok: false, error: 'invalid_event' };
   const src = SOURCES.has(source) ? source : 'app';
   if (!isValidVid(src, vid)) return { ok: false, error: 'invalid_vid' };
   // An invalid app_version is simply ignored (heartbeat still records).
-  await recordHeartbeat(env, vid, now, app_version);
+  await recordHeartbeat(env, vid, now, app_version, sms_enabled === true);
   return { ok: true };
 }
 
@@ -138,11 +142,12 @@ export async function getLiveStats(env, now = new Date()) {
   for (const h of hours) {
     hourly.push({ hour: h, count: parseInt((await env.SPAM_KV.get(`hc:${h}`)) || '0', 10) || 0 });
   }
-  const [liveNow, active24h, active7d, version_dist] = await Promise.all([
+  const [liveNow, active24h, active7d, version_dist, smsOn] = await Promise.all([
     countPrefix(env, 'pres:'),
     countPrefix(env, 'd1:'),
     countPrefix(env, 'w1:'),
     versionDist(env),
+    countPrefix(env, 'smson:'),
   ]);
   return {
     live_now: liveNow,
@@ -150,6 +155,8 @@ export async function getLiveStats(env, now = new Date()) {
     active_7d: active7d,
     hourly,
     version_dist,
+    sms_enabled_devices: smsOn,
+    sms_adoption: active24h > 0 ? Math.round((smsOn / active24h) * 100) : 0,
     last_updated: now.toISOString(),
   };
 }

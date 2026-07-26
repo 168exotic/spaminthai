@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>รายงาน SMS สแปม | SpamInThai Admin</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--text:#f8fafc;--muted:#94a3b8;--accent:#f43f5e;--ok:#22c55e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px}
+h1{font-size:1.4rem;margin-bottom:4px}
+.sub{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+.nav{font-size:.85rem;margin-bottom:16px}.nav a{color:#93c5fd;text-decoration:none;margin-right:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+.login{display:grid;gap:10px;max-width:360px}
+input[type=password],input[type=text],select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:#0b1220;color:var(--text);font:inherit}
+button{border:none;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600;font:inherit}
+.btn-primary{background:var(--accent);color:#fff}.btn-ok{background:#16a34a;color:#fff}.btn-ghost{background:#334155;color:#fff}
+.btn-sm{padding:6px 10px;font-size:.82rem}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.76rem;text-transform:uppercase}
+.hash{font-family:ui-monospace,monospace;font-size:.78rem;color:var(--muted)}
+.badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:.72rem;font-weight:700}
+.badge.pending{background:#422006;color:#fdba74}.badge.approved{background:#14532d;color:#86efac}.badge.rejected{background:#450a0a;color:#fca5a5}
+.hidden{display:none!important}.err{color:#fca5a5;font-size:.85rem;margin-top:8px}
+.empty{color:var(--muted);padding:24px;text-align:center}.meta{font-size:.85rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📩 รายงาน SMS สแปมจากชุมชน</h1>
+  <p class="sub">อนุมัติ = เพิ่ม hash เข้าฐานสแปม (แอปจะบล็อกให้ผู้ใช้คนอื่น) · <b>ไม่มีการเก็บเนื้อหา SMS — เก็บแค่ SHA-256 hash</b></p>
+  <div class="nav"><a href="/admin/tips">→ tips</a><a href="/admin/disputes">→ disputes</a><a href="/admin/live">→ live</a></div>
+
+  <div id="loginCard" class="card login">
+    <label for="adminKey">รหัสผ่านแอดมิน</label>
+    <input type="password" id="adminKey" placeholder="TIP_ADMIN_PASSWORD" autocomplete="current-password">
+    <button class="btn-primary" id="loginBtn" type="button">เข้าสู่ระบบ</button>
+    <p class="err hidden" id="loginErr">รหัสผ่านไม่ถูกต้อง</p>
+    <p class="err hidden" id="configErr">ยังไม่ได้ตั้งค่า <code>TIP_ADMIN_PASSWORD</code></p>
+  </div>
+
+  <div id="app" class="hidden">
+    <div class="card">
+      <div class="toolbar">
+        <select id="statusFilter">
+          <option value="pending" selected>รอตรวจสอบ</option>
+          <option value="">ทุกสถานะ</option>
+          <option value="approved">อนุมัติแล้ว</option>
+          <option value="rejected">ปฏิเสธ</option>
+        </select>
+        <button class="btn-ghost btn-sm" id="refreshBtn" type="button">รีเฟรช</button>
+        <button class="btn-ghost btn-sm" id="logoutBtn" type="button">ออกจากระบบ</button>
+      </div>
+      <table>
+        <thead><tr><th>เวลา</th><th>Hash</th><th>เหตุผล</th><th>สถานะ</th><th></th></tr></thead>
+        <tbody id="rowsBody"></tbody>
+      </table>
+      <div class="empty hidden" id="emptyState">ยังไม่มีรายงาน</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY_STORAGE = 'spaminthai_admin_key';
+let adminKey = localStorage.getItem(KEY_STORAGE) || '';
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = (ts) => { try { return new Date(ts).toLocaleString('th-TH'); } catch { return ts || '-'; } };
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, { ...opts, headers: { 'X-Admin-Key': adminKey, 'Content-Type': 'application/json', ...(opts.headers || {}) } });
+  if (res.status === 401) throw new Error('unauthorized');
+  return res;
+}
+function badge(s) { return `<span class="badge ${s}">${({pending:'รอตรวจ',approved:'อนุมัติแล้ว',rejected:'ปฏิเสธ'})[s] || s}</span>`; }
+
+async function loadRows() {
+  const status = $('statusFilter').value;
+  const res = await api('/admin/api/sms-reports' + (status ? `?status=${encodeURIComponent(status)}` : ''));
+  const rows = (await res.json()).reports || [];
+  const body = $('rowsBody'); body.innerHTML = '';
+  $('emptyState').classList.toggle('hidden', rows.length > 0);
+  rows.forEach((r) => {
+    const tr = document.createElement('tr');
+    const actions = r.status === 'pending'
+      ? `<button class="btn-ok btn-sm" data-a="approve">✓ อนุมัติ</button> <button class="btn-primary btn-sm" data-a="reject">✗ ปฏิเสธ</button>`
+      : '';
+    tr.innerHTML = `<td>${fmt(r.created_at)}</td>
+      <td><span class="hash">${esc((r.hash || '').slice(0, 16))}…</span></td>
+      <td>${esc(r.reasonPreview || '')}</td>
+      <td>${badge(r.status || 'pending')}</td>
+      <td>${actions}</td>`;
+    tr.querySelectorAll('button[data-a]').forEach((b) =>
+      b.addEventListener('click', () => review(r.id, b.getAttribute('data-a'))));
+    body.appendChild(tr);
+  });
+}
+async function review(id, action) {
+  await api(`/admin/api/sms-reports/${id}`, { method: 'PATCH', body: JSON.stringify({ action }) });
+  await loadRows();
+}
+function showApp() { $('loginCard').classList.add('hidden'); $('app').classList.remove('hidden'); }
+function showLogin() { $('loginCard').classList.remove('hidden'); $('app').classList.add('hidden'); }
+
+async function tryLogin() {
+  adminKey = $('adminKey').value || adminKey;
+  try {
+    const res = await api('/admin/api/sms-reports?status=pending');
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}));
+      if (d.error === 'admin_not_configured') { $('configErr').classList.remove('hidden'); }
+      else { $('loginErr').classList.remove('hidden'); }
+      throw new Error('bad');
+    }
+    localStorage.setItem(KEY_STORAGE, adminKey);
+    $('loginErr').classList.add('hidden'); $('configErr').classList.add('hidden');
+    showApp(); await loadRows();
+  } catch {
+    if (!$('configErr').classList.contains('hidden')) return;
+    showLogin();
+  }
+}
+$('loginBtn').addEventListener('click', tryLogin);
+$('adminKey').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
+$('refreshBtn').addEventListener('click', loadRows);
+$('statusFilter').addEventListener('change', loadRows);
+$('logoutBtn').addEventListener('click', () => { localStorage.removeItem(KEY_STORAGE); adminKey = ''; showLogin(); });
+if (adminKey) tryLogin();
+</script>
+</body>
+</html>
