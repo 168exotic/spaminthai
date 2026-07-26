@@ -15,6 +15,20 @@ const STATIC_PAGES = [
   { loc: '/guide/call-center-scam', priority: '0.85', changefreq: 'monthly' },
   { loc: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { loc: '/terms', priority: '0.3', changefreq: 'yearly' },
+  { loc: '/blog', priority: '0.7', changefreq: 'weekly' },
+];
+
+const BLOG_SLUGS = [
+  'call-center-scam-guide-2568',
+  'numbers-065-scam',
+  'fake-bank-sms',
+  'report-hotlines-1441-1155-1212',
+  'scammed-what-to-do',
+  'voip-697-698-scam',
+  'best-spam-checker-apps-2568',
+  'pdpa-reporting-numbers',
+  'silent-unknown-callers-android-iphone',
+  'new-scam-tricks-2568-07',
 ];
 
 function today() {
@@ -88,7 +102,11 @@ export async function buildSitemapXml(env) {
     lines.push(urlEntry(page.loc, { ...page, lastmod }));
   }
 
-  const numbers = await getTopNumbers(env, 50);
+  for (const slug of BLOG_SLUGS) {
+    lines.push(urlEntry(`/blog/${slug}`, { priority: '0.75', changefreq: 'monthly', lastmod }));
+  }
+
+  const numbers = await getTopNumbers(env, 200);
   for (const num of numbers) {
     if (num.length < 9 || num.length > 10) continue;
     lines.push(urlEntry(`/check/${num}`, {
