@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>รวมโหมด Silent เบอร์แปลกใน Android + iPhone | SpamInThai</title>
+<meta name="description" content="ตั้งค่าปิดเสียงสายจากเบอร์ที่ไม่รู้จักบน Android และ iPhone แบบไม่พลาดสายสำคัญ พร้อมวิธีบล็อกสายมิจฉาชีพอัตโนมัติด้วยแอป">
+<meta name="keywords" content="ปิดเสียงเบอร์แปลก, silent unknown callers, บล็อกเบอร์ไม่รู้จัก, Android, iPhone, กันสายกวน">
+<link rel="canonical" href="https://spaminthai.com/blog/silent-unknown-callers-android-iphone">
+<meta property="og:title" content="รวมโหมด Silent เบอร์แปลกใน Android + iPhone">
+<meta property="og:description" content="ตั้งค่าปิดเสียงเบอร์ไม่รู้จักบน Android และ iPhone + บล็อกอัตโนมัติ">
+<meta property="og:url" content="https://spaminthai.com/blog/silent-unknown-callers-android-iphone">
+<meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="โหมด Silent เบอร์แปลก Android + iPhone">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://line.me">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"รวมโหมด Silent เบอร์แปลกใน Android + iPhone","author":{"@type":"Organization","name":"SpamInThai"},"publisher":{"@type":"Organization","name":"SpamInThai"},"inLanguage":"th-TH","mainEntityOfPage":"https://spaminthai.com/blog/silent-unknown-callers-android-iphone"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"ปิดเสียงเบอร์แปลกบน iPhone ทำยังไง?","acceptedAnswer":{"@type":"Answer","text":"ไปที่ Settings > Apps > Phone > Silence Unknown Callers แล้วเปิด สายจากเบอร์ที่ไม่อยู่ในรายชื่อจะถูกส่งไป voicemail และแสดงในประวัติ"}},
+{"@type":"Question","name":"Android ปิดเสียงเบอร์ไม่รู้จักได้ไหม?","acceptedAnswer":{"@type":"Answer","text":"ได้ ในแอปโทรศัพท์ (Google Phone) มีตัวเลือกกรอง Spam และ Screen call ส่วนแอป SpamInThai ใช้ Call Screening กรองสายมิจฉาชีพก่อนเครื่องดัง"}},
+{"@type":"Question","name":"ปิดเสียงเบอร์แปลกจะพลาดสายสำคัญไหม?","acceptedAnswer":{"@type":"Answer","text":"สายที่ถูกกรองยังแสดงในประวัติและ voicemail จึงตรวจย้อนหลังได้ ถ้าเป็นสายสำคัญค่อยโทรกลับ"}}]}
+</script>
+<style>
+:root{--rose:#f43f5e;--ink:#0f172a;--muted:#475569;--bg:#f8f9ff;--line:#e5e7f5}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
+a{color:var(--rose)}.wrap{max-width:720px;margin:0 auto;padding:32px 20px}.crumb{font-size:.82rem;color:var(--muted);margin-bottom:8px}
+h1{font-size:1.8rem;margin:12px 0}h2{font-size:1.2rem;margin:28px 0 10px}h3{font-size:1.02rem;margin:18px 0 6px}
+p,li{color:var(--muted);margin-bottom:10px}ul,ol{padding-left:22px}.lead{font-size:1.05rem;color:var(--ink)}
+.cta{display:inline-block;margin:8px 8px 8px 0;background:var(--rose);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600;text-decoration:none}.cta.line{background:#06c755}
+.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:16px 0}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}summary{font-weight:600;cursor:pointer;color:var(--ink)}details p{margin-top:8px;font-size:.92rem}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}footer a{margin-right:12px}
+</style>
+</head>
+<body>
+<article class="wrap">
+  <p class="crumb"><a href="/">หน้าแรก</a> · <a href="/blog/">บทความ</a></p>
+  <h1>รวมโหมด Silent เบอร์แปลกใน Android + iPhone</h1>
+  <p class="lead">ไม่อยากถูกรบกวนจากสายแปลก แต่กลัวพลาดสายสำคัญ? มือถือทุกเครื่องมีโหมด "ปิดเสียงเบอร์ที่ไม่รู้จัก" ในตัว บทความนี้รวมวิธีตั้งค่าทั้ง Android และ iPhone พร้อมทางเลือกที่ฉลาดกว่า</p>
+
+  <h2>iPhone: Silence Unknown Callers</h2>
+  <ol>
+    <li>เปิด <strong>Settings</strong> (ตั้งค่า)</li>
+    <li>ไปที่ <strong>Apps &gt; Phone</strong> (หรือ Phone ในรุ่นเก่า)</li>
+    <li>เปิด <strong>Silence Unknown Callers</strong></li>
+  </ol>
+  <p>สายจากเบอร์ที่ไม่อยู่ในรายชื่อ/ประวัติ จะไม่ดัง แต่ยังบันทึกใน voicemail และประวัติสาย</p>
+
+  <h2>Android: กรอง Spam + Call Screen</h2>
+  <ol>
+    <li>เปิดแอปโทรศัพท์ (Google Phone) &gt; เมนู &gt; <strong>Settings</strong></li>
+    <li>เปิด <strong>Caller ID &amp; spam</strong> เพื่อเตือน/กรองสายสแปม</li>
+    <li>ใช้ <strong>Call Screen</strong> ให้ผู้ช่วยรับสายแทนในสายที่น่าสงสัย</li>
+  </ol>
+  <div class="box">ข้อจำกัด: โหมดในตัวเครื่องไม่มีฐานข้อมูล "รายงานจากคนไทย" จึงกรองเบอร์มิจฉาชีพเฉพาะถิ่นได้ไม่ครบ</div>
+
+  <h2>ทางเลือกที่ครอบคลุมกว่า: แอป SpamInThai</h2>
+  <p>แอป SpamInThai ใช้ <strong>Call Screening</strong> กรองสายมิจฉาชีพจากฐานข้อมูลชุมชนคนไทย <em>ก่อนเครื่องจะดัง</em> ตั้ง <a href="/blog/numbers-065-scam">บล็อกตามช่วงเบอร์</a> ได้ และสายที่ถูกบล็อกยังดูย้อนหลังในประวัติได้</p>
+  <a class="cta" href="/download">ดาวน์โหลดแอป SpamInThai (ฟรี)</a>
+
+  <h2>เช็คเบอร์ก่อนโทรกลับ</h2>
+  <p>ถ้ามีสายไม่รู้จักที่ถูกกรองไว้ ลอง <a href="/check">เช็คเบอร์</a> ก่อนโทรกลับ จะได้รู้ว่าปลอดภัยไหม</p>
+
+  <h2>คำถามที่พบบ่อย</h2>
+  <details><summary>ปิดเสียงแล้วเบอร์โรงพยาบาลจะโทรไม่ติดไหม?</summary><p>สายยังเข้าและบันทึกในประวัติ/voicemail ถ้าเป็นเบอร์สำคัญให้เพิ่มเข้ารายชื่อผู้ติดต่อ</p></details>
+  <details><summary>ใช้ทั้งโหมดในเครื่องและแอปพร้อมกันได้ไหม?</summary><p>ได้ แต่แนะนำให้แอปเป็นตัวหลักในการกรองสายมิจฉาชีพ เพราะมีฐานข้อมูลรายงาน</p></details>
+
+  <p style="margin-top:24px">ตั้งค่าไม่ถูก แอดไลน์ให้ทีมช่วยได้</p>
+  <a class="cta line" href="https://line.me/R/ti/p/@spaminthai" rel="nofollow">เพิ่มเพื่อน LINE @spaminthai</a>
+
+  <footer>บทความที่เกี่ยวข้อง:
+    <a href="/blog/best-spam-checker-apps-2568">แอปเช็คเบอร์ 5 อันดับ</a>
+    <a href="/guide/block-spam-android">บล็อกสแปมบน Android</a>
+    <a href="/blog/voip-697-698-scam">สาย VoIP ต่างประเทศ</a>
+  </footer>
+</article>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS ปลอมจากธนาคาร วิธีสังเกต + วิธีบล็อก | SpamInThai</title>
+<meta name="description" content="SMS ปลอมอ้างเป็นธนาคารระบาดหนัก — สังเกตลิงก์ปลอมอย่างไร ทำไมห้ามกด และวิธีบล็อก SMS สแปมด้วยแอป SpamInThai แบบไม่เก็บเนื้อหาข้อความ">
+<meta name="keywords" content="SMS ปลอม, SMS ธนาคารปลอม, สมิชชิ่ง, smishing, ลิงก์ปลอม, บล็อก SMS สแปม">
+<link rel="canonical" href="https://spaminthai.com/blog/fake-bank-sms">
+<meta property="og:title" content="SMS ปลอมจากธนาคาร วิธีสังเกต + วิธีบล็อก">
+<meta property="og:description" content="สังเกต SMS ปลอมอ้างธนาคาร ทำไมห้ามกดลิงก์ และวิธีบล็อก SMS สแปม">
+<meta property="og:url" content="https://spaminthai.com/blog/fake-bank-sms">
+<meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SMS ปลอมจากธนาคาร วิธีสังเกต + วิธีบล็อก">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://line.me">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"SMS ปลอมจากธนาคาร วิธีสังเกต + วิธีบล็อก","author":{"@type":"Organization","name":"SpamInThai"},"publisher":{"@type":"Organization","name":"SpamInThai"},"inLanguage":"th-TH","mainEntityOfPage":"https://spaminthai.com/blog/fake-bank-sms"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"SMS ปลอมจากธนาคารสังเกตยังไง?","acceptedAnswer":{"@type":"Answer","text":"มักมีลิงก์แปลก ๆ (โดเมนไม่ใช่ของธนาคารจริง) ข้อความเร่งให้กดยืนยันตัวตน อ้างบัญชีถูกระงับหรือได้คะแนนแลกเงิน ธนาคารจริงจะไม่ส่งลิงก์ให้กรอกรหัสผ่านหรือ OTP ทาง SMS"}},
+{"@type":"Question","name":"เผลอกดลิงก์ใน SMS ปลอมไปแล้วทำไง?","acceptedAnswer":{"@type":"Answer","text":"ห้ามกรอกข้อมูลใด ๆ ปิดหน้าเว็บทันที ถ้ากรอกรหัสไปแล้วให้เปลี่ยนรหัสและอายัดบัญชีกับธนาคาร แล้วโทร 1441"}},
+{"@type":"Question","name":"บล็อก SMS สแปมได้ไหม โดยไม่ให้แอปอ่านข้อความ?","acceptedAnswer":{"@type":"Answer","text":"ได้ แอป SpamInThai (เบต้า) ตรวจจากการแจ้งเตือน SMS โดยเทียบเฉพาะ SHA-256 hash ไม่อ่านกล่องข้อความ ไม่เก็บเนื้อหา และเปิด/ปิดเองได้"}}]}
+</script>
+<style>
+:root{--rose:#f43f5e;--ink:#0f172a;--muted:#475569;--bg:#f8f9ff;--line:#e5e7f5}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
+a{color:var(--rose)}.wrap{max-width:720px;margin:0 auto;padding:32px 20px}.crumb{font-size:.82rem;color:var(--muted);margin-bottom:8px}
+h1{font-size:1.8rem;margin:12px 0}h2{font-size:1.2rem;margin:28px 0 10px}h3{font-size:1.02rem;margin:18px 0 6px}
+p,li{color:var(--muted);margin-bottom:10px}ul,ol{padding-left:22px}.lead{font-size:1.05rem;color:var(--ink)}
+.cta{display:inline-block;margin:8px 8px 8px 0;background:var(--rose);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600;text-decoration:none}.cta.line{background:#06c755}
+.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:16px 0}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}summary{font-weight:600;cursor:pointer;color:var(--ink)}details p{margin-top:8px;font-size:.92rem}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}footer a{margin-right:12px}
+</style>
+</head>
+<body>
+<article class="wrap">
+  <p class="crumb"><a href="/">หน้าแรก</a> · <a href="/blog/">บทความ</a></p>
+  <h1>SMS ปลอมจากธนาคาร วิธีสังเกต + วิธีบล็อก</h1>
+  <p class="lead">SMS หลอกลวง (Smishing) อ้างเป็นธนาคาร ไปรษณีย์ หรือหน่วยงานรัฐ กำลังระบาดหนัก จุดประสงค์เดียวคือหลอกให้คุณ "กดลิงก์" แล้วกรอกรหัส บทความนี้สอนสังเกตของปลอม และวิธีบล็อกแบบเป็นส่วนตัว</p>
+
+  <h2>5 จุดสังเกต SMS ปลอม</h2>
+  <ul>
+    <li><strong>ลิงก์โดเมนแปลก</strong> — ไม่ใช่เว็บทางการของธนาคาร (เช่น มีตัวสะกดเพี้ยน หรือลงท้ายแปลก ๆ)</li>
+    <li><strong>เร่งให้ทำทันที</strong> — "บัญชีจะถูกระงับใน 24 ชม." "คะแนนกำลังหมดอายุ"</li>
+    <li><strong>ให้กรอกรหัสผ่าน/OTP</strong> — ธนาคารจริงไม่เคยส่งลิงก์ให้กรอกรหัสทาง SMS</li>
+    <li><strong>อ้างได้เงิน/ของฟรี</strong> — เงินคืน คะแนนแลกเงินสด รางวัล</li>
+    <li><strong>เบอร์/ชื่อผู้ส่งแปลก</strong> — บางครั้งปลอมเป็นชื่อธนาคารได้ (SMS spoofing) จึงห้ามเชื่อชื่อผู้ส่งอย่างเดียว</li>
+  </ul>
+  <div class="box">กฎเหล็ก: <strong>อย่ากดลิงก์ใน SMS ที่ขอให้ยืนยันตัวตนหรือกรอกรหัส</strong> ถ้าไม่แน่ใจให้เปิดแอปธนาคารเองโดยตรง</div>
+
+  <h2>เผลอกดไปแล้ว ต้องทำอะไร</h2>
+  <ol>
+    <li>อย่ากรอกข้อมูล ปิดหน้าเว็บทันที</li>
+    <li>ถ้ากรอกรหัสไปแล้ว — เปลี่ยนรหัสธนาคาร/แอป และอายัดบัญชี</li>
+    <li>โทร <strong>1441</strong> และแจ้งความออนไลน์ที่ <a href="https://thaipoliceonline.go.th" rel="nofollow">thaipoliceonline.go.th</a></li>
+  </ol>
+
+  <h2>วิธีบล็อก SMS สแปม — แบบไม่ต้องให้แอปอ่านข้อความ</h2>
+  <p>แอป SpamInThai รุ่นใหม่ (เบต้า) ใช้วิธี <strong>Path D</strong> คือตรวจจาก "การแจ้งเตือน" SMS แล้วเทียบเฉพาะ SHA-256 hash กับฐานข้อมูลสแปมของชุมชน — <strong>ไม่อ่านกล่องข้อความ ไม่เก็บและไม่ส่งเนื้อหา SMS</strong> เปิดใช้เองได้ในหน้าตั้งค่า และปิดได้ทุกเมื่อ</p>
+  <a class="cta" href="/download">ดาวน์โหลดแอป SpamInThai (ฟรี)</a>
+
+  <h2>เช็คเบอร์ที่ส่ง SMS มา</h2>
+  <p>ถ้า SMS มาจากเบอร์โทรศัพท์ ลอง <a href="/check">เช็คเบอร์ที่ SpamInThai</a> ว่าถูกรายงานหรือยัง และช่วย <a href="/report">รายงานเบอร์/ข้อความ</a> เพื่อเตือนคนอื่น</p>
+
+  <h2>คำถามที่พบบ่อย</h2>
+  <details><summary>SMS ขึ้นชื่อธนาคารเลย ทำไมยังปลอมได้?</summary><p>มิจฉาชีพใช้เทคนิค SMS spoofing ปลอมชื่อผู้ส่งได้ จึงห้ามเชื่อชื่ออย่างเดียว ให้ดูที่ลิงก์และเนื้อหาเป็นหลัก</p></details>
+  <details><summary>แอปบล็อก SMS ปลอดภัยกับความเป็นส่วนตัวไหม?</summary><p>ปลอดภัย เพราะไม่เก็บเนื้อหา ส่งแค่ hash และเป็นระบบ opt-in ปิดเป็นค่าเริ่มต้น อ่านเพิ่มได้ในหน้านโยบายความเป็นส่วนตัว</p></details>
+
+  <p style="margin-top:24px">เจอ SMS น่าสงสัย ส่งให้ทีมช่วยดูได้ที่ไลน์</p>
+  <a class="cta line" href="https://line.me/R/ti/p/@spaminthai" rel="nofollow">เพิ่มเพื่อน LINE @spaminthai</a>
+
+  <footer>บทความที่เกี่ยวข้อง:
+    <a href="/blog/call-center-scam-guide-2568">รับมือแก๊งคอลเซ็นเตอร์</a>
+    <a href="/blog/scammed-what-to-do">โดนหลอกโอนเงินแล้ว</a>
+    <a href="/blog/best-spam-checker-apps-2568">แอปเช็คเบอร์ 5 อันดับ</a>
+  </footer>
+</article>
+</body>
+</html>
