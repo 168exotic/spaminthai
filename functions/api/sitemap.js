@@ -29,6 +29,8 @@ const BLOG_SLUGS = [
   'pdpa-reporting-numbers',
   'silent-unknown-callers-android-iphone',
   'new-scam-tricks-2568-07',
+  'berkhrai-check-caller',
+  'truat-ber-free',
 ];
 
 function today() {
