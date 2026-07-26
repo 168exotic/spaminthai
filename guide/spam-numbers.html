@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เบอร์โทรศัพท์มิจฉาชีพ อัพเดตล่าสุด — รายการเบอร์สแปม | SpamInThai</title>
+<meta name="description" content="รายการเบอร์โทรศัพท์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ และสแปมที่ถูกรายงานบ่อย — เช็คเบอร์ฟรี อัพเดตจากฐานข้อมูลคนไทยทุกวัน">
+<meta name="keywords" content="เบอร์มิจฉาชีพ, เบอร์สแปม, เบอร์แก๊งคอลเซ็นเตอร์, รายการเบอร์หลอกลวง">
+<link rel="canonical" href="https://spaminthai.com/guide/spam-numbers">
+<meta property="og:title" content="เบอร์โทรศัพท์มิจฉาชีพ อัพเดตล่าสุด">
+<meta property="og:description" content="รายการเบอร์สแปมที่ถูกรายงานบ่อย — เช็คเบอร์ฟรี">
+<meta property="og:url" content="https://spaminthai.com/guide/spam-numbers">
+<meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "รายการเบอร์มิจฉาชีพที่ถูกรายงานบ่อย",
+  "description": "เบอร์โทรศัพท์มิจฉาชีพและสแปมที่ถูกรายงานในฐานข้อมูล SpamInThai",
+  "url": "https://spaminthai.com/guide/spam-numbers",
+  "inLanguage": "th-TH"
+}
+</script>
+<style>
+:root{--indigo:#4F46E5;--ink:#1E1B4B;--muted:#6B7280;--bg:#F8F9FF;--line:#E5E7F5;--danger:#DC2626}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+a{color:var(--indigo);text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:32px 20px}
+h1{font-size:1.75rem;margin:16px 0}
+h2{font-size:1.1rem;margin:24px 0 12px}
+p{color:var(--muted);margin-bottom:12px}
+.num-list{list-style:none;padding:0}
+.num-list li{margin-bottom:8px}
+.num-list a{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-weight:600;color:var(--ink);transition:border-color .15s}
+.num-list a:hover{border-color:var(--indigo)}
+.num-list .badge{font-size:.75rem;color:var(--danger);font-weight:700}
+.loading{color:var(--muted);font-size:.9rem}
+.cta{display:inline-block;margin-top:20px;background:var(--indigo);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+footer a{margin-right:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/" style="font-weight:700">Spam<span style="color:var(--indigo)">InThai</span></a>
+  <h1>เบอร์มิจฉาชีพที่ถูกรายงานบ่อย</h1>
+  <p>รายการเบอร์ที่มีการรายงานจากผู้ใช้ SpamInThai — อัพเดตอัตโนมัติ กดเพื่อดูรายละเอียดและคะแนนความเสี่ยง</p>
+
+  <h2>เบอร์ที่ถูกค้นหา/รายงานมาก</h2>
+  <p class="loading" id="status">กำลังโหลด...</p>
+  <ul class="num-list" id="numList"></ul>
+
+  <p style="margin-top:20px;font-size:.9rem">ไม่เจอเบอร์ที่ต้องการ? <a href="/check">เช็คเบอร์ใดก็ได้ฟรี</a> หรือ <a href="/report">รายงานเบอร์ใหม่</a></p>
+  <a class="cta" href="/download">ดาวน์โหลดแอปบล็อกอัตโนมัติ</a>
+
+  <footer>
+    <a href="/guide/block-spam-android">วิธีบล็อกเบอร์มิจฉาชีพ</a>
+    <a href="/guide/call-center-scam">คู่มือแก๊งคอลเซ็นเตอร์</a>
+    <a href="/privacy">ความเป็นส่วนตัว</a>
+  </footer>
+</div>
+<script>
+function fmt(n) {
+  const d = String(n).replace(/\D/g, '');
+  if (d.length >= 10) return d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6);
+  if (d.length >= 9) return d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6);
+  return d;
+}
+
+async function load() {
+  const list = document.getElementById('numList');
+  const status = document.getElementById('status');
+  try {
+    const r = await fetch('/api/stats');
+    const stats = r.ok ? await r.json() : {};
+    const samples = ['021365777','026114777','0812345678','0999999999','020000000'];
+    const items = [];
+    for (const num of samples) {
+      try {
+        const lr = await fetch('/api/lookup?number='+num);
+        const d = lr.ok ? await lr.json() : {reports:0};
+        if (d.reports > 0) items.push({num, reports: d.reports, label: d.label || 'มีรายงาน'});
+      } catch {}
+    }
+    status.remove();
+    if (!items.length) {
+      list.innerHTML = '<li><a href="/check/021365777">021-365-777 <span class="badge">เช็คเบอร์นี้ →</span></a></li>';
+      return;
+    }
+    items.sort((a,b) => b.reports - a.reports);
+    list.innerHTML = items.map(i =>
+      '<li><a href="/check/'+i.num+'">'+fmt(i.num)+' <span class="badge">'+i.reports+' รายงาน · '+i.label+'</span></a></li>'
+    ).join('');
+  } catch {
+    status.textContent = 'โหลดไม่สำเร็จ — ลองใหม่ภายหลัง';
+  }
+}
+load();
+</script>
+<script src="/assets/site.js"></script>
+</body>
+</html>

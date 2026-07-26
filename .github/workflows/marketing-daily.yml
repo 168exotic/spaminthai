@@ -1,0 +1,47 @@
+name: Marketing — 4× daily
+
+# Auto-post to Telegram/Discord + IndexNow. 4 slots/day Thailand time.
+# UTC: 01:00, 05:00, 09:00, 13:00 = 08:00, 12:00, 16:00, 20:00 (UTC+7)
+
+on:
+  schedule:
+    - cron: '0 1,5,9,13 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: marketing-daily
+  cancel-in-progress: false
+
+jobs:
+  market:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: SEO ping + IndexNow
+        run: node scripts/seo-ping.mjs https://spaminthai.com
+        continue-on-error: true
+
+      - name: Run marketing automation (Telegram / Discord)
+        env:
+          MARKETING_CRON_SECRET: ${{ secrets.MARKETING_CRON_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SITE_URL: https://spaminthai.com
+        run: |
+          if [ -z "$MARKETING_CRON_SECRET" ]; then
+            echo "MARKETING_CRON_SECRET not set — running local mode (dry-run post logic)"
+            node scripts/marketing-automation.mjs --local
+            exit 0
+          fi
+          node scripts/marketing-automation.mjs
+
+      - name: Verify feed.xml
+        run: |
+          curl -fsS https://spaminthai.com/feed.xml | head -20
+          echo "feed.xml OK"

@@ -1,0 +1,18 @@
+{
+  "name": "SpamInThai — เช็คเบอร์มิจฉาชีพ",
+  "short_name": "SpamInThai",
+  "description": "เช็คเบอร์ ตรวจเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ ฟรี",
+  "start_url": "/check?utm_source=pwa&utm_medium=install",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#f43f5e",
+  "lang": "th",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

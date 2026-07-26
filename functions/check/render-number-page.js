@@ -98,12 +98,21 @@ footer a{margin-right:12px}
       <div class="stat"><b>${result.reports}</b><small>รายงานทั้งหมด</small></div>
     </div>
     <a class="cta" href="/check?number=${esc(digits)}">เช็คเบอร์นี้แบบละเอียด →</a>
+    <div class="share-bar" style="margin-top:16px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.08)">
+      <p style="font-size:.78rem;color:#64748b;margin:0 0 8px;font-weight:600">แชร์เตือนคนอื่น</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <a class="share-line" style="background:#06C755;color:#fff;border-radius:99px;padding:8px 14px;font-size:.78rem;font-weight:700;text-decoration:none" href="https://line.me/R/msg/text/?${encodeURIComponent(`⚠️ เบอร์ ${display} — ${result.label}\nเช็คเบอร์มิจฉาชีพฟรี 👇\n${canonical}?utm_source=line&utm_medium=share&utm_campaign=number_page`)}">LINE</a>
+        <a style="background:#1877F2;color:#fff;border-radius:99px;padding:8px 14px;font-size:.78rem;font-weight:700;text-decoration:none" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonical + '?utm_source=facebook&utm_medium=share&utm_campaign=number_page')}" target="_blank" rel="noopener">Facebook</a>
+        <a style="background:#f1f5f9;color:#334155;border:1px solid #e2e8f0;border-radius:99px;padding:8px 14px;font-size:.78rem;font-weight:700;text-decoration:none" href="/download?utm_source=number_page&utm_medium=cta">ดาวน์โหลดแอป</a>
+      </div>
+    </div>
   </main>
   <p style="margin-top:20px;color:var(--muted);font-size:.9rem">ค้นหา <strong>เบอร์ ${esc(display)}</strong> บ่อย — ใช้ SpamInThai <strong>เช็คเบอร์ ตรวจเบอร์</strong> ฟรี <strong>เบอร์ใคร</strong>โทรมา <strong>เบอร์อะไร</strong>น่าสงสัย ก่อนรับสายหรือโอนเงิน</p>
   <footer>
     <a href="/check">เช็คเบอร์โทร</a>
     <a href="/download">ดาวน์โหลดแอป</a>
-    <a href="/guide/call-center-scam">วิธีรับมือแก๊งคอลเซ็นเตอร์</a>
+    <a href="/guide/block-spam-android">วิธีบล็อกเบอร์มิจฉาชีพ</a>
+    <a href="/guide/spam-numbers">รายการเบอร์สแปม</a>
     <a href="/privacy">ความเป็นส่วนตัว</a>
   </footer>
 </div>

@@ -7,6 +7,25 @@ The workflow `.github/workflows/deploy.yml` requires these repository secrets:
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API token **secret string** (shown once at creation). User tokens (`cfut_`) and account tokens (`cfat_`) both work. | Yes |
 | `CLOUDFLARE_ACCOUNT_ID` | `2fa3f2f325707bab89ef1c7452d3adb8` | Optional (default in workflow) |
 
+## Marketing automation secrets (`.github/workflows/marketing-daily.yml`)
+
+| Secret | Value | Required |
+|---|---|---|
+| `MARKETING_CRON_SECRET` | Random string (e.g. `openssl rand -hex 32`) — same value in Cloudflare Pages env | Yes for live posts |
+| `TELEGRAM_BOT_TOKEN` | From [@BotFather](https://t.me/BotFather) | Recommended |
+| `TELEGRAM_CHAT_ID` | Channel/group id (e.g. `-1001234567890`) | Recommended |
+| `DISCORD_WEBHOOK_URL` | Discord channel webhook URL | Optional |
+
+```bash
+gh secret set MARKETING_CRON_SECRET --repo 168exotic/spaminthai
+gh secret set TELEGRAM_BOT_TOKEN --repo 168exotic/spaminthai
+gh secret set TELEGRAM_CHAT_ID --repo 168exotic/spaminthai
+```
+
+Also add `MARKETING_CRON_SECRET` in **Cloudflare Pages → spaminthai → Settings → Environment variables** (Production).
+
+RSS feed for IFTTT/Zapier: `https://spaminthai.com/feed.xml`
+
 ## Create the API token
 
 Cloudflare Dashboard → **My Profile** → **API Tokens** → **Create Token** → **Custom token**
