@@ -2,7 +2,7 @@
 
 const SITE = 'https://spaminthai.com';
 const CACHE_KEY = 'seo:sitemap:xml';
-const CACHE_TTL_SEC = 8 * 60 * 60; // 8h (~3 refreshes/day)
+const CACHE_TTL_SEC = 60 * 60; // 1h (per spec) — sitemap refreshes hourly
 
 const STATIC_PAGES = [
   { loc: '/', priority: '1.0', changefreq: 'daily' },
