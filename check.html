@@ -212,7 +212,7 @@ footer a{margin:0 8px}
     </details>
     <details>
       <summary>ตรวจเบอร์ยังไง?</summary>
-      <p>กรอกเบอร์โทรศัพท์ 9-10 หลัก กดปุ่ม "เช็คเบอร์" ระบบจะค้นหาจากฐานข้อมูลรายงานของคนไทยทันที อ่าน<a href="/guide/check-phone">คู่มือเช็คเบอร์ ตรวจเบอร์ ฉบับเต็ม</a></p>
+      <p>กรอกเบอร์มือถือ 10 หลัก หรือเบอร์บ้าน 9 หลัก แล้วกดปุ่ม "เช็คเบอร์" ระบบจะค้นหาจากฐานข้อมูลรายงานของคนไทยทันที อ่าน<a href="/guide/check-phone">คู่มือเช็คเบอร์ ตรวจเบอร์ ฉบับเต็ม</a></p>
     </details>
     <details>
       <summary>เบอร์ใครโทรมา เช็คยังไง?</summary>
@@ -258,16 +258,18 @@ footer a{margin:0 8px}
   </div>
 </footer>
 
+<script src="/assets/phone.js"></script>
 <script>
 const input = document.getElementById('numInput');
 const btn = document.getElementById('checkBtn');
 const box = document.getElementById('result');
 let currentNum = '';
 
-const clean = v => v.replace(/\D/g,'').slice(0,10);
+const clean = v => v.replace(/\D/g,'').slice(0,12);
+const isThaiLocal = n => window.SpamPhone.isThaiLocalPhone(n);
 
 input.addEventListener('input', () => {
-  const d = clean(input.value);
+  const d = clean(input.value).slice(0,10);
   input.value = d.length > 6 ? d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6)
               : d.length > 3 ? d.slice(0,3)+'-'+d.slice(3) : d;
 });
@@ -276,7 +278,7 @@ btn.addEventListener('click', doCheck);
 
 document.getElementById('disputeBtn').addEventListener('click', (e) => {
   const num = clean(input.value);
-  if (num.length >= 9) {
+  if (isThaiLocal(num)) {
     e.preventDefault();
     location.href = '/dispute?num=' + encodeURIComponent(num);
   }
@@ -284,7 +286,7 @@ document.getElementById('disputeBtn').addEventListener('click', (e) => {
 
 async function doCheck(){
   const num = clean(input.value);
-  if(num.length < 9){ input.focus(); return; }
+  if(!isThaiLocal(num)){ input.focus(); return; }
   currentNum = num;
   const tipLink = document.getElementById('reportTipLink');
   if (tipLink) tipLink.href = '/report?phone=' + encodeURIComponent(num);

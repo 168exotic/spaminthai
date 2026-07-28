@@ -188,6 +188,7 @@ const box = document.getElementById('result');
 let currentNum = '';
 
 const clean = v => v.replace(/\D/g,'').slice(0,10);
+const isThaiLocal = n => /^0[689]\d{8}$/.test(n) || /^0[2-57]\d{7}$/.test(n);
 
 input.addEventListener('input', () => {
   const d = clean(input.value);
@@ -199,7 +200,7 @@ btn.addEventListener('click', doCheck);
 
 async function doCheck(){
   const num = clean(input.value);
-  if(num.length < 9){ input.focus(); return; }
+  if(!isThaiLocal(num)){ input.focus(); return; }
   currentNum = num;
   btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
   try{

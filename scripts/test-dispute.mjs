@@ -32,7 +32,10 @@ const base = {
 
 // --- phone ---
 check('short number rejected', validateDispute({ ...base, num: '0812' }).error === 'invalid_number');
+check('incomplete mobile 9-digit rejected', validateDispute({ ...base, num: '081234567' }).error === 'invalid_number');
+check('landline 9-digit accepted', validateDispute({ ...base, num: '021234567' }).ok === true);
 check('+66 number normalized+accepted', validateDispute({ ...base, num: '+66812345678' }).ok === true);
+check('truncated E.164 rejected', validateDispute({ ...base, num: '6681234567' }).error === 'invalid_number');
 check('empty number rejected', validateDispute({ ...base, num: '' }).error === 'invalid_number');
 
 // --- relationship ---

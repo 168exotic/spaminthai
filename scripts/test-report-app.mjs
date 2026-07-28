@@ -38,6 +38,8 @@ check('wrong key -> 401', (await status(req('nope'), env(), goodBody)) === 401);
 // --- validation ---
 check('missing deviceId -> 400', (await status(req(KEY), env(), { ...goodBody, deviceId: '' })) === 400);
 check('invalid phone -> 400', (await status(req(KEY), env(), { ...goodBody, phone: '123' })) === 400);
+check('incomplete mobile -> 400', (await status(req(KEY), env(), { ...goodBody, phone: '081234567' })) === 400);
+check('truncated E.164 -> 400', (await status(req(KEY), env(), { ...goodBody, phone: '6681234567' })) === 400);
 
 // --- happy path ---
 {

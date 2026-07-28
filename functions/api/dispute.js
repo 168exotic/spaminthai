@@ -8,6 +8,7 @@ import {
   isAllowedImage,
   imageExtension,
   normalizePhone,
+  isThaiLocalPhone,
   json,
 } from './tip-utils.js';
 
@@ -62,7 +63,7 @@ async function parseBody(request) {
 // Pure validation — unit-tested in scripts/test-dispute.mjs (no KV needed).
 export function validateDispute(fields) {
   const num = normalizePhone(fields.num);
-  if (num.length < 9 || num.length > 10) return { ok: false, error: 'invalid_number' };
+  if (!isThaiLocalPhone(num)) return { ok: false, error: 'invalid_number' };
 
   const relationship = String(fields.relationship || '');
   if (!RELATIONSHIPS.has(relationship)) return { ok: false, error: 'invalid_relationship' };

@@ -10,6 +10,7 @@ import {
   mapCategory,
   newTipId,
   normalizePhone,
+  isThaiLocalPhone,
   recordReport,
   storeEvidence,
 } from './tip-utils.js';
@@ -48,10 +49,7 @@ async function parseReportBody(request) {
 }
 
 function normalizeLoanappPhone(v) {
-  let p = String(v).replace(/[\s\-()]/g, '');
-  if (p.startsWith('+66')) p = '0' + p.slice(3);
-  if (p.startsWith('66') && p.length >= 11) p = '0' + p.slice(2);
-  return p;
+  return normalizePhone(v);
 }
 
 async function handleLoanappReport(env, body) {
@@ -68,6 +66,7 @@ async function handleLoanappReport(env, body) {
   const category = LOANAPP_CATEGORIES.includes(body.category) ? body.category : 'loan_shark';
 
   if (type === 'phone') {
+    if (!isThaiLocalPhone(value)) return json({ ok: false, error: 'invalid_number' }, 400);
     const numKey = `num:${value}`;
     let numRec;
     try { numRec = JSON.parse((await env.SPAM_KV.get(numKey)) || '{}'); } catch { numRec = {}; }
@@ -142,7 +141,7 @@ export async function handleAppReport({ request, env, body }) {
   await env.SPAM_KV.put(rlKey, String(count + 1), { expirationTtl: APP_RATE_WINDOW });
 
   const phone = normalizePhone(body.phone);
-  if (phone.length < 9 || phone.length > 10) return json({ error: 'invalid_number' }, 400);
+  if (!isThaiLocalPhone(phone)) return json({ error: 'invalid_number' }, 400);
 
   const record = {
     phone,
@@ -179,7 +178,7 @@ export async function handleReportPost({ request, env }) {
   const category = mapCategory(body);
   const isDetailed = Boolean(body.detail);
 
-  if (number.length < 9 || number.length > 10) return json({ error: 'invalid_number' }, 400);
+  if (!isThaiLocalPhone(number)) return json({ error: 'invalid_number' }, 400);
   if (!category) return json({ error: 'invalid_category' }, 400);
 
   let detail = '';

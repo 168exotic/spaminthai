@@ -1,5 +1,7 @@
 // GET /sitemap.xml — dynamic sitemap with top reported numbers from KV.
 
+import { isThaiLocalPhone } from './phone.js';
+
 const SITE = 'https://spaminthai.com';
 const CACHE_KEY = 'seo:sitemap:xml';
 const CACHE_TTL_SEC = 60 * 60; // 1h (per spec) — sitemap refreshes hourly
@@ -110,7 +112,7 @@ export async function buildSitemapXml(env) {
 
   const numbers = await getTopNumbers(env, 200);
   for (const num of numbers) {
-    if (num.length < 9 || num.length > 10) continue;
+    if (!isThaiLocalPhone(num)) continue;
     lines.push(urlEntry(`/check/${num}`, {
       priority: '0.7',
       changefreq: 'weekly',

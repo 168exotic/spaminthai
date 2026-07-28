@@ -36,10 +36,14 @@ if (!Array.isArray(raw)) {
   process.exit(1);
 }
 
+function isThaiLocalPhone(n) {
+  return /^0[689]\d{8}$/.test(n) || /^0[2-57]\d{7}$/.test(n);
+}
+
 function normalize(entry) {
   const number = String(entry.number || '').replace(/\D/g, '');
   const category = entry.category;
-  if (number.length < 9 || number.length > 10) {
+  if (!isThaiLocalPhone(number)) {
     throw new Error(`Invalid number: ${entry.number}`);
   }
   if (!VALID_CATS.has(category)) {

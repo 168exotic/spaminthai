@@ -1,6 +1,8 @@
 // Thai mobile/landline carrier lookup by number prefix.
 // Prefix indicates the original issuing network; numbers may have been ported.
 
+import { normalizePhone, isThaiLocalPhone } from './phone.js';
+
 const CARRIER_LABELS = {
   ais: 'AIS',
   true: 'ทรู',
@@ -46,16 +48,16 @@ const PREFIX_MAP = {
 };
 
 export function normalizeThaiNumber(number) {
-  let digits = String(number || '').replace(/\D/g, '');
-  if (digits.startsWith('66')) digits = '0' + digits.slice(2);
-  if (digits.length === 9 && !digits.startsWith('0')) digits = '0' + digits;
+  let digits = normalizePhone(number);
+  // Legacy: bare 9-digit national mobile without leading 0
+  if (digits.length === 9 && /^[689]/.test(digits)) digits = '0' + digits;
   return digits;
 }
 
 export function identifyCarrier(number) {
   const digits = normalizeThaiNumber(number);
 
-  if (digits.length < 9 || digits.length > 10 || !digits.startsWith('0')) {
+  if (!isThaiLocalPhone(digits)) {
     return { carrier: null, carrierLabel: null, networkType: null };
   }
 

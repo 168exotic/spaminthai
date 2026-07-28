@@ -3,6 +3,7 @@
 
 import { assess } from './risk-assess.js';
 import { identifyCarrier } from './carrier.js';
+import { normalizePhone, isThaiLocalPhone } from './phone.js';
 import {
   checkRateLimit,
   clientIp,
@@ -23,17 +24,13 @@ function json(data, status = 200, request = null, extra = {}) {
   });
 }
 
-function normalizePhone(v) {
-  let p = v.replace(/[\s\-()]/g, '');
-  if (p.startsWith('+66')) p = '0' + p.slice(3);
-  if (p.startsWith('66') && p.length >= 11) p = '0' + p.slice(2);
-  return p;
-}
-
 // เดา entity type อัตโนมัติ
 function detectType(q) {
   const v = q.trim();
-  if (/^(\+?66|0)\d{8,9}$/.test(v.replace(/[\s\-()]/g, ''))) return 'phone';
+  const cleaned = v.replace(/[\s\-()]/g, '');
+  const local = normalizePhone(cleaned);
+  // Complete Thai local, or phone-shaped (+66/0…) so invalid lengths can 400
+  if (isThaiLocalPhone(local) || /^(\+?66|0)\d{7,10}$/.test(cleaned)) return 'phone';
   if (/^@/.test(v)) return 'line';
   if (/^[a-z][a-z0-9_]*(\.[a-z0-9_]+){2,}$/i.test(v) && /^(com|net|org|io|app|th|cn)\./i.test(v)) return 'pkg';
   if (/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(v)) return 'domain';
@@ -58,6 +55,11 @@ export async function onRequestGet({ request, env }) {
   if (type === 'auto') type = detectType(q);
 
   const value = type === 'phone' ? normalizePhone(q) : q.toLowerCase().replace(/^@/, type === 'line' ? '@' : '');
+
+  // เบอร์โทร: ต้องเป็นมือถือ 10 หลัก หรือเบอร์บ้าน 9 หลัก — กัน incomplete mobile ไป KV ผิดคีย์
+  if (type === 'phone' && !isThaiLocalPhone(value)) {
+    return json({ ok: false, error: 'invalid_number' }, 400, request);
+  }
 
   // เบอร์โทร: เช็คทั้ง namespace เดิม (spam) และ loanapp
   const keys = [];

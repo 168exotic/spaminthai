@@ -64,11 +64,7 @@ export function json(obj, status = 200, extraHeaders = {}) {
   });
 }
 
-export function normalizePhone(raw) {
-  let n = String(raw || '').replace(/\D/g, '');
-  if (n.startsWith('66') && n.length >= 11) n = '0' + n.slice(2);
-  return n;
-}
+export { normalizePhone, isThaiLocalPhone, parseThaiLocalPhone } from './phone.js';
 
 export function mapCategory(body) {
   const raw = String(body.category || '').toLowerCase();

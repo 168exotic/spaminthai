@@ -2,6 +2,7 @@
 
 import { assess } from '../api/risk-assess.js';
 import { identifyCarrier } from '../api/carrier.js';
+import { isThaiLocalPhone } from '../api/phone.js';
 
 const OG_IMAGE = 'https://spaminthai.com/assets/og-image.svg';
 
@@ -22,7 +23,7 @@ function esc(s) {
 
 export async function renderNumberPage(number, env) {
   const digits = String(number || '').replace(/\D/g, '');
-  if (digits.length < 9 || digits.length > 10) {
+  if (!isThaiLocalPhone(digits)) {
     return new Response('Not found', { status: 404 });
   }
 

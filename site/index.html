@@ -201,6 +201,7 @@ const btn = document.getElementById('checkBtn');
 const box = document.getElementById('result');
 const fullLink = document.getElementById('fullLink');
 const clean = v => v.replace(/\D/g,'').slice(0,10);
+const isThaiLocal = n => /^0[689]\d{8}$/.test(n) || /^0[2-57]\d{7}$/.test(n);
 const fmt = n => n.length > 6 ? n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6) : n;
 
 input.addEventListener('input', () => {
@@ -213,7 +214,7 @@ btn.addEventListener('click', doCheck);
 
 async function doCheck(){
   const num = clean(input.value);
-  if(num.length < 9){ input.focus(); return; }
+  if(!isThaiLocal(num)){ input.focus(); return; }
   btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
   try{
     const r = await fetch('/api/lookup?number='+num);

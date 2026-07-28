@@ -50,6 +50,11 @@ check('normalize strips +66', normalizeThaiNumber('66812345678') === '0812345678
 }
 
 {
+  const r = identifyCarrier('081234567');
+  check('incomplete mobile returns null carrier', r.carrier === null, JSON.stringify(r));
+}
+
+{
   const r = identifyCarrier('123');
   check('too short returns null carrier', r.carrier === null, JSON.stringify(r));
 }

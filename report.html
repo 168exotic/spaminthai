@@ -334,6 +334,7 @@ footer .links{margin-top:8px;display:flex;gap:16px;justify-content:center;flex-w
   </div>
 </footer>
 
+<script src="/assets/phone.js"></script>
 <script>
 const params = new URLSearchParams(location.search);
 const prefill = params.get('phone') || params.get('number');
@@ -348,7 +349,7 @@ const filePreview = document.getElementById('filePreview');
 
 const ERROR_MSG = {
   bad_json: 'ข้อมูลไม่ถูกต้อง กรุณาลองใหม่',
-  invalid_number: 'เบอร์โทรไม่ถูกต้อง (กรอก 9–10 หลัก)',
+  invalid_number: 'เบอร์โทรไม่ถูกต้อง (มือถือ 10 หลัก หรือเบอร์บ้าน 9 หลัก)',
   invalid_category: 'กรุณาเลือกประเภทพฤติกรรม',
   detail_too_short: 'รายละเอียดสั้นเกินไป กรุณาเล่าเพิ่มอีกนิด',
   consent_required: 'กรุณาติ๊กยืนยันความถูกต้องของข้อมูล',
@@ -393,6 +394,14 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
+  const phoneNorm = window.SpamPhone.normalizePhone(document.getElementById('phone').value);
+  if (!window.SpamPhone.isThaiLocalPhone(phoneNorm)) {
+    box.className = 'result err';
+    box.textContent = '❌ ' + ERROR_MSG.invalid_number;
+    document.getElementById('phone').focus();
+    return;
+  }
+
   const contact = document.getElementById('contact').value.trim();
   const evidence = document.getElementById('evidence').value.trim();
   if (!contact) {
@@ -418,7 +427,7 @@ form.addEventListener('submit', async (e) => {
   btn.textContent = 'กำลังส่งข้อมูล...';
 
   const fd = new FormData();
-  fd.append('phone', document.getElementById('phone').value.replace(/[^0-9+]/g, ''));
+  fd.append('phone', phoneNorm);
   fd.append('category', document.getElementById('category').value);
   fd.append('detail', document.getElementById('detail').value.trim());
   fd.append('evidence', evidence);
