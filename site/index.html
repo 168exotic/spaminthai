@@ -195,6 +195,7 @@ footer a{margin:0 8px}
   </div>
 </footer>
 
+<script src="/assets/phone-utils.js"></script>
 <script>
 const input = document.getElementById('numInput');
 const btn = document.getElementById('checkBtn');
@@ -213,7 +214,7 @@ btn.addEventListener('click', doCheck);
 
 async function doCheck(){
   const num = clean(input.value);
-  if(num.length < 9){ input.focus(); return; }
+  if(!SpamPhone.isValidThaiPhone(num)){ input.focus(); return; }
   btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
   try{
     const r = await fetch('/api/lookup?number='+num);

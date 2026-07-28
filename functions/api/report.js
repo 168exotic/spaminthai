@@ -13,6 +13,7 @@ import {
   recordReport,
   storeEvidence,
 } from './tip-utils.js';
+import { isValidThaiPhone, normalizeThaiNumber } from './carrier.js';
 import {
   checkRateLimit,
   clientIp,
@@ -48,10 +49,7 @@ async function parseReportBody(request) {
 }
 
 function normalizeLoanappPhone(v) {
-  let p = String(v).replace(/[\s\-()]/g, '');
-  if (p.startsWith('+66')) p = '0' + p.slice(3);
-  if (p.startsWith('66') && p.length >= 11) p = '0' + p.slice(2);
-  return p;
+  return normalizeThaiNumber(v);
 }
 
 async function handleLoanappReport(env, body) {
@@ -63,6 +61,9 @@ async function handleLoanappReport(env, body) {
   let value = (body.value || '').trim();
   if (!value || value.length > 200) return json({ ok: false, error: 'invalid value' }, 400);
   value = type === 'phone' ? normalizeLoanappPhone(value) : value.toLowerCase();
+  if (type === 'phone' && !isValidThaiPhone(value)) {
+    return json({ ok: false, error: 'invalid_number' }, 400);
+  }
   if (type === 'line' && !value.startsWith('@')) value = '@' + value;
 
   const category = LOANAPP_CATEGORIES.includes(body.category) ? body.category : 'loan_shark';
@@ -142,7 +143,7 @@ export async function handleAppReport({ request, env, body }) {
   await env.SPAM_KV.put(rlKey, String(count + 1), { expirationTtl: APP_RATE_WINDOW });
 
   const phone = normalizePhone(body.phone);
-  if (phone.length < 9 || phone.length > 10) return json({ error: 'invalid_number' }, 400);
+  if (!isValidThaiPhone(phone)) return json({ error: 'invalid_number' }, 400);
 
   const record = {
     phone,
@@ -179,7 +180,7 @@ export async function handleReportPost({ request, env }) {
   const category = mapCategory(body);
   const isDetailed = Boolean(body.detail);
 
-  if (number.length < 9 || number.length > 10) return json({ error: 'invalid_number' }, 400);
+  if (!isValidThaiPhone(number)) return json({ error: 'invalid_number' }, 400);
   if (!category) return json({ error: 'invalid_category' }, 400);
 
   let detail = '';

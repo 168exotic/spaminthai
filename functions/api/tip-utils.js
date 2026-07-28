@@ -1,5 +1,7 @@
 // Shared helpers for scam tip reports and admin review.
 
+import { normalizeThaiNumber } from './carrier.js';
+
 export const QUICK_CATS = new Set(['scam', 'callcenter', 'ads', 'loan', 'safe']);
 
 export const FORM_CATS = new Set(['scam', 'loanshark', 'sms', 'impersonate', 'gambling', 'other']);
@@ -65,9 +67,7 @@ export function json(obj, status = 200, extraHeaders = {}) {
 }
 
 export function normalizePhone(raw) {
-  let n = String(raw || '').replace(/\D/g, '');
-  if (n.startsWith('66') && n.length >= 11) n = '0' + n.slice(2);
-  return n;
+  return normalizeThaiNumber(raw);
 }
 
 export function mapCategory(body) {
