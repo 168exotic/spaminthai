@@ -22,11 +22,11 @@
 
 v1.0.21 **ไม่มี** `NotificationListenerService` จึงติดตั้งได้ปกติ (อาจมีคำเตือนอื่น แต่ไม่ hard block)
 
-## การแก้ชั่วคราว (เว็บ)
+## การแก้ (เว็บ + Releases)
 
-- ออก **v2.0.1** บน GitHub Releases — เอา Notification Listener ออกจาก manifest
-- ลิงก์ดาวน์โหลดชี้ไป v2.0.1; `/api/latest-version` ยัง fallback จาก v2.0.0 → v2.0.1
-- v1.0.21 ยังใช้เป็นทางเลือกสำรอง
+- **v2.0.2** — อัปโหลด binary เดียวกับ v1.0.21 (ลายเซ็น release จริง) — **ใช้ติดตั้ง**
+- **v2.0.1** — repack + ลายเซ็น **Android Debug** + โค้ด SMS listener ยังอยู่ใน dex → ยังถูกบล็อก
+- ลิงก์ดาวน์โหลดชี้ v2.0.2; block 2.0.0 และ 2.0.1 ใน `/api/latest-version`
 
 ## การแก้ถาวร (แอป Android — ต้องทำในโค้ดแอป)
 

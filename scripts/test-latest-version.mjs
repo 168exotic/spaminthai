@@ -162,17 +162,17 @@ check('parseKvOverride null on versionless object', parseKvOverride('{"url":"x"}
   };
   const env = { SPAM_KV: new MockKV() };
   const r = await resolveLatestVersion(env, fetchReturning(200, blockedRelease));
-  check('resolve: v2.0.0 blocked -> 2.0.1', r && r.version === '2.0.1', JSON.stringify(r));
+  check('resolve: v2.0.0 blocked -> 2.0.2', r && r.version === '2.0.2', JSON.stringify(r));
   check(
-    'resolve: fallback url is v2.0.1 apk',
-    r && /spaminthai-v2\.0\.1\.apk$/.test(r.url),
+    'resolve: fallback url is v2.0.2 apk',
+    r && /spaminthai-v2\.0\.2\.apk$/.test(r.url),
     JSON.stringify(r),
   );
   check('resolve: flags blocked version', r && r.blockedVersion === '2.0.0');
 }
 
 check('isPlayProtectBlockedVersion 2.0.0', isPlayProtectBlockedVersion('2.0.0'));
-check('isPlayProtectBlockedVersion 1.0.21', !isPlayProtectBlockedVersion('1.0.21'));
+check('isPlayProtectBlockedVersion 2.0.1', isPlayProtectBlockedVersion('2.0.1'));
 
 // --- resolveLatestVersion: GitHub failure -> null ---
 {

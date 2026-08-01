@@ -20,7 +20,7 @@ export async function onRequestGet() {
     changelog: ANDROID_INSTALL_CHANGELOG,
     playProtectBlockedVersions: [...PLAY_PROTECT_BLOCKED_VERSIONS],
     installNote:
-      'v2.0.0 ถูก Play Protect บล็อก — ใช้ v2.0.1 (แก้แล้ว) หรือ v1.0.21',
+      'v2.0.0 และ v2.0.1 ถูก Play Protect บล็อก — ใช้ v2.0.2',
   });
 }
 
