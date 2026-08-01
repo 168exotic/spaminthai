@@ -25,8 +25,17 @@ h1{font-size:1.5rem;margin-bottom:8px}
 p{color:var(--muted);margin-bottom:20px}
 .dl-btn{display:inline-block;background:var(--indigo);color:#fff;padding:14px 32px;border-radius:99px;font-weight:700;font-size:1rem}
 .dl-btn:hover{background:var(--indigo-deep);color:#fff}
+.dl-btn.secondary{background:#fff;color:var(--indigo);border:2px solid var(--indigo);margin-top:10px}
+.dl-btn.secondary:hover{background:#EEF2FF;color:var(--indigo-deep)}
 .meta{margin-top:16px;font-size:.85rem;color:var(--muted)}
 .back{display:inline-block;margin-top:24px;font-size:.9rem}
+.help{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);text-align:left}
+.help h2{font-size:1.05rem;margin-bottom:8px;color:var(--ink);text-align:center}
+.help>p{font-size:.9rem;text-align:center;margin-bottom:14px}
+.help ol{padding-left:22px;color:var(--muted);font-size:.9rem}
+.help li{margin-bottom:8px}
+.help .note{background:#EEF2FF;border:1px solid #C7D2FE;border-radius:12px;padding:12px 14px;font-size:.85rem;color:var(--ink);margin-top:14px}
+.help .note strong{color:var(--indigo-deep)}
 .shots{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);text-align:left}
 .shots h2{font-size:1rem;text-align:center;margin-bottom:4px;color:var(--ink)}
 .shots>p{font-size:.85rem;text-align:center;margin-bottom:16px}
@@ -48,6 +57,27 @@ p{color:var(--muted);margin-bottom:20px}
     <a class="dl-btn" data-download href="https://github.com/168exotic/spaminthai/releases/download/v2.0.0/spaminthai-v2.0.0.apk" download>ดาวน์โหลด APK เวอร์ชันล่าสุด</a>
     <p class="meta"><a href="/download/police.vcf">ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a></p>
     <p class="meta" id="ver">กำลังโหลดข้อมูลเวอร์ชัน…</p>
+
+    <div class="help" id="play-protect">
+      <h2>ติดตั้งไม่ได้? เจอข้อความ Play Protect</h2>
+      <p>ถ้าขึ้นว่า «แอปถูกบล็อกเพื่อปกป้องอุปกรณ์ของคุณ» ให้ทำตามนี้ — แอปดาวน์โหลดจาก spaminthai.com โดยตรง ไม่ผ่าน Play Store จึงถูกสแกนเข้ม</p>
+      <ol>
+        <li>เปิด <strong>การตั้งค่า → ความปลอดภัยและความเป็นส่วนตัว → Google Play Protect</strong> (หรือค้นว่า «Play Protect»)</li>
+        <li>แตะไอคอนตั้งค่า (เฟือง) → <strong>ปิด «สแกนแอปด้วย Play Protect»</strong> ชั่วคราว</li>
+        <li>กลับไปเปิดไฟล์ APK ที่ดาวน์โหลดไว้ แล้วกดติดตั้งอีกครั้ง</li>
+        <li>ติดตั้งเสร็จแล้ว <strong>เปิดสแกน Play Protect กลับทันที</strong></li>
+      </ol>
+      <div class="note">
+        <strong>ทำไมถึงขึ้นเตือน:</strong> แอปขอสิทธิ์บล็อกสาย (Caller ID) และกรองการแจ้งเตือน SMS ซึ่ง Google จัดเป็นสิทธิ์ละเอียดอ่อนเมื่อติดตั้งนอก Play Store — ไม่ใช่ไวรัสจากระบบของเรา
+      </div>
+      <p class="meta" style="margin-top:16px;text-align:center">
+        ยังติดตั้งไม่ได้? ลองเวอร์ชันก่อนเพิ่มฟีเจอร์กรอง SMS<br>
+        <a class="dl-btn secondary" href="https://github.com/168exotic/spaminthai/releases/download/v1.0.21/spaminthai-v1.0.21.apk" download>ดาวน์โหลด v1.0.21 (ไม่มีกรอง SMS)</a>
+      </p>
+      <p class="meta" style="text-align:center;margin-top:12px">
+        คู่มือเต็ม: <a href="/guide/block-spam-android#play-protect">วิธีบล็อกเบอร์มิจฉาชีพ Android</a>
+      </p>
+    </div>
 
     <div class="video-wrap">
       <iframe src="https://www.youtube.com/embed/FX5uWivK030" title="วิธีติดตั้งและใช้งาน SpamInThai" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

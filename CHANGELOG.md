@@ -12,6 +12,14 @@ full process.
 The format is based on [Keep a Changelog](https://keepachangelog.com/) and this
 project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+- **Play Protect install block** — `/download` and `/guide/block-spam-android` now
+  explain how to install when Google Play Protect shows «แอปถูกบล็อก…», with a
+  fallback link to APK v1.0.21 (no SMS notification filter). Developer notes in
+  [`docs/PLAY-PROTECT.md`](docs/PLAY-PROTECT.md).
+
 ## [1.3.0] — 2026-07-21
 
 This release turns SpamInThai from a lookup-only tool into a full report-and-review

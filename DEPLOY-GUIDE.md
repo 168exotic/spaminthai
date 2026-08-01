@@ -48,6 +48,11 @@ spaminthai/
 APK ล่าสุดโฮสต์บน **GitHub Releases** (v1.0.21+) — `/api/app`, ปุ่มดาวน์โหลดบน spaminthai.com,
 และ redirect `/download/spaminthai-latest.apk` ชี้ไปที่ URL ของ release โดยตรง
 
+ถ้าผู้ใช้ติดตั้งไม่ได้เพราะ Google Play Protect บล็อก APK — ดูขั้นตอนบน `/download#play-protect`
+และสาเหตุ/checklist แก้แอปใน [`docs/PLAY-PROTECT.md`](docs/PLAY-PROTECT.md)
+
+
+
 ## www.เบอร์ใคร.com (VPS)
 
 โดเมน `xn--42c7b1ab1c2gya5e.com` (เบอร์ใคร.com) โฮสต์ frontend บน VPS แยกจาก Cloudflare Pages

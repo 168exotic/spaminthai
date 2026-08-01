@@ -24,6 +24,7 @@
   "inLanguage": "th-TH",
   "step": [
     {"@type": "HowToStep", "name": "ดาวน์โหลดแอป", "text": "ดาวน์โหลด APK จาก spaminthai.com/download"},
+    {"@type": "HowToStep", "name": "ถ้า Play Protect บล็อก", "text": "ปิดสแกนแอปด้วย Play Protect ชั่วคราว ติดตั้ง APK แล้วเปิดสแกนกลับ"},
     {"@type": "HowToStep", "name": "อนุญาตสิทธิ์", "text": "เปิดสิทธิ์ Caller ID และบล็อกสายใน Android"},
     {"@type": "HowToStep", "name": "ใช้งานอัตโนมัติ", "text": "แอปจะบล็อกเบอร์ที่ถูกรายงานในฐานข้อมูลก่อนโทรศัพท์จะดัง"}
   ]
@@ -60,8 +61,20 @@ footer a{margin-right:12px}
     <li>เสร็จแล้ว — แอปจะบล็อกเบอร์ที่ถูกรายงานในฐานข้อมูลอัตโนมัติ</li>
   </ol>
 
+  <h2 id="play-protect">ติดตั้งไม่ได้เพราะ Play Protect?</h2>
+  <p>ถ้าขึ้นข้อความแบบ «แอปถูกบล็อกเพื่อปกป้องอุปกรณ์ของคุณ» แปลว่า Google Play Protect บล็อกแอปที่ติดตั้งนอก Play Store เพราะแอปใช้สิทธิ์บล็อกสาย / กรองการแจ้งเตือน SMS — ไม่ใช่ไวรัสจาก spaminthai.com</p>
+  <ol>
+    <li>เปิด <strong>การตั้งค่า → Google Play Protect</strong> (หรือค้นว่า «Play Protect»)</li>
+    <li>แตะไอคอนตั้งค่า → <strong>ปิด «สแกนแอปด้วย Play Protect»</strong> ชั่วคราว</li>
+    <li>เปิดไฟล์ APK แล้วติดตั้งอีกครั้ง</li>
+    <li>ติดตั้งเสร็จแล้ว <strong>เปิดสแกน Play Protect กลับทันที</strong></li>
+  </ol>
   <div class="tip">
-    <strong>💡 เคล็ดลับ:</strong> ถ้าได้รับสายน่าสงสัย ให้ <a href="/check">เช็คเบอร์ฟรี</a> ก่อน แล้วกดรายงานเพื่อช่วยเตือนคนอื่น — ยิ่งมีคนรายงาน ยิ่งบล็อกได้แม่นยำ
+    ถ้ายังติดตั้งไม่ได้ ลอง <a href="https://github.com/168exotic/spaminthai/releases/download/v1.0.21/spaminthai-v1.0.21.apk">APK v1.0.21</a> (บล็อกสายได้อย่างเดียว ไม่มีกรอง SMS) จากหน้า <a href="/download#play-protect">ดาวน์โหลด</a>
+  </div>
+
+  <div class="tip">
+    <strong>เคล็ดลับ:</strong> ถ้าได้รับสายน่าสงสัย ให้ <a href="/check">เช็คเบอร์ฟรี</a> ก่อน แล้วกดรายงานเพื่อช่วยเตือนคนอื่น — ยิ่งมีคนรายงาน ยิ่งบล็อกได้แม่นยำ
   </div>
 
   <h2>ทำไมต้องบล็อกแทนการรับสาย?</h2>
