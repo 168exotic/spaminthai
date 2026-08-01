@@ -136,8 +136,8 @@ check('parseKvOverride null on versionless object', parseKvOverride('{"url":"x"}
   const r = await resolveLatestVersion(env);
   check('resolve: canonical version is API 1.0.21 (stops update loop)', r && r.version === '1.0.21', JSON.stringify(r));
   check(
-    'resolve: canonical url is v2.0.4 release',
-    r && /spaminthai-v2\.0\.4\.apk$/.test(r.url),
+    'resolve: canonical url is spaminthai-latest.apk',
+    r && /\/download\/spaminthai-latest\.apk$/.test(r.url),
     JSON.stringify(r),
   );
 }

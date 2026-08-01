@@ -49,6 +49,14 @@ import {
   ANDROID_INSTALL_VERSION_CODE,
   PLAY_PROTECT_BLOCKED_VERSIONS,
 } from './functions/api/app-download.js';
+import {
+  onRequestGet as apkDownloadGet,
+  onRequestHead as apkDownloadHead,
+} from './functions/download/spaminthai-latest.apk.js';
+import {
+  onRequestGet as policeVcfGet,
+  onRequestHead as policeVcfHead,
+} from './functions/download/police.vcf.js';
 
 const WEB_VERSION = '1.3.0';
 const RELEASED_AT = '2026-07-21';
@@ -176,6 +184,15 @@ async function route(request, env, url) {
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
     if (checkNumber) return renderNumberPage(checkNumber[1], env);
+
+    if (path === '/download/spaminthai-latest.apk') {
+      if (request.method === 'HEAD') return apkDownloadHead();
+      if (request.method === 'GET') return apkDownloadGet();
+    }
+    if (path === '/download/police.vcf') {
+      if (request.method === 'HEAD') return policeVcfHead();
+      if (request.method === 'GET') return policeVcfGet();
+    }
 
     if (path === '/sitemap.xml') return handleSitemapGet(env);
     if (path === '/feed.xml') return handleMarketingRssGet(env);

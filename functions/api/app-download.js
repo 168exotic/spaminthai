@@ -6,7 +6,8 @@
 export const ANDROID_INSTALL_VERSION = '2.0.2';
 export const ANDROID_INSTALL_VERSION_CODE = '15';
 export const ANDROID_LATEST_API_VERSION = '1.0.21';
-export const ANDROID_INSTALL_URL =
+export const ANDROID_INSTALL_URL = 'https://spaminthai.com/download/spaminthai-latest.apk';
+export const ANDROID_INSTALL_GITHUB_URL =
   'https://github.com/168exotic/spaminthai/releases/download/v2.0.4/spaminthai-v2.0.4.apk';
 export const ANDROID_INSTALL_RELEASE_TAG = '2.0.4';
 export const ANDROID_INSTALL_UPDATED_AT = '2026-08-01T02:40:00Z';
