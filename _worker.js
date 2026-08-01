@@ -95,7 +95,7 @@ function handleApp() {
     changelog: ANDROID_INSTALL_CHANGELOG,
     playProtectBlockedVersions: [...PLAY_PROTECT_BLOCKED_VERSIONS],
     installNote:
-      'ดาวน์โหลด v2.0.3 — ข้อมูลแอปจะแสดง 2.0.2 (15) อย่าใช้ v2.0.0/v2.0.1/v2.0.2',
+      'ดาวน์โหลด v2.0.4 — ข้อมูลแอปจะแสดง 2.0.2 (15) อย่าใช้ v2.0.0–v2.0.3',
   }), {
     status: 200,
     headers: {

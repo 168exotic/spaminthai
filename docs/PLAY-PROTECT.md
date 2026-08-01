@@ -26,7 +26,18 @@ v1.0.21 **ไม่มี** `NotificationListenerService` จึงติดต�
 
 - **v2.0.2** — อัปโหลด binary เดียวกับ v1.0.21 (ลายเซ็น release จริง) — **ใช้ติดตั้ง**
 - **v2.0.1** — repack + ลายเซ็น **Android Debug** + โค้ด SMS listener ยังอยู่ใน dex → ยังถูกบล็อก
-- ลิงก์ดาวน์โหลดชี้ v2.0.3; `/api/latest-version` คืน **versionName ใน APK (2.0.2)** ไม่ใช้ GitHub tag — กันแอปเตือนอัปเดตวนลูป
+- **v2.0.4** — แก้ `UpdateChecker` เปรียบเทียบกับ `BuildConfig.VERSION_NAME` (ไม่ hardcode `1.0.21`) + ลิงก์ดาวน์โหลดชี้ v2.0.4
+- ลิงก์ดาวน์โหลดชี้ v2.0.4; `/api/latest-version` คืน **1.0.21** (≤ versionName ใน APK) เพื่อหยุดแจ้งเตือนวนลูปบน v2.0.3 ที่ยังเปรียบเทียบผิด
+
+## แจ้งเตือนอัปเดตวนลูป (v2.0.2 / v2.0.3)
+
+`UpdateChecker` ใน APK v2.0.2–v2.0.3 เปรียบเทียบ API version กับ **hardcoded `"1.0.21"`** ไม่ใช่ `BuildConfig.VERSION_NAME` — ดังนั้นเมื่อ API คืน `2.0.2` แอปจะคิดว่ามีอัปเดตใหม่ตลอด
+
+| แก้ไข | รายละเอียด |
+|--------|------------|
+| APK v2.0.4 | smali patch: ใช้ `BuildConfig.VERSION_NAME`; manifest + BuildConfig = 2.0.2 (15) |
+| API | `ANDROID_LATEST_API_VERSION = 1.0.21` — v2.0.4 เห็น `isNewer("1.0.21","2.0.2")` = false |
+| เว็บ | ลิงก์ทั้งหมดชี้ `spaminthai-v2.0.4.apk` |
 
 ## การแก้ถาวร (แอป Android — ต้องทำในโค้ดแอป)
 

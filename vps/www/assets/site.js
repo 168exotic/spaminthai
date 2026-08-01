@@ -2,7 +2,7 @@
 // Fetches latest metadata from spaminthai.com; falls back to pinned release.
 (function () {
   const FALLBACK =
-    'https://github.com/168exotic/spaminthai/releases/download/v2.0.3/spaminthai-v2.0.3.apk';
+    'https://github.com/168exotic/spaminthai/releases/download/v2.0.4/spaminthai-v2.0.4.apk';
   const APP_API = 'https://spaminthai.com/api/app';
 
   function applyDownloadUrl(url) {

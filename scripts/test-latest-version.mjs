@@ -134,10 +134,10 @@ check('parseKvOverride null on versionless object', parseKvOverride('{"url":"x"}
 {
   const env = { SPAM_KV: new MockKV() };
   const r = await resolveLatestVersion(env);
-  check('resolve: canonical version is APK 2.0.2', r && r.version === '2.0.2', JSON.stringify(r));
+  check('resolve: canonical version is API 1.0.21 (stops update loop)', r && r.version === '1.0.21', JSON.stringify(r));
   check(
-    'resolve: canonical url is v2.0.3 release',
-    r && /spaminthai-v2\.0\.3\.apk$/.test(r.url),
+    'resolve: canonical url is v2.0.4 release',
+    r && /spaminthai-v2\.0\.4\.apk$/.test(r.url),
     JSON.stringify(r),
   );
 }
@@ -147,12 +147,13 @@ check('parseKvOverride null on versionless object', parseKvOverride('{"url":"x"}
   const env = { SPAM_KV: new MockKV() };
   await env.SPAM_KV.put('latest_version', JSON.stringify({ version: '1.0.99' }));
   const r = await resolveLatestVersion(env);
-  check('resolve: urlless override ignored -> canonical', r && r.version === '2.0.2', JSON.stringify(r));
+  check('resolve: urlless override ignored -> canonical', r && r.version === '1.0.21', JSON.stringify(r));
 }
 
 check('isPlayProtectBlockedVersion 2.0.0', isPlayProtectBlockedVersion('2.0.0'));
 check('isPlayProtectBlockedVersion 2.0.1', isPlayProtectBlockedVersion('2.0.1'));
 check('isPlayProtectBlockedVersion 2.0.2', isPlayProtectBlockedVersion('2.0.2'));
+check('isPlayProtectBlockedVersion 2.0.3', isPlayProtectBlockedVersion('2.0.3'));
 
 // --- withinRateLimit: 60/min then blocks ---
 {
@@ -199,7 +200,7 @@ check('rate limit allows when no KV bound', (await withinRateLimit({}, '1.2.3.4'
   const res = await handleLatestVersion({ request: mockRequest('192.0.2.50'), env });
   check('handle: 200 without KV override', res.status === 200, String(res.status));
   const body = await res.json();
-  check('handle: canonical version in body', body.version === '2.0.2', JSON.stringify(body));
+  check('handle: canonical version in body', body.version === '1.0.21', JSON.stringify(body));
 }
 
 console.log(`\n${passed} passed, ${failed} failed`);

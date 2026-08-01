@@ -12,7 +12,7 @@ import { json } from './tip-utils.js';
 import {
   ANDROID_INSTALL_CHANGELOG,
   ANDROID_INSTALL_URL,
-  ANDROID_INSTALL_VERSION,
+  ANDROID_LATEST_API_VERSION,
 } from './app-download.js';
 
 export const GITHUB_LATEST_URL =
@@ -65,17 +65,17 @@ export function parseKvOverride(raw) {
   };
 }
 
-/** What the Android app compares against BuildConfig.VERSION_NAME. */
+/** Version string the Android app compares (see UpdateChecker.kt / v2.0.4 fix). */
 export function canonicalLatestVersion(override = null) {
   if (override && override.url) {
     return {
-      version: override.version || ANDROID_INSTALL_VERSION,
+      version: override.version || ANDROID_LATEST_API_VERSION,
       url: override.url,
       notes: override.notes || ANDROID_INSTALL_CHANGELOG,
     };
   }
   return {
-    version: ANDROID_INSTALL_VERSION,
+    version: ANDROID_LATEST_API_VERSION,
     url: ANDROID_INSTALL_URL,
     notes: ANDROID_INSTALL_CHANGELOG,
   };
