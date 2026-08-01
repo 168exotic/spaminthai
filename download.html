@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--indigo:#4F46E5;--indigo-deep:#3730A3;--ink:#1E1B4B;--muted:#6B7280;--bg:#F8F9FF;--line:#E5E7F5;--radius:16px}
+:root{--indigo:#4F46E5;--indigo-deep:#3730A3;--ink:#1E1B4B;--muted:#6B7280;--bg:#F8F9FF;--line:#E5E7F5;--radius:16px;--warn:#9A3412;--warn-bg:#FFF7ED;--warn-line:#FDBA74}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;min-height:100vh}
 a{color:var(--indigo);text-decoration:none}
@@ -27,6 +27,12 @@ p{color:var(--muted);margin-bottom:20px}
 .dl-btn:hover{background:var(--indigo-deep);color:#fff}
 .meta{margin-top:16px;font-size:.85rem;color:var(--muted)}
 .back{display:inline-block;margin-top:24px;font-size:.9rem}
+.help{margin-top:24px;padding:20px 18px;border-radius:14px;background:var(--warn-bg);border:1px solid var(--warn-line);text-align:left}
+.help h2{font-size:1rem;color:var(--warn);margin-bottom:8px}
+.help p,.help li{color:#7C2D12;font-size:.9rem;margin-bottom:8px}
+.help ol{padding-left:1.25rem;margin:10px 0 4px}
+.help summary{cursor:pointer;font-weight:600;color:var(--warn);font-size:.95rem}
+.help details{margin-top:4px}
 .shots{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);text-align:left}
 .shots h2{font-size:1rem;text-align:center;margin-bottom:4px;color:var(--ink)}
 .shots>p{font-size:.85rem;text-align:center;margin-bottom:16px}
@@ -48,6 +54,22 @@ p{color:var(--muted);margin-bottom:20px}
     <a class="dl-btn" data-download href="https://github.com/168exotic/spaminthai/releases/download/v2.0.0/spaminthai-v2.0.0.apk" download>ดาวน์โหลด APK เวอร์ชันล่าสุด</a>
     <p class="meta"><a href="/download/police.vcf">ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a></p>
     <p class="meta" id="ver">กำลังโหลดข้อมูลเวอร์ชัน…</p>
+
+    <aside class="help" id="play-protect" aria-labelledby="pp-title">
+      <h2 id="pp-title">ติดตั้งไม่ได้? Google Play Protect บล็อกแอป</h2>
+      <p>ถ้าขึ้นข้อความ <strong>「แอปถูกบล็อกเพื่อปกป้องอุปกรณ์ของคุณ」</strong> เป็นการสแกน APK นอก Play Store ของ Google — ไม่ใช่ไวรัสจาก SpamInThai</p>
+      <details open>
+        <summary>วิธีติดตั้งต่อ (ชั่วคราว)</summary>
+        <ol>
+          <li>เปิดแอป <strong>Play Store</strong> → แตะรูปโปรไฟล์ → <strong>Play Protect</strong> → ไอคอนตั้งค่า</li>
+          <li>ปิด <strong>สแกนแอปด้วย Play Protect</strong> ชั่วคราว</li>
+          <li>ตั้งค่า Android → <strong>ความปลอดภัย</strong> → อนุญาตติดตั้งจากไฟล์/Chrome</li>
+          <li>เปิดไฟล์ APK อีกครั้งแล้วติดตั้ง</li>
+          <li>ติดตั้งเสร็จแล้ว <strong>เปิด Play Protect กลับ</strong> เพื่อความปลอดภัย</li>
+        </ol>
+        <p style="margin-bottom:0">ยังใช้เว็บ <a href="/check">เช็คเบอร์ฟรี</a> ได้โดยไม่ต้องติดตั้งแอป · คู่มือเต็ม: <a href="/guide/block-spam-android#play-protect">บล็อกเบอร์บน Android</a></p>
+      </details>
+    </aside>
 
     <div class="video-wrap">
       <iframe src="https://www.youtube.com/embed/FX5uWivK030" title="วิธีติดตั้งและใช้งาน SpamInThai" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

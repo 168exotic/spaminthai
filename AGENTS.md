@@ -18,6 +18,7 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 - **`_redirects` + wrangler pages dev:** `/check /check.html 200` can loop locally because wrangler also clean-URLs `/check.html` → `/check`. Production Cloudflare Pages is fine. For local browser testing, temporarily rename `_redirects` or open `http://localhost:8788/check.html` directly.
 - **Persist KV outside repo:** dev script uses `--persist-to /tmp/wrangler-state` to avoid wrangler reload loops.
 - **`.assetsignore`:** prevents serving `node_modules` as static assets.
+- **Android APK / Play Protect:** App binary is **not** in this repo (hosted on GitHub Releases; package `com.jarvis.callblocker`). Play Protect may hard-block sideload installs because of `REQUEST_INSTALL_PACKAGES` + Call Screening + Notification Listener. User help: `/download#play-protect`. Developer fix checklist: `docs/PLAY-PROTECT.md`.
 
 ### Mail token / tokens ที่กำลังหมดอายุ (handoff สำหรับ agent อื่น)
 
