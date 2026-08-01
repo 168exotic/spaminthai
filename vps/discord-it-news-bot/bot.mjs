@@ -2,7 +2,7 @@
 /**
  * SpamInThai Discord bot:
  * - IT news (Blognone + TechCrunch) every 30 min
- * - YouTube Shorts from @belllikesreview — post immediately on new upload
+ * - YouTube Shorts — post immediately on new upload (multi-channel)
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
@@ -43,6 +43,21 @@ function requireEnv(name) {
   return val;
 }
 
+function parseYoutubeChannels() {
+  const raw = process.env.YOUTUBE_CHANNELS;
+  if (raw) {
+    return raw.split(',').map((part) => {
+      const [id, ...nameParts] = part.trim().split('|');
+      return { id: id.trim(), name: (nameParts.join('|') || id).trim() };
+    }).filter((c) => c.id);
+  }
+  const id = process.env.YOUTUBE_CHANNEL_ID;
+  if (id) {
+    return [{ id, name: process.env.YOUTUBE_CHANNEL_NAME || id }];
+  }
+  return [];
+}
+
 function loadPosted() {
   if (!existsSync(POSTED_FILE)) return new Set();
   try {
@@ -59,19 +74,36 @@ function savePosted(set) {
   writeFileSync(POSTED_FILE, JSON.stringify(arr, null, 2));
 }
 
-function loadYoutubeState() {
-  if (!existsSync(YOUTUBE_STATE_FILE)) return { seeded: false, lastVideoId: null, posted: [] };
+function emptyChannelState() {
+  return { seeded: false, lastVideoId: null, posted: [] };
+}
+
+function loadYoutubeStates() {
+  if (!existsSync(YOUTUBE_STATE_FILE)) return {};
   try {
-    return JSON.parse(readFileSync(YOUTUBE_STATE_FILE, 'utf8'));
+    const raw = JSON.parse(readFileSync(YOUTUBE_STATE_FILE, 'utf8'));
+    if (raw && typeof raw.seeded === 'boolean') {
+      const legacyId = process.env.YOUTUBE_CHANNEL_ID || 'UCsaEUkdeK07dUuKapR67gkA';
+      return {
+        [legacyId]: {
+          seeded: raw.seeded,
+          lastVideoId: raw.lastVideoId,
+          posted: raw.posted || [],
+        },
+      };
+    }
+    return raw && typeof raw === 'object' ? raw : {};
   } catch {
-    return { seeded: false, lastVideoId: null, posted: [] };
+    return {};
   }
 }
 
-function saveYoutubeState(state) {
+function saveYoutubeStates(states) {
   mkdirSync(DATA_DIR, { recursive: true });
-  state.posted = (state.posted || []).slice(-MAX_POSTED);
-  writeFileSync(YOUTUBE_STATE_FILE, JSON.stringify(state, null, 2));
+  for (const id of Object.keys(states)) {
+    states[id].posted = (states[id].posted || []).slice(-MAX_POSTED);
+  }
+  writeFileSync(YOUTUBE_STATE_FILE, JSON.stringify(states, null, 2));
 }
 
 function truncate(text, max) {
@@ -210,7 +242,7 @@ function buildShortEmbed(short, channelName) {
     description: `คลิป Short ใหม่จาก **${channelName}**`,
     color: 0xff0000,
     image: { url: short.thumbnail },
-    footer: { text: 'belllikesreview • YouTube Shorts' },
+    footer: { text: `${channelName} • YouTube Shorts` },
     timestamp: short.pub ? new Date(short.pub).toISOString() : new Date().toISOString(),
   };
 }
@@ -240,42 +272,34 @@ export async function postNewsOnce() {
   return { ok: true, item };
 }
 
-export async function checkYoutubeShorts() {
-  loadEnvFile();
-  const channelId = process.env.YOUTUBE_CHANNEL_ID;
-  if (!channelId) {
-    console.log('[youtube] YOUTUBE_CHANNEL_ID not set — skipping');
-    return { ok: false, reason: 'no_channel' };
-  }
-
+export async function checkYoutubeChannel(channel, states) {
   const token = requireEnv('DISCORD_BOT_TOKEN');
   const discordChannelId = requireEnv('DISCORD_CHANNEL_ID');
-  const channelName = process.env.YOUTUBE_CHANNEL_NAME || 'belllikesreview';
+  const { id: channelId, name: channelName } = channel;
 
   const shorts = await fetchYoutubeShorts(channelId);
   if (!shorts.length) {
-    console.log('[youtube] no shorts in feed');
+    console.log(`[youtube:${channelName}] no shorts in feed`);
     return { ok: false, reason: 'no_shorts' };
   }
 
-  const state = loadYoutubeState();
+  const state = states[channelId] || emptyChannelState();
   const postedSet = new Set(state.posted || []);
   const latest = shorts[0];
 
   if (!state.seeded) {
     state.seeded = true;
     state.lastVideoId = latest.videoId;
-    if (!postedSet.has(latest.videoId)) {
-      postedSet.add(latest.videoId);
-      state.posted = [...postedSet];
-    }
-    saveYoutubeState(state);
-    console.log(`[youtube] seeded — latest: ${latest.videoId} (no post)`);
+    postedSet.add(latest.videoId);
+    state.posted = [...postedSet];
+    states[channelId] = state;
+    console.log(`[youtube:${channelName}] seeded — latest: ${latest.videoId} (no post)`);
     return { ok: false, reason: 'seeded' };
   }
 
   const newShorts = shorts.filter((s) => !postedSet.has(s.videoId));
   if (!newShorts.length) {
+    states[channelId] = state;
     return { ok: false, reason: 'no_new_shorts' };
   }
 
@@ -289,13 +313,37 @@ export async function checkYoutubeShorts() {
     });
     postedSet.add(short.videoId);
     state.lastVideoId = short.videoId;
-    console.log(`[youtube] OK — ${short.title}`);
+    console.log(`[youtube:${channelName}] OK — ${short.title}`);
     posted++;
   }
 
   state.posted = [...postedSet];
-  saveYoutubeState(state);
+  states[channelId] = state;
   return { ok: true, posted };
+}
+
+export async function checkYoutubeShorts() {
+  loadEnvFile();
+  const channels = parseYoutubeChannels();
+  if (!channels.length) {
+    console.log('[youtube] no channels configured');
+    return { ok: false, reason: 'no_channel' };
+  }
+
+  const states = loadYoutubeStates();
+  let totalPosted = 0;
+
+  for (const channel of channels) {
+    try {
+      const result = await checkYoutubeChannel(channel, states);
+      if (result.ok) totalPosted += result.posted || 0;
+    } catch (err) {
+      console.error(`[youtube:${channel.name}] error:`, err.message);
+    }
+  }
+
+  saveYoutubeStates(states);
+  return { ok: totalPosted > 0, posted: totalPosted };
 }
 
 /** @deprecated use postNewsOnce */
@@ -313,8 +361,9 @@ async function main() {
   const youtubePollSec = Number(process.env.YOUTUBE_POLL_SECONDS || 120);
   const youtubePollMs = Math.max(60, youtubePollSec) * 1000;
 
-  const channelId = process.env.YOUTUBE_CHANNEL_ID || '(not set)';
-  console.log(`[boot] news every ${newsIntervalMin} min | youtube poll every ${youtubePollSec}s | channel ${channelId}`);
+  const channels = parseYoutubeChannels();
+  const channelList = channels.map((c) => c.name).join(', ') || '(none)';
+  console.log(`[boot] news every ${newsIntervalMin} min | youtube every ${youtubePollSec}s | ${channelList}`);
 
   const runNews = async () => {
     try {
