@@ -24,6 +24,14 @@ gh secret set TELEGRAM_CHAT_ID --repo 168exotic/spaminthai
 
 Also add `MARKETING_CRON_SECRET` in **Cloudflare Pages → spaminthai → Settings → Environment variables** (Production).
 
+## Google Analytics 4 (GA4)
+
+| Variable | Value | Required |
+|---|---|---|
+| `GA4_MEASUREMENT_ID` | Measurement ID จาก GA4 (รูปแบบ `G-XXXXXXXXXX`) | Optional — ถ้าไม่ตั้ง GA4 จะไม่โหลด |
+
+ดูขั้นตอนเต็มใน `docs/google-analytics-4-setup.md`
+
 RSS feed for IFTTT/Zapier: `https://spaminthai.com/feed.xml`
 
 ## Create the API token

@@ -88,3 +88,4 @@
 - Rich Results Test (ตรวจ structured data): https://search.google.com/test/rich-results
 - Sitemap: https://spaminthai.com/sitemap.xml
 - robots.txt: https://spaminthai.com/robots.txt
+- เชื่อม GA4 กับ Search Console: [google-analytics-4-setup.md](./google-analytics-4-setup.md)

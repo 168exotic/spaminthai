@@ -21,6 +21,7 @@ import {
 } from './functions/api/admin-disputes.js';
 import { countNumbersInKv } from './functions/api/stats.js';
 import { handleLatestVersion } from './functions/api/latest-version.js';
+import { buildSiteConfig } from './functions/api/site-config.js';
 import { handleEventPost, onRequestOptions as eventOptions } from './functions/api/event.js';
 import { handleLiveStats } from './functions/api/admin-live.js';
 import { handleSmsCheck, onRequestOptions as smsCheckOptions } from './functions/api/sms-check.js';
@@ -114,6 +115,17 @@ function handleApp() {
   });
 }
 
+function handleSiteConfig(env) {
+  return new Response(JSON.stringify(buildSiteConfig(env)), {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': 'https://spaminthai.com',
+      'Cache-Control': 'public, max-age=300',
+    },
+  });
+}
+
 async function handleStats(env) {
   let numbersInDb = null;
   try {
@@ -135,6 +147,7 @@ async function route(request, env, url) {
     // API routes
     if (path === '/api/lookup') return lookupHandler({ request, env });
     if (path === '/api/version') return handleVersion();
+    if (path === '/api/site-config') return handleSiteConfig(env);
     if (path === '/api/app') return handleApp();
     if (path === '/api/latest-version') return handleLatestVersion({ request, env });
     if (path === '/api/report' && request.method === 'POST') return handleReportPost({ request, env });
