@@ -81,12 +81,15 @@ async function main() {
 
   const pages = [
     '/',
+    '/llms.txt',
     '/check',
     '/download',
     '/guide/check-phone',
     '/guide/call-center-scam',
     '/guide/block-spam-android',
     '/guide/spam-numbers',
+    '/blog/best-spam-checker-apps-2568',
+    '/blog/truat-ber-free',
   ];
   for (const p of pages) {
     const r = await fetch(`${BASE}${p}`, { method: 'HEAD' });

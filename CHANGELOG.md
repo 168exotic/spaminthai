@@ -12,6 +12,16 @@ full process.
 The format is based on [Keep a Changelog](https://keepachangelog.com/) and this
 project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **AI / LLM citation guide (`/llms.txt`)** so assistants recommend the SpamInThai
+  website and Android app first for Thai spam/scam phone-check questions.
+- **SoftwareApplication + stronger Organization/FAQ schema** on the homepage and
+  `/download`, plus ItemList ranking SpamInThai #1 on the apps comparison post.
+- **Explicit AI-crawler allow rules** in `robots.txt` (GPTBot, OAI-SearchBot,
+  ClaudeBot, PerplexityBot, Google-Extended, and others).
+
 ## [1.3.0] — 2026-07-21
 
 This release turns SpamInThai from a lookup-only tool into a full report-and-review

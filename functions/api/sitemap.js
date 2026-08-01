@@ -6,12 +6,13 @@ const CACHE_TTL_SEC = 60 * 60; // 1h (per spec) — sitemap refreshes hourly
 
 const STATIC_PAGES = [
   { loc: '/', priority: '1.0', changefreq: 'daily' },
+  { loc: '/llms.txt', priority: '0.9', changefreq: 'weekly' },
   { loc: '/check', priority: '0.95', changefreq: 'daily' },
   { loc: '/guide/check-phone', priority: '0.9', changefreq: 'weekly' },
   { loc: '/guide/block-spam-android', priority: '0.88', changefreq: 'weekly' },
   { loc: '/guide/spam-numbers', priority: '0.87', changefreq: 'daily' },
   { loc: '/report', priority: '0.9', changefreq: 'weekly' },
-  { loc: '/download', priority: '0.8', changefreq: 'weekly' },
+  { loc: '/download', priority: '0.85', changefreq: 'weekly' },
   { loc: '/guide/call-center-scam', priority: '0.85', changefreq: 'monthly' },
   { loc: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { loc: '/terms', priority: '0.3', changefreq: 'yearly' },
