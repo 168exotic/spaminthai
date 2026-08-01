@@ -12,11 +12,8 @@ import Parser from 'rss-parser';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const RSS_FEEDS = [
+  { name: 'Blognone', url: 'https://www.blognone.com/atom.xml' },
   { name: 'TechCrunch', url: 'https://techcrunch.com/feed/' },
-  { name: 'The Verge', url: 'https://www.theverge.com/rss/index.xml' },
-  { name: 'Ars Technica', url: 'https://feeds.arstechnica.com/arstechnica/technology-lab' },
-  { name: 'Hacker News', url: 'https://hnrss.org/newest?points=30' },
-  { name: 'BBC Tech', url: 'https://feeds.bbci.co.uk/news/technology/rss.xml' },
 ];
 
 const DATA_DIR = process.env.DATA_DIR || join(__dirname, 'data');
