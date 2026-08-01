@@ -22,11 +22,11 @@
 
 v1.0.21 **ไม่มี** `NotificationListenerService` จึงติดตั้งได้ปกติ (อาจมีคำเตือนอื่น แต่ไม่ hard block)
 
-## การแก้ชั่วคราว (เว็บ — ทำแล้ว)
+## การแก้ชั่วคราว (เว็บ)
 
-- ลิงก์ดาวน์โหลดหลักชี้ไป **v1.0.21**
-- `/api/app` และ `/api/latest-version` ไม่ชี้ไป v2.0.0 (กันอัปเดตในแอปดันเวอร์ชันที่ติดตั้งไม่ได้)
-- หน้า `/download` มีคำแนะนำเมื่อ Play Protect บล็อก
+- ออก **v2.0.1** บน GitHub Releases — เอา Notification Listener ออกจาก manifest
+- ลิงก์ดาวน์โหลดชี้ไป v2.0.1; `/api/latest-version` ยัง fallback จาก v2.0.0 → v2.0.1
+- v1.0.21 ยังใช้เป็นทางเลือกสำรอง
 
 ## การแก้ถาวร (แอป Android — ต้องทำในโค้ดแอป)
 
@@ -62,4 +62,9 @@ print('services:', [s for s in apk.get_services() if 'callblocker' in s])
 "
 ```
 
-v2.0.0 จะเห็น `SmsNotificationListener`; v1.0.21 จะเห็นเฉพาะ `CallScreenerService`.
+v2.0.0 จะเห็น `SmsNotificationListener`; v2.0.1 และ v1.0.21 เห็นเฉพาะ `CallScreenerService`.
+
+## v2.0.1 (manifest patch)
+
+Release v2.0.1 repacks v2.0.0 โดยลบ `SmsNotificationListener` และ `REQUEST_INSTALL_PACKAGES` จาก manifest.
+SMS เบต้าใน UI ยังอยู่แต่จะไม่ทำงานจนกลับมาใน build จาก source จริงหรือ Play Store.
