@@ -42,9 +42,11 @@ import {
 } from './functions/api/_security.js';
 import {
   ANDROID_INSTALL_CHANGELOG,
+  ANDROID_INSTALL_RELEASE_TAG,
   ANDROID_INSTALL_UPDATED_AT,
   ANDROID_INSTALL_URL,
   ANDROID_INSTALL_VERSION,
+  ANDROID_INSTALL_VERSION_CODE,
   PLAY_PROTECT_BLOCKED_VERSIONS,
 } from './functions/api/app-download.js';
 
@@ -83,6 +85,8 @@ function handleApp() {
   return new Response(JSON.stringify({
     name: 'SpamInThai',
     version: ANDROID_INSTALL_VERSION,
+    versionCode: Number(ANDROID_INSTALL_VERSION_CODE),
+    releaseTag: ANDROID_INSTALL_RELEASE_TAG,
     platform: 'android',
     downloadUrl: ANDROID_INSTALL_URL,
     releasePage: 'https://spaminthai.com/download',
@@ -91,7 +95,7 @@ function handleApp() {
     changelog: ANDROID_INSTALL_CHANGELOG,
     playProtectBlockedVersions: [...PLAY_PROTECT_BLOCKED_VERSIONS],
     installNote:
-      'v2.0.0 และ v2.0.1 ถูก Play Protect บล็อก — ใช้ v2.0.2',
+      'ดาวน์โหลด v2.0.3 — ข้อมูลแอปจะแสดง 2.0.2 (15) อย่าใช้ v2.0.0/v2.0.1/v2.0.2',
   }), {
     status: 200,
     headers: {

@@ -26,7 +26,7 @@ v1.0.21 **ไม่มี** `NotificationListenerService` จึงติดต�
 
 - **v2.0.2** — อัปโหลด binary เดียวกับ v1.0.21 (ลายเซ็น release จริง) — **ใช้ติดตั้ง**
 - **v2.0.1** — repack + ลายเซ็น **Android Debug** + โค้ด SMS listener ยังอยู่ใน dex → ยังถูกบล็อก
-- ลิงก์ดาวน์โหลดชี้ v2.0.2; block 2.0.0 และ 2.0.1 ใน `/api/latest-version`
+- ลิงก์ดาวน์โหลดชี้ v2.0.3; `/api/latest-version` คืน **versionName ใน APK (2.0.2)** ไม่ใช้ GitHub tag — กันแอปเตือนอัปเดตวนลูป
 
 ## การแก้ถาวร (แอป Android — ต้องทำในโค้ดแอป)
 

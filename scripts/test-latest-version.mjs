@@ -5,6 +5,7 @@ import {
   pickApkAsset,
   parseGithubRelease,
   parseKvOverride,
+  canonicalLatestVersion,
   resolveLatestVersion,
   handleLatestVersion,
   withinRateLimit,
@@ -125,61 +126,33 @@ check('parseKvOverride null on versionless object', parseKvOverride('{"url":"x"}
     'latest_version',
     JSON.stringify({ version: '1.0.99', url: 'https://x/override.apk', notes: 'forced' }),
   );
-  const boom = async () => {
-    throw new Error('GitHub should not be called when override present');
-  };
-  const r = await resolveLatestVersion(env, boom);
+  const r = await resolveLatestVersion(env);
   check('resolve: KV override wins', r && r.version === '1.0.99' && r.url === 'https://x/override.apk');
 }
 
-// --- resolveLatestVersion: override without url is ignored, falls to GitHub ---
+// --- resolveLatestVersion: default canonical (APK versionName, not GitHub tag) ---
 {
   const env = { SPAM_KV: new MockKV() };
-  await env.SPAM_KV.put('latest_version', JSON.stringify({ version: '1.0.99' })); // no url
-  const r = await resolveLatestVersion(env, fetchReturning(200, RELEASE_FIXTURE));
-  check('resolve: urlless override ignored -> GitHub', r && r.version === '1.0.17', JSON.stringify(r));
-}
-
-// --- resolveLatestVersion: GitHub path ---
-{
-  const env = { SPAM_KV: new MockKV() };
-  const r = await resolveLatestVersion(env, fetchReturning(200, RELEASE_FIXTURE));
-  check('resolve: GitHub happy path', r && r.version === '1.0.17', JSON.stringify(r));
-}
-
-// --- Play Protect: blocked v2.0.0 falls back to installable APK ---
-{
-  const blockedRelease = {
-    tag_name: 'v2.0.0',
-    body: 'SMS beta',
-    assets: [
-      {
-        name: 'spaminthai-v2.0.0.apk',
-        browser_download_url:
-          'https://github.com/168exotic/spaminthai/releases/download/v2.0.0/spaminthai-v2.0.0.apk',
-      },
-    ],
-  };
-  const env = { SPAM_KV: new MockKV() };
-  const r = await resolveLatestVersion(env, fetchReturning(200, blockedRelease));
-  check('resolve: v2.0.0 blocked -> 2.0.2', r && r.version === '2.0.2', JSON.stringify(r));
+  const r = await resolveLatestVersion(env);
+  check('resolve: canonical version is APK 2.0.2', r && r.version === '2.0.2', JSON.stringify(r));
   check(
-    'resolve: fallback url is v2.0.2 apk',
-    r && /spaminthai-v2\.0\.2\.apk$/.test(r.url),
+    'resolve: canonical url is v2.0.3 release',
+    r && /spaminthai-v2\.0\.3\.apk$/.test(r.url),
     JSON.stringify(r),
   );
-  check('resolve: flags blocked version', r && r.blockedVersion === '2.0.0');
+}
+
+// --- resolveLatestVersion: urlless KV override ignored -> canonical ---
+{
+  const env = { SPAM_KV: new MockKV() };
+  await env.SPAM_KV.put('latest_version', JSON.stringify({ version: '1.0.99' }));
+  const r = await resolveLatestVersion(env);
+  check('resolve: urlless override ignored -> canonical', r && r.version === '2.0.2', JSON.stringify(r));
 }
 
 check('isPlayProtectBlockedVersion 2.0.0', isPlayProtectBlockedVersion('2.0.0'));
 check('isPlayProtectBlockedVersion 2.0.1', isPlayProtectBlockedVersion('2.0.1'));
-
-// --- resolveLatestVersion: GitHub failure -> null ---
-{
-  const env = { SPAM_KV: new MockKV() };
-  const r = await resolveLatestVersion(env, fetchReturning(403, { message: 'rate limited' }));
-  check('resolve: GitHub non-200 -> null', r === null);
-}
+check('isPlayProtectBlockedVersion 2.0.2', isPlayProtectBlockedVersion('2.0.2'));
 
 // --- withinRateLimit: 60/min then blocks ---
 {
@@ -220,17 +193,13 @@ check('rate limit allows when no KV bound', (await withinRateLimit({}, '1.2.3.4'
   void minute;
 }
 
-// --- handleLatestVersion: 503 when nothing resolves (empty KV + failing fetch) ---
+// --- handleLatestVersion: always resolves canonical when KV empty ---
 {
   const env = { SPAM_KV: new MockKV() };
-  const savedFetch = globalThis.fetch;
-  globalThis.fetch = fetchReturning(500, { message: 'down' });
-  try {
-    const res = await handleLatestVersion({ request: mockRequest('192.0.2.50'), env });
-    check('handle: 503 when unavailable', res.status === 503, String(res.status));
-  } finally {
-    globalThis.fetch = savedFetch;
-  }
+  const res = await handleLatestVersion({ request: mockRequest('192.0.2.50'), env });
+  check('handle: 200 without KV override', res.status === 200, String(res.status));
+  const body = await res.json();
+  check('handle: canonical version in body', body.version === '2.0.2', JSON.stringify(body));
 }
 
 console.log(`\n${passed} passed, ${failed} failed`);

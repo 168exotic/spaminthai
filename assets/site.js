@@ -1,7 +1,7 @@
 // Shared site utilities: APK download links + app install popup.
 (function () {
   const FALLBACK =
-    'https://github.com/168exotic/spaminthai/releases/download/v2.0.2/spaminthai-v2.0.2.apk';
+    'https://github.com/168exotic/spaminthai/releases/download/v2.0.3/spaminthai-v2.0.3.apk';
   const POPUP_KEY = 'spaminthai_app_popup_dismissed';
   const POPUP_DAYS = 3;
 
