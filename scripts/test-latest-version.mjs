@@ -10,6 +10,7 @@ import {
   withinRateLimit,
   RATE_LIMIT_PER_MIN,
 } from '../functions/api/latest-version.js';
+import { isPlayProtectBlockedVersion } from '../functions/api/app-download.js';
 
 let passed = 0;
 let failed = 0;
@@ -145,6 +146,33 @@ check('parseKvOverride null on versionless object', parseKvOverride('{"url":"x"}
   const r = await resolveLatestVersion(env, fetchReturning(200, RELEASE_FIXTURE));
   check('resolve: GitHub happy path', r && r.version === '1.0.17', JSON.stringify(r));
 }
+
+// --- Play Protect: blocked v2.0.0 falls back to installable APK ---
+{
+  const blockedRelease = {
+    tag_name: 'v2.0.0',
+    body: 'SMS beta',
+    assets: [
+      {
+        name: 'spaminthai-v2.0.0.apk',
+        browser_download_url:
+          'https://github.com/168exotic/spaminthai/releases/download/v2.0.0/spaminthai-v2.0.0.apk',
+      },
+    ],
+  };
+  const env = { SPAM_KV: new MockKV() };
+  const r = await resolveLatestVersion(env, fetchReturning(200, blockedRelease));
+  check('resolve: v2.0.0 blocked -> 1.0.21', r && r.version === '1.0.21', JSON.stringify(r));
+  check(
+    'resolve: fallback url is v1.0.21 apk',
+    r && /spaminthai-v1\.0\.21\.apk$/.test(r.url),
+    JSON.stringify(r),
+  );
+  check('resolve: flags blocked version', r && r.blockedVersion === '2.0.0');
+}
+
+check('isPlayProtectBlockedVersion 2.0.0', isPlayProtectBlockedVersion('2.0.0'));
+check('isPlayProtectBlockedVersion 1.0.21', !isPlayProtectBlockedVersion('1.0.21'));
 
 // --- resolveLatestVersion: GitHub failure -> null ---
 {

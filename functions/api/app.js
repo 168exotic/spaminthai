@@ -1,17 +1,26 @@
 // GET /api/app — latest SpamInThai Android app metadata
 // APK is hosted on GitHub Releases (permanent, CDN-backed, version-locked URLs).
-// Previously hosted on VPS but GitHub is cleaner: no bandwidth cost, version pinning,
-// same URL forever, and Cloudflare Pages functions can't host >25MB APK directly.
+import {
+  ANDROID_INSTALL_CHANGELOG,
+  ANDROID_INSTALL_UPDATED_AT,
+  ANDROID_INSTALL_URL,
+  ANDROID_INSTALL_VERSION,
+  PLAY_PROTECT_BLOCKED_VERSIONS,
+} from './app-download.js';
+
 export async function onRequestGet() {
   return json({
     name: 'SpamInThai',
-    version: '2.0.0',
+    version: ANDROID_INSTALL_VERSION,
     platform: 'android',
-    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v2.0.0/spaminthai-v2.0.0.apk',
+    downloadUrl: ANDROID_INSTALL_URL,
     releasePage: 'https://spaminthai.com/download',
     minSdk: 29,
-    updatedAt: '2026-07-24T00:00:00Z',
-    changelog: 'SMS spam blocking (beta) — privacy-first, hash-only.'
+    updatedAt: ANDROID_INSTALL_UPDATED_AT,
+    changelog: ANDROID_INSTALL_CHANGELOG,
+    playProtectBlockedVersions: [...PLAY_PROTECT_BLOCKED_VERSIONS],
+    installNote:
+      'v2.0.0 (SMS beta) ถูก Google Play Protect บล็อกเมื่อติดตั้งจาก APK — ใช้ v1.0.21 จนออก v2.0.1',
   });
 }
 
@@ -21,7 +30,7 @@ function json(obj, status = 200) {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       'Access-Control-Allow-Origin': 'https://spaminthai.com',
-      'Cache-Control': 'public, max-age=300'
-    }
+      'Cache-Control': 'public, max-age=300',
+    },
   });
 }

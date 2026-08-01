@@ -40,6 +40,13 @@ import {
   jsonSec,
   bodyTooLarge,
 } from './functions/api/_security.js';
+import {
+  ANDROID_INSTALL_CHANGELOG,
+  ANDROID_INSTALL_UPDATED_AT,
+  ANDROID_INSTALL_URL,
+  ANDROID_INSTALL_VERSION,
+  PLAY_PROTECT_BLOCKED_VERSIONS,
+} from './functions/api/app-download.js';
 
 const WEB_VERSION = '1.3.0';
 const RELEASED_AT = '2026-07-21';
@@ -75,13 +82,16 @@ function handleVersion() {
 function handleApp() {
   return new Response(JSON.stringify({
     name: 'SpamInThai',
-    version: '2.0.0',
+    version: ANDROID_INSTALL_VERSION,
     platform: 'android',
-    downloadUrl: 'https://github.com/168exotic/spaminthai/releases/download/v2.0.0/spaminthai-v2.0.0.apk',
+    downloadUrl: ANDROID_INSTALL_URL,
     releasePage: 'https://spaminthai.com/download',
     minSdk: 29,
-    updatedAt: '2026-07-24T00:00:00Z',
-    changelog: 'SMS spam blocking (beta) — privacy-first, hash-only.'
+    updatedAt: ANDROID_INSTALL_UPDATED_AT,
+    changelog: ANDROID_INSTALL_CHANGELOG,
+    playProtectBlockedVersions: [...PLAY_PROTECT_BLOCKED_VERSIONS],
+    installNote:
+      'v2.0.0 (SMS beta) ถูก Google Play Protect บล็อกเมื่อติดตั้งจาก APK — ใช้ v1.0.21 จนออก v2.0.1',
   }), {
     status: 200,
     headers: {

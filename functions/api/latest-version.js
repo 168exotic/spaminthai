@@ -15,6 +15,10 @@
 // limiter. The IP is SHA-256 hashed + truncated — never stored raw (no PII).
 
 import { json } from './tip-utils.js';
+import {
+  isPlayProtectBlockedVersion,
+  PLAY_PROTECT_FALLBACK,
+} from './app-download.js';
 
 export const GITHUB_LATEST_URL =
   'https://api.github.com/repos/168exotic/spaminthai/releases/latest';
@@ -92,11 +96,22 @@ export async function withinRateLimit(env, ip) {
 }
 
 // Core resolver — testable with a mock env + an injected fetch.
+function withPlayProtectFallback(payload) {
+  if (!payload || !isPlayProtectBlockedVersion(payload.version)) return payload;
+  return {
+    version: PLAY_PROTECT_FALLBACK.version,
+    url: PLAY_PROTECT_FALLBACK.url,
+    notes: PLAY_PROTECT_FALLBACK.notes,
+    blockedVersion: payload.version,
+    playProtectBlocked: true,
+  };
+}
+
 export async function resolveLatestVersion(env, fetchImpl = fetch) {
   // 1) Manual override (only honored when it carries a usable download URL).
   if (env && env.SPAM_KV) {
     const override = parseKvOverride(await env.SPAM_KV.get(LATEST_VERSION_KV_KEY));
-    if (override && override.url) return override;
+    if (override && override.url) return withPlayProtectFallback(override);
   }
   // 2) GitHub latest release (edge-cached).
   const res = await fetchImpl(GITHUB_LATEST_URL, {
@@ -108,7 +123,7 @@ export async function resolveLatestVersion(env, fetchImpl = fetch) {
   });
   if (!res || !res.ok) return null;
   const release = await res.json();
-  return parseGithubRelease(release);
+  return withPlayProtectFallback(parseGithubRelease(release));
 }
 
 export async function handleLatestVersion({ request, env }) {
