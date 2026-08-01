@@ -1,6 +1,6 @@
 // Unit tests for Thai carrier lookup in functions/api/carrier.js
 // Run with: npm test
-import { identifyCarrier, normalizeThaiNumber } from '../functions/api/carrier.js';
+import { identifyCarrier, isValidThaiPhone, normalizeThaiNumber } from '../functions/api/carrier.js';
 
 let passed = 0;
 let failed = 0;
@@ -17,6 +17,16 @@ function check(name, cond, detail) {
 
 check('normalize adds leading zero', normalizeThaiNumber('812345678') === '0812345678');
 check('normalize strips +66', normalizeThaiNumber('66812345678') === '0812345678');
+check('normalize rejects truncated +66 mobile', normalizeThaiNumber('6681234567') === '6681234567');
+
+check('valid 10-digit mobile', isValidThaiPhone('0812345678') === true);
+check('valid 9-digit landline', isValidThaiPhone('021234567') === true);
+check('reject 9-digit mobile 08x', isValidThaiPhone('081234567') === false);
+check('reject 9-digit mobile 06x', isValidThaiPhone('061234567') === false);
+check('reject 9-digit mobile 09x', isValidThaiPhone('091234567') === false);
+check('reject truncated E.164 mobile', isValidThaiPhone('6681234567') === false);
+check('accept full E.164 mobile', isValidThaiPhone('66812345678') === true);
+check('reject 8-digit landline', isValidThaiPhone('02123456') === false);
 
 {
   const r = identifyCarrier('0812345678');

@@ -32,6 +32,7 @@ const base = {
 
 // --- phone ---
 check('short number rejected', validateDispute({ ...base, num: '0812' }).error === 'invalid_number');
+check('9-digit mobile rejected', validateDispute({ ...base, num: '081234567' }).error === 'invalid_number');
 check('+66 number normalized+accepted', validateDispute({ ...base, num: '+66812345678' }).ok === true);
 check('empty number rejected', validateDispute({ ...base, num: '' }).error === 'invalid_number');
 

@@ -2,7 +2,7 @@
 // Binding: SPAM_KV -> KV namespace (wrangler.jsonc)
 
 import { assess } from './risk-assess.js';
-import { identifyCarrier } from './carrier.js';
+import { identifyCarrier, isValidThaiPhone, normalizeThaiNumber } from './carrier.js';
 import {
   checkRateLimit,
   clientIp,
@@ -24,10 +24,7 @@ function json(data, status = 200, request = null, extra = {}) {
 }
 
 function normalizePhone(v) {
-  let p = v.replace(/[\s\-()]/g, '');
-  if (p.startsWith('+66')) p = '0' + p.slice(3);
-  if (p.startsWith('66') && p.length >= 11) p = '0' + p.slice(2);
-  return p;
+  return normalizeThaiNumber(v);
 }
 
 // เดา entity type อัตโนมัติ
@@ -59,7 +56,9 @@ export async function onRequestGet({ request, env }) {
 
   const value = type === 'phone' ? normalizePhone(q) : q.toLowerCase().replace(/^@/, type === 'line' ? '@' : '');
 
-  // เบอร์โทร: เช็คทั้ง namespace เดิม (spam) และ loanapp
+  if (type === 'phone' && !isValidThaiPhone(value)) {
+    return json({ ok: false, error: 'invalid_number' }, 400, request);
+  }
   const keys = [];
   if (type === 'phone') {
     keys.push(`num:${value}`);           // key เดิมของระบบสแปม

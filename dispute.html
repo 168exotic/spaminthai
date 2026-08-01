@@ -129,10 +129,11 @@ textarea{resize:vertical;min-height:110px}
   </div>
 </div>
 
+<script src="/assets/phone-utils.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 const ERR_TH = {
-  invalid_number: 'เบอร์ไม่ถูกต้อง — ต้องมี 9–10 หลัก',
+  invalid_number: 'เบอร์ไม่ถูกต้อง — มือถือ 10 หลัก / เบอร์บ้าน 9 หลัก',
   invalid_relationship: 'กรุณาเลือกความสัมพันธ์กับเบอร์นี้',
   reason_too_short: 'เหตุผลสั้นเกินไป — อย่างน้อย 30 ตัวอักษร',
   reason_too_long: 'เหตุผลยาวเกินไป',
@@ -179,7 +180,7 @@ $('disputeForm').addEventListener('submit', async (e) => {
   const email = $('contactEmail').value.trim();
 
   // Client-side validation mirrors the server.
-  if (num.length < 9 || num.length > 10) return fail('invalid_number');
+  if (!SpamPhone.isValidThaiPhone(num)) return fail('invalid_number');
   if (!relationship) return fail('invalid_relationship');
   if (reason.length < 30) return fail('reason_too_short');
   if (!channel) return fail('invalid_contact_channel');

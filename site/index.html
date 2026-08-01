@@ -166,7 +166,7 @@ footer a{margin:0 8px}
       <div class="download-box">
         <h2>ดาวน์โหลดแอป SpamInThai</h2>
         <p>บล็อกเบอร์มิจฉาชีพอัตโนมัติ ใช้ฐานข้อมูลเดียวกับหน้าเช็คเบอร์บนเว็บ</p>
-        <a class="store-btn" data-download href="https://github.com/168exotic/spaminthai/releases/download/v2.0.0/spaminthai-v2.0.0.apk" download>ดาวน์โหลด APK บน Android</a>
+        <a class="store-btn" data-download href="https://github.com/168exotic/spaminthai/releases/download/v2.0.1/spaminthai-v2.0.2.apk" download>ดาวน์โหลด APK บน Android</a>
         <p class="coming"><a href="/download/police.vcf">ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a> · <a href="/download">หน้าดาวน์โหลด</a></p>
       </div>
     </div>
@@ -195,6 +195,7 @@ footer a{margin:0 8px}
   </div>
 </footer>
 
+<script src="/assets/phone-utils.js"></script>
 <script>
 const input = document.getElementById('numInput');
 const btn = document.getElementById('checkBtn');
@@ -213,7 +214,7 @@ btn.addEventListener('click', doCheck);
 
 async function doCheck(){
   const num = clean(input.value);
-  if(num.length < 9){ input.focus(); return; }
+  if(!SpamPhone.isValidThaiPhone(num)){ input.focus(); return; }
   btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
   try{
     const r = await fetch('/api/lookup?number='+num);

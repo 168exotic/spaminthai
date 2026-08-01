@@ -26,8 +26,21 @@ p{color:var(--muted);margin-bottom:20px}
 .dl-btn{display:inline-block;background:var(--indigo);color:#fff;padding:14px 32px;border-radius:99px;font-weight:700;font-size:1rem}
 .dl-btn:hover{background:var(--indigo-deep);color:#fff}
 .meta{margin-top:16px;font-size:.85rem;color:var(--muted)}
-.protect-note{margin-top:18px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:12px;padding:12px 14px;font-size:.85rem;color:#9A3412;text-align:left;line-height:1.6}
 .back{display:inline-block;margin-top:24px;font-size:.9rem}
+.shots{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);text-align:left}
+.shots h2{font-size:1rem;text-align:center;margin-bottom:4px;color:var(--ink)}
+.shots>p{font-size:.85rem;text-align:center;margin-bottom:16px}
+.shot-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:520px){.shot-grid{grid-template-columns:repeat(3,1fr)}}
+.shot-grid figure{margin:0;text-align:center}
+.shot-grid img{width:100%;border-radius:12px;box-shadow:0 4px 16px rgba(30,27,75,.12);background:#0f172a;aspect-ratio:9/16;object-fit:cover;object-position:top}
+.shot-grid figcaption{font-size:.72rem;color:var(--muted);margin-top:6px}
+.notice{margin-top:20px;padding:14px 16px;border-radius:12px;background:#fff7ed;border:1px solid #fed7aa;text-align:left;font-size:.85rem;color:#9a3412}
+.notice strong{color:#c2410c}
+.notice ul{margin:8px 0 0;padding-left:18px}
+.notice li{margin-bottom:6px;color:#7c2d12}
+.video-wrap{margin-top:24px;border-radius:var(--radius);overflow:hidden;aspect-ratio:9/16;max-width:280px;margin-left:auto;margin-right:auto;box-shadow:0 4px 24px rgba(79,70,229,.15)}
+.video-wrap iframe{width:100%;height:100%;border:0}
 </style>
 </head>
 <body>
@@ -36,14 +49,37 @@ p{color:var(--muted);margin-bottom:20px}
   <div class="card">
     <h1>ดาวน์โหลดแอป Android</h1>
     <p>บล็อกเบอร์มิจฉาชีพอัตโนมัติ ใช้ฐานข้อมูลเดียวกับหน้าเช็คเบอร์บนเว็บ</p>
-    <a class="dl-btn" data-download href="https://github.com/168exotic/spaminthai/releases/download/v2.0.0/spaminthai-v2.0.0.apk" download>ดาวน์โหลด APK เวอร์ชันล่าสุด</a>
-    <div class="protect-note">
-      <strong>⚠️ ถ้า Android เตือน "Play Protect"</strong><br>
-      ให้กด <strong>"ติดตั้งอยู่ดี" (Install anyway)</strong> — แอปปลอดภัย เรากำลังส่งขึ้น Google Play Store (รอบรีวิว) เพื่อให้ระบบเชื่อถืออัตโนมัติเร็ว ๆ นี้
+    <a class="dl-btn" data-download href="https://github.com/168exotic/spaminthai/releases/download/v2.0.2/spaminthai-v2.0.2.apk" download>ดาวน์โหลด APK v2.0.2</a>
+    <div class="notice">
+      <strong>Play Protect บล็อกการติดตั้ง?</strong>
+      <p style="margin:8px 0 4px"><strong>อย่าใช้ v2.0.0 หรือ v2.0.1</strong> — ถูกบล็อก<br>ใช้ <strong>v2.0.2</strong> ด้านบน (ลายเซ็น release จริง โค้ดเดียวกับ v1.0.21)</p>
+      <ul>
+        <li>ดาวน์โหลดแล้วเปิดไฟล์จากแอป <strong>ไฟล์</strong> หรือ <strong>ดาวน์โหลด</strong> (ไม่ใช่แค่กดจากเบราว์เซอร์)</li>
+        <li>อนุญาต “ติดตั้งจากแหล่งที่ไม่รู้จัก” สำหรับแอปที่ใช้เปิด APK</li>
+        <li>ถ้ายังเตือน (ไม่ใช่บล็อก): กด <strong>ติดตั้งอย่างไรก็ตาม</strong> หรือ <strong>รายละเอียดเพิ่มเติม</strong> → ติดตั้ง</li>
+        <li>ถ้ายังบล็อกจริง: Play Store → Play Protect → การตั้งค่า → ปิดสแกนชั่วคราว แล้วติดตั้ง v2.0.2</li>
+      </ul>
     </div>
     <p class="meta"><a href="/download/police.vcf">ดาวน์โหลดเบอร์ตำรวจ (police.vcf)</a></p>
     <p class="meta" id="ver">กำลังโหลดข้อมูลเวอร์ชัน…</p>
     <p class="meta"><a href="/privacy">นโยบายความเป็นส่วนตัว (Privacy Policy)</a></p>
+
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/FX5uWivK030" title="วิธีติดตั้งและใช้งาน SpamInThai" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+
+    <div class="shots">
+      <h2>หน้าจอแอปหลังติดตั้ง</h2>
+      <p>บล็อกสายอัตโนมัติ เช็คเบอร์ รายงานสแปม</p>
+      <div class="shot-grid">
+        <figure><img src="/assets/app-screenshots/app-home.webp" alt="หน้าหลักแอป SpamInThai" width="400" height="711" loading="lazy"><figcaption>หน้าหลัก</figcaption></figure>
+        <figure><img src="/assets/app-screenshots/app-history.webp" alt="ประวัติสายที่บล็อก" width="400" height="711" loading="lazy"><figcaption>ประวัติบล็อก</figcaption></figure>
+        <figure><img src="/assets/app-screenshots/app-sms.webp" alt="เช็ค SMS สแปม" width="400" height="711" loading="lazy"><figcaption>เช็ค SMS</figcaption></figure>
+        <figure><img src="/assets/app-screenshots/app-settings.webp" alt="ตั้งค่าบล็อกสาย" width="400" height="711" loading="lazy"><figcaption>ตั้งค่า</figcaption></figure>
+        <figure><img src="/assets/app-screenshots/app-settings-sms.webp" alt="กรอง SMS สแปม" width="400" height="711" loading="lazy"><figcaption>กรอง SMS</figcaption></figure>
+        <figure><img src="/assets/app-screenshots/app-settings-privacy.webp" alt="ความเป็นส่วนตัว PDPA" width="400" height="711" loading="lazy"><figcaption>PDPA</figcaption></figure>
+      </div>
+    </div>
   </div>
   <a class="back" href="/">← กลับหน้าแรก</a>
   <p class="back" style="margin-top:12px"><a href="/check">เช็คเบอร์โทรก่อนติดตั้งแอป →</a></p>
