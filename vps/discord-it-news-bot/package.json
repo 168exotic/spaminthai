@@ -1,0 +1,18 @@
+{
+  "name": "spaminthai-discord-it-news",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Discord bot — post IT news to a channel every 30 minutes",
+  "main": "bot.mjs",
+  "scripts": {
+    "start": "node bot.mjs",
+    "post-once": "node bot.mjs --once"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  }
+}

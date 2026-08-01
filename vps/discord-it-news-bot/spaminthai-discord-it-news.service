@@ -1,0 +1,18 @@
+[Unit]
+Description=SpamInThai Discord IT news bot (30 min interval)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/spaminthai-discord-it-news
+EnvironmentFile=-/opt/spaminthai-discord-it-news/.env
+ExecStart=/usr/bin/node /opt/spaminthai-discord-it-news/bot.mjs
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=spaminthai-discord-it-news
+
+[Install]
+WantedBy=multi-user.target

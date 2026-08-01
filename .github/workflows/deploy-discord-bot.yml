@@ -1,0 +1,57 @@
+name: Deploy Discord IT news bot (VPS)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'vps/discord-it-news-bot/**'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-discord-it-news-bot
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy bot to VPS
+        env:
+          VPS_HOST: ${{ secrets.DISCORD_BOT_VPS_HOST || secrets.VPS_SSH_HOST }}
+          VPS_USER: ${{ secrets.DISCORD_BOT_VPS_USER || secrets.VPS_SSH_USER }}
+          VPS_SSH_KEY: ${{ secrets.DISCORD_BOT_VPS_SSH_KEY || secrets.VPS_SSH_KEY }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${VPS_SSH_KEY:-}" ]; then
+            echo "::error::Missing VPS SSH key — set DISCORD_BOT_VPS_SSH_KEY or VPS_SSH_KEY"
+            exit 1
+          fi
+          HOST="${VPS_HOST:?VPS host secret required (DISCORD_BOT_VPS_HOST or VPS_SSH_HOST)}"
+          USER="${VPS_USER:-root}"
+          KEY_FILE="$(mktemp)"
+          trap 'rm -f "$KEY_FILE"' EXIT
+          printf '%s\n' "$VPS_SSH_KEY" > "$KEY_FILE"
+          chmod 600 "$KEY_FILE"
+          SSH="ssh -i $KEY_FILE -o StrictHostKeyChecking=accept-new"
+
+          rsync -avz --delete \
+            --exclude node_modules --exclude data --exclude .env \
+            -e "$SSH" \
+            vps/discord-it-news-bot/ "${USER}@${HOST}:/opt/spaminthai-discord-it-news/"
+
+          if [ -n "${DISCORD_BOT_TOKEN:-}" ]; then
+            $SSH "${USER}@${HOST}" "cat > /opt/spaminthai-discord-it-news/.env" <<EOF
+          DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+          DISCORD_CHANNEL_ID=${DISCORD_CHANNEL_ID:-1533227068480032948}
+          POST_INTERVAL_MINUTES=30
+          EOF
+            $SSH "${USER}@${HOST}" "chmod 600 /opt/spaminthai-discord-it-news/.env"
+          fi
+
+          $SSH "${USER}@${HOST}" "bash /opt/spaminthai-discord-it-news/install.sh"
+          echo "Deployed Discord IT news bot → ${USER}@${HOST}"

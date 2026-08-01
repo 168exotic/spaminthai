@@ -69,6 +69,35 @@ gh secret set VPS_SSH_KEY --repo 168exotic/spaminthai < ~/.ssh/id_rsa
 
 จากนั้นรัน: `gh workflow run deploy-vps.yml --repo 168exotic/spaminthai`
 
+## Discord IT news bot (VPS `72.62.79.114`)
+
+Workflow `.github/workflows/deploy-discord-bot.yml` — โพสต์ข่าวไอทีทุก 30 นาทีในช่อง Discord
+
+| Secret | Value | Required |
+|---|---|---|
+| `DISCORD_BOT_TOKEN` | Bot token จาก [Discord Developer Portal](https://discord.com/developers/applications) | Yes |
+| `DISCORD_CHANNEL_ID` | Channel id (default `1533227068480032948`) | Optional |
+| `DISCORD_BOT_VPS_HOST` | `72.62.79.114` (หรือใช้ `VPS_SSH_HOST` ถ้าเครื่องเดียวกัน) | Yes |
+| `DISCORD_BOT_VPS_SSH_KEY` | private key PEM | Yes (หรือใช้ `VPS_SSH_KEY`) |
+
+```bash
+gh secret set DISCORD_BOT_TOKEN --repo 168exotic/spaminthai
+gh secret set DISCORD_CHANNEL_ID --repo 168exotic/spaminthai --body "1533227068480032948"
+gh secret set DISCORD_BOT_VPS_HOST --repo 168exotic/spaminthai --body "72.62.79.114"
+gh secret set DISCORD_BOT_VPS_SSH_KEY --repo 168exotic/spaminthai < ~/.ssh/id_rsa
+gh workflow run deploy-discord-bot.yml --repo 168exotic/spaminthai
+```
+
+ติดตั้งมือบน VPS (ถ้าไม่ใช้ Actions):
+
+```bash
+scp -r vps/discord-it-news-bot root@72.62.79.114:/opt/spaminthai-discord-it-news
+ssh root@72.62.79.114 'nano /opt/spaminthai-discord-it-news/.env'  # ใส่ DISCORD_BOT_TOKEN
+ssh root@72.62.79.114 'bash /opt/spaminthai-discord-it-news/install.sh'
+```
+
+บอทต้องเปิด **Message Content Intent** ใน Developer Portal (ถ้าใช้ embed อย่างเดียวไม่จำเป็น) และ invite บอทเข้าเซิร์ฟเวอร์ด้วย scope `bot` + `Send Messages`.
+
 ## Re-run deploy
 
 After secrets are set:
