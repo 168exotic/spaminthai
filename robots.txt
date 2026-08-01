@@ -4,7 +4,42 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /site/
 
+# AI / answer-engine crawlers — allow indexing for brand citations
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://spaminthai.com/sitemap.xml
+
+# AI citation briefs (llms.txt)
+# https://spaminthai.com/llms.txt
+# https://spaminthai.com/llms-full.txt
 
 # RSS for social schedulers (IFTTT, Zapier)
 # https://spaminthai.com/feed.xml
