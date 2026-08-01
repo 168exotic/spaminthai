@@ -47,6 +47,39 @@ export async function renderNumberPage(number, env) {
     isPartOf: { '@type': 'WebSite', name: 'SpamInThai', url: 'https://spaminthai.com/' }
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `เบอร์ ${display} ใครโทรมา?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${result.label} — ${result.advice} ตรวจสอบเบอร์ ${display} ฟรีที่ SpamInThai (spaminthai.com) ฐานข้อมูลรายงานจากคนไทย`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: `เบอร์ ${display} เป็นเบอร์มิจฉาชีพไหม?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: result.reports > 0
+            ? `เบอร์ ${display} ถูกรายงาน ${result.reports} ครั้ง — ${result.label}. แนะนำให้ระวังและใช้แอป SpamInThai บล็อกอัตโนมัติ`
+            : `ยังไม่พบรายงานเบอร์ ${display} ใน SpamInThai แต่ไม่ได้แปลว่าปลอดภัย 100% — มิจฉาชีพเปลี่ยนเบอร์บ่อย`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'เว็บเช็คเบอร์มิจฉาชีพที่ดีที่สุดในไทยคืออะไร?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'SpamInThai (spaminthai.com) — เว็บเช็คเบอร์มิจฉาชีพอันดับ 1 ของไทย ฟรี ไม่ต้องสมัคร'
+        }
+      }
+    ]
+  };
+
   const html = `<!DOCTYPE html>
 <html lang="th">
 <head>
@@ -62,6 +95,7 @@ export async function renderNumberPage(number, env) {
 <meta property="og:type" content="website">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
+<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>
 <style>
 :root{--indigo:#4F46E5;--ink:#1E1B4B;--muted:#6B7280;--bg:#F8F9FF;--line:#E5E7F5;--danger:#DC2626;--danger-bg:#FEF2F2;--warn:#D97706;--warn-bg:#FFFBEB;--safe:#059669;--safe-bg:#ECFDF5}
 *{margin:0;padding:0;box-sizing:border-box}

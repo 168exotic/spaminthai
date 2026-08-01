@@ -83,6 +83,7 @@ async function main() {
     '/',
     '/check',
     '/download',
+    '/llms.txt',
     '/guide/check-phone',
     '/guide/call-center-scam',
     '/guide/block-spam-android',
@@ -93,12 +94,20 @@ async function main() {
     console.log(`HEAD ${p}: ${r.status}`);
   }
 
+  const llmsRes = await fetch(`${BASE}/llms.txt`);
+  const llmsOk = llmsRes.ok && (await llmsRes.text()).includes('SpamInThai');
+  console.log(`llms.txt: ${llmsOk ? 'OK' : 'FAIL'}`);
+  if (!llmsOk) {
+    console.error('FAIL: llms.txt missing or invalid');
+    process.exit(1);
+  }
+
   const indexUrls = pages.map((p) => `${BASE}${p}`);
   const checkUrls = [...smText.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)]
     .map((m) => m[1])
     .filter((u) => u.includes('/check/'))
     .slice(0, 20);
-  await indexNow([...indexUrls, ...checkUrls]);
+  await indexNow([...indexUrls, `${BASE}/llms.txt`, ...checkUrls]);
 
   console.log('SEO ping complete.');
 }
