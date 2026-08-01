@@ -290,10 +290,10 @@ export async function checkYoutubeChannel(channel, states) {
   if (!state.seeded) {
     state.seeded = true;
     state.lastVideoId = latest.videoId;
-    postedSet.add(latest.videoId);
+    for (const s of shorts) postedSet.add(s.videoId);
     state.posted = [...postedSet];
     states[channelId] = state;
-    console.log(`[youtube:${channelName}] seeded — latest: ${latest.videoId} (no post)`);
+    console.log(`[youtube:${channelName}] seeded — ${shorts.length} shorts tracked (no post)`);
     return { ok: false, reason: 'seeded' };
   }
 
@@ -358,7 +358,7 @@ async function main() {
 
   const newsIntervalMin = Number(process.env.POST_INTERVAL_MINUTES || 30);
   const newsIntervalMs = Math.max(5, newsIntervalMin) * 60 * 1000;
-  const youtubePollSec = Number(process.env.YOUTUBE_POLL_SECONDS || 120);
+  const youtubePollSec = Number(process.env.YOUTUBE_POLL_SECONDS || 14400);
   const youtubePollMs = Math.max(60, youtubePollSec) * 1000;
 
   const channels = parseYoutubeChannels();
