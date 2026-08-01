@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * SpamInThai Discord IT news bot — posts fresh tech headlines every 30 minutes.
- * Runs on VPS via systemd (see install.sh).
+ * SpamInThai Discord bot:
+ * - IT news (Blognone + TechCrunch) every 30 min
+ * - YouTube Shorts from @belllikesreview — post immediately on new upload
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
@@ -18,6 +19,7 @@ const RSS_FEEDS = [
 
 const DATA_DIR = process.env.DATA_DIR || join(__dirname, 'data');
 const POSTED_FILE = join(DATA_DIR, 'posted-urls.json');
+const YOUTUBE_STATE_FILE = join(DATA_DIR, 'youtube-state.json');
 const MAX_POSTED = 600;
 const DISCORD_API = 'https://discord.com/api/v10';
 
@@ -57,6 +59,21 @@ function savePosted(set) {
   writeFileSync(POSTED_FILE, JSON.stringify(arr, null, 2));
 }
 
+function loadYoutubeState() {
+  if (!existsSync(YOUTUBE_STATE_FILE)) return { seeded: false, lastVideoId: null, posted: [] };
+  try {
+    return JSON.parse(readFileSync(YOUTUBE_STATE_FILE, 'utf8'));
+  } catch {
+    return { seeded: false, lastVideoId: null, posted: [] };
+  }
+}
+
+function saveYoutubeState(state) {
+  mkdirSync(DATA_DIR, { recursive: true });
+  state.posted = (state.posted || []).slice(-MAX_POSTED);
+  writeFileSync(YOUTUBE_STATE_FILE, JSON.stringify(state, null, 2));
+}
+
 function truncate(text, max) {
   const s = String(text || '').replace(/\s+/g, ' ').trim();
   if (s.length <= max) return s;
@@ -72,6 +89,22 @@ function stripHtml(html) {
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .trim();
+}
+
+function videoIdFromEntry(entry) {
+  const fromId = String(entry.id || '').replace(/^yt:video:/, '');
+  if (/^[a-zA-Z0-9_-]{11}$/.test(fromId)) return fromId;
+  const link = entry.link || '';
+  const m = link.match(/(?:shorts\/|v=|\/v\/)([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+function shortsUrl(videoId) {
+  return `https://www.youtube.com/shorts/${videoId}`;
+}
+
+function thumbnailUrl(videoId) {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 }
 
 async function fetchNewsItems() {
@@ -105,6 +138,31 @@ async function fetchNewsItems() {
   return items;
 }
 
+async function fetchYoutubeShorts(channelId) {
+  const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+  const parser = new Parser({ timeout: 15000 });
+  const parsed = await parser.parseURL(feedUrl);
+  const shorts = [];
+
+  for (const entry of parsed.items || []) {
+    const link = entry.link || '';
+    if (!link.includes('/shorts/')) continue;
+    const videoId = videoIdFromEntry(entry);
+    if (!videoId) continue;
+    shorts.push({
+      videoId,
+      title: stripHtml(entry.title),
+      link: shortsUrl(videoId),
+      thumbnail: thumbnailUrl(videoId),
+      pub: entry.isoDate || entry.pubDate || '',
+      ts: entry.isoDate ? Date.parse(entry.isoDate) || 0 : 0,
+    });
+  }
+
+  shorts.sort((a, b) => b.ts - a.ts);
+  return shorts;
+}
+
 function pickItem(items, posted) {
   for (const item of items) {
     if (!posted.has(item.link)) return item;
@@ -129,7 +187,7 @@ async function discordRequest(token, path, body) {
   return res.json();
 }
 
-function buildEmbed(item) {
+function buildNewsEmbed(item) {
   const fields = [{ name: 'แหล่งข่าว', value: item.source, inline: true }];
   if (item.summary) {
     fields.push({ name: 'สรุป', value: item.summary, inline: false });
@@ -145,7 +203,19 @@ function buildEmbed(item) {
   };
 }
 
-export async function postOnce() {
+function buildShortEmbed(short, channelName) {
+  return {
+    title: truncate(short.title, 256),
+    url: short.link,
+    description: `คลิป Short ใหม่จาก **${channelName}**`,
+    color: 0xff0000,
+    image: { url: short.thumbnail },
+    footer: { text: 'belllikesreview • YouTube Shorts' },
+    timestamp: short.pub ? new Date(short.pub).toISOString() : new Date().toISOString(),
+  };
+}
+
+export async function postNewsOnce() {
   loadEnvFile();
   const token = requireEnv('DISCORD_BOT_TOKEN');
   const channelId = requireEnv('DISCORD_CHANNEL_ID');
@@ -155,42 +225,129 @@ export async function postOnce() {
   const item = pickItem(items, posted);
 
   if (!item) {
-    console.log('[post] no fresh items (all recent links already posted)');
+    console.log('[news] no fresh items');
     return { ok: false, reason: 'no_fresh_items' };
   }
 
   await discordRequest(token, `/channels/${channelId}/messages`, {
     content: '📰 **ข่าวไอที**',
-    embeds: [buildEmbed(item)],
+    embeds: [buildNewsEmbed(item)],
   });
 
   posted.add(item.link);
   savePosted(posted);
-  console.log(`[post] OK — ${item.source}: ${item.title}`);
+  console.log(`[news] OK — ${item.source}: ${item.title}`);
   return { ok: true, item };
+}
+
+export async function checkYoutubeShorts() {
+  loadEnvFile();
+  const channelId = process.env.YOUTUBE_CHANNEL_ID;
+  if (!channelId) {
+    console.log('[youtube] YOUTUBE_CHANNEL_ID not set — skipping');
+    return { ok: false, reason: 'no_channel' };
+  }
+
+  const token = requireEnv('DISCORD_BOT_TOKEN');
+  const discordChannelId = requireEnv('DISCORD_CHANNEL_ID');
+  const channelName = process.env.YOUTUBE_CHANNEL_NAME || 'belllikesreview';
+
+  const shorts = await fetchYoutubeShorts(channelId);
+  if (!shorts.length) {
+    console.log('[youtube] no shorts in feed');
+    return { ok: false, reason: 'no_shorts' };
+  }
+
+  const state = loadYoutubeState();
+  const postedSet = new Set(state.posted || []);
+  const latest = shorts[0];
+
+  if (!state.seeded) {
+    state.seeded = true;
+    state.lastVideoId = latest.videoId;
+    if (!postedSet.has(latest.videoId)) {
+      postedSet.add(latest.videoId);
+      state.posted = [...postedSet];
+    }
+    saveYoutubeState(state);
+    console.log(`[youtube] seeded — latest: ${latest.videoId} (no post)`);
+    return { ok: false, reason: 'seeded' };
+  }
+
+  const newShorts = shorts.filter((s) => !postedSet.has(s.videoId));
+  if (!newShorts.length) {
+    return { ok: false, reason: 'no_new_shorts' };
+  }
+
+  newShorts.sort((a, b) => a.ts - b.ts);
+  let posted = 0;
+
+  for (const short of newShorts) {
+    await discordRequest(token, `/channels/${discordChannelId}/messages`, {
+      content: `🎬 **คลิป Short ใหม่**\n${short.link}`,
+      embeds: [buildShortEmbed(short, channelName)],
+    });
+    postedSet.add(short.videoId);
+    state.lastVideoId = short.videoId;
+    console.log(`[youtube] OK — ${short.title}`);
+    posted++;
+  }
+
+  state.posted = [...postedSet];
+  saveYoutubeState(state);
+  return { ok: true, posted };
+}
+
+/** @deprecated use postNewsOnce */
+export async function postOnce() {
+  return postNewsOnce();
 }
 
 async function main() {
   const once = process.argv.includes('--once');
+  const youtubeOnly = process.argv.includes('--youtube');
   loadEnvFile();
 
-  const intervalMin = Number(process.env.POST_INTERVAL_MINUTES || 30);
-  const intervalMs = Math.max(5, intervalMin) * 60 * 1000;
+  const newsIntervalMin = Number(process.env.POST_INTERVAL_MINUTES || 30);
+  const newsIntervalMs = Math.max(5, newsIntervalMin) * 60 * 1000;
+  const youtubePollSec = Number(process.env.YOUTUBE_POLL_SECONDS || 120);
+  const youtubePollMs = Math.max(60, youtubePollSec) * 1000;
 
-  console.log(`[boot] Discord IT news bot — interval ${intervalMin} min`);
+  const channelId = process.env.YOUTUBE_CHANNEL_ID || '(not set)';
+  console.log(`[boot] news every ${newsIntervalMin} min | youtube poll every ${youtubePollSec}s | channel ${channelId}`);
 
-  const run = async () => {
+  const runNews = async () => {
     try {
-      await postOnce();
+      await postNewsOnce();
     } catch (err) {
-      console.error('[post] error:', err.message);
+      console.error('[news] error:', err.message);
     }
   };
 
-  await run();
-  if (once) return;
+  const runYoutube = async () => {
+    try {
+      await checkYoutubeShorts();
+    } catch (err) {
+      console.error('[youtube] error:', err.message);
+    }
+  };
 
-  setInterval(run, intervalMs);
+  if (youtubeOnly) {
+    await runYoutube();
+    return;
+  }
+
+  await runYoutube();
+  if (!once) {
+    setInterval(runYoutube, youtubePollMs);
+  }
+
+  if (!process.argv.includes('--youtube-only')) {
+    await runNews();
+    if (!once) {
+      setInterval(runNews, newsIntervalMs);
+    }
+  }
 }
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
