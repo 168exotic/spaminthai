@@ -116,6 +116,8 @@ footer a{margin-right:12px}
     <a href="/privacy">ความเป็นส่วนตัว</a>
   </footer>
 </div>
+<script src="/assets/cf-web-analytics.js" defer></script>
+<script src="/assets/ga4.js" defer></script>
 </body>
 </html>`;
 
