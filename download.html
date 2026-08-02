@@ -90,5 +90,6 @@ fetch('/api/app').then(r=>r.json()).then(d=>{
   document.getElementById('ver').textContent = 'เวอร์ชัน '+d.version+' · อัปเดต '+new Date(d.updatedAt).toLocaleDateString('th-TH');
 }).catch(()=>{ document.getElementById('ver').textContent = ''; });
 </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "61b52e6dd1dc4e3682ac12f84342cbbb"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

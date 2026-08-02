@@ -116,6 +116,7 @@ footer a{margin-right:12px}
     <a href="/privacy">ความเป็นส่วนตัว</a>
   </footer>
 </div>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "61b52e6dd1dc4e3682ac12f84342cbbb"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>`;
 

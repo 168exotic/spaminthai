@@ -7,7 +7,7 @@
     "deploy": "wrangler pages deploy . --project-name spaminthai",
     "verify-token": "node scripts/verify-token.js",
     "seed": "node scripts/seed-spam-numbers.js data/spam-numbers-sample.json",
-    "test": "node scripts/test-assess.mjs && node scripts/test-carrier.mjs && node scripts/test-dispute.mjs && node scripts/test-latest-version.mjs && node scripts/test-sitemap.mjs && node scripts/test-report-app.mjs && node scripts/test-live-stats.mjs && node scripts/test-security.mjs && node scripts/test-site-config.mjs && node scripts/test-marketing.mjs",
+    "test": "node scripts/test-assess.mjs && node scripts/test-carrier.mjs && node scripts/test-dispute.mjs && node scripts/test-latest-version.mjs && node scripts/test-sitemap.mjs && node scripts/test-report-app.mjs && node scripts/test-live-stats.mjs && node scripts/test-security.mjs && node scripts/test-site-config.mjs && node scripts/test-marketing.mjs && node scripts/test-web-analytics.mjs",
     "seo:ping": "node scripts/seo-ping.mjs",
     "marketing:run": "node scripts/marketing-automation.mjs",
     "marketing:local": "node scripts/marketing-automation.mjs --local",
