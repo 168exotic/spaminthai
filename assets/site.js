@@ -64,7 +64,8 @@
 @media(min-width:640px){#appPopupCard{gap:14px;padding:12px 20px;padding-top:max(12px,env(safe-area-inset-top))}}
 @keyframes appPopSlideDown{from{transform:translateY(-110%)}to{transform:translateY(0)}}
 @keyframes appPopSlideUp{from{transform:translateY(0)}to{transform:translateY(-110%)}}
-#appPopupIcon{flex-shrink:0;width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#f43f5e,#e11d48);display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+#appPopupIcon{flex-shrink:0;width:40px;height:40px;border-radius:11px;overflow:hidden;box-shadow:0 2px 12px rgba(23,216,255,.2)}
+#appPopupIcon img{display:block;width:100%;height:100%;object-fit:cover}
 #appPopupBody{flex:1;min-width:0}
 #appPopupTitle{font-size:.88rem;font-weight:800;color:#fff;margin:0;line-height:1.3}
 #appPopupDesc{font-size:.72rem;color:#94a3b8;margin:2px 0 0;line-height:1.35;display:none}
@@ -84,7 +85,7 @@
     wrap.setAttribute('aria-label', 'ดาวน์โหลดแอป SpamInThai');
     wrap.innerHTML = `
 <div id="appPopupCard">
-  <div id="appPopupIcon">🛡️</div>
+  <div id="appPopupIcon"><img src="/assets/logo-spaminthai.png" width="40" height="40" alt=""></div>
   <div id="appPopupBody">
     <p id="appPopupTitle">ดาวน์โหลดแอป SpamInThai — บล็อกสายมิจฉาชีพอัตโนมัติ</p>
     <p id="appPopupDesc">ใช้ฐานข้อมูลเดียวกับเว็บ ก่อนโทรศัพท์จะดัง</p>
