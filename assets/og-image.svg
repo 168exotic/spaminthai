@@ -1,18 +1,94 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="576" viewBox="0 0 1024 576" role="img" aria-labelledby="title desc">
+  <title id="title">SpamInThai Cyber Shield</title>
+  <desc id="desc">Block scam calls, SMS and URLs with community-powered protection for Thailand.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e1b4b"/>
+      <stop stop-color="#03162a"/>
+      <stop offset="1" stop-color="#061d33"/>
     </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#173f63"/>
+      <stop offset="1" stop-color="#082844"/>
+    </linearGradient>
+    <pattern id="hex" width="57" height="49" patternUnits="userSpaceOnUse">
+      <path d="M14.5 1h28L56 24.5 42.5 48h-28L1 24.5z" fill="none" stroke="#19cefa" stroke-opacity=".075"/>
+    </pattern>
+    <filter id="cyanGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="redGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="980" cy="120" r="180" fill="#f43f5e" opacity=".12"/>
-  <circle cx="220" cy="520" r="140" fill="#4f46e5" opacity=".18"/>
-  <text x="80" y="180" fill="#fff" font-family="system-ui,sans-serif" font-size="72" font-weight="800">SpamInThai</text>
-  <text x="80" y="280" fill="#fda4af" font-family="system-ui,sans-serif" font-size="52" font-weight="700">@
-G@-#LB# · @-#L!4	2
-5</text>
-  <text x="80" y="360" fill="#cbd5e1" font-family="system-ui,sans-serif" font-size="36">AJ-%@G@-#L · @-#L*A! · #5</text>
-  <rect x="80" y="420" width="420" height="72" rx="36" fill="#f43f5e"/>
-  <text x="120" y="468" fill="#fff" font-family="system-ui,sans-serif" font-size="32" font-weight="700">spaminthai.com/check</text>
+
+  <rect width="1024" height="576" fill="url(#bg)"/>
+  <rect width="1024" height="576" fill="url(#hex)"/>
+  <ellipse cx="790" cy="270" rx="240" ry="285" fill="#0a3554" opacity=".22"/>
+
+  <g font-family="'JetBrains Mono','SFMono-Regular',Consolas,monospace">
+    <rect x="65" y="106" width="238" height="24" rx="12" fill="#08253e" stroke="#16d7ff" stroke-width="1.5"/>
+    <text x="78" y="123" fill="#1cdcff" font-size="13" font-weight="700" letter-spacing=".8">CYBER / SHIELD / v1.0.8+</text>
+  </g>
+
+  <text x="65" y="226" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="76" font-weight="800" letter-spacing="-2">SpamInThai</text>
+  <path d="M65 247h55" stroke="#18dcff" stroke-width="3"/>
+  <text x="65" y="288" fill="#e8f1f8" font-family="Inter,Arial,sans-serif" font-size="31" font-weight="700" letter-spacing="-1">Block Scam Calls / SMS / URLs</text>
+  <text x="65" y="320" fill="#95adc3" font-family="Inter,Arial,sans-serif" font-size="19">Free protection for Thailand - powered by community reports.</text>
+
+  <rect x="65" y="331" width="213" height="35" rx="17.5" fill="#17d8ff"/>
+  <g fill="none" stroke="#03182c" stroke-width="1.8">
+    <circle cx="82" cy="348.5" r="7"/>
+    <path d="M75 348.5h14M82 341.5c3 3.5 3 10.5 0 14M82 341.5c-3 3.5-3 10.5 0 14"/>
+  </g>
+  <text x="98" y="354" fill="#03182c" font-family="'JetBrains Mono',Consolas,monospace" font-size="18" font-weight="700">spaminthai.com</text>
+  <text x="65" y="389" fill="#82a3be" font-family="'JetBrains Mono',Consolas,monospace" font-size="13">admin@spaminthai.com</text>
+
+  <g font-family="Inter,Arial,sans-serif">
+    <g transform="translate(65 406)">
+      <rect width="120" height="46" rx="7" fill="#061b30" stroke="#16d8ff"/>
+      <text x="7" y="22" fill="#fff" font-size="17" font-weight="800">CALLS</text>
+      <text x="7" y="39" fill="#16d8ff" font-size="12">Blocked</text>
+    </g>
+    <g transform="translate(194 406)">
+      <rect width="120" height="46" rx="7" fill="#061b30" stroke="#16d8ff"/>
+      <text x="7" y="22" fill="#fff" font-size="17" font-weight="800">SMS</text>
+      <text x="7" y="39" fill="#16d8ff" font-size="12">Filtered</text>
+    </g>
+    <g transform="translate(323 406)">
+      <rect width="120" height="46" rx="7" fill="#061b30" stroke="#16d8ff"/>
+      <text x="7" y="22" fill="#fff" font-size="17" font-weight="800">URLs</text>
+      <text x="7" y="39" fill="#16d8ff" font-size="12">Scanned</text>
+    </g>
+  </g>
+
+  <g>
+    <path d="M649 62Q793 47 940 62l-13 215q-7 111-134 220Q666 388 659 277z"
+          fill="url(#shield)" stroke="#1adcff" stroke-width="5" filter="url(#cyanGlow)"/>
+    <path d="M660 72Q794 58 929 72l-13 201q-7 104-123 207Q677 376 670 273z"
+          fill="none" stroke="#5ac8f3" stroke-width="1.5" opacity=".85"/>
+
+    <g fill="none" stroke="#1bdcff" stroke-width="4" stroke-linecap="round">
+      <path d="M714 130q22-57 79-57t80 57"/>
+      <path d="M737 137q15-39 56-39t57 39"/>
+      <path d="M759 144q10-23 34-23t35 23"/>
+    </g>
+    <circle cx="794" cy="124" r="15" fill="#18dbff"/>
+    <path d="m786 124 6 6 11-13" fill="none" stroke="#07304d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="729" y="163" width="130" height="207" rx="25" fill="#fff"/>
+    <rect x="740" y="184" width="107" height="165" rx="12" fill="#082844"/>
+    <circle cx="794" cy="175" r="5.5" fill="#91abc1"/>
+    <rect x="775" y="357" width="38" height="6" rx="3" fill="#9bb4c9"/>
+
+    <g fill="none" stroke="#ff4e58" stroke-width="14" filter="url(#redGlow)">
+      <circle cx="847" cy="329" r="54"/>
+      <path d="M809 291l76 76"/>
+    </g>
+  </g>
+
+  <g fill="none" stroke="#18dcff" stroke-width="1.5" opacity=".9">
+    <path d="M634 484l380 57M634 495l380 57M634 506l380 57"/>
+  </g>
 </svg>

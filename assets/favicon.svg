@@ -1,5 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SpamInThai">
-  <rect width="64" height="64" rx="14" fill="#4F46E5"/>
-  <path d="M32 10c8 0 14 6 14 14v8c0 10-6 16-14 22-8-6-14-12-14-22v-8c0-8 6-14 14-14z" fill="#fff" opacity=".95"/>
-  <path d="M24 30l6 6 12-12" fill="none" stroke="#4F46E5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">SpamInThai — ป้องกันสายมิจฉาชีพ</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#03182c"/>
+      <stop offset="1" stop-color="#06243d"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#163e61"/>
+      <stop offset="1" stop-color="#082943"/>
+    </linearGradient>
+    <pattern id="hex" width="52" height="45" patternUnits="userSpaceOnUse">
+      <path d="M13 1h26l12 21.5L39 44H13L1 22.5z" fill="none" stroke="#17d7ff" stroke-opacity=".08"/>
+    </pattern>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <rect width="512" height="512" fill="url(#hex)"/>
+
+  <g fill="none" stroke="#18d8ff" stroke-width="5">
+    <path d="M40 76V52h25M447 52h25v24M40 436v25h25M447 461h25v-25"/>
+  </g>
+
+  <path d="M71 54Q256 35 441 54l-13 204q-10 117-172 221Q94 375 84 258z"
+        fill="url(#shield)" stroke="#17d9ff" stroke-width="6" filter="url(#glow)"/>
+  <path d="M85 66Q256 49 427 66l-13 190q-9 106-158 204Q107 362 98 256z"
+        fill="none" stroke="#5bc9f2" stroke-width="2" opacity=".8"/>
+
+  <g fill="none" stroke="#1bdcff" stroke-width="5" stroke-linecap="round">
+    <path d="M181 126q19-55 75-55t75 55"/>
+    <path d="M204 128q14-34 52-34t52 34"/>
+    <path d="M230 130q8-15 26-15t26 15"/>
+  </g>
+  <circle cx="256" cy="120" r="7" fill="#a5bdce"/>
+
+  <rect x="179" y="143" width="154" height="225" rx="29" fill="#fff"/>
+  <rect x="192" y="165" width="128" height="180" rx="13" fill="#06243d"/>
+  <circle cx="256" cy="155" r="6" fill="#9cb5c8"/>
+  <rect x="237" y="355" width="38" height="7" rx="3.5" fill="#9db6ca"/>
+
+  <g fill="none" stroke="#ff4d57" stroke-width="23" filter="url(#glow)">
+    <circle cx="324" cy="319" r="99"/>
+    <path d="M254 249l140 140"/>
+  </g>
 </svg>
