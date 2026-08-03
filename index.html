@@ -72,6 +72,8 @@
   @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .fade-up{animation:fadeUp .5s ease both}
   details>summary::-webkit-details-marker{display:none}
+  .hero-banner img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
+  @media(max-width:640px){.hero-banner img{object-position:center 38%}}
 </style>
 </head>
 <body class="min-h-screen bg-slate-50 flex flex-col">
@@ -122,19 +124,22 @@
   </div>
 </header>
 
-<main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-6 py-6 md:py-10 space-y-8">
-
-  <!-- Hero banner -->
-  <div class="relative rounded-2xl overflow-hidden shadow-md border border-slate-800 fade-up">
-    <picture>
+<!-- Hero banner — full viewport width -->
+<section class="hero-banner relative w-full overflow-hidden bg-[#020B1A] fade-up" aria-label="SpamInThai">
+  <div class="w-full aspect-[16/10] sm:aspect-[16/8] md:aspect-[21/9] lg:aspect-[21/8] max-h-[min(72vh,520px)]">
+    <picture class="block w-full h-full">
       <source srcset="/assets/header-banner.webp" type="image/webp">
-      <img src="/assets/header-banner.png" alt="SpamInThai — Block Scam Calls, SMS, URLs. ป้องกันฟรีสำหรับคนไทย จากรายงานชุมชน" width="1400" height="788" class="w-full h-auto block" fetchpriority="high">
+      <img src="/assets/header-banner.png" alt="SpamInThai — Block Scam Calls, SMS, URLs. ป้องกันฟรีสำหรับคนไทย จากรายงานชุมชน" width="1920" height="823" fetchpriority="high">
     </picture>
-    <div class="absolute bottom-3 right-3 md:bottom-4 md:right-4 flex items-center gap-2 bg-slate-950/80 backdrop-blur-sm border border-slate-700 px-3 py-1.5 rounded-xl text-[11px] text-slate-200 font-medium">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
-      <span>ร่วมกันรายงานแล้ว <span id="reportCount" class="font-bold text-cyan-400">…</span> เบอร์</span>
-    </div>
   </div>
+  <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#020B1A]/80 to-transparent pointer-events-none"></div>
+  <div class="absolute bottom-3 left-4 right-4 sm:left-auto sm:right-6 md:bottom-5 md:right-8 flex items-center gap-2 bg-slate-950/75 backdrop-blur-md border border-cyan-500/20 px-3 py-2 rounded-xl text-[11px] sm:text-xs text-slate-200 font-medium shadow-lg shadow-cyan-500/10">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400 shrink-0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+    <span>ร่วมกันรายงานแล้ว <span id="reportCount" class="font-bold text-cyan-400">…</span> เบอร์</span>
+  </div>
+</section>
+
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-6 py-6 md:py-10 space-y-8">
 
   <!-- Grid -->
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
