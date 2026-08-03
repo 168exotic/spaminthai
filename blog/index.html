@@ -18,20 +18,39 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CollectionPage","name":"บทความ SpamInThai","url":"https://spaminthai.com/blog","inLanguage":"th-TH","publisher":{"@type":"Organization","name":"SpamInThai","url":"https://spaminthai.com"}}
 </script>
-<style>
-:root{--rose:#f43f5e;--ink:#0f172a;--muted:#475569;--bg:#f8f9ff;--line:#e5e7f5}
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
-a{color:var(--rose);text-decoration:none}.wrap{max-width:760px;margin:0 auto;padding:32px 20px}
-h1{font-size:1.8rem;margin:8px 0 4px}.sub{color:var(--muted);margin-bottom:20px}
-.card{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px}
-.card:hover{border-color:var(--rose)}.card h2{font-size:1.05rem;color:var(--ink);margin-bottom:4px}.card p{color:var(--muted);font-size:.9rem}
-.nav{font-size:.9rem;margin-bottom:16px}.nav a{margin-right:14px}
-footer{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
+<link rel="stylesheet" href="/assets/layout.css">
 </head>
-<body>
-<div class="wrap">
-  <p class="nav"><a href="/">หน้าแรก</a><a href="/check">เช็คเบอร์</a><a href="/download">ดาวน์โหลดแอป</a></p>
+<body class="site-body">
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-brand">
+      <picture class="site-brand__logo">
+        <source srcset="/assets/logo-64.webp" type="image/webp">
+        <img src="/assets/logo-64.png" alt="SpamInThai" width="40" height="40">
+      </picture>
+      <span class="site-brand__text">
+        <span class="site-brand__title">SpamInThai</span>
+        <span class="site-brand__tag">Block Scam Calls · SMS · URLs</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="หลัก">
+      <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
+      <a href="/download" class="site-nav__link">ดาวน์โหลดแอป</a>
+      <a class="site-nav__link site-nav__link--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+    </nav>
+  </div>
+  <div class="site-header__mobile">
+    <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
+    <a href="/report" class="site-tab">แจ้งเบาะแส</a>
+    <a href="/download" class="site-tab site-tab--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+  </div>
+</header>
+<main class="site-main site-main--wide">
   <h1>บทความเตือนภัย & คู่มือ</h1>
   <p class="sub">รวมความรู้เรื่องเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ SMS ปลอม และวิธีป้องกันตัว</p>
 
@@ -48,8 +67,7 @@ footer{margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-si
   <a class="card" href="/blog/silent-unknown-callers-android-iphone"><h2>รวมโหมด Silent เบอร์แปลก Android + iPhone</h2><p>ตั้งค่าปิดเสียงเบอร์ไม่รู้จัก + บล็อกอัตโนมัติ</p></a>
   <a class="card" href="/blog/new-scam-tricks-2568-07"><h2>เตือนภัย: 10 มุกใหม่แก๊งคอลเซ็นเตอร์ (ก.ค. 2568)</h2><p>กลโกงล่าสุด + วิธีป้องกัน</p></a>
 
-  <footer>SpamInThai · <a href="/check">เช็คเบอร์ฟรี</a> · <a href="/report">แจ้งเบอร์มิจฉาชีพ</a> · <a href="/download">ดาวน์โหลดแอป</a></footer>
-</div>
+  </div>
 <script src="/assets/ga4.js" defer></script>
 </body>
 </html>

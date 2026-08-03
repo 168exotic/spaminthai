@@ -1,10 +1,32 @@
-// Shared site utilities: APK download links + app install popup.
+// Shared site utilities: APK download links + app install popup + nav active state.
 (function () {
   const FALLBACK = '/download/spaminthai-latest.apk';
   const POPUP_KEY = 'spaminthai_app_popup_dismissed';
   const POPUP_DAYS = 3;
 
   let downloadUrl = FALLBACK;
+
+  function highlightNav() {
+    const path = location.pathname.replace(/\/$/, '') || '/';
+    document.querySelectorAll('.site-nav__link, .site-tab').forEach((el) => {
+      const href = el.getAttribute('href') || '';
+      if (!href || href.startsWith('http') || href.includes('.apk')) return;
+      const normalized = href.replace(/\/$/, '') || '/';
+      const match =
+        path === normalized ||
+        (normalized !== '/' && path.startsWith(normalized + '/')) ||
+        (normalized === '/check' && path.startsWith('/check'));
+      if (!match) return;
+      if (el.classList.contains('site-nav__link')) {
+        el.classList.add('site-nav__link--active');
+        el.classList.remove('site-nav__link--primary');
+      }
+      if (el.classList.contains('site-tab')) {
+        el.classList.add('site-tab--active');
+        el.classList.remove('site-tab--apk');
+      }
+    });
+  }
 
   function applyDownloadUrl(url) {
     downloadUrl = url;
@@ -106,8 +128,12 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => setTimeout(injectPopup, 800));
+    document.addEventListener('DOMContentLoaded', () => {
+      highlightNav();
+      setTimeout(injectPopup, 800);
+    });
   } else {
+    highlightNav();
     setTimeout(injectPopup, 800);
   }
 })();

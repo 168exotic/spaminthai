@@ -23,23 +23,39 @@
   "mainEntityOfPage": "https://spaminthai.com/guide/call-center-scam"
 }
 </script>
-<style>
-:root{--indigo:#4F46E5;--ink:#1E1B4B;--muted:#6B7280;--bg:#F8F9FF;--line:#E5E7F5}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
-a{color:var(--indigo)}
-.wrap{max-width:720px;margin:0 auto;padding:32px 20px}
-h1{font-size:1.75rem;margin:16px 0}
-h2{font-size:1.15rem;margin:28px 0 10px}
-p,li{color:var(--muted);margin-bottom:10px}
-ul{padding-left:20px}
-.cta{display:inline-block;margin:20px 0;background:var(--indigo);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600}
-footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
-footer a{margin-right:12px}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
+<link rel="stylesheet" href="/assets/layout.css">
 </head>
-<body>
-<div class="wrap">
+<body class="site-body">
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-brand">
+      <picture class="site-brand__logo">
+        <source srcset="/assets/logo-64.webp" type="image/webp">
+        <img src="/assets/logo-64.png" alt="SpamInThai" width="40" height="40">
+      </picture>
+      <span class="site-brand__text">
+        <span class="site-brand__title">SpamInThai</span>
+        <span class="site-brand__tag">Block Scam Calls · SMS · URLs</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="หลัก">
+      <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
+      <a href="/download" class="site-nav__link">ดาวน์โหลดแอป</a>
+      <a class="site-nav__link site-nav__link--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+    </nav>
+  </div>
+  <div class="site-header__mobile">
+    <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
+    <a href="/report" class="site-tab">แจ้งเบาะแส</a>
+    <a href="/download" class="site-tab site-tab--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+  </div>
+</header>
+<main class="site-main site-main--wide">
   <a href="/" style="font-weight:700">Spam<span style="color:var(--indigo)">InThai</span></a>
   <h1>โดนแก๊งคอลเซ็นเตอร์โทรมา ต้องทำยังไง?</h1>
   <p>แก๊งคอลเซ็นเตอร์และมิจฉาชีพโทรหลอกลวงคนไทยทุกวัน มักอ้างเป็นตำรวจ ศาล ธนาคาร หรือขนส่ง เพื่อให้หลอกโอนเงินหรือขอ OTP บทความนี้สรุปสิ่งที่ควรทำทันที และวิธีป้องกันในอนาคต</p>
@@ -74,14 +90,7 @@ footer a{margin-right:12px}
   <a class="cta" href="/download" style="background:#1e1b4b;margin-left:8px">ดาวน์โหลดแอป Android</a>
   <p style="margin-top:20px"><a href="https://crd.go.th/bg/pdpa" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#1e1b4b;color:#fff;padding:11px 20px;border-radius:99px;font-weight:600;font-size:.9rem">ยื่นขอตรวจสอบประวัติอาชญากรรม</a></p>
 
-  <footer>
-    <a href="/">หน้าแรก</a>
-    <a href="/check">เช็คเบอร์</a>
-    <a href="/guide/check-phone">ตรวจเบอร์</a>
-    <a href="/report">แจ้งเบาะแส</a>
-    <a href="/privacy">ความเป็นส่วนตัว</a>
-  </footer>
-</div>
+  </div>
 <script src="/assets/ga4.js" defer></script>
 <script src="/assets/site.js"></script>
 </body>

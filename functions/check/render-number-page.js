@@ -61,36 +61,55 @@ export async function renderNumberPage(number, env) {
 <meta property="og:image" content="${OG_IMAGE}">
 <meta property="og:type" content="website">
 <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="64x64">
+<link rel="stylesheet" href="/assets/theme.css">
+<link rel="stylesheet" href="/assets/layout.css">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
 <style>
-:root{--indigo:#4F46E5;--ink:#1E1B4B;--muted:#6B7280;--bg:#F8F9FF;--line:#E5E7F5;--danger:#DC2626;--danger-bg:#FEF2F2;--warn:#D97706;--warn-bg:#FFFBEB;--safe:#059669;--safe-bg:#ECFDF5}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
-a{color:var(--indigo);text-decoration:none}
-.wrap{max-width:640px;margin:0 auto;padding:24px 20px}
-header{padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:24px}
-.logo{font-weight:700;font-size:1.1rem;color:var(--ink);display:flex;align-items:center;gap:10px}
-.logo img{width:32px;height:32px;border-radius:8px}
-.logo span{color:var(--indigo)}
-.card{border-radius:16px;padding:24px;border:1.5px solid var(--line);background:#fff}
-.card.danger{background:var(--danger-bg);border-color:#FCA5A5}
-.card.warn{background:var(--warn-bg);border-color:#FCD34D}
-.card.safe{background:var(--safe-bg);border-color:#6EE7B7}
-h1{font-size:1.4rem;margin-bottom:8px}
-.meta{color:var(--muted);font-size:.95rem;margin-top:8px}
+.number-wrap{max-width:640px;margin:0 auto;padding:0 20px}
+.verdict-card{border-radius:16px;padding:24px;border:1.5px solid var(--color-line);background:#fff}
+.verdict-card.danger{background:var(--color-danger-bg);border-color:#fca5a5}
+.verdict-card.warn{background:var(--color-warn-bg);border-color:#fcd34d}
+.verdict-card.safe{background:var(--color-safe-bg);border-color:#6ee7b7}
+.verdict-card h1{font-size:1.4rem;margin-bottom:8px}
+.verdict-card .meta{color:var(--color-text-muted);font-size:.95rem;margin-top:8px}
 .stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
-.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:110px}
+.stat{background:#fff;border:1px solid var(--color-line);border-radius:10px;padding:10px 14px;min-width:110px}
 .stat b{display:block;font-size:1.1rem}
-.stat small{color:var(--muted);font-size:.75rem}
-.cta{display:inline-block;margin-top:20px;background:var(--indigo);color:#fff;padding:12px 20px;border-radius:99px;font-weight:600}
-footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
-footer a{margin-right:12px}
+.stat small{color:var(--color-text-muted);font-size:.75rem}
+.number-cta{display:inline-block;margin-top:20px;background:var(--color-secondary);color:#fff;padding:12px 20px;border-radius:99px;font-weight:600;text-decoration:none}
+.number-cta:hover{background:var(--color-secondary-hover);color:#fff;text-decoration:none}
+.number-seo{margin-top:20px;color:var(--color-text-muted);font-size:.9rem}
 </style>
 </head>
-<body>
-<div class="wrap">
-  <header><a class="logo" href="/"><img src="/assets/logo-64.png" alt="" width="32" height="32">Spam<span>InThai</span></a></header>
-  <main class="card ${verdictClass}">
+<body class="site-body">
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-brand">
+      <picture class="site-brand__logo">
+        <source srcset="/assets/logo-64.webp" type="image/webp">
+        <img src="/assets/logo-64.png" alt="SpamInThai" width="40" height="40">
+      </picture>
+      <span class="site-brand__text">
+        <span class="site-brand__title">SpamInThai</span>
+        <span class="site-brand__tag">Block Scam Calls · SMS · URLs</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="หลัก">
+      <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
+      <a href="/download" class="site-nav__link">ดาวน์โหลดแอป</a>
+      <a class="site-nav__link site-nav__link--apk" href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+    </nav>
+  </div>
+  <div class="site-header__mobile">
+    <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
+    <a href="/report" class="site-tab">แจ้งเบาะแส</a>
+    <a href="/download" class="site-tab site-tab--apk" href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+  </div>
+</header>
+<main class="site-main site-main--narrow">
+<div class="number-wrap">
+  <article class="verdict-card ${verdictClass}">
     <h1>เบอร์ ${esc(display)} — ${esc(result.label)}</h1>
     <p class="meta">${esc(result.advice)}</p>
     <div class="stats">
@@ -98,7 +117,7 @@ footer a{margin-right:12px}
       ${result.reports > 0 ? `<div class="stat"><b>${result.score}/100</b><small>คะแนนความเสี่ยง</small></div>` : ''}
       <div class="stat"><b>${result.reports}</b><small>รายงานทั้งหมด</small></div>
     </div>
-    <a class="cta" href="/check?number=${esc(digits)}">เช็คเบอร์นี้แบบละเอียด →</a>
+    <a class="number-cta" href="/check?number=${esc(digits)}">เช็คเบอร์นี้แบบละเอียด →</a>
     <div class="share-bar" style="margin-top:16px;padding-top:14px;border-top:1px dashed rgba(0,0,0,.08)">
       <p style="font-size:.78rem;color:#64748b;margin:0 0 8px;font-weight:600">แชร์เตือนคนอื่น</p>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
@@ -107,16 +126,28 @@ footer a{margin-right:12px}
         <a style="background:#f1f5f9;color:#334155;border:1px solid #e2e8f0;border-radius:99px;padding:8px 14px;font-size:.78rem;font-weight:700;text-decoration:none" href="/download?utm_source=number_page&utm_medium=cta">ดาวน์โหลดแอป</a>
       </div>
     </div>
-  </main>
-  <p style="margin-top:20px;color:var(--muted);font-size:.9rem">ค้นหา <strong>เบอร์ ${esc(display)}</strong> บ่อย — ใช้ SpamInThai <strong>เช็คเบอร์ ตรวจเบอร์</strong> ฟรี <strong>เบอร์ใคร</strong>โทรมา <strong>เบอร์อะไร</strong>น่าสงสัย ก่อนรับสายหรือโอนเงิน</p>
-  <footer>
-    <a href="/check">เช็คเบอร์โทร</a>
-    <a href="/download">ดาวน์โหลดแอป</a>
-    <a href="/guide/block-spam-android">วิธีบล็อกเบอร์มิจฉาชีพ</a>
-    <a href="/guide/spam-numbers">รายการเบอร์สแปม</a>
-    <a href="/privacy">ความเป็นส่วนตัว</a>
-  </footer>
+  </article>
+  <p class="number-seo">ค้นหา <strong>เบอร์ ${esc(display)}</strong> บ่อย — ใช้ SpamInThai <strong>เช็คเบอร์ ตรวจเบอร์</strong> ฟรี <strong>เบอร์ใคร</strong>โทรมา <strong>เบอร์อะไร</strong>น่าสงสัย ก่อนรับสายหรือโอนเงิน</p>
 </div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="site-footer__title">SpamInThai — หยุดสแปมในไทยร่วมกัน</p>
+      <p class="site-footer__desc">ฐานข้อมูลเบอร์ร้องเรียน คัดกรองภัยสังคมออนไลน์ ด้วยพลังประชาชน</p>
+      <p class="site-footer__copy">© 2026 spaminthai</p>
+    </div>
+    <nav class="site-footer__links" aria-label="ลิงก์">
+      <a href="/check">เช็คเบอร์โทร</a>
+      <a href="/report">แจ้งเบาะแส</a>
+      <a href="/download">ดาวน์โหลดแอป</a>
+      <a href="/blog">บทความ</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </nav>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>`;
 

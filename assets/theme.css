@@ -1,0 +1,122 @@
+/* SpamInThai unified theme — cyber-shield brand */
+:root {
+  --brand-dark: #020b1a;
+  --brand-cyan: #22d3ee;
+  --brand-cyan-bright: #00e5ff;
+
+  --color-primary: #f43f5e;
+  --color-primary-hover: #e11d48;
+  --color-secondary: #6366f1;
+  --color-secondary-hover: #4f46e5;
+
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-header: #0f172a;
+  --color-footer: #0f172a;
+  --color-line: #e2e8f0;
+  --color-line-dark: #334155;
+
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-on-dark: #f8fafc;
+  --color-text-muted-dark: #94a3b8;
+
+  --color-danger: #dc2626;
+  --color-danger-bg: #fef2f2;
+  --color-warn: #d97706;
+  --color-warn-bg: #fffbeb;
+  --color-safe: #059669;
+  --color-safe-bg: #ecfdf5;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-pill: 9999px;
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 24px rgba(15, 23, 42, 0.08);
+
+  --font-sans: 'IBM Plex Sans Thai', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Legacy aliases used in page-specific CSS */
+  --indigo: var(--color-secondary);
+  --indigo-deep: var(--color-secondary-hover);
+  --ink: var(--color-text);
+  --muted: var(--color-text-muted);
+  --bg: var(--color-bg);
+  --line: var(--color-line);
+  --card: var(--color-surface);
+  --rose: var(--color-primary);
+  --text: var(--color-text);
+  --radius: var(--radius-md);
+  --shadow: var(--shadow-md);
+  --danger: var(--color-danger);
+  --danger-bg: var(--color-danger-bg);
+  --warn: var(--color-warn);
+  --warn-bg: var(--color-warn-bg);
+  --safe: var(--color-safe);
+  --safe-bg: var(--color-safe-bg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.site-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    animation: none;
+  }
+}

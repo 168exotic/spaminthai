@@ -10,31 +10,39 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--rose:#F43F5E;--ink:#0f172a;--muted:#475569;--bg:#f8f9ff;--line:#e5e7f5}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'IBM Plex Sans Thai',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
-.wrap{max-width:820px;margin:0 auto;padding:40px 20px}
-h1{font-size:1.6rem;margin:8px 0}
-h2{font-size:1.2rem;margin:30px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
-h3{font-size:1.02rem;margin:18px 0 6px}
-p,li{color:var(--muted);margin-bottom:10px}
-ul,ol{padding-left:22px}
-a{color:var(--rose)}
-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}
-th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
-th{background:#fff}
-.meta{font-size:.9rem;color:var(--muted);margin-bottom:6px}
-.lang-toggle{margin:16px 0 8px}
-.lang-toggle a{margin-right:14px;font-weight:600}
-.box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:14px 0}
-footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
-code{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:.9em}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
+<link rel="stylesheet" href="/assets/layout.css">
 </head>
-<body>
-<div class="wrap">
-  <p class="meta"><a href="/">← หน้าแรก / Home</a></p>
+<body class="site-body">
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-brand">
+      <picture class="site-brand__logo">
+        <source srcset="/assets/logo-64.webp" type="image/webp">
+        <img src="/assets/logo-64.png" alt="SpamInThai" width="40" height="40">
+      </picture>
+      <span class="site-brand__text">
+        <span class="site-brand__title">SpamInThai</span>
+        <span class="site-brand__tag">Block Scam Calls · SMS · URLs</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="หลัก">
+      <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
+      <a href="/download" class="site-nav__link">ดาวน์โหลดแอป</a>
+      <a class="site-nav__link site-nav__link--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+    </nav>
+  </div>
+  <div class="site-header__mobile">
+    <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
+    <a href="/report" class="site-tab">แจ้งเบาะแส</a>
+    <a href="/download" class="site-tab site-tab--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+  </div>
+</header>
+<main class="site-main site-main--wide">
   <div class="lang-toggle"><a href="#th">🇹🇭 ภาษาไทย</a><a href="#en">🇬🇧 English</a></div>
 
   <!-- ============ THAI ============ -->
@@ -165,8 +173,7 @@ code{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1px 
   Provider: SpamInThai Team</p>
   </section>
 
-  <footer>SpamInThai · <a href="/">หน้าแรก</a> · <a href="/check">เช็คเบอร์</a> · <a href="/dispute">โต้แย้งเบอร์</a> · <a href="mailto:admin@spaminthai.com">admin@spaminthai.com</a></footer>
-</div>
+  </div>
 <script src="/assets/ga4.js" defer></script>
 </body>
 </html>

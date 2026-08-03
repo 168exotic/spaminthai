@@ -21,6 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
+<link rel="stylesheet" href="/assets/layout.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,41 +41,28 @@
 }
 </script>
 <style>
-:root{
-  --indigo:#4F46E5; --indigo-deep:#3730A3; --ink:#1E1B4B; --muted:#6B7280;
-  --bg:#F8F9FF; --card:#FFFFFF; --line:#E5E7F5;
-  --danger:#DC2626; --danger-bg:#FEF2F2; --warn:#D97706; --warn-bg:#FFFBEB;
-  --safe:#059669; --safe-bg:#ECFDF5;
-  --radius:16px; --shadow:0 4px 24px rgba(79,70,229,.08);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;min-height:100vh}
-a{color:var(--indigo);text-decoration:none}
 .wrap{max-width:640px;margin:0 auto;padding:0 20px}
 
-header{padding:20px 0;border-bottom:1px solid var(--line);background:#fff}
-header .wrap{display:flex;align-items:center;justify-content:space-between}
-.logo{font-weight:700;font-size:1.1rem;color:var(--ink);display:flex;align-items:center;gap:10px}
-.logo img{width:36px;height:36px;border-radius:10px}
-.logo span{color:var(--indigo)}
-.dl-btn{background:var(--indigo);color:#fff;padding:8px 16px;border-radius:99px;font-size:.85rem;font-weight:600}
-
-.hero{padding:48px 0 32px;text-align:center}
+header{padding:0;border:none;background:transparent}
+header .wrap{display:none}
+.logo{display:none}
+.dl-btn{display:none}
+.hero{padding:32px 0 24px;text-align:center}
 .hero h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:700;letter-spacing:-.02em}
-.hero h1 em{font-style:normal;color:var(--indigo)}
+.hero h1 em{font-style:normal;color:var(--color-secondary)}
 .hero p{color:var(--muted);margin-top:8px;font-size:.95rem}
 
 .search-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-top:24px}
 .search-row{display:flex;gap:10px;align-items:stretch}
 .search-row .actions{display:flex;gap:8px;flex-shrink:0}
 .dispute-btn{padding:0 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);font-family:inherit;font-size:.72rem;font-weight:600;line-height:1.25;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center;white-space:nowrap}
-.dispute-btn:hover{border-color:var(--indigo);color:var(--indigo)}
+.dispute-btn:hover{border-color:var(--color-secondary);color:var(--color-secondary)}
 .dispute-note{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:#fef3c7;border:1px solid #fcd34d;color:#92400e;font-size:.85rem;font-weight:600;line-height:1.4}
 #numInput{flex:1;font-family:'IBM Plex Mono',monospace;font-size:1.35rem;font-weight:600;letter-spacing:.06em;padding:14px 16px;border:2px solid var(--line);border-radius:12px;outline:none;color:var(--ink);min-width:0;background:var(--bg);transition:border-color .15s}
-#numInput:focus{border-color:var(--indigo)}
+#numInput:focus{border-color:var(--color-secondary)}
 #numInput::placeholder{color:#B4B7D6;font-weight:500}
-#checkBtn{background:var(--indigo);color:#fff;border:none;border-radius:12px;padding:0 22px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:background .15s}
-#checkBtn:hover{background:var(--indigo-deep)}
+#checkBtn{background:var(--color-primary);color:#fff;border:none;border-radius:12px;padding:0 22px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:background .15s}
+#checkBtn:hover{background:var(--color-primary-hover)}
 #checkBtn:disabled{opacity:.6;cursor:wait}
 .hint{font-size:.8rem;color:var(--muted);margin-top:10px;text-align:center}
 
@@ -101,18 +90,18 @@ header .wrap{display:flex;align-items:center;justify-content:space-between}
 .report-box p{font-size:.85rem;color:var(--muted);margin-bottom:10px}
 .cat-row{display:flex;gap:8px;flex-wrap:wrap}
 .cat-btn{background:#fff;border:1.5px solid var(--line);border-radius:99px;padding:7px 14px;font-family:inherit;font-size:.85rem;cursor:pointer;color:var(--ink);transition:all .15s}
-.cat-btn:hover{border-color:var(--indigo);color:var(--indigo)}
-.cat-btn.sent{background:var(--indigo);border-color:var(--indigo);color:#fff;pointer-events:none}
+.cat-btn:hover{border-color:var(--color-secondary);color:var(--color-secondary)}
+.cat-btn.sent{background:var(--color-secondary);border-color:var(--color-secondary);color:#fff;pointer-events:none}
 
-.cta{margin-top:40px;background:linear-gradient(135deg,var(--indigo),#6366F1);border-radius:var(--radius);padding:28px;color:#fff;text-align:center}
+.cta{margin-top:40px;background:linear-gradient(135deg,var(--color-secondary),#818cf8);border-radius:var(--radius);padding:28px;color:#fff;text-align:center}
 .cta h2{font-size:1.2rem;font-weight:700}
 .cta p{font-size:.9rem;opacity:.9;margin:6px 0 16px}
-.cta a{display:inline-block;background:#fff;color:var(--indigo);font-weight:700;padding:12px 28px;border-radius:99px}
+.cta a{display:inline-block;background:#fff;color:var(--color-secondary);font-weight:700;padding:12px 28px;border-radius:99px;text-decoration:none}
 .cta-official{margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center;box-shadow:var(--shadow)}
 .cta-official h2{font-size:1.05rem;font-weight:700;color:var(--ink)}
 .cta-official p{font-size:.85rem;color:var(--muted);margin:8px 0 14px}
 .cta-official a{display:inline-block;background:var(--ink);color:#fff;font-weight:600;padding:11px 22px;border-radius:99px;font-size:.9rem}
-.cta-official a:hover{background:var(--indigo-deep)}
+.cta-official a:hover{background:var(--color-secondary-hover)}
 
 .faq{margin:48px 0 24px}
 .faq h2{font-size:1.25rem;margin-bottom:16px}
@@ -121,8 +110,7 @@ summary{font-weight:600;cursor:pointer;font-size:.95rem}
 details p{margin-top:8px;font-size:.9rem;color:var(--muted)}
 details a{font-weight:600}
 
-footer{border-top:1px solid var(--line);padding:24px 0 40px;text-align:center;font-size:.8rem;color:var(--muted)}
-footer a{margin:0 8px}
+footer{display:none}
 
 @media(max-width:480px){
   .search-row{flex-direction:column}
@@ -131,20 +119,35 @@ footer a{margin:0 8px}
 @media(prefers-reduced-motion:reduce){.result{animation:none}}
 </style>
 </head>
-<body>
-
-<header>
-  <div class="wrap">
-    <a class="logo" href="/"><picture><source srcset="/assets/logo-64.webp" type="image/webp"><img src="/assets/logo-64.png" alt="" width="36" height="36"></picture>Spam<span>InThai</span></a>
-    <nav style="display:flex;align-items:center;gap:12px">
-      <a href="/check" style="font-size:.9rem;font-weight:500;color:var(--muted)">เช็คเบอร์</a>
-      <a href="/report" style="font-size:.9rem;font-weight:600;color:var(--indigo)">แจ้งเบาะแส</a>
-      <a class="dl-btn" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+<body class="site-body">
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-brand">
+      <picture class="site-brand__logo">
+        <source srcset="/assets/logo-64.webp" type="image/webp">
+        <img src="/assets/logo-64.png" alt="SpamInThai" width="40" height="40">
+      </picture>
+      <span class="site-brand__text">
+        <span class="site-brand__title">SpamInThai</span>
+        <span class="site-brand__tag">Block Scam Calls · SMS · URLs</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="หลัก">
+      <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
+      <a href="/download" class="site-nav__link">ดาวน์โหลดแอป</a>
+      <a class="site-nav__link site-nav__link--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
     </nav>
+  </div>
+  <div class="site-header__mobile">
+    <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
+    <a href="/report" class="site-tab">แจ้งเบาะแส</a>
+    <a href="/download" class="site-tab site-tab--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
   </div>
 </header>
 
-<main class="wrap">
+<main class="site-main site-main--narrow">
+<div class="wrap">
   <section class="hero">
     <h1>เช็คเบอร์ ตรวจเบอร์ — <em>เบอร์ใคร เบอร์อะไร?</em></h1>
     <p>เบอร์นี้ใครโทรมา? เช็คเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ และเบอร์สแปม ฟรี จากรายงานของคนไทยทั่วประเทศ</p>
@@ -241,22 +244,25 @@ footer a{margin:0 8px}
       <p>จากผู้ใช้แอป spaminthai และผู้ใช้เว็บไซต์ทั่วประเทศที่ช่วยกันรายงาน ทุกรายงานถูกเก็บแบบไม่ระบุตัวตน</p>
     </details>
   </section>
+</div>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p><a href="/">SpamInThai</a> — เช็คเบอร์ ตรวจเบอร์ เบอร์ใคร เบอร์อะไร ฟรี</p>
-    <p style="margin-top:8px">
-      <a href="/check">เช็คเบอร์</a> ·
-      <a href="/guide/check-phone">ตรวจเบอร์</a> ·
-      <a href="/report">แจ้งเบาะแส</a> ·
-      <a href="/download">ดาวน์โหลดแอป</a> ·
-      <a href="/guide/block-spam-android">บล็อกเบอร์มิจฉาชีพ</a> ·
-      <a href="/guide/spam-numbers">รายการเบอร์สแปม</a> ·
-      <a href="/guide/call-center-scam">คู่มือแก๊งคอลเซ็นเตอร์</a> ·
-      <a href="/privacy">ความเป็นส่วนตัว</a> ·
-      <a href="/terms">ข้อกำหนด</a>
-    </p>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="site-footer__title">SpamInThai — หยุดสแปมในไทยร่วมกัน</p>
+      <p class="site-footer__desc">ฐานข้อมูลเบอร์ร้องเรียน คัดกรองภัยสังคมออนไลน์ ด้วยพลังประชาชน</p>
+      <p class="site-footer__copy">© 2026 spaminthai</p>
+    </div>
+    <nav class="site-footer__links" aria-label="ลิงก์">
+      <a href="/check">เช็คเบอร์โทร</a>
+      <a href="/report">แจ้งเบาะแส</a>
+      <a href="/download">ดาวน์โหลดแอป</a>
+      <a href="/blog">บทความ</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="https://line.me/R/ti/p/@spaminthai" target="_blank" rel="noopener">Contact</a>
+    </nav>
   </div>
 </footer>
 

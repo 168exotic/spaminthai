@@ -60,6 +60,8 @@
 </script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
+<link rel="stylesheet" href="/assets/layout.css">
 <!-- Cloudflare Web Analytics -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6b88cc320e0c4493895e548c39e1f61f"}'></script>
 <!-- End Cloudflare Web Analytics -->
@@ -72,70 +74,48 @@
   @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .fade-up{animation:fadeUp .5s ease both}
   details>summary::-webkit-details-marker{display:none}
-  .hero-banner img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
-  @media(max-width:640px){.hero-banner img{object-position:center 38%}}
 </style>
 </head>
-<body class="min-h-screen bg-slate-50 flex flex-col">
+<body class="site-body min-h-screen bg-slate-50 flex flex-col">
 
-<!-- HEADER -->
-<header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 md:px-6">
-    <div class="flex items-center justify-between h-16 md:h-20">
-      <a href="/" class="flex items-center gap-3 cursor-pointer">
-        <picture class="shrink-0">
-          <source srcset="/assets/logo-64.webp" type="image/webp">
-          <img src="/assets/logo-64.png" alt="SpamInThai" width="40" height="40" class="w-10 h-10 rounded-xl shadow-lg shadow-cyan-500/20">
-        </picture>
-        <div>
-          <p class="text-lg font-black tracking-tight flex items-center gap-1.5"><span>SpamInThai</span></p>
-          <p class="text-[10px] text-slate-400 tracking-wide">Block Scam Calls · SMS · URLs</p>
-        </div>
-      </a>
-      <nav class="hidden md:flex items-center gap-1">
-        <a href="/check" class="px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 bg-rose-500 text-white shadow-md shadow-rose-500/10">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg>
-          <span>เช็คเบอร์โทร</span>
-        </a>
-        <a href="/report" class="px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
-          <span>แจ้งเบาะแสมิจฉาชีพ</span>
-        </a>
-        <a href="#official" class="px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 text-slate-300 hover:text-white hover:bg-slate-800/60">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
-          <span>เบอร์ทางการ</span>
-        </a>
-        <a href="/download/spaminthai-latest.apk" data-download download class="px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 bg-indigo-500 text-white shadow-md shadow-indigo-500/20 hover:bg-indigo-600">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          <span>ดาวน์โหลด APK</span>
-        </a>
-      </nav>
-      <div class="hidden lg:flex items-center gap-2 text-[10px] text-slate-400 font-mono">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-rose-500 animate-pulse"><path d="M16.247 7.761a6 6 0 0 1 0 8.478"></path><path d="M19.075 4.933a10 10 0 0 1 0 14.134"></path><path d="M4.925 19.067a10 10 0 0 1 0-14.134"></path><path d="M7.753 16.239a6 6 0 0 1 0-8.478"></path><circle cx="12" cy="12" r="2"></circle></svg>
-        <span>Community Live (v1.2)</span>
-      </div>
-    </div>
-    <!-- mobile tabs -->
-    <div class="flex md:hidden items-center gap-2 overflow-x-auto pb-3 -mx-2 px-2">
-      <a href="/check" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-rose-500 text-white">เช็คเบอร์โทร</a>
-      <a href="#official" class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 text-slate-400 hover:bg-slate-800">เบอร์ทางการ</a>
-      <a href="/download/spaminthai-latest.apk" data-download download class="shrink-0 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 bg-indigo-500 text-white">ดาวน์โหลด APK</a>
-    </div>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-brand">
+      <picture class="site-brand__logo">
+        <source srcset="/assets/logo-64.webp" type="image/webp">
+        <img src="/assets/logo-64.png" alt="SpamInThai" width="40" height="40">
+      </picture>
+      <span class="site-brand__text">
+        <span class="site-brand__title">SpamInThai</span>
+        <span class="site-brand__tag">Block Scam Calls · SMS · URLs</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="หลัก">
+      <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
+      <a href="#official" class="site-nav__link">เบอร์ทางการ</a>
+      <a class="site-nav__link site-nav__link--apk" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+    </nav>
+  </div>
+  <div class="site-header__mobile">
+    <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
+    <a href="#official" class="site-tab">เบอร์ทางการ</a>
+    <a href="/download/spaminthai-latest.apk" data-download download class="site-tab site-tab--apk">ดาวน์โหลด APK</a>
   </div>
 </header>
 
 <!-- Hero banner — full viewport width -->
-<section class="hero-banner relative w-full overflow-hidden bg-[#020B1A] fade-up" aria-label="SpamInThai">
-  <div class="w-full aspect-[16/10] sm:aspect-[16/8] md:aspect-[21/9] lg:aspect-[21/8] max-h-[min(72vh,520px)]">
+<section class="hero-banner fade-up" aria-label="SpamInThai">
+  <div class="hero-banner__frame">
     <picture class="block w-full h-full">
       <source srcset="/assets/header-banner.webp" type="image/webp">
       <img src="/assets/header-banner.png" alt="SpamInThai — Block Scam Calls, SMS, URLs. ป้องกันฟรีสำหรับคนไทย จากรายงานชุมชน" width="1920" height="823" fetchpriority="high">
     </picture>
   </div>
-  <div class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#020B1A]/80 to-transparent pointer-events-none"></div>
-  <div class="absolute bottom-3 left-4 right-4 sm:left-auto sm:right-6 md:bottom-5 md:right-8 flex items-center gap-2 bg-slate-950/75 backdrop-blur-md border border-cyan-500/20 px-3 py-2 rounded-xl text-[11px] sm:text-xs text-slate-200 font-medium shadow-lg shadow-cyan-500/10">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-400 shrink-0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
-    <span>ร่วมกันรายงานแล้ว <span id="reportCount" class="font-bold text-cyan-400">…</span> เบอร์</span>
+  <div class="hero-banner__gradient"></div>
+  <div class="hero-banner__badge">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:#22d3ee;flex-shrink:0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
+    <span>ร่วมกันรายงานแล้ว <strong id="reportCount">…</strong> เบอร์</span>
   </div>
 </section>
 
@@ -414,26 +394,22 @@
 </main>
 
 <!-- FOOTER -->
-<footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
-  <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-    <div class="space-y-1">
-      <p class="font-bold text-white">SpamInThai — หยุดสแปมในไทยร่วมกัน</p>
-      <p class="text-[10px] text-slate-500">ฐานข้อมูลเบอร์ร้องเรียน คัดกรองภัยสังคมออนไลน์ ด้วยพลังประชาชน</p>
-      <p class="text-[10px] text-slate-600">© 2026 spaminthai · Web <span id="siteVer">v1.2.0</span> · App <span id="appVer">v2.0.4</span></p>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="site-footer__title">SpamInThai — หยุดสแปมในไทยร่วมกัน</p>
+      <p class="site-footer__desc">ฐานข้อมูลเบอร์ร้องเรียน คัดกรองภัยสังคมออนไลน์ ด้วยพลังประชาชน</p>
+      <p class="site-footer__copy">© 2026 spaminthai · Web <span id="siteVer">v1.2.0</span> · App <span id="appVer">v2.0.4</span></p>
     </div>
-    <div class="flex flex-wrap items-center justify-center gap-4 text-[10px] text-slate-500 font-mono">
-      <a href="/check" class="hover:text-rose-400 transition">เช็คเบอร์โทร</a>
-      <span>•</span>
-      <a href="/report" class="hover:text-rose-400 transition">แจ้งเบาะแส</a>
-      <span>•</span>
-      <a href="/download" class="hover:text-rose-400 transition">ดาวน์โหลดแอป</a>
-      <span>•</span>
-      <a href="/privacy" class="hover:text-rose-400 transition">Privacy</a>
-      <span>•</span>
-      <a href="/terms" class="hover:text-rose-400 transition">Terms</a>
-      <span>•</span>
-      <a href="https://line.me/R/ti/p/@spaminthai" target="_blank" rel="noopener" class="hover:text-rose-400 transition">Contact</a>
-    </div>
+    <nav class="site-footer__links" aria-label="ลิงก์">
+      <a href="/check">เช็คเบอร์โทร</a>
+      <a href="/report">แจ้งเบาะแส</a>
+      <a href="/download">ดาวน์โหลดแอป</a>
+      <a href="/blog">บทความ</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="https://line.me/R/ti/p/@spaminthai" target="_blank" rel="noopener">Contact</a>
+    </nav>
   </div>
 </footer>
 
