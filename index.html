@@ -12,12 +12,17 @@
 <meta name="twitter:title" content="เบอร์ใคร | ตรวจเบอร์โทรเข้ามา เช็คมิจฉาชีพฟรี">
 <meta name="twitter:description" content="เช็คเบอร์ ตรวจเบอร์ฟรี เบอร์ใครโทรมา เบอร์อะไรน่าสงสัย ตรวจสอบเบอร์มิจฉาชีพจากฐานข้อมูลรายงานของคนไทย">
 <meta property="og:url" content="https://spaminthai.com/">
-<meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
+<meta property="og:image" content="https://spaminthai.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://spaminthai.com/assets/og-image.jpg">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="th_TH">
 <link rel="canonical" href="https://spaminthai.com/">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.png" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,7 +44,7 @@
   "@type": "Organization",
   "name": "SpamInThai",
   "url": "https://spaminthai.com/",
-  "logo": "https://spaminthai.com/assets/favicon.svg",
+  "logo": "https://spaminthai.com/assets/logo.png",
   "description": "เว็บเช็คเบอร์ ตรวจเบอร์ เบอร์ใคร เบอร์อะไร ฟรี สำหรับคนไทย"
 }
 </script>
@@ -80,12 +85,10 @@
   <div class="max-w-7xl mx-auto px-4 md:px-6">
     <div class="flex items-center justify-between h-16 md:h-20">
       <a href="/" class="flex items-center gap-3 cursor-pointer">
-        <div class="p-2 bg-rose-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-rose-500/20 shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
-        </div>
+        <img src="/assets/logo.png" alt="SpamInThai" width="40" height="40" class="w-10 h-10 rounded-xl shadow-lg shadow-cyan-500/20 shrink-0 ring-1 ring-cyan-400/30" decoding="async">
         <div>
           <p class="text-lg font-black tracking-tight flex items-center gap-1.5"><span>SpamInThai</span></p>
-          <p class="text-[10px] text-slate-400 tracking-wide">ปล่อยให้สายแปลกหน้าเงียบไป</p>
+          <p class="text-[10px] text-slate-400 tracking-wide">Block Scam Calls · SMS · URLs</p>
         </div>
       </a>
       <nav class="hidden md:flex items-center gap-1">
@@ -122,20 +125,18 @@
 
 <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-6 py-6 md:py-10 space-y-8">
 
-  <!-- Hero banner -->
-  <div class="bg-slate-950 text-white rounded-2xl p-5 md:p-6 shadow-md border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 fade-up">
-    <div class="flex gap-4 items-center">
-      <div class="p-2.5 bg-rose-500/15 text-rose-400 rounded-xl border border-rose-500/20 shrink-0">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 animate-pulse"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg>
+  <!-- Brand header banner -->
+  <div class="fade-up overflow-hidden rounded-2xl border border-slate-800 shadow-md shadow-cyan-500/10 bg-slate-950">
+    <picture>
+      <source srcset="/assets/header-banner.webp" type="image/webp">
+      <img src="/assets/header-banner.jpg" alt="SpamInThai — Block Scam Calls, SMS, URLs. Free protection for Thailand." width="1400" height="788" class="w-full h-auto block" decoding="async" fetchpriority="high">
+    </picture>
+    <div class="flex items-center justify-between gap-3 px-4 py-3 md:px-5 border-t border-slate-800 bg-slate-950/95">
+      <p class="text-[11px] md:text-xs text-slate-400">ร่วมหยุดภัยแก๊งคอลเซ็นเตอร์ในประเทศไทย</p>
+      <div class="flex items-center gap-2 text-[11px] text-slate-300 font-medium shrink-0">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span>รายงานแล้ว <span id="reportCount" class="font-bold text-cyan-300">…</span> เบอร์</span>
       </div>
-      <div>
-        <p class="text-sm md:text-base font-bold tracking-tight">ร่วมหยุดภัยแก๊งคอลเซ็นเตอร์ในประเทศไทย</p>
-        <p class="text-xs text-slate-400 mt-0.5">ฐานข้อมูลสแปมและคัดกรองสายแปลกหน้า ขับเคลื่อนโดยผู้ใช้ชุมชน</p>
-      </div>
-    </div>
-    <div class="flex items-center gap-2.5 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-[11px] text-slate-300 font-medium shrink-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-rose-400"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>
-      <span>ร่วมกันรายงานแล้ว <span id="reportCount" class="font-bold text-rose-400">…</span> เบอร์</span>
     </div>
   </div>
 

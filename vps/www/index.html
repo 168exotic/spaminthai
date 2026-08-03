@@ -40,7 +40,8 @@ a{color:var(--indigo);text-decoration:none}
 
 header{padding:20px 0;border-bottom:1px solid var(--line);background:#fff}
 header .wrap{display:flex;align-items:center;justify-content:space-between}
-.logo{font-weight:700;font-size:1.1rem;color:var(--ink)}
+.logo{font-weight:700;font-size:1.1rem;color:var(--ink);display:inline-flex;align-items:center;gap:10px}
+.logo img{width:36px;height:36px;border-radius:10px}
 .logo span{color:var(--indigo)}
 .dl-btn{background:var(--indigo);color:#fff;padding:8px 16px;border-radius:99px;font-size:.85rem;font-weight:600}
 
@@ -112,7 +113,7 @@ footer a{margin:0 8px}
 
 <header>
   <div class="wrap">
-    <a class="logo" href="/">Spam<span>InThai</span></a>
+    <a class="logo" href="/"><img src="/assets/logo.png" alt="" width="36" height="36" decoding="async">Spam<span>InThai</span></a>
     <a class="dl-btn" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลดแอป</a>
   </div>
 </header>
