@@ -14,8 +14,9 @@
 <meta name="twitter:description" content="เช็คเบอร์ ตรวจเบอร์ฟรี เบอร์ใครโทรมา เบอร์อะไรน่าสงสัย ตรวจสอบเบอร์มิจฉาชีพจากฐานข้อมูลรายงานของคนไทย">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://spaminthai.com/check">
-<meta property="og:image" content="https://spaminthai.com/assets/og-image.svg">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:image" content="https://spaminthai.com/assets/og-image.png">
+<link rel="icon" href="/assets/favicon.png" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="/assets/logo-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +53,8 @@ a{color:var(--indigo);text-decoration:none}
 
 header{padding:20px 0;border-bottom:1px solid var(--line);background:#fff}
 header .wrap{display:flex;align-items:center;justify-content:space-between}
-.logo{font-weight:700;font-size:1.1rem;color:var(--ink)}
+.logo{font-weight:700;font-size:1.1rem;color:var(--ink);display:flex;align-items:center;gap:10px}
+.logo img{width:36px;height:36px;border-radius:10px}
 .logo span{color:var(--indigo)}
 .dl-btn{background:var(--indigo);color:#fff;padding:8px 16px;border-radius:99px;font-size:.85rem;font-weight:600}
 
@@ -133,7 +135,7 @@ footer a{margin:0 8px}
 
 <header>
   <div class="wrap">
-    <a class="logo" href="/">Spam<span>InThai</span></a>
+    <a class="logo" href="/"><picture><source srcset="/assets/logo-64.webp" type="image/webp"><img src="/assets/logo-64.png" alt="" width="36" height="36"></picture>Spam<span>InThai</span></a>
     <nav style="display:flex;align-items:center;gap:12px">
       <a href="/check" style="font-size:.9rem;font-weight:500;color:var(--muted)">เช็คเบอร์</a>
       <a href="/report" style="font-size:.9rem;font-weight:600;color:var(--indigo)">แจ้งเบาะแส</a>
