@@ -3,7 +3,7 @@
 import { assess } from '../api/risk-assess.js';
 import { identifyCarrier, isValidThaiPhone } from '../api/carrier.js';
 
-const OG_IMAGE = 'https://spaminthai.com/assets/og-image.svg';
+const OG_IMAGE = 'https://spaminthai.com/assets/og-image.jpg';
 
 function fmt(n) {
   const d = String(n).replace(/\D/g, '');
@@ -61,6 +61,8 @@ export async function renderNumberPage(number, env) {
 <meta property="og:image" content="${OG_IMAGE}">
 <meta property="og:type" content="website">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/logo-192.png">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
 <style>
 :root{--indigo:#4F46E5;--ink:#1E1B4B;--muted:#6B7280;--bg:#F8F9FF;--line:#E5E7F5;--danger:#DC2626;--danger-bg:#FEF2F2;--warn:#D97706;--warn-bg:#FFFBEB;--safe:#059669;--safe-bg:#ECFDF5}
@@ -69,7 +71,8 @@ body{font-family:system-ui,'IBM Plex Sans Thai',sans-serif;background:var(--bg);
 a{color:var(--indigo);text-decoration:none}
 .wrap{max-width:640px;margin:0 auto;padding:24px 20px}
 header{padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:24px}
-.logo{font-weight:700;font-size:1.1rem;color:var(--ink)}
+.logo{font-weight:700;font-size:1.1rem;color:var(--ink);display:inline-flex;align-items:center;gap:10px}
+.logo img{width:36px;height:36px;border-radius:10px;display:block}
 .logo span{color:var(--indigo)}
 .card{border-radius:16px;padding:24px;border:1.5px solid var(--line);background:#fff}
 .card.danger{background:var(--danger-bg);border-color:#FCA5A5}
@@ -88,7 +91,7 @@ footer a{margin-right:12px}
 </head>
 <body>
 <div class="wrap">
-  <header><a class="logo" href="/">Spam<span>InThai</span></a></header>
+  <header><a class="logo" href="/"><img src="/assets/logo.webp" width="36" height="36" alt="">Spam<span>InThai</span></a></header>
   <main class="card ${verdictClass}">
     <h1>เบอร์ ${esc(display)} — ${esc(result.label)}</h1>
     <p class="meta">${esc(result.advice)}</p>

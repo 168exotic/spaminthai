@@ -30,7 +30,8 @@ a{color:var(--indigo);text-decoration:none}
 
 header{padding:20px 0;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:10}
 header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{font-weight:700;font-size:1.1rem;color:var(--ink)}
+.logo{font-weight:700;font-size:1.1rem;color:var(--ink);display:inline-flex;align-items:center;gap:10px}
+.logo img{width:36px;height:36px;border-radius:10px;display:block}
 .logo span{color:var(--indigo)}
 nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 nav a{font-size:.9rem;font-weight:500;color:var(--muted)}
@@ -101,7 +102,7 @@ footer a{margin:0 8px}
 
 <header>
   <div class="wrap">
-    <a class="logo" href="/">Spam<span>InThai</span></a>
+    <a class="logo" href="/"><img src="/assets/logo.webp" width="36" height="36" alt="">Spam<span>InThai</span></a>
     <nav>
       <a href="/check">เช็คเบอร์</a>
       <a href="/download">ดาวน์โหลด</a>
