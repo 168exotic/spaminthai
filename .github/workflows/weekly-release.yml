@@ -46,8 +46,10 @@ jobs:
         run: npm test
 
       - name: Create release pull request
+        if: ${{ secrets.WEEKLY_RELEASE_PR_TOKEN != '' }}
         uses: peter-evans/create-pull-request@v6
         with:
+          token: ${{ secrets.WEEKLY_RELEASE_PR_TOKEN }}
           branch: release/weekly-v${{ steps.bump.outputs.new_version }}
           base: main
           title: 'Weekly release v${{ steps.bump.outputs.new_version }} (${{ steps.bump.outputs.release_date }})'
@@ -66,3 +68,8 @@ jobs:
             - [ ] `npm test` passes and the app was smoke-tested (`npm run dev`).
 
             Merging to `main` deploys to Cloudflare Pages via `deploy.yml`.
+
+      - name: Skip PR creation when token is missing
+        if: ${{ secrets.WEEKLY_RELEASE_PR_TOKEN == '' }}
+        run: |
+          echo "::warning title=Weekly release PR was skipped::Set repository secret WEEKLY_RELEASE_PR_TOKEN to allow workflow PR creation when GitHub Actions PR creation is restricted."

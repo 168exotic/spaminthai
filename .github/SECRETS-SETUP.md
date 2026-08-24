@@ -7,6 +7,12 @@ The workflow `.github/workflows/deploy.yml` requires these repository secrets:
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API token **secret string** (shown once at creation). User tokens (`cfut_`) and account tokens (`cfat_`) both work. | Yes |
 | `CLOUDFLARE_ACCOUNT_ID` | `2fa3f2f325707bab89ef1c7452d3adb8` | Optional (default in workflow) |
 
+## Weekly release PR automation (`.github/workflows/weekly-release.yml`)
+
+| Secret | Value | Required |
+|---|---|---|
+| `WEEKLY_RELEASE_PR_TOKEN` | GitHub personal access token (classic or fine-grained) with pull request write access to `168exotic/spaminthai` | Required to auto-create weekly release PRs when repository disallows PR creation by `GITHUB_TOKEN` |
+
 ## Marketing automation secrets (`.github/workflows/marketing-daily.yml`)
 
 | Secret | Value | Required |
@@ -54,6 +60,7 @@ Or from your machine (with `gh` authenticated as repo admin):
 ```bash
 gh secret set CLOUDFLARE_API_TOKEN --repo 168exotic/spaminthai
 gh secret set CLOUDFLARE_ACCOUNT_ID --repo 168exotic/spaminthai --body "2fa3f2f325707bab89ef1c7452d3adb8"
+gh secret set WEEKLY_RELEASE_PR_TOKEN --repo 168exotic/spaminthai
 ```
 
 ## www.เบอร์ใคร.com (VPS deploy)
