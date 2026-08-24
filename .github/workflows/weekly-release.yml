@@ -46,6 +46,8 @@ jobs:
         run: npm test
 
       - name: Create release pull request
+        id: create_pr
+        continue-on-error: true
         uses: peter-evans/create-pull-request@v6
         with:
           branch: release/weekly-v${{ steps.bump.outputs.new_version }}
@@ -66,3 +68,9 @@ jobs:
             - [ ] `npm test` passes and the app was smoke-tested (`npm run dev`).
 
             Merging to `main` deploys to Cloudflare Pages via `deploy.yml`.
+
+      - name: Handle PR creation permission fallback
+        if: ${{ steps.create_pr.outcome == 'failure' }}
+        run: |
+          echo "::warning::Could not create release PR with GITHUB_TOKEN. Enable 'Allow GitHub Actions to create and approve pull requests' in repository settings, then rerun this workflow."
+          echo "::warning::Release branch release/weekly-v${{ steps.bump.outputs.new_version }} was still prepared and pushed."
