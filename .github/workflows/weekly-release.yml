@@ -20,8 +20,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   prepare:
@@ -32,6 +31,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Verify release PR token
+        env:
+          WEEKLY_RELEASE_TOKEN: ${{ secrets.WEEKLY_RELEASE_TOKEN }}
+        run: |
+          if [ -z "$WEEKLY_RELEASE_TOKEN" ]; then
+            echo "::error title=Missing weekly release token::Add WEEKLY_RELEASE_TOKEN with Contents: Read and write and Pull requests: Read and write permissions. See .github/SECRETS-SETUP.md"
+            exit 1
+          fi
 
       - name: Prepare weekly release (bump + changelog stub)
         id: bump
@@ -48,6 +56,7 @@ jobs:
       - name: Create release pull request
         uses: peter-evans/create-pull-request@v6
         with:
+          token: ${{ secrets.WEEKLY_RELEASE_TOKEN }}
           branch: release/weekly-v${{ steps.bump.outputs.new_version }}
           base: main
           title: 'Weekly release v${{ steps.bump.outputs.new_version }} (${{ steps.bump.outputs.release_date }})'

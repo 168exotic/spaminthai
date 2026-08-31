@@ -24,6 +24,23 @@ gh secret set TELEGRAM_CHAT_ID --repo 168exotic/spaminthai
 
 Also add `MARKETING_CRON_SECRET` in **Cloudflare Pages → spaminthai → Settings → Environment variables** (Production).
 
+## Weekly release pull-request token (`.github/workflows/weekly-release.yml`)
+
+`GITHUB_TOKEN` is blocked from creating pull requests in this repository, so the
+weekly release workflow requires `WEEKLY_RELEASE_TOKEN`.
+
+Create a fine-grained personal access token for `168exotic/spaminthai` with:
+
+- **Contents:** Read and write
+- **Pull requests:** Read and write
+
+Then add its secret value at
+https://github.com/168exotic/spaminthai/settings/secrets/actions:
+
+```bash
+gh secret set WEEKLY_RELEASE_TOKEN --repo 168exotic/spaminthai
+```
+
 ## Google Analytics 4 (GA4)
 
 | Variable | Value | Required |
