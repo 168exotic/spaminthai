@@ -59,8 +59,8 @@ import {
   onRequestHead as policeVcfHead,
 } from './functions/download/police.vcf.js';
 
-const WEB_VERSION = '1.3.0';
-const RELEASED_AT = '2026-07-21';
+const WEB_VERSION = '1.4.0';
+const RELEASED_AT = '2026-09-01';
 
 function json(obj, status = 200, cacheSec = 0) {
   return new Response(JSON.stringify(obj), {

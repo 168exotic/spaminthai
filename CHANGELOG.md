@@ -12,6 +12,21 @@ full process.
 The format is based on [Keep a Changelog](https://keepachangelog.com/) and this
 project follows [Semantic Versioning](https://semver.org/).
 
+## [1.4.0] — 2026-09-01
+
+> **TODO:** describe this week's improvement — it must make SpamInThai
+> better than v1.3.0 (new feature, stronger detection, better UX/a11y,
+> or a meaningful fix). Remove this note before merging.
+
+### Added
+-
+
+### Changed
+-
+
+### Fixed
+-
+
 ## [1.3.0] — 2026-07-21
 
 This release turns SpamInThai from a lookup-only tool into a full report-and-review
