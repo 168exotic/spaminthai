@@ -1,13 +1,9 @@
 name: Weekly release
 
-# Ships a new, improved SpamInThai version every Tuesday.
-# Runs Tuesday 00:00 Asia/Bangkok (UTC+7) == Monday 17:00 UTC, and can be
-# triggered manually. Opens a release PR; a maintainer or Cursor scheduled agent
-# fills in the week's actual improvement before merging. See RELEASING.md.
+# Manually prepares a new SpamInThai release. A maintainer fills in the
+# release's actual improvement before merging. See RELEASING.md.
 
 on:
-  schedule:
-    - cron: '0 17 * * 1'
   workflow_dispatch:
     inputs:
       release_date:
