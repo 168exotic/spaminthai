@@ -4,39 +4,38 @@
  * ส่วนกลางการจัดการโฆษณา Affiliate ของเว็บ spaminthai.com
  *
  * วิธีใช้:
- *   เพิ่ม slot ใน HTML:  <div class="affiliate-slot" data-slot="sidebar-top"></div>
- *   แล้วลงทะเบียนรายการโฆษณาใน AD_CONFIG.map로 slot นี้ (ดูด้านล่าง)
+ *   1. เพิ่ม slot ใน HTML:  <div class="affiliate-slot" data-slot="sidebar-top"></div>
+ *   2. ลงทะเบียนรายการโฆษณาใน AD_CONFIG (ใส่ href = ลิงก์ affiliate จริง)
  *
- * SEO / การเปิดเผยข้อมูล (นโยบาย Affiliate ที่ถูกต้อง):
- *   - ทุกลิงก์ได้ rel="sponsored nofollow noopener" อัตโนมัติ
- *   - โฆษณาจะแสดง label "Sponsored / โฆษณา" กำกับเสมอ
- *   - ถ้าลิงก์จริงยังไม่พร้อม ใช้ placeholder ที่มี class="aff-placeholder"
- *     (ไม่ขึ้น clickable จนกว่าจะใส่ href จริง) เพื่อไม่ให้เสีย SEO
+ * กติกา (สำคัญ):
+ *   - โฆษณาจะแสดงเมื่อมี href จริงเท่านั้น หาก href ว่าง กล่องจะไม่ถูกแสดง
+ *     (ไม่เกิดกล่องว่าง/พังบนหน้าเว็บ) — พอใส่ลิงก์เมื่อไหร่ค่อยขึ้นเอง
+ *   - ทุกลิงก์ได้ rel="sponsored nofollow noopener" อัตโนมัติ ตามหลัก SEO
+ *   - โฆษณากำกับด้วยป้าย "Sponsored / โฆษณา" เสมอ (โปร่งใส, ถูกนโยบาย AdSense)
  */
 (function () {
-  // ============ CONFIG: ใส่ / แก้โฆษณาได้ตรงนี้ ============
+  // ============ CONFIG: ใส่ / แก้โฆษณาได้ตรงนี้เท่านั้น ============
   const AD_CONFIG = [
-    // ตัวอย่าง slot: sidebar-top
+    // slot: sidebar-top (คอลัมน์ขวา บนสุด ในกล่องคำแนะนำ)
     {
       slot: 'sidebar-top',
       enabled: true,
-      // ใส่ href = ลิงก์ affiliate จริงของบอส / ปล่อย '' = ขึ้นเป็น placeholder
-      href: '',
-      image: '',
+      href: '',           // ← ใส่ลิงก์ affiliate จริง เช่น 'https://...?ref=xxx'
+      image: '',          // ← ใส่ URL รูปแบนเนอร์ถ้ามี (ถ้าไม่มี ให้ '' = การ์ดข้อความล้วน)
       badge: 'Sponsored',
-      title: 'พื้นที่โฆษณา SpamInThai',
-      desc: 'ที่นี่เป็นจุดวางโฆษณา Affiliate — บอสส่งลิงก์มาให้ผมเติมได้ที่ /data/workspace หรือบอกโปรแกรม affiliate ได้เลย',
+      title: 'ผลิตภัณฑ์แนะนำ',
+      desc: 'รายละเอียดสินค้า/บริการที่จะแนะนำที่นี่',
       cta: 'ดูรายละเอียด',
     },
-    // ตัวอย่าง slot: below-result (ใต้ผลตรวจเบอร์)
+    // slot: below-result (ใต้กล่องผลตรวจเบอร์)
     {
       slot: 'below-result',
       enabled: true,
       href: '',
       image: '',
       badge: 'Sponsored',
-      title: 'แบนเนอร์ Affiliate ที่ 2',
-      desc: 'จุดคลิกสูงรองจาก sidebar — เหมาะสำหรับการ์ดสินค้า/บริการแนะนำ',
+      title: 'บริการแนะนำ',
+      desc: 'รายละเอียดบริการที่จะแนะนำที่นี่',
       cta: 'คลิกที่นี่',
     },
   ];
@@ -47,6 +46,8 @@
     if (!slots.length) return;
     AD_CONFIG.forEach(function (ad) {
       if (!ad || !ad.enabled) return;
+      // แสดงเฉพาะโฆษณาที่มี href จริง — ถ้ายังไม่มี ให้ข้าม (slot ยังว่าง, ไม่พัง)
+      if (!ad.href || !String(ad.href).trim()) return;
       var slot = document.querySelector('.affiliate-slot[data-slot="' + ad.slot + '"]');
       if (!slot) return;
       slot.innerHTML = renderAd(ad);
@@ -54,19 +55,16 @@
   }
 
   function renderAd(ad) {
-    var href = (ad.href || '').trim();
+    var href = String(ad.href).trim();
     var rel = 'rel="sponsored nofollow noopener"';
     var target = 'target="_blank"';
-    var isPlaceholder = !href;
-    var cls = isPlaceholder ? 'aff-card aff-card--placeholder' : 'aff-card';
-    var linkAttr = isPlaceholder ? '' : ('href="' + href + '" ' + rel + ' ' + target);
     var image = '';
     if (ad.image) {
-      image = '<img src="' + ad.image + '" alt="' + esc(ad.title) + '" class="aff-card__img" loading="lazy">';
+      image = '<img src="' + esc(ad.image) + '" alt="' + esc(ad.title) + '" class="aff-card__img" loading="lazy">';
     }
     return (
-      '<div class="' + cls + '">' +
-        (isPlaceholder ? '' : '<a ' + linkAttr + ' class="aff-card__link">') +
+      '<div class="aff-card">' +
+        '<a href="' + href + '" ' + rel + ' ' + target + ' class="aff-card__link">' +
           (ad.badge ? '<span class="aff-card__badge">' + esc(ad.badge) + '</span>' : '') +
           image +
           '<div class="aff-card__body">' +
@@ -74,7 +72,7 @@
             '<div class="aff-card__desc">' + esc(ad.desc) + '</div>' +
             (ad.cta ? '<div class="aff-card__cta">' + esc(ad.cta) + ' →</div>' : '') +
           '</div>' +
-        (isPlaceholder ? '' : '</a>') +
+        '</a>' +
       '</div>'
     );
   }
