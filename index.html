@@ -62,6 +62,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/theme.css">
 <link rel="stylesheet" href="/assets/layout.css">
+<link rel="stylesheet" href="/assets/affiliate.css">
 <!-- Cloudflare Web Analytics -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6b88cc320e0c4493895e548c39e1f61f"}'></script>
 <!-- End Cloudflare Web Analytics -->
@@ -176,6 +177,9 @@
         </div>
       </div>
 
+      <!-- Affiliate ad (below-result) -->
+      <div class="affiliate-slot" data-slot="below-result"></div>
+
       <!-- Download CTA -->
       <div class="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm fade-up">
         <div class="flex flex-col md:flex-row items-center gap-6">
@@ -269,6 +273,9 @@
 
     <!-- Right: Sidebar (tips + report first on mobile) -->
     <div class="lg:col-span-4 space-y-6">
+      <!-- Affiliate ad (sidebar-top) -->
+      <div class="affiliate-slot" data-slot="sidebar-top"></div>
+
       <!-- Tips -->
       <div class="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-3.5 fade-up">
         <a href="/report" class="block bg-rose-500 hover:bg-rose-600 text-white rounded-xl p-4 text-center shadow-lg shadow-rose-500/25 transition active:scale-[0.99]">
@@ -413,6 +420,7 @@
   </div>
 </footer>
 
+<script src="/assets/affiliate.js"></script>
 <script src="/assets/phone-utils.js"></script>
 <script>
 const API_BASE = 'https://spaminthai.com';
