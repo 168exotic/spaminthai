@@ -16,6 +16,7 @@ const STATIC_PAGES = [
   { loc: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { loc: '/terms', priority: '0.3', changefreq: 'yearly' },
   { loc: '/blog', priority: '0.7', changefreq: 'weekly' },
+  { loc: '/news', priority: '0.8', changefreq: 'daily' },
 ];
 
 const BLOG_SLUGS = [
@@ -31,6 +32,13 @@ const BLOG_SLUGS = [
   'new-scam-tricks-2568-07',
   'berkhrai-check-caller',
   'truat-ber-free',
+];
+
+const NEWS_SLUGS = [
+  'breaking-chain-2025-korean-scam',
+  'korean-call-center-pattaya-2025-09',
+  'warroom-iac-money-cash-back-2025-09',
+  'warroom-iac-stats-aug-sep-2025',
 ];
 
 function today() {
@@ -106,6 +114,10 @@ export async function buildSitemapXml(env) {
 
   for (const slug of BLOG_SLUGS) {
     lines.push(urlEntry(`/blog/${slug}`, { priority: '0.75', changefreq: 'monthly', lastmod }));
+  }
+
+  for (const slug of NEWS_SLUGS) {
+    lines.push(urlEntry(`/news/${slug}`, { priority: '0.78', changefreq: 'weekly', lastmod }));
   }
 
   const numbers = await getTopNumbers(env, 200);
