@@ -35,10 +35,10 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
-  'breaking-chain-2025-korean-scam',
-  'korean-call-center-pattaya-2025-09',
-  'warroom-iac-money-cash-back-2025-09',
-  'warroom-iac-stats-aug-sep-2025',
+  'acsc-rescue-students-2-7m-2569',
+  'acsc-stats-aug-sep-2569',
+  'acsc-weekly-492m-march-2569',
+  'cib-money-laundering-ring-2569',
 ];
 
 function today() {
