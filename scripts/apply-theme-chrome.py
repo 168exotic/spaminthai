@@ -15,6 +15,7 @@ FONT_LINK = (
 )
 
 CONTENT_PAGES = [
+    "news/index.html",
     "blog/index.html",
     "blog/berkhrai-check-caller.html",
     "blog/best-spam-checker-apps-2568.html",
