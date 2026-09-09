@@ -38,7 +38,7 @@ for i, s in enumerate(slots):
     st = enabled[i] if i < len(enabled) else "true"
     h = hrefs[i] if i < len(hrefs) else ""
     if st == "true" and not h.strip():
-        print(f"  [INFO] slot '{s}' → ยังไม่มีลิงก์ (href ว่าง) — จะถูก HIDE จนกว่าจะใส่ลิงก์จริง")
+        print(f"  [INFO] slot '{s}' → ยังไม่มีลิงก์ (href ว่าง) — แสดง placeholder จนกว่าจะใส่ลิงก์จริง")
     elif st == "true":
         print(f"  [OK]   slot '{s}' → ลิงก์พร้อม: {h.strip()[:50]}")
     else:
