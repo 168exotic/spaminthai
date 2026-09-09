@@ -1,3 +1,4 @@
 # Cloudflare Pages already serves *.html at clean URLs (/check, /download, …).
 # Do NOT add /check -> /check.html rewrites here — they loop with Pages' own
 # /check.html -> /check redirect (ERR_TOO_MANY_REDIRECTS). See AGENTS.md.
+/news /news-1 301

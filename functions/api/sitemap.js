@@ -16,7 +16,7 @@ const STATIC_PAGES = [
   { loc: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { loc: '/terms', priority: '0.3', changefreq: 'yearly' },
   { loc: '/blog', priority: '0.7', changefreq: 'weekly' },
-  { loc: '/news', priority: '0.8', changefreq: 'daily' },
+  { loc: '/news-1', priority: '0.8', changefreq: 'daily' },
 ];
 
 const BLOG_SLUGS = [
@@ -80,6 +80,8 @@ const NEWS_SLUGS = [
   'romance-scam-dating-app-2569',
   'sim-box-mae-sot-raid-2569',
 ];
+
+const NEWS_PAGE_COUNT = 8;
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -158,6 +160,10 @@ export async function buildSitemapXml(env) {
 
   for (const slug of NEWS_SLUGS) {
     lines.push(urlEntry(`/news/${slug}`, { priority: '0.78', changefreq: 'weekly', lastmod }));
+  }
+
+  for (let p = 1; p <= NEWS_PAGE_COUNT; p++) {
+    lines.push(urlEntry(`/news-${p}`, { priority: p === 1 ? '0.8' : '0.72', changefreq: 'daily', lastmod }));
   }
 
   const numbers = await getTopNumbers(env, 200);
