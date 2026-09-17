@@ -79,6 +79,7 @@ const NEWS_SLUGS = [
   'poipet-thai-workers-trapped-2569',
   'romance-scam-dating-app-2569',
   'sim-box-mae-sot-raid-2569',
+  'sim-box-sms-banking-2569',
 ];
 
 const NEWS_PAGE_COUNT = 8;
