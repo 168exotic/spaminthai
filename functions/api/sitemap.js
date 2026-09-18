@@ -81,6 +81,7 @@ const NEWS_SLUGS = [
   'sim-box-mae-sot-raid-2569',
   'sim-box-sms-banking-2569',
   'student-scam-part-time-job-2569',
+  'student-scam-poipet-trick-2569',
 ];
 
 const NEWS_PAGE_COUNT = 8;
