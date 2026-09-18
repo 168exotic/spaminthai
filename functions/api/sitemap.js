@@ -82,6 +82,7 @@ const NEWS_SLUGS = [
   'sim-box-sms-banking-2569',
   'student-scam-part-time-job-2569',
   'student-scam-poipet-trick-2569',
+  'student-scam-university-victim-2569',
 ];
 
 const NEWS_PAGE_COUNT = 8;
