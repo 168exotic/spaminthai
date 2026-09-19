@@ -83,9 +83,10 @@ const NEWS_SLUGS = [
   'student-scam-part-time-job-2569',
   'student-scam-poipet-trick-2569',
   'student-scam-university-victim-2569',
+  'thaipbs-scam-awareness-campaign-2569',
 ];
 
-const NEWS_PAGE_COUNT = 8;
+const NEWS_PAGE_COUNT = 9;
 
 function today() {
   return new Date().toISOString().slice(0, 10);
