@@ -45,7 +45,7 @@ async function main() {
   console.log('KV namespace', NAMESPACE_ID);
 
   const { res, body } = await cf(
-    `/accounts/${ACCOUNT_ID}/storage/kv/namespaces/${NAMESPACE_ID}/keys?limit=1`
+    `/accounts/${ACCOUNT_ID}/storage/kv/namespaces/${NAMESPACE_ID}/keys?limit=10`
   );
 
   if (!body.success) {
