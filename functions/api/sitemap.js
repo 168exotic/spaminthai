@@ -35,6 +35,10 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'acsc-september-stats-2569',
+  'acsc-weekly-6-12-sep-2569',
+  'off-platform-shopping-scam-2569',
+  'gen-z-scam-surge-2569',
   'acsc-august-weekly-2569',
   'acsc-elderly-protection-2569',
   'acsc-july-summer-spike-2569',

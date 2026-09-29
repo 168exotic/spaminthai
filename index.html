@@ -1,8 +1,12 @@
 <!doctype html>
+<!-- deploy: adsense-verification ca-pub-2455374115304550 2026-09-18 -->
+<!-- overlay-deploy: cursor 2026-09-01 restore overlay (revert affiliate direct deploy) -->
 <html lang="th">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- ADSENSE-KEEP: do not remove meta/script/ads.txt until ads serve — see ADSENSE-KEEP.md -->
+<meta name="google-adsense-account" content="ca-pub-2455374115304550">
 <title>เบอร์ใคร | ตรวจเบอร์โทรเข้ามา เช็คมิจฉาชีพฟรี — SpamInThai</title>
 <meta name="description" content="เว็บตรวจเบอร์ที่โทรเข้ามาว่าเบอร์ใคร เช็คเบอร์มิจฉาชีพและแก๊งคอลเซ็นเตอร์ในไทยฟรี ฐานข้อมูลจากคนไทยเพื่อคนไทย ไม่ต้องสมัคร ไม่ขายข้อมูล">
 <meta name="keywords" content="เช็คเบอร์, ตรวจเบอร์, เบอร์ใคร, เบอร์อะไร, เช็คเบอร์โทร, เบอร์มิจฉาชีพ, แก๊งคอลเซ็นเตอร์, เบอร์สแปม, เบอร์นี้ใครโทรมา">
@@ -62,10 +66,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/theme.css">
 <link rel="stylesheet" href="/assets/layout.css">
-<link rel="stylesheet" href="/assets/affiliate.css">
 <!-- Cloudflare Web Analytics -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "6b88cc320e0c4493895e548c39e1f61f"}'></script>
 <!-- End Cloudflare Web Analytics -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2455374115304550"
+     crossorigin="anonymous"></script>
 <script src="/assets/ga4.js" defer></script>
 <style>
   :root{--rose:#f43f5e;--rose600:#e11d48;--slate50:#f8fafc;--slate100:#f1f5f9;--slate800:#1e293b;--slate900:#0f172a;--slate950:#020617}
@@ -96,13 +101,15 @@
       <a href="/news" class="site-nav__link">ข่าวสาร</a>
       <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
       <a href="#official" class="site-nav__link">เบอร์ทางการ</a>
-      <a class="site-nav__link site-nav__link--apk" data-download href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดบน Google Play</a>
+      <a href="https://thaipoliceonline.go.th/login?redirectTo=%2Fmobile%2Fmule-account" class="site-nav__link site-nav__link--mule" target="_blank" rel="noopener noreferrer">ตรวจสอบบัญชีม้า</a>
+      <a class="site-nav__link site-nav__link--apk" data-download href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer" >ดาวน์โหลดบน Google Play</a>
     </nav>
   </div>
   <div class="site-header__mobile">
     <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
     <a href="/news" class="site-tab">ข่าวสาร</a>
     <a href="#official" class="site-tab">เบอร์ทางการ</a>
+    <a href="https://thaipoliceonline.go.th/login?redirectTo=%2Fmobile%2Fmule-account" class="site-tab site-tab--mule" target="_blank" rel="noopener noreferrer">ตรวจสอบบัญชีม้า</a>
     <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer" data-download class="site-tab site-tab--apk">ดาวน์โหลดบน Google Play</a>
   </div>
 </header>
@@ -178,9 +185,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Affiliate ad (below-result) -->
-      <div class="affiliate-slot" data-slot="below-result"></div>
 
       <!-- Download CTA -->
       <div class="bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm fade-up">
@@ -275,9 +279,6 @@
 
     <!-- Right: Sidebar (tips + report first on mobile) -->
     <div class="lg:col-span-4 space-y-6">
-      <!-- Affiliate ad (sidebar-top) -->
-      <div class="affiliate-slot" data-slot="sidebar-top"></div>
-
       <!-- Tips -->
       <div class="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-3.5 fade-up">
         <a href="/report" class="block bg-rose-500 hover:bg-rose-600 text-white rounded-xl p-4 text-center shadow-lg shadow-rose-500/25 transition active:scale-[0.99]">
@@ -341,6 +342,16 @@
         </div>
       </div>
 
+      <!-- Shopee affiliate — single ORTA Thai tea creative -->
+      <div id="shopee-affiliate" class="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-2 fade-up">
+        <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">แนะนำจาก Shopee</h3>
+        <p class="text-[10px] text-slate-400 leading-relaxed">ORTA ชาไทยพร้อมชงดื่ม สไตล์ภูเก็ต — หอมเข้ม หวานมันกำลังดี</p>
+        <a href="https://s.shopee.co.th/6VNiCRO48G" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden shadow-sm hover:shadow-md transition mt-2" aria-label="ซื้อชาไทย ORTA Instant Thai Tea Mix จาก Shopee">
+          <img src="/assets/shopee-orta-thai-tea.gif" alt="ORTA ชาไทยพร้อมชงดื่ม สไตล์ภูเก็ต Instant Thai Tea Mix" width="640" height="640" loading="lazy" class="w-full h-auto">
+        </a>
+        <p class="text-[10px] text-slate-400">โฆษณา · ลิงก์พันธมิตร</p>
+      </div>
+
       <!-- Privacy Card -->
       <div class="bg-slate-900 text-white rounded-2xl p-5 shadow-md fade-up">
         <h3 class="text-xs font-bold uppercase tracking-wider flex items-center gap-2 mb-3">
@@ -397,6 +408,34 @@
         <summary class="font-semibold text-sm text-slate-800 cursor-pointer">เบอร์อะไรน่าสงสัย เช็คได้ไหม?</summary>
         <p class="text-sm text-slate-600 mt-2">เช็คได้ทุกเบอร์โทรศัพท์ไทย หากเบอร์อะไรโทรมาแล้วอ้างเป็นหน่วยงานรัฐหรือขู่เรื่องเงิน ให้ตรวจเบอร์ก่อนรับสายหรือโอนเงินเสมอ</p>
       </details>
+
+      <div class="mt-5 pt-5 border-t border-dashed border-slate-200 space-y-5" id="legal-loan">
+        <p class="text-xs text-slate-500 leading-relaxed">หากต้องการสินเชื่อถูกกฎหมาย (ไม่ใช่เบอร์เงินกู้นอกระบบ) อาจพิจารณาบริการที่กำกับดูแลโดยธนาคารแห่งประเทศไทย</p>
+        <div>
+          <h3 class="text-sm font-bold text-slate-800">สินเชื่อ ถูกกฎหมาย</h3>
+          <p class="text-xs text-slate-500 mt-1">แอปฟินนิกซ์ — สมัครผ่านลิงก์ด้านล่าง</p>
+          <a href="https://go.finnix.co/xZrf/acues3x4?openExternalBrowser=1" target="_blank" rel="noopener sponsored" class="mt-3 block rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" aria-label="สมัครสินเชื่อถูกกฎหมายกับฟินนิกซ์">
+            <img src="/assets/finnix-hand-phone.png" alt="ฟินนิกซ์ สินเชื่อถูกกฎหมาย แอปกู้เงินด่วน อนุมัติไวสุดใน 5 วินาที" width="838" height="944" loading="lazy" class="w-full h-auto">
+          </a>
+        </div>
+        <div class="pt-4 border-t border-slate-100" id="line-bk-loan">
+          <h3 class="text-sm font-bold text-slate-800">สินเชื่อเงินกู้ LINE BK</h3>
+          <p class="text-xs text-slate-500 mt-1">ธนาคาร LINE BK — สมัครผ่าน LINE</p>
+          <a href="https://u.lin.ee/c7cdqXC" target="_blank" rel="noopener sponsored" class="mt-3 flex items-center justify-center gap-3 px-4 py-3 bg-gradient-to-r from-[#06C755] to-[#00B900] text-white text-sm font-bold rounded-xl hover:shadow-md transition" aria-label="สมัครสินเชื่อเงินกู้ LINE BK">
+            <span class="bg-white text-[#06C755] px-2.5 py-1 rounded-lg text-xs font-extrabold">LINE BK</span>
+            <span>สมัครสินเชื่อเงินกู้ผ่าน LINE →</span>
+          </a>
+        </div>
+        <div class="pt-4 border-t border-slate-100" id="money-thunder-loan">
+          <h3 class="text-sm font-bold text-slate-800">สินเชื่อ MoneyThunder (มันนี่ทันเดอร์)</h3>
+          <p class="text-xs text-slate-500 mt-1">แอปสินเชื่อโดย Abacus digital ภายใต้การกำกับของธนาคารแห่งประเทศไทย</p>
+          <a href="https://friend.money-thunder.com/px1v/lylrgos6" target="_blank" rel="noopener sponsored" class="mt-3 block rounded-xl overflow-hidden shadow-sm hover:shadow-md transition" aria-label="สมัครสินเชื่อ MoneyThunder">
+            <img src="/assets/moneythunder-banner.webp" alt="MoneyThunder มันนี่ทันเดอร์ แอปสินเชื่อถูกกฎหมาย กู้เท่าที่จำเป็นและชำระคืนไหว" width="1200" height="672" loading="lazy" class="w-full h-auto">
+          </a>
+          <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">สินเชื่อส่วนบุคคล ดอกเบี้ยปกติ 25% ต่อปี | สินเชื่อนาโนไฟแนนซ์ ดอกเบี้ยปกติ 33% ต่อปี เงื่อนไขเป็นไปตามที่บริษัทกำหนด</p>
+        </div>
+        <p class="text-xs font-semibold text-slate-500 pt-3 border-t border-dashed border-slate-200">แนะนำให้กู้เท่าที่จำเป็นและชำระคืนไหว</p>
+      </div>
     </div>
   </section>
 
@@ -412,6 +451,9 @@
     </div>
     <nav class="site-footer__links" aria-label="ลิงก์">
       <a href="/check">เช็คเบอร์โทร</a>
+      <a href="/#legal-loan">สินเชื่อถูกกฎหมาย</a>
+      <a href="/#line-bk-loan">สินเชื่อเงินกู้ LINE BK</a>
+      <a href="/#money-thunder-loan">สินเชื่อ MoneyThunder</a>
       <a href="/report">แจ้งเบาะแส</a>
       <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
       <a href="/news">ข่าวสาร</a>
@@ -423,7 +465,6 @@
   </div>
 </footer>
 
-<script src="/assets/affiliate.js"></script>
 <script src="/assets/phone-utils.js"></script>
 <script>
 const API_BASE = 'https://spaminthai.com';

@@ -25,7 +25,9 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 - **ปุ่มดาวน์โหลดแอปทุกปุ่มต้องลิงก์ตรงไป Google Play:** `https://play.google.com/store/apps/details?id=com.jarvis.callblocker`
   พร้อม `target="_blank" rel="noopener noreferrer"` — **ห้าม** ใส่ลิงก์ `/download/spaminthai-latest.apk`, GitHub Releases APK หรือ `/download` (หน้าเก่า) บนปุ่ม/ลิงก์ดาวน์โหลดใด ๆ (nav, tab, hero, popup, footer, ข่าว, บทความ, `functions/check/render-number-page.js`)
 - `/api/app` และ `/api/latest-version` ต้องคืน `downloadUrl`/`url` เป็นลิงก์ Google Play (ดู `functions/api/app-download.js`) และ `/download/spaminthai-latest.apk` ต้อง 302 ไป Google Play
-- **Deploy:** `deploy.yml` ของ repo นี้ **ต้อง apply overlay จาก `168exotic/mysite` (`deploy/spaminthai/`) ทุกครั้ง** (หน้าแรก, `/check`, assets, ข่าว, `_headers`, AdSense, ลิงก์ Google Play) — ห้ามตัดขั้นตอน overlay ออก มิฉะนั้นการ redeploy จะลบ AdSense/แบนเนอร์/ลิงก์ Play ทิ้ง มี guard ใน workflow ที่ fail build ถ้าเจอลิงก์ APK
+- **Source of truth = repo นี้ (ตั้งแต่ 29 ก.ย. 2569):** overlay `deploy/spaminthai/` ใน `168exotic/mysite` ถูกรวมเข้ามาที่นี่แล้ว (หน้าแรก, `/check`, `_headers`, `ads.txt`, assets/แบนเนอร์, ข่าว ก.ย. 2569) และ**เลิกใช้** — แก้เว็บที่ repo นี้เท่านั้น อย่ากลับไปแก้ overlay ใน mysite (workflow ที่นั่นจะ fail เตือน)
+- **Deploy:** push `main` (หรือ `workflow_dispatch`) → `deploy.yml` รัน `scripts/apply-play-store-links.sh` เป็น safety net แล้ว **fail build ถ้ายังเจอลิงก์ APK/`/download` ใน `<a>`** หรือถ้า `ads.txt`/`_headers`/AdSense tag หาย จากนั้น `wrangler pages deploy .` และตรวจหน้าแรกที่ deploy แล้ว (ลิงก์ Google Play ต้องอยู่, ห้ามมี APK)
+- **Google AdSense (ห้ามลบ):** `ca-pub-2455374115304550` — meta + `adsbygoogle.js` ใน `index.html`, `check.html`, `news-1..4.html`; `ads.txt`; CSP ใน `_headers` ต้องมี `pagead2.googlesyndication.com` — ห้ามนำออกจนกว่า AdSense จะอนุมัติและแสดงโฆษณาจริง
 
 ### Mail token / tokens ที่กำลังหมดอายุ (handoff สำหรับ agent อื่น)
 
