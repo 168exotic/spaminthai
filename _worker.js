@@ -216,7 +216,7 @@ async function route(request, env, url) {
 
     // Short links -> Google Play listing (for social posts / bio links)
     if (path === '/app' || path === '/app/') {
-      return Response.redirect('https://play.google.com/store/apps/details?id=com.jarvis.callblocker', 302);
+      return Response.redirect('https://play.google.com/store/apps/details?id=com.jarvis.callblocker&referrer=utm_source%3Dshortlink%26utm_medium%3Dsocial', 302);
     }
     if (path === '/ig' || path === '/ig/') {
       return Response.redirect('https://play.google.com/store/apps/details?id=com.jarvis.callblocker&referrer=utm_source%3Dinstagram%26utm_medium%3Dsocial', 302);
