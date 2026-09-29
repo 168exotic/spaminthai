@@ -1,6 +1,8 @@
-// Shared site utilities: APK download links + app install popup + nav active state.
+// Shared site utilities: app download links (Google Play) + install popup + nav active state.
 (function () {
-  const FALLBACK = '/download/spaminthai-latest.apk';
+  const PLAY_STORE =
+    'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
+  const FALLBACK = PLAY_STORE;
   const POPUP_KEY = 'spaminthai_app_popup_dismissed';
   const POPUP_DAYS = 3;
 
@@ -33,7 +35,17 @@
     document.querySelectorAll('[data-download]').forEach((el) => {
       if (el.tagName === 'A') {
         el.href = url;
-        if (url.endsWith('.apk')) el.setAttribute('download', '');
+        if (url.endsWith('.apk')) {
+          el.setAttribute('download', '');
+          el.removeAttribute('target');
+          el.removeAttribute('rel');
+        } else {
+          el.removeAttribute('download');
+          if (url.startsWith('http')) {
+            el.setAttribute('target', '_blank');
+            el.setAttribute('rel', 'noopener noreferrer');
+          }
+        }
       }
     });
     const popupBtn = document.getElementById('appPopupDownload');
@@ -50,7 +62,12 @@
     .catch(() => {});
 
   function shouldShowPopup() {
-    if (location.pathname.startsWith('/download') || location.pathname.startsWith('/report') || location.pathname.startsWith('/admin')) return false;
+    if (
+      location.pathname.startsWith('/download') ||
+      location.pathname.startsWith('/report') ||
+      location.pathname.startsWith('/admin')
+    )
+      return false;
     try {
       const raw = localStorage.getItem(POPUP_KEY);
       if (!raw) return true;
@@ -112,7 +129,7 @@
     <p id="appPopupDesc">ใช้ฐานข้อมูลเดียวกับเว็บ ก่อนโทรศัพท์จะดัง</p>
   </div>
   <div id="appPopupActions">
-    <a id="appPopupDownload" data-download href="${downloadUrl}">ติดตั้งฟรี</a>
+    <a id="appPopupDownload" data-download href="${downloadUrl}" target="_blank" rel="noopener noreferrer">ติดตั้งฟรี</a>
     <button id="appPopupClose" type="button" aria-label="ปิด">×</button>
   </div>
 </div>`;

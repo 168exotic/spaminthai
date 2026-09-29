@@ -97,14 +97,14 @@ export async function renderNumberPage(number, env) {
     <nav class="site-nav" aria-label="หลัก">
       <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
       <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
-      <a href="/download" class="site-nav__link">ดาวน์โหลดแอป</a>
-      <a class="site-nav__link site-nav__link--apk" href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+      <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer" class="site-nav__link">ดาวน์โหลดแอป</a>
+      <a class="site-nav__link site-nav__link--apk" href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดบน Google Play</a>
     </nav>
   </div>
   <div class="site-header__mobile">
     <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
     <a href="/report" class="site-tab">แจ้งเบาะแส</a>
-    <a href="/download" class="site-tab site-tab--apk" href="/download/spaminthai-latest.apk" download>ดาวน์โหลด APK</a>
+    <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer" class="site-tab site-tab--apk">ดาวน์โหลดบน Google Play</a>
   </div>
 </header>
 <main class="site-main site-main--narrow">
@@ -123,7 +123,7 @@ export async function renderNumberPage(number, env) {
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <a class="share-line" style="background:#06C755;color:#fff;border-radius:99px;padding:8px 14px;font-size:.78rem;font-weight:700;text-decoration:none" href="https://line.me/R/msg/text/?${encodeURIComponent(`⚠️ เบอร์ ${display} — ${result.label}\nเช็คเบอร์มิจฉาชีพฟรี 👇\n${canonical}?utm_source=line&utm_medium=share&utm_campaign=number_page`)}">LINE</a>
         <a style="background:#1877F2;color:#fff;border-radius:99px;padding:8px 14px;font-size:.78rem;font-weight:700;text-decoration:none" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonical + '?utm_source=facebook&utm_medium=share&utm_campaign=number_page')}" target="_blank" rel="noopener">Facebook</a>
-        <a style="background:#f1f5f9;color:#334155;border:1px solid #e2e8f0;border-radius:99px;padding:8px 14px;font-size:.78rem;font-weight:700;text-decoration:none" href="/download?utm_source=number_page&utm_medium=cta">ดาวน์โหลดแอป</a>
+        <a style="background:#f1f5f9;color:#334155;border:1px solid #e2e8f0;border-radius:99px;padding:8px 14px;font-size:.78rem;font-weight:700;text-decoration:none" href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
       </div>
     </div>
   </article>
@@ -140,7 +140,7 @@ export async function renderNumberPage(number, env) {
     <nav class="site-footer__links" aria-label="ลิงก์">
       <a href="/check">เช็คเบอร์โทร</a>
       <a href="/report">แจ้งเบาะแส</a>
-      <a href="/download">ดาวน์โหลดแอป</a>
+      <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
       <a href="/blog">บทความ</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>

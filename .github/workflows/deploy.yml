@@ -1,5 +1,10 @@
 name: Deploy to Cloudflare Pages
 
+# Deploys spaminthai.com. The canonical homepage/check/assets/news overlay lives in
+# 168exotic/mysite (deploy/spaminthai) — it is applied on EVERY deploy from this repo
+# too, so scheduled/manual redeploys never wipe the overlay (AdSense, banners, news,
+# Google Play download links). Keep this in sync with mysite/.github/workflows/deploy-spaminthai.yml.
+
 on:
   push:
     branches:
@@ -19,6 +24,7 @@ env:
   PAGES_PROJECT: spaminthai
   # Default account; override with CLOUDFLARE_ACCOUNT_ID repo secret if needed
   CLOUDFLARE_ACCOUNT_ID: 2fa3f2f325707bab89ef1c7452d3adb8
+  PLAY_STORE_URL: https://play.google.com/store/apps/details?id=com.jarvis.callblocker
 
 jobs:
   deploy:
@@ -28,11 +34,44 @@ jobs:
       deployments: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: site
+
+      - name: Checkout site overlay (168exotic/mysite)
+        uses: actions/checkout@v4
+        with:
+          repository: 168exotic/mysite
+          ref: main
+          path: overlay
+
+      - name: Apply site overlay (homepage, check, assets, news, Play Store links)
+        run: |
+          set -euo pipefail
+          cp overlay/deploy/spaminthai/index.html site/index.html
+          cp overlay/deploy/spaminthai/check.html site/check.html
+          cp overlay/deploy/spaminthai/ads.txt site/ads.txt
+          cp overlay/deploy/spaminthai/_headers site/_headers
+          cp -r overlay/deploy/spaminthai/assets/. site/assets/
+          cp overlay/deploy/spaminthai/functions/api/app-download.js site/functions/api/app-download.js
+          cp overlay/deploy/spaminthai/functions/download/spaminthai-latest.apk.js site/functions/download/spaminthai-latest.apk.js
+          if [ -d overlay/deploy/spaminthai/site-news ]; then
+            cp overlay/deploy/spaminthai/site-news/news-*.html site/ 2>/dev/null || true
+            cp overlay/deploy/spaminthai/site-news/articles/*.html site/news/
+            cp overlay/deploy/spaminthai/site-news/sitemap.js site/functions/api/sitemap.js
+          fi
+          bash overlay/deploy/spaminthai/scripts/apply-play-store-links.sh site
+          # Guard: no <a> may still point at the APK or the legacy /download page.
+          if grep -rEl '<a[^>]*href="(https://spaminthai\.com)?/download(/spaminthai-latest\.apk)?[?"]' site --include='*.html' --include='render-number-page.js' --exclude-dir=vps --exclude-dir=node_modules; then
+            echo "::error::Legacy APK/download links found in the built site (see files above)."
+            exit 1
+          fi
+          echo "Overlay applied; all app download links point to $PLAY_STORE_URL"
 
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
+          cache-dependency-path: site/package-lock.json
 
       - name: Resolve Cloudflare credentials
         id: cf
@@ -65,6 +104,7 @@ jobs:
           echo "Cloudflare token verified for account $ACCOUNT"
 
       - name: Install dependencies
+        working-directory: site
         run: npm ci
 
       - name: Deploy to Cloudflare Pages
@@ -72,15 +112,17 @@ jobs:
         with:
           apiToken: ${{ inputs.cloudflare_api_token || secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ steps.cf.outputs.account_id }}
-          command: pages deploy . --project-name=${{ env.PAGES_PROJECT }} --branch=main
+          command: pages deploy site --project-name=${{ env.PAGES_PROJECT }} --branch=main --commit-dirty=true
 
       - name: Verify deployment
         run: |
           set -euo pipefail
           echo "Checking Pages preview..."
           curl -fsSI "https://${PAGES_PROJECT}.pages.dev/" | head -1
-          curl -fsS "https://${PAGES_PROJECT}.pages.dev/api/app" | python3 -c "import json,sys; d=json.load(sys.stdin); assert d.get('downloadUrl') and d.get('version')"
+          curl -fsS "https://${PAGES_PROJECT}.pages.dev/api/app" | python3 -c "import json,sys,os; d=json.load(sys.stdin); assert d.get('version'); assert d.get('downloadUrl')==os.environ['PLAY_STORE_URL'], d"
           HTML=$(curl -fsS "https://${PAGES_PROJECT}.pages.dev/")
           echo "$HTML" | grep -q '0a0e1a' && echo "OK: dark landing theme detected" || echo "WARN: dark theme token not found in HTML"
           echo "$HTML" | grep -q '/api/lookup' && echo "OK: check widget wired to /api/lookup" || echo "WARN: /api/lookup not found in homepage"
-          echo "$HTML" | grep -qE 'releases/download/v1.0.[0-9]+' && echo "OK: APK download URL present" || echo "WARN: download URL not found in homepage"
+          echo "$HTML" | grep -qF "$PLAY_STORE_URL" && echo "OK: Google Play download link present" || { echo "::error::Google Play download link missing from homepage"; exit 1; }
+          echo "$HTML" | grep -q 'spaminthai-latest.apk' && { echo "::error::Legacy APK link still present on homepage"; exit 1; } || echo "OK: no legacy APK links"
+          echo "$HTML" | grep -q 'ca-pub-2455374115304550' && echo "OK: AdSense verification present" || echo "WARN: AdSense verification tag missing (overlay not applied?)"

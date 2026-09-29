@@ -136,8 +136,8 @@ check('parseKvOverride null on versionless object', parseKvOverride('{"url":"x"}
   const r = await resolveLatestVersion(env);
   check('resolve: canonical version is API 1.0.21 (stops update loop)', r && r.version === '1.0.21', JSON.stringify(r));
   check(
-    'resolve: canonical url is spaminthai-latest.apk',
-    r && /\/download\/spaminthai-latest\.apk$/.test(r.url),
+    'resolve: canonical url is the Google Play listing',
+    r && r.url === 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker',
     JSON.stringify(r),
   );
 }

@@ -19,6 +19,14 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 - **Persist KV outside repo:** dev script uses `--persist-to /tmp/wrangler-state` to avoid wrangler reload loops.
 - **`.assetsignore`:** prevents serving `node_modules` as static assets.
 
+### 🔒 นโยบายเว็บ spaminthai.com (บังคับใช้กับทุก agent — Cursor, Copilot, Claude, n8n)
+
+- **ผู้ดูแลเว็บ:** ตั้งแต่ 29 ก.ย. 2569 **Claude เป็นผู้จัดการเว็บ spaminthai.com แต่เพียงผู้เดียว** ตามคำสั่งบอส — agent อื่นห้ามแก้หน้าเว็บ/ปุ่ม/ลิงก์/workflow deploy เอง ให้แจ้งบอสหรือ Claude
+- **ปุ่มดาวน์โหลดแอปทุกปุ่มต้องลิงก์ตรงไป Google Play:** `https://play.google.com/store/apps/details?id=com.jarvis.callblocker`
+  พร้อม `target="_blank" rel="noopener noreferrer"` — **ห้าม** ใส่ลิงก์ `/download/spaminthai-latest.apk`, GitHub Releases APK หรือ `/download` (หน้าเก่า) บนปุ่ม/ลิงก์ดาวน์โหลดใด ๆ (nav, tab, hero, popup, footer, ข่าว, บทความ, `functions/check/render-number-page.js`)
+- `/api/app` และ `/api/latest-version` ต้องคืน `downloadUrl`/`url` เป็นลิงก์ Google Play (ดู `functions/api/app-download.js`) และ `/download/spaminthai-latest.apk` ต้อง 302 ไป Google Play
+- **Deploy:** `deploy.yml` ของ repo นี้ **ต้อง apply overlay จาก `168exotic/mysite` (`deploy/spaminthai/`) ทุกครั้ง** (หน้าแรก, `/check`, assets, ข่าว, `_headers`, AdSense, ลิงก์ Google Play) — ห้ามตัดขั้นตอน overlay ออก มิฉะนั้นการ redeploy จะลบ AdSense/แบนเนอร์/ลิงก์ Play ทิ้ง มี guard ใน workflow ที่ fail build ถ้าเจอลิงก์ APK
+
 ### Mail token / tokens ที่กำลังหมดอายุ (handoff สำหรับ agent อื่น)
 
 **สำคัญ:** repo นี้ **ไม่มี** env ชื่อ `MAIL_TOKEN` และ **ไม่มี** API ส่งอีเมล (ไม่มี SMTP/Resend/Mailgun ใน `functions/`)
