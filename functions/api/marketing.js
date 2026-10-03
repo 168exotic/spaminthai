@@ -8,6 +8,7 @@ import { identifyCarrier } from './carrier.js';
 const SITE = 'https://spaminthai.com';
 const INDEXNOW_KEY = '7f3a9e2b1c4d8e6f0a5b3c9d1e7f4a2';
 const POSTED_TTL = 7 * 24 * 60 * 60; // 7 days
+const PLAY = 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
 
 const GUIDE_LINKS = [
   { path: '/guide/call-center-scam', title: 'โดนแก๊งคอลเซ็นเตอร์ ต้องทำยังไง?' },
@@ -79,11 +80,17 @@ ${item.advice || `ถูกรายงาน ${item.reports} ครั้ง`}
 ${link}`;
 }
 
+/** Google Play link with an install referrer so Play Console attributes the source. */
+export function playLink(source, campaign) {
+  const ref = `utm_source=${source}&utm_medium=social&utm_campaign=${campaign}`;
+  return `${PLAY}&referrer=${encodeURIComponent(ref)}`;
+}
+
 export function buildAppPost(slot) {
-  const link = utm('/download', 'auto_app', 'telegram');
+  const link = playLink('telegram', 'auto_app');
   return `🛡️ บล็อกสายมิจฉาชีพอัตโนมัติ — ฟรี!
 แอป SpamInThai ใช้ฐานข้อมูลเดียวกับเว็บ ก่อนโทรศัพท์จะดัง
-ดาวน์โหลด Android 👇
+ดาวน์โหลดบน Google Play 👇
 ${link}`;
 }
 
@@ -202,7 +209,7 @@ export async function runMarketing(env, config = {}) {
   );
   results.discord = await postDiscord(config.discordWebhook || env.DISCORD_WEBHOOK_URL, post.text);
 
-  const indexUrls = [SITE + '/check', SITE + '/download'];
+  const indexUrls = [SITE + '/check', SITE + '/thailand'];
   if (post.number) indexUrls.push(`${SITE}/check/${post.number}`);
   results.indexnow = await submitIndexNow(indexUrls);
 

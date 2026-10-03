@@ -35,7 +35,7 @@ jobs:
           SITE_URL: https://spaminthai.com
         run: |
           if [ -z "$MARKETING_CRON_SECRET" ]; then
-            echo "MARKETING_CRON_SECRET not set — running local mode (dry-run post logic)"
+            echo "::warning title=Marketing not posting::MARKETING_CRON_SECRET not set — local mode uses mock numbers, real KV data is never posted. Add MARKETING_CRON_SECRET + TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID (see AGENTS.md)."
             node scripts/marketing-automation.mjs --local
             exit 0
           fi
