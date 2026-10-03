@@ -29,6 +29,11 @@ import { handleSmsReport } from './functions/api/sms-report.js';
 import { handleSmsKeywords } from './functions/api/sms-keywords.js';
 import { handleAdminSmsReportsList, handleAdminSmsReportPatch } from './functions/api/admin-sms-reports.js';
 import { renderNumberPage } from './functions/check/render-number-page.js';
+import {
+  matchProvincePath,
+  renderProvincePage,
+  renderThailandIndex,
+} from './functions/province/render-province-page.js';
 import { handleSitemapGet } from './functions/api/sitemap.js';
 import {
   handleMarketingFeedGet,
@@ -220,6 +225,14 @@ async function route(request, env, url) {
     }
     if (path === '/ig' || path === '/ig/') {
       return Response.redirect('https://play.google.com/store/apps/details?id=com.jarvis.callblocker&referrer=utm_source%3Dinstagram%26utm_medium%3Dsocial', 302);
+    }
+
+    // Province SEO pages: /thailand (index) and /<province> (77 provinces)
+    if (request.method === 'GET' || request.method === 'HEAD') {
+      const prov = matchProvincePath(path);
+      if (prov?.type === 'index') return renderThailandIndex();
+      if (prov?.type === 'province') return renderProvincePage(prov.slug, env);
+      if (prov?.type === 'redirect') return Response.redirect(url.origin + prov.to, 301);
     }
 
     // Fall through to static assets for everything else

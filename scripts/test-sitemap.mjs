@@ -43,6 +43,9 @@ async function main() {
   check('xml has guide/check-phone', xml.includes('/guide/check-phone'));
   check('xml has top number page', xml.includes('/check/021365777'));
   check('xml has lastmod', xml.includes('<lastmod>'));
+  check('xml has /thailand index', xml.includes('<loc>https://spaminthai.com/thailand</loc>'));
+  check('xml has province page', xml.includes('<loc>https://spaminthai.com/phuket</loc>'));
+  check('xml has 77 provinces', (xml.match(/<loc>https:\/\/spaminthai\.com\/[a-z-]+<\/loc>/g) || []).filter(l => !/\/(check|report|download|privacy|terms|blog|thailand)<|\/$/.test(l)).length >= 77);
   check('xml escapes ok', !xml.includes('&amp;amp;'));
 
   console.log(`\n${passed} passed, ${failed} failed`);

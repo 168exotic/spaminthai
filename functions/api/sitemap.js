@@ -1,5 +1,7 @@
 // GET /sitemap.xml — dynamic sitemap with top reported numbers from KV.
 
+import { PROVINCES } from '../province/provinces.js';
+
 const SITE = 'https://spaminthai.com';
 const CACHE_KEY = 'seo:sitemap:xml';
 const CACHE_TTL_SEC = 60 * 60; // 1h (per spec) — sitemap refreshes hourly
@@ -161,6 +163,11 @@ export async function buildSitemapXml(env) {
 
   for (const page of STATIC_PAGES) {
     lines.push(urlEntry(page.loc, { ...page, lastmod }));
+  }
+
+  lines.push(urlEntry('/thailand', { priority: '0.85', changefreq: 'weekly', lastmod }));
+  for (const slug of PROVINCES.keys()) {
+    lines.push(urlEntry(`/${slug}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
   for (const slug of BLOG_SLUGS) {
