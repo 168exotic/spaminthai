@@ -182,7 +182,7 @@ export async function buildSitemapXml(env) {
     lines.push(urlEntry(`/news-${p}`, { priority: p === 1 ? '0.8' : '0.72', changefreq: 'daily', lastmod }));
   }
 
-  const numbers = await getTopNumbers(env, 200);
+  const numbers = await getTopNumbers(env, 500);
   for (const num of numbers) {
     if (num.length < 9 || num.length > 10) continue;
     lines.push(urlEntry(`/check/${num}`, {

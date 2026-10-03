@@ -12,9 +12,10 @@ const SITEMAP = `${BASE}/sitemap.xml`;
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || '7f3a9e2b1c4d8e6f0a5b3c9d1e7f4a2';
 const INDEXNOW_HOST = new URL(BASE).hostname;
 
+// Google retired the sitemap-ping endpoint (2023); Google discovery now relies on
+// Search Console + sitemap + internal links. Bing/Yandex/Naver use IndexNow below.
 const PING_TARGETS = [
   { name: 'Bing', url: `https://www.bing.com/ping?sitemap=${encodeURIComponent(SITEMAP)}` },
-  { name: 'Google', url: `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP)}` },
 ];
 
 async function indexNow(urls) {
@@ -94,11 +95,13 @@ async function main() {
   }
 
   const indexUrls = pages.map((p) => `${BASE}${p}`);
-  const checkUrls = [...smText.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)]
-    .map((m) => m[1])
-    .filter((u) => u.includes('/check/'))
-    .slice(0, 20);
-  await indexNow([...indexUrls, ...checkUrls]);
+  const allLocs = [...smText.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)].map((m) => m[1]);
+  const checkUrls = allLocs.filter((u) => u.includes('/check/')).slice(0, 20);
+  // /thailand + 77 province pages (rotate: 25 per run so all get resubmitted ~daily)
+  const provinceUrls = allLocs.filter((u) => /^https?:\/\/[^/]+\/[a-z-]+$/.test(u) && !/\/(check|report|download|blog|news|privacy|terms)$/.test(u));
+  const slot = Math.floor(Date.now() / 3600000) % 3;
+  const provinceBatch = provinceUrls.filter((_, i) => i % 3 === slot).slice(0, 30);
+  await indexNow([...indexUrls, ...provinceBatch, ...checkUrls]);
 
   console.log('SEO ping complete.');
 }

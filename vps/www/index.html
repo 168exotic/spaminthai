@@ -92,6 +92,13 @@ header .wrap{display:flex;align-items:center;justify-content:space-between}
 .cta a{display:inline-block;background:#fff;color:var(--indigo);font-weight:700;padding:12px 28px;border-radius:99px}
 
 .faq{margin:48px 0 24px}
+.prov{padding:8px 0 28px}
+.prov h2{font-size:1.25rem;margin-bottom:6px}
+.prov>p{font-size:.9rem;color:var(--muted);margin-bottom:12px}
+.prov-chips{display:flex;flex-wrap:wrap;gap:8px}
+.prov-chips a{background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:.85rem;color:var(--ink)}
+.prov-chips a span{color:var(--muted)}
+.prov .more{font-weight:600}
 .faq h2{font-size:1.25rem;margin-bottom:16px}
 details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
 summary{font-weight:600;cursor:pointer;font-size:.95rem}
@@ -113,7 +120,7 @@ footer a{margin:0 8px}
 <header>
   <div class="wrap">
     <a class="logo" href="/">Spam<span>InThai</span></a>
-    <a class="dl-btn" data-download href="/download/spaminthai-latest.apk" download>ดาวน์โหลดแอป</a>
+    <a class="dl-btn" data-download href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
   </div>
 </header>
 
@@ -153,8 +160,15 @@ footer a{margin:0 8px}
   <section class="cta">
     <h2>บล็อกเบอร์พวกนี้อัตโนมัติ</h2>
     <p>แอป SpamInThai บล็อกสายมิจฉาชีพให้ทันที ก่อนโทรศัพท์คุณจะดังด้วยซ้ำ</p>
-    <a data-download href="/download/spaminthai-latest.apk" download>ติดตั้งฟรีบน Android</a>
+    <a data-download href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ติดตั้งฟรีบน Google Play</a>
     <p style="margin-top:12px;font-size:.75rem;opacity:.8">แอป <span id="appVer">v1.0.21</span> · Android 10+</p>
+  </section>
+
+  <section class="prov">
+    <h2>เบอร์ใครโทรมา? เช็คตามจังหวัด</h2>
+    <p>เบอร์บ้านแต่ละจังหวัดมีรหัสพื้นที่ เช่น กรุงเทพฯ 02 เชียงใหม่ 053 ภูเก็ต 076 ดูเบอร์ที่ถูกรายงานล่าสุดในจังหวัดของคุณ</p>
+    <div class="prov-chips"><a href="https://spaminthai.com/bangkok">กรุงเทพฯ <span>02</span></a><a href="https://spaminthai.com/nonthaburi">นนทบุรี <span>02</span></a><a href="https://spaminthai.com/chiang-mai">เชียงใหม่ <span>053</span></a><a href="https://spaminthai.com/chonburi">ชลบุรี/พัทยา <span>038</span></a><a href="https://spaminthai.com/phuket">ภูเก็ต <span>076</span></a><a href="https://spaminthai.com/khon-kaen">ขอนแก่น <span>043</span></a><a href="https://spaminthai.com/nakhon-ratchasima">โคราช <span>044</span></a><a href="https://spaminthai.com/udon-thani">อุดรธานี <span>042</span></a><a href="https://spaminthai.com/songkhla">สงขลา/หาดใหญ่ <span>074</span></a><a href="https://spaminthai.com/surat-thani">สุราษฎร์ธานี <span>077</span></a><a href="https://spaminthai.com/ubon-ratchathani">อุบลราชธานี <span>045</span></a><a href="https://spaminthai.com/rayong">ระยอง <span>038</span></a></div>
+    <p><a class="more" href="https://spaminthai.com/thailand">ดูครบทั้ง 77 จังหวัด →</a></p>
   </section>
 
   <section class="faq">
@@ -176,7 +190,7 @@ footer a{margin:0 8px}
 
 <footer>
   <div class="wrap">
-    <a href="/">หน้าแรก</a><a href="/#privacy">นโยบายความเป็นส่วนตัว</a><a href="mailto:admin@spaminthai.com">ติดต่อ</a>
+    <a href="/">หน้าแรก</a><a href="https://spaminthai.com/check">เช็คเบอร์ใครแบบละเอียด</a><a href="https://spaminthai.com/thailand">เช็คเบอร์ 77 จังหวัด</a><a href="https://spaminthai.com/report">แจ้งเบาะแส</a><a href="https://spaminthai.com/privacy">นโยบายความเป็นส่วนตัว</a><a href="mailto:admin@spaminthai.com">ติดต่อ</a>
     <p style="margin-top:8px">© 2026 SpamInThai — ปกป้องคนไทยจากมิจฉาชีพ</p>
   </div>
 </footer>
