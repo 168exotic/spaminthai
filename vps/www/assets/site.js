@@ -1,15 +1,15 @@
-// APK download links for www.เบอร์ใคร.com (VPS-hosted frontend).
-// Fetches latest metadata from spaminthai.com; falls back to pinned release.
+// App download links for www.เบอร์ใคร.com (VPS-hosted frontend).
+// Always Google Play (site policy: no APK links). Fetches version from spaminthai.com.
 (function () {
   const FALLBACK =
-    'https://spaminthai.com/download/spaminthai-latest.apk';
+    'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
   const APP_API = 'https://spaminthai.com/api/app';
 
   function applyDownloadUrl(url) {
     document.querySelectorAll('[data-download]').forEach((el) => {
       if (el.tagName === 'A') {
         el.href = url;
-        if (url.endsWith('.apk')) el.setAttribute('download', '');
+        el.removeAttribute('download');
       }
     });
     const ver = document.getElementById('appVer');

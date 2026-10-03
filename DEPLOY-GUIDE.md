@@ -58,9 +58,11 @@ APK ล่าสุดโฮสต์บน **GitHub Releases** (v1.0.21+) — `
 | `VPS_SSH_HOST` | `72.62.71.137` |
 | `VPS_SSH_USER` | `root` |
 | `VPS_SSH_KEY` | private key (PEM) |
-| `VPS_DEPLOY_PATH` | `/var/www/spaminthai/public` |
+| `VPS_DEPLOY_PATH` | `/opt/check-service/public` (Express `check-service` บน srv1687981 ให้บริการโฟลเดอร์นี้ — **ไม่ใช่** `/var/www/...`) |
 
-ปุ่มดาวน์โหลดบน VPS ใช้ `data-download` + `vps/www/assets/site.js` ดึง URL ล่าสุดจาก `spaminthai.com/api/app`
+ปุ่มดาวน์โหลดบน VPS ใช้ `data-download` + `vps/www/assets/site.js` ดึง URL ล่าสุดจาก `spaminthai.com/api/app` (Google Play เสมอ)
+
+หมายเหตุ: workflow `deploy-vps.yml` ยังไม่เคยสำเร็จ (secrets `VPS_SSH_*` ยังไม่ได้ตั้ง) — ตอนนี้ deploy ด้วยมือ: `scp -r vps/www/* root@72.62.71.137:/opt/check-service/public/` แล้ว copy `index.html` ทับ `check.html` ด้วย (หน้า `/check` เป็นไฟล์เดียวกัน)
 
 ## Seed KV (optional)
 
