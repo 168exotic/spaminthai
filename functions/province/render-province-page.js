@@ -134,6 +134,7 @@ function footer() {
       <a href="/report">แจ้งเบาะแส</a>
       <a href="${PLAY}" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
       <a href="/blog">บทความ</a>
+      <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">Telegram เตือนภัย</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
     </nav>
