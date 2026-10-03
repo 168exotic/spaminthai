@@ -37,11 +37,15 @@ jobs:
           KV_NAMESPACE_ID: ${{ secrets.KV_NAMESPACE_ID || '0a479fd6d75c431b8e7018caf819f7b2' }}
           SITE_URL: https://spaminthai.com
         run: |
-          if [ -n "$MARKETING_CRON_SECRET" ]; then
-            node scripts/marketing-automation.mjs
-          elif { [ -n "$TELEGRAM_BOT_TOKEN" ] || [ -n "$DISCORD_WEBHOOK_URL" ]; } && [ -n "$CLOUDFLARE_API_TOKEN" ]; then
-            # Real numbers from production KV via Cloudflare API, posted directly.
+          case "$TELEGRAM_BOT_TOKEN$TELEGRAM_CHAT_ID$MARKETING_CRON_SECRET" in
+            *$'\n'*) echo "::error title=Bad secret::A marketing secret contains a line break. Each secret must hold ONE value: TELEGRAM_BOT_TOKEN = bot token only, TELEGRAM_CHAT_ID = @spaminthaich, MARKETING_CRON_SECRET = one line (or delete it)."; exit 1 ;;
+          esac
+          if { [ -n "$TELEGRAM_BOT_TOKEN" ] || [ -n "$DISCORD_WEBHOOK_URL" ]; } && [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            # Real numbers from production KV via Cloudflare API, posted directly
+            # (GitHub runners get 403 from spaminthai.com, so the API route is a fallback).
             node scripts/marketing-automation.mjs --kv
+          elif [ -n "$MARKETING_CRON_SECRET" ]; then
+            node scripts/marketing-automation.mjs
           else
             echo "::warning title=Marketing not posting::Dry run only (mock data, nothing posted). Set TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID (and CLOUDFLARE_API_TOKEN), or MARKETING_CRON_SECRET."
             node scripts/marketing-automation.mjs --local
