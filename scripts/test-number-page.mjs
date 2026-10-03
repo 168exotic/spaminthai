@@ -28,6 +28,7 @@ check('category breakdown', html.includes('ประเภทที่ถูก�
 check('app CTA to Google Play', html.includes('class="num-app"') && html.includes(PLAY));
 check('report link prefilled', html.includes('/report?number=0812345678'));
 check('dispute link prefilled', html.includes('/dispute?num=0812345678'));
+check('Telegram channel link', html.includes('https://t.me/spaminthaich'));
 check('no APK links', !/\.apk|href="\/download/.test(html));
 const ld = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
 check('JSON-LD valid + no raw <', !!ld && !ld[1].includes('<') && Array.isArray(JSON.parse(ld[1])));

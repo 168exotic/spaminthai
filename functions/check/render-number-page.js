@@ -259,6 +259,7 @@ export async function renderNumberPage(number, env) {
       <a href="/report?number=${esc(digits)}">แจ้งเบาะแสเบอร์นี้</a>
       <a href="/dispute?num=${esc(digits)}">นี่คือเบอร์ของฉัน (ขอแก้ไขข้อมูล)</a>
       <a href="/guide/call-center-scam">วิธีสังเกตแก๊งคอลเซ็นเตอร์</a>
+      <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">ติดตามเบอร์อันตรายใน Telegram</a>
       ${provinces.map((p) => `<a href="/${p.slug}">เบอร์ร้องเรียน${esc(p.th)}</a>`).join('')}
     </div>
   </section>
@@ -281,6 +282,7 @@ export async function renderNumberPage(number, env) {
       <a href="/report">แจ้งเบาะแส</a>
       <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
       <a href="/blog">บทความ</a>
+      <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">Telegram เตือนภัย</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
     </nav>
