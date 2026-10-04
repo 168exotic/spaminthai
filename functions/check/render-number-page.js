@@ -1,7 +1,7 @@
 // Server-rendered SEO page for /check/:number (long-tail Thai search traffic).
 
 import { assess } from '../api/risk-assess.js';
-import { identifyCarrier, isValidThaiPhone } from '../api/carrier.js';
+import { identifyCarrier, isValidThaiPhone, MOBILE_PREFIXES } from '../api/carrier.js';
 import { PROVINCES } from '../province/provinces.js';
 
 const SITE = 'https://spaminthai.com';
@@ -261,6 +261,7 @@ export async function renderNumberPage(number, env) {
       <a href="/guide/call-center-scam">วิธีสังเกตแก๊งคอลเซ็นเตอร์</a>
       <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">ติดตามเบอร์อันตรายใน Telegram</a>
       ${provinces.map((p) => `<a href="/${p.slug}">เบอร์ร้องเรียน${esc(p.th)}</a>`).join('')}
+      ${result.networkType === 'mobile' && MOBILE_PREFIXES.includes(digits.slice(0, 3)) ? `<a href="/prefix/${digits.slice(0, 3)}">เบอร์ ${digits.slice(0, 3)} อื่นที่ถูกรายงาน</a>` : ''}
     </div>
   </section>
   <section class="num-sec num-faq">

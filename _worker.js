@@ -34,6 +34,11 @@ import {
   renderProvincePage,
   renderThailandIndex,
 } from './functions/province/render-province-page.js';
+import {
+  matchPrefixPath,
+  renderPrefixPage,
+  renderPrefixIndex,
+} from './functions/prefix/render-prefix-page.js';
 import { handleSitemapGet } from './functions/api/sitemap.js';
 import {
   handleMarketingFeedGet,
@@ -228,7 +233,13 @@ async function route(request, env, url) {
     }
 
     // Province SEO pages: /thailand (index) and /<province> (77 provinces)
+    // Mobile prefix SEO pages: /prefix (index) and /prefix/0xx (30 prefixes)
     if (request.method === 'GET' || request.method === 'HEAD') {
+      const pre = matchPrefixPath(path);
+      if (pre?.type === 'index') return renderPrefixIndex();
+      if (pre?.type === 'prefix') return renderPrefixPage(pre.prefix, env);
+      if (pre?.type === 'redirect') return Response.redirect(url.origin + pre.to, 301);
+
       const prov = matchProvincePath(path);
       if (prov?.type === 'index') return renderThailandIndex();
       if (prov?.type === 'province') return renderProvincePage(prov.slug, env);
