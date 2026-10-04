@@ -2,6 +2,8 @@
 
 import { PROVINCES } from '../province/provinces.js';
 import { MOBILE_PREFIXES } from './carrier.js';
+import { getAllNumbersCached } from './kv-scan.js';
+import { listMonths } from '../monthly/render-monthly-page.js';
 
 const SITE = 'https://spaminthai.com';
 const CACHE_KEY = 'seo:sitemap:xml';
@@ -176,6 +178,11 @@ export async function buildSitemapXml(env) {
     lines.push(urlEntry(`/prefix/${p}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
+  lines.push(urlEntry('/monthly', { priority: '0.85', changefreq: 'weekly', lastmod }));
+  for (const ym of listMonths()) {
+    lines.push(urlEntry(`/monthly/${ym}`, { priority: '0.8', changefreq: 'weekly', lastmod }));
+  }
+
   for (const slug of BLOG_SLUGS) {
     lines.push(urlEntry(`/blog/${slug}`, { priority: '0.75', changefreq: 'monthly', lastmod }));
   }
@@ -229,4 +236,49 @@ export async function handleSitemapGet(env) {
 /** Bust sitemap cache (called after report or by cron ping). */
 export async function invalidateSitemapCache(env) {
   await env.SPAM_KV.delete(CACHE_KEY);
+}
+
+// --- /sitemap-numbers.xml (index) + /sitemap-numbers-<n>.xml: every reported number ---
+
+const NUMBERS_PER_SITEMAP = 5000;
+export async function buildNumbersSitemapIndexXml(env) {
+  const numbers = await getAllNumbersCached(env);
+  const chunks = Math.max(1, Math.ceil(numbers.length / NUMBERS_PER_SITEMAP));
+  const lastmod = today();
+  const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
+  for (let i = 1; i <= chunks; i++) {
+    lines.push(`  <sitemap>\n    <loc>${SITE}/sitemap-numbers-${i}.xml</loc>\n    <lastmod>${lastmod}</lastmod>\n  </sitemap>`);
+  }
+  lines.push('</sitemapindex>');
+  return lines.join('\n');
+}
+
+/** Returns null when the chunk does not exist. */
+export async function buildNumbersSitemapXml(env, n) {
+  const numbers = await getAllNumbersCached(env);
+  const start = (n - 1) * NUMBERS_PER_SITEMAP;
+  if (n < 1 || (start >= numbers.length && n !== 1)) return null;
+  const lastmod = today();
+  const lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
+  for (const num of numbers.slice(start, start + NUMBERS_PER_SITEMAP)) {
+    lines.push(urlEntry(`/check/${num}`, { priority: '0.6', changefreq: 'weekly', lastmod }));
+  }
+  lines.push('</urlset>');
+  return lines.join('\n');
+}
+
+function xmlResponse(xml) {
+  return new Response(xml, {
+    status: 200,
+    headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': `public, max-age=${CACHE_TTL_SEC}` },
+  });
+}
+
+/** Routes /sitemap-numbers.xml and /sitemap-numbers-<n>.xml; null for other paths. */
+export async function handleNumbersSitemapGet(env, path) {
+  if (path === '/sitemap-numbers.xml') return xmlResponse(await buildNumbersSitemapIndexXml(env));
+  const m = path.match(/^\/sitemap-numbers-(\d{1,3})\.xml$/);
+  if (!m) return null;
+  const xml = await buildNumbersSitemapXml(env, Number(m[1]));
+  return xml ? xmlResponse(xml) : new Response('Not found', { status: 404 });
 }

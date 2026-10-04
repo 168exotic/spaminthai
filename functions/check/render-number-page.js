@@ -290,6 +290,8 @@ export async function renderNumberPage(number, env) {
       <a href="/report">แจ้งเบาะแส</a>
       <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
       <a href="/blog">บทความ</a>
+      <a href="/monthly">สรุปเบอร์มิจฉาชีพรายเดือน</a>
+      <a href="/prefix">เช็คตามเลขขึ้นต้น</a>
       <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">Telegram เตือนภัย</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>

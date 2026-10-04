@@ -5,6 +5,7 @@ Disallow: /admin/
 Disallow: /site/
 
 Sitemap: https://spaminthai.com/sitemap.xml
+Sitemap: https://spaminthai.com/sitemap-numbers.xml
 
 # RSS for social schedulers (IFTTT, Zapier)
 # https://spaminthai.com/feed.xml
