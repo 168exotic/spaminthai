@@ -39,7 +39,8 @@ import {
   renderPrefixPage,
   renderPrefixIndex,
 } from './functions/prefix/render-prefix-page.js';
-import { handleSitemapGet } from './functions/api/sitemap.js';
+import { handleSitemapGet, handleNumbersSitemapGet } from './functions/api/sitemap.js';
+import { matchMonthlyPath, renderMonthlyPage, renderMonthlyIndex } from './functions/monthly/render-monthly-page.js';
 import {
   handleMarketingFeedGet,
   handleMarketingRssGet,
@@ -218,6 +219,10 @@ async function route(request, env, url) {
     }
 
     if (path === '/sitemap.xml') return handleSitemapGet(env);
+    if (path.startsWith('/sitemap-numbers')) {
+      const res = await handleNumbersSitemapGet(env, path);
+      if (res) return res;
+    }
     if (path === '/feed.xml') return handleMarketingRssGet(env);
     if (path === '/api/marketing/feed') return handleMarketingFeedGet(env);
     if (path === '/api/marketing/run' && request.method === 'POST') {
@@ -235,6 +240,10 @@ async function route(request, env, url) {
     // Province SEO pages: /thailand (index) and /<province> (77 provinces)
     // Mobile prefix SEO pages: /prefix (index) and /prefix/0xx (30 prefixes)
     if (request.method === 'GET' || request.method === 'HEAD') {
+      const mon = matchMonthlyPath(path);
+      if (mon?.type === 'index') return renderMonthlyIndex();
+      if (mon?.type === 'month') return renderMonthlyPage(mon.ym, env);
+      if (mon?.type === 'redirect') return Response.redirect(url.origin + mon.to, 301);
       const pre = matchPrefixPath(path);
       if (pre?.type === 'index') return renderPrefixIndex();
       if (pre?.type === 'prefix') return renderPrefixPage(pre.prefix, env);

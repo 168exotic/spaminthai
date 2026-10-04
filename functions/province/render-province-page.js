@@ -134,6 +134,8 @@ function footer() {
       <a href="/report">แจ้งเบาะแส</a>
       <a href="${PLAY}" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
       <a href="/blog">บทความ</a>
+      <a href="/monthly">สรุปเบอร์มิจฉาชีพรายเดือน</a>
+      <a href="/prefix">เช็คตามเลขขึ้นต้น</a>
       <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">Telegram เตือนภัย</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
@@ -177,7 +179,7 @@ const STYLE = `<style>
 .pv-grid b{display:block}.pv-grid small{color:var(--color-text-muted)}
 </style>`;
 
-export function page({ title, desc, canonical, schema, body }) {
+export function page({ title, desc, canonical, schema, body, robots = '' }) {
   return `<!DOCTYPE html>
 <html lang="th">
 <head>
@@ -185,7 +187,7 @@ export function page({ title, desc, canonical, schema, body }) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${esc(canonical)}">
+<link rel="canonical" href="${esc(canonical)}">${robots ? `\n<meta name="robots" content="${esc(robots)}">` : ''}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${esc(canonical)}">
