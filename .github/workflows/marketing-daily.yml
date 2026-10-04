@@ -16,11 +16,11 @@ jobs:
   market:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: SEO ping + IndexNow
         run: node scripts/seo-ping.mjs https://spaminthai.com
@@ -52,6 +52,9 @@ jobs:
           fi
 
       - name: Verify feed.xml
+        # spaminthai.com answers 403 to GitHub runners (Cloudflare bot protection on the
+        # zone), so check the same deployment on pages.dev and actually fail if it's broken.
         run: |
-          curl -fsS https://spaminthai.com/feed.xml | head -20
+          set -o pipefail
+          curl -fsS https://spaminthai.pages.dev/feed.xml | head -5
           echo "feed.xml OK"

@@ -33,7 +33,7 @@ jobs:
       contents: read
       deployments: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Enforce Google Play download links
         run: |
@@ -51,9 +51,9 @@ jobs:
           grep -q 'ca-pub-2455374115304550' index.html || { echo "::error::AdSense verification tag missing from index.html (see AGENTS.md)"; exit 1; }
           echo "OK: all app download links point to $PLAY_STORE_URL"
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
 
       - name: Resolve Cloudflare credentials

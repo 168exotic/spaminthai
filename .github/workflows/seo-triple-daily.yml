@@ -16,11 +16,11 @@ jobs:
   seo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Bust sitemap cache (force regeneration)
         env:
@@ -44,3 +44,18 @@ jobs:
       - name: Warm pages.dev mirror
         run: node scripts/seo-ping.mjs https://spaminthai.pages.dev
         continue-on-error: true
+
+      - name: Bot access check (Cloudflare)
+        # Diagnoses who blocks crawlers/bots: Cloudflare (cf-mitigated / server: cloudflare + 403)
+        # vs. the app. pages.dev bypasses zone-level bot rules, so a 200 there + 403 on the
+        # apex means the block is a zone setting (Security -> Bots / WAF), not our code.
+        run: |
+          for url in https://spaminthai.com/ https://spaminthai.com/robots.txt https://spaminthai.com/sitemap.xml https://spaminthai.pages.dev/; do
+            hdr=$(curl -sS -o /dev/null -D - -A 'Mozilla/5.0 (compatible; SpamInThaiHealthCheck/1.0)' "$url" | tr -d '\r')
+            code=$(echo "$hdr" | awk 'toupper($1) ~ /^HTTP/ {c=$2} END {print c}')
+            mitigated=$(echo "$hdr" | awk -F': ' 'tolower($1)=="cf-mitigated" {print $2}')
+            echo "$url -> HTTP $code ${mitigated:+(cf-mitigated: $mitigated)}"
+            if [ "$code" = "403" ] && [ -n "$mitigated" ]; then
+              echo "::warning title=Cloudflare blocks bots::$url returned 403 with cf-mitigated=$mitigated (zone bot protection). Verified bots like Googlebot are normally allowed — confirm in Search Console URL Inspection."
+            fi
+          done
