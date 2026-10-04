@@ -137,7 +137,17 @@ function handleSiteConfig(env) {
   });
 }
 
-async function handleStats(env) {
+const STATS_CACHE_KEY = 'stats:numbers_in_db';
+const STATS_CACHE_TTL = 10 * 60;
+
+/** Reported-number count (bot health endpoint, KV fallback), cached 10 min in KV. */
+async function getNumbersInDb(env) {
+  try {
+    const cached = await env.SPAM_KV.get(STATS_CACHE_KEY);
+    if (cached != null && cached !== '') return Number(cached);
+  } catch {
+    /* recompute */
+  }
   let numbersInDb = null;
   try {
     const r = await fetch('https://xn--42c7b1ab1c2gya5e.com/health');
@@ -149,7 +159,34 @@ async function handleStats(env) {
     // KV fallback below
   }
   if (numbersInDb == null) numbersInDb = await countNumbersInKv(env);
-  return json({ status: 'ok', numbers_in_db: numbersInDb }, 200, 300);
+  if (typeof numbersInDb === 'number') {
+    try {
+      await env.SPAM_KV.put(STATS_CACHE_KEY, String(numbersInDb), { expirationTtl: STATS_CACHE_TTL });
+    } catch {
+      /* ignore */
+    }
+  }
+  return numbersInDb;
+}
+
+async function handleStats(env) {
+  return json({ status: 'ok', numbers_in_db: await getNumbersInDb(env) }, 200, 300);
+}
+
+/** Homepage: fill the "ร่วมกันรายงานแล้ว … เบอร์" counter server-side (no "…" flash, crawlers see it). */
+async function serveHomeWithCount(request, env) {
+  const res = await env.ASSETS.fetch(request);
+  if (!res.ok || typeof HTMLRewriter === 'undefined' || !(res.headers.get('Content-Type') || '').includes('text/html')) return res;
+  let count = null;
+  try {
+    count = await getNumbersInDb(env);
+  } catch {
+    /* keep placeholder */
+  }
+  if (typeof count !== 'number') return res;
+  return new HTMLRewriter()
+    .on('#reportCount', { element(el) { el.setInnerContent(count.toLocaleString('en-US')); } })
+    .transform(res);
 }
 
 async function route(request, env, url) {
@@ -253,6 +290,10 @@ async function route(request, env, url) {
       if (prov?.type === 'index') return renderThailandIndex();
       if (prov?.type === 'province') return renderProvincePage(prov.slug, env);
       if (prov?.type === 'redirect') return Response.redirect(url.origin + prov.to, 301);
+    }
+
+    if ((path === '/' || path === '/index.html') && request.method === 'GET') {
+      return serveHomeWithCount(request, env);
     }
 
     // Fall through to static assets for everything else
