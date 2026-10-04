@@ -8,6 +8,7 @@
 
 const BASE = (process.argv[2] || process.env.SITE_URL || 'https://spaminthai.com').replace(/\/$/, '');
 const SITEMAP = `${BASE}/sitemap.xml`;
+const MIRROR = process.env.SITE_MIRROR || 'https://spaminthai.pages.dev';
 
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || '7f3a9e2b1c4d8e6f0a5b3c9d1e7f4a2';
 const INDEXNOW_HOST = new URL(BASE).hostname;
@@ -49,7 +50,14 @@ async function main() {
   console.log(`SEO ping — ${new Date().toISOString()}`);
   console.log(`Sitemap: ${SITEMAP}`);
 
-  const smRes = await fetch(SITEMAP, { headers: { 'User-Agent': 'SpamInThai-SEO-Bot/1.0' } });
+  let smRes = await fetch(SITEMAP, { headers: { 'User-Agent': 'SpamInThai-SEO-Bot/1.0' } });
+  // Cloudflare zone bot protection answers 403 to some GitHub runner IPs on the apex.
+  // pages.dev serves the same deployment + KV (its <loc>s still point at the apex).
+  if (smRes.status === 403 && !BASE.endsWith('.pages.dev')) {
+    const mitigated = smRes.headers.get('cf-mitigated') || 'none';
+    console.log(`::warning title=Cloudflare blocked runner::${SITEMAP} returned 403 (cf-mitigated: ${mitigated}); verifying via ${MIRROR}/sitemap.xml`);
+    smRes = await fetch(`${MIRROR}/sitemap.xml`, { headers: { 'User-Agent': 'SpamInThai-SEO-Bot/1.0' } });
+  }
   const smText = await smRes.text();
   if (!smRes.ok) {
     console.error(`FAIL: sitemap HTTP ${smRes.status}`);

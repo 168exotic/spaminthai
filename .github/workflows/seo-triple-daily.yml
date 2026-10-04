@@ -46,6 +46,7 @@ jobs:
         continue-on-error: true
 
       - name: Bot access check (Cloudflare)
+        if: always()
         # Diagnoses who blocks crawlers/bots: Cloudflare (cf-mitigated / server: cloudflare + 403)
         # vs. the app. pages.dev bypasses zone-level bot rules, so a 200 there + 403 on the
         # apex means the block is a zone setting (Security -> Bots / WAF), not our code.
