@@ -5,7 +5,8 @@ import { identifyCarrier, isValidThaiPhone, MOBILE_PREFIXES } from '../api/carri
 import { PROVINCES } from '../province/provinces.js';
 
 const SITE = 'https://spaminthai.com';
-const OG_IMAGE = SITE + '/assets/og-image.png';
+// Share-card per verdict (assets/og/number-<verdict>.png, 1200x630).
+const OG_VERDICTS = new Set(['danger', 'caution', 'safe', 'unknown']);
 const PLAY = 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
 
 const CATEGORY_LABELS = {
@@ -118,6 +119,7 @@ export async function renderNumberPage(number, env) {
   const title = `เบอร์ ${display} ${status} เช็คเบอร์ ตรวจเบอร์ | SpamInThai`;
   const desc = `เบอร์ ${display} ${result.carrierLabel ? '(' + result.carrierLabel + ') ' : ''}${result.label} — ${result.advice} เช็คเบอร์ ตรวจเบอร์ใครโทรมาฟรี จากฐานข้อมูลรายงานของคนไทย`;
   const canonical = `${SITE}/check/${digits}`;
+  const ogImage = `${SITE}/assets/og/number-${OG_VERDICTS.has(result.verdict) ? result.verdict : 'unknown'}.png`;
   const verdictClass =
     result.verdict === 'danger' ? 'danger' : result.verdict === 'caution' ? 'warn' : 'safe';
 
@@ -158,7 +160,12 @@ export async function renderNumberPage(number, env) {
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${esc(canonical)}">
-<meta property="og:image" content="${OG_IMAGE}">
+<meta property="og:image" content="${ogImage}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(`เบอร์ ${display} — ${result.label}`)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${ogImage}">
 <meta property="og:type" content="website">
 <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="64x64">
 <link rel="stylesheet" href="/assets/theme.css">

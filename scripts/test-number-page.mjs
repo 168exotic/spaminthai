@@ -29,6 +29,7 @@ check('app CTA to Google Play', html.includes('class="num-app"') && html.include
 check('report link prefilled', html.includes('/report?number=0812345678'));
 check('dispute link prefilled', html.includes('/dispute?num=0812345678'));
 check('Telegram channel link', html.includes('https://t.me/spaminthaich'));
+check('danger share card', html.includes('content="https://spaminthai.com/assets/og/number-danger.png"') && html.includes('summary_large_image'));
 check('no APK links', !/\.apk|href="\/download/.test(html));
 const ld = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
 check('JSON-LD valid + no raw <', !!ld && !ld[1].includes('<') && Array.isArray(JSON.parse(ld[1])));
@@ -38,6 +39,7 @@ check('landline formatted', land.includes('076-123-456'));
 check('landline links province page', land.includes('href="/phuket"'));
 const bkk = await (await renderNumberPage('021234567', env)).text();
 check('Bangkok landline format 02-123-4567', bkk.includes('02-123-4567'));
+check('unknown share card', bkk.includes('/assets/og/number-unknown.png'));
 check('unknown number title', bkk.includes('ใครโทรมา?') && !bkk.includes('ประเภทที่ถูกรายงาน'));
 check('invalid -> 404', (await renderNumberPage('12345', env)).status === 404);
 
