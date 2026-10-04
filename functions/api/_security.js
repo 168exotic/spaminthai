@@ -22,6 +22,13 @@ const ADMIN_LOCK_SEC = 15 * 60;
 const PROBE_PATHS =
   /^\/(\.env|\.git|wp-admin|wp-login|phpmyadmin|xmlrpc|admin\.php|config\.php|\.well-known\/security\.txt)/i;
 
+// Repo-internal files. `wrangler pages deploy .` publishes the whole directory and
+// Pages ignores .assetsignore (that file only works for Workers Static Assets), so
+// these must be refused at the edge or they are world-readable (package.json, docs/,
+// scripts/, terraform/, handoff notes, wrangler config ...). Never add a public page here.
+const INTERNAL_PATHS =
+  /^\/(package(-lock)?\.json|wrangler\.(jsonc?|toml)|tsconfig\.json|\.assetsignore|\.gitignore|\.gitattributes|\.github|\.cursor|\.claude|\.vscode|agents\.md|claude\.md|deploy-guide\.md|handoff[^/]*\.md|releasing\.md|changelog\.md|readme\.md|terraform|scripts|docs|data|vps|functions|node_modules|_worker\.js|_headers|_redirects|\.dev\.vars)(\/|$)/i;
+
 export function clientIp(request) {
   return (
     request.headers.get('CF-Connecting-IP') ||
@@ -126,6 +133,9 @@ export function detectThreat(request, url) {
     return 'xss_probe';
   }
   if (PROBE_PATHS.test(url.pathname)) return 'probe';
+  let pathDecoded = url.pathname;
+  try { pathDecoded = decodeURIComponent(url.pathname); } catch { /* keep raw */ }
+  if (INTERNAL_PATHS.test(url.pathname) || INTERNAL_PATHS.test(pathDecoded)) return 'internal_path';
 
   const method = request.method;
   if (method !== 'GET' && method !== 'HEAD' && method !== 'POST' && method !== 'OPTIONS') {

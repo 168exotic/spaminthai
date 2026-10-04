@@ -55,6 +55,20 @@ function req({ method = 'GET', path = '/', query = '', origin = null, contentLen
   const url = new URL(r.url);
   check('xss probe blocked', detectThreat(r, url) === 'xss_probe');
 }
+// Repo-internal files must never be served (Pages ignores .assetsignore)
+for (const p of ['/package.json', '/package-lock.json', '/wrangler.jsonc', '/AGENTS.md', '/DEPLOY-GUIDE.md',
+  '/HANDOFF-2026-09-04.md', '/docs/TOKEN-POLICY.md', '/scripts/verify-token.js', '/terraform/deploy-token.tf',
+  '/data/police.vcf', '/vps/www/assets/site.js', '/functions/api/lookup.js', '/_worker.js', '/.assetsignore',
+  '/%73cripts/verify-token.js', '/node_modules/x/package.json']) {
+  check(`internal file blocked: ${p}`, detectThreat(req(), new URL('https://spaminthai.com' + p)) === 'internal_path');
+}
+// ...but every real public page/asset/route must still pass
+for (const p of ['/', '/check', '/check/0812345678', '/report', '/download', '/privacy', '/terms', '/changelog',
+  '/news-1', '/thailand', '/phuket', '/bangkok', '/guide/', '/blog/', '/admin/', '/assets/play/feature-graphic-1024x500.png',
+  '/ads.txt', '/robots.txt', '/sitemap.xml', '/manifest.webmanifest', '/download/police.vcf', '/download/spaminthai-latest.apk',
+  '/api/lookup', '/api/app', '/dataset', '/documents', '/scripts-tips', '/7f3a9e2b1c4d8e6f0a5b3c9d1e7f4a2.txt']) {
+  check(`public path allowed: ${p}`, detectThreat(req(), new URL('https://spaminthai.com' + p)) === null);
+}
 check('bad method blocked', detectThreat(req({ method: 'TRACE' }), new URL('https://spaminthai.com/')) === 'bad_method');
 
 // --- bodyTooLarge ---
