@@ -6,7 +6,7 @@ import { assess } from '../api/risk-assess.js';
 import { PROVINCES, REGIONS, ALIASES, sameCode } from './provinces.js';
 
 const SITE = 'https://spaminthai.com';
-const OG_IMAGE = SITE + '/assets/og-image.png';
+const OG_IMAGE = SITE + '/assets/og-image.jpg';
 const PLAY = 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
 const CACHE_TTL = 6 * 60 * 60; // KV cache per area code (keeps KV list ops low)
 
