@@ -124,6 +124,13 @@ footer{display:none}
   #checkBtn{padding:13px}
 }
 @media(prefers-reduced-motion:reduce){.result{animation:none}}
+.affiliate-partner{margin-top:32px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.affiliate-partner h2{font-size:1rem;font-weight:700;margin-bottom:4px}
+.affiliate-partner p{font-size:.78rem;color:var(--muted);margin-bottom:12px}
+.affiliate-partner a.partner-banner{display:block;border-radius:12px;overflow:hidden;line-height:0;transition:transform .15s,box-shadow .15s}
+.affiliate-partner a.partner-banner:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(238,77,45,.15)}
+.affiliate-partner img{width:100%;height:auto;display:block}
+.affiliate-partner .affiliate-note{font-size:.7rem;color:var(--muted);margin-top:8px;margin-bottom:0}
 </style>
 </head>
 <body class="site-body">
@@ -215,6 +222,14 @@ footer{display:none}
   </section>
 
 
+  <section class="affiliate-partner" id="shopee-affiliate">
+    <h2>แนะนำจาก Shopee</h2>
+    <p>ORTA ชาไทยพร้อมชงดื่ม สไตล์ภูเก็ต — หอมเข้ม หวานมันกำลังดี</p>
+    <a class="partner-banner" href="https://s.shopee.co.th/6VNiCRO48G" target="_blank" rel="noopener sponsored" aria-label="ซื้อชาไทย ORTA Instant Thai Tea Mix จาก Shopee">
+      <picture><source srcset="/assets/shopee-orta-thai-tea-640.webp" type="image/webp"><img src="/assets/shopee-orta-thai-tea-640.jpg" alt="ORTA ชาไทยพร้อมชงดื่ม สไตล์ภูเก็ต Instant Thai Tea Mix" width="640" height="640" loading="lazy"></picture>
+    </a>
+    <p class="affiliate-note">โฆษณา · ลิงก์พันธมิตร</p>
+  </section>
   <section class="faq" style="margin-top:32px">
     <h2>ทำไมต้องเช็คเบอร์ก่อนรับสาย?</h2>
     <p style="color:var(--muted);font-size:.95rem;margin-bottom:12px">มิจฉาชีพและแก๊งคอลเซ็นเตอร์ในไทยมักใช้เบอร์ที่เปลี่ยนบ่อย การเช็คเบอร์โทรก่อนรับสายช่วยลดความเสี่ยงจากการถูกหลอกโอนเงิน ให้ข้อมูล OTP หรือติดตั้งแอปมัลแวร์</p>
