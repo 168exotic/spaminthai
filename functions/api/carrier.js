@@ -45,6 +45,9 @@ const PREFIX_MAP = {
   '099': 'ais'
 };
 
+/** 3-digit mobile prefixes (06x/08x/09x) with a known original carrier. */
+export const MOBILE_PREFIXES = Object.keys(PREFIX_MAP).sort();
+
 export function normalizeThaiNumber(number) {
   let digits = String(number || '').replace(/\D/g, '');
   if (digits.startsWith('66') && digits.length >= 11) digits = '0' + digits.slice(2);

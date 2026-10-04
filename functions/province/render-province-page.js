@@ -10,7 +10,7 @@ const OG_IMAGE = SITE + '/assets/og-image.png';
 const PLAY = 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
 const CACHE_TTL = 6 * 60 * 60; // KV cache per area code (keeps KV list ops low)
 
-function esc(s) {
+export function esc(s) {
   return String(s ?? '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -18,7 +18,7 @@ function esc(s) {
     .replace(/"/g, '&quot;');
 }
 
-function fmt(n) {
+export function fmt(n) {
   const d = String(n).replace(/\D/g, '');
   if (d.startsWith('02') && d.length === 9) return d.slice(0, 2) + '-' + d.slice(2, 5) + '-' + d.slice(5);
   if (d.length === 9) return d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6);
@@ -177,7 +177,7 @@ const STYLE = `<style>
 .pv-grid b{display:block}.pv-grid small{color:var(--color-text-muted)}
 </style>`;
 
-function page({ title, desc, canonical, schema, body }) {
+export function page({ title, desc, canonical, schema, body }) {
   return `<!DOCTYPE html>
 <html lang="th">
 <head>
@@ -209,7 +209,7 @@ ${footer()}
 </html>`;
 }
 
-function html(body, status = 200, maxAge = 1800) {
+export function html(body, status = 200, maxAge = 1800) {
   return new Response(body, {
     status,
     headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': `public, max-age=${maxAge}` },
