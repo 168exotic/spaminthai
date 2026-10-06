@@ -40,6 +40,10 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cib-fake-cyber-police-page-chonburi-2569',
+  'highway-police-phangnga-mule-account-2569',
+  'cib-online-investment-chumphon-arrest-2569',
+  'cyber-police-khonkaen-refund-2569',
   'acsc-september-stats-2569',
   'acsc-weekly-6-12-sep-2569',
   'off-platform-shopping-scam-2569',
