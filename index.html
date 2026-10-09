@@ -140,7 +140,7 @@
         <div class="max-w-2xl mx-auto text-center space-y-4">
           <h1 class="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight">ตรวจเบอร์ที่โทรเข้ามา รู้ทันทีว่าเบอร์ใคร — ฟรี ไม่ต้องสมัคร</h1>
           <p class="text-sm text-slate-500">ตรวจสอบเบอร์มิจฉาชีพ แก๊งคอลเซ็นเตอร์ และเบอร์สแปมฟรี จากฐานข้อมูลรายงานของคนไทย — <a href="/check" class="text-rose-500 font-semibold hover:underline">เปิดหน้าเช็คเบอร์เต็มรูปแบบ</a></p>
-          <form id="checkForm" class="mt-6 flex flex-col sm:flex-row gap-3" onsubmit="return doCheck(event)">
+          <form id="checkForm" class="mt-6 flex flex-col sm:flex-row gap-3">
             <div class="relative flex-1">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"><path d="M13 2a9 9 0 0 1 9 9"></path><path d="M13 6a5 5 0 0 1 5 5"></path><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>
               <input id="phoneInput" placeholder="กรอกเบอร์โทรศัพท์ เช่น 0812345678, 1441..." class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-mono placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-rose-500 focus:ring-2 focus:ring-rose-500/10 transition" type="tel" inputmode="tel" pattern="[0-9+\-\s]*">
@@ -155,11 +155,11 @@
           </form>
           <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs text-slate-400">
             <span>ตัวอย่างเบอร์ลองเช็ค:</span>
-            <button type="button" onclick="setPhone('1441')" class="text-slate-600 hover:text-rose-500 hover:underline font-mono">1441 (ทางการ)</button>
+            <button type="button" data-phone="1441" class="text-slate-600 hover:text-rose-500 hover:underline font-mono">1441 (ทางการ)</button>
             <span>•</span>
-            <button type="button" onclick="setPhone('021365777')" class="text-slate-600 hover:text-rose-500 hover:underline font-mono">021365777</button>
+            <button type="button" data-phone="021365777" class="text-slate-600 hover:text-rose-500 hover:underline font-mono">021365777</button>
             <span>•</span>
-            <button type="button" onclick="setPhone('0812345678')" class="text-slate-600 hover:text-rose-500 hover:underline font-mono">0812345678</button>
+            <button type="button" data-phone="0812345678" class="text-slate-600 hover:text-rose-500 hover:underline font-mono">0812345678</button>
           </div>
         </div>
 
@@ -174,11 +174,11 @@
               <div id="rReport" class="mt-4 hidden">
                 <p class="text-xs text-slate-500 mb-2">รายงานเบอร์นี้ว่าเป็น:</p>
                 <div class="flex flex-wrap gap-2">
-                  <button onclick="reportPhone('scam')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-red-50 text-red-700 border-red-200 hover:bg-red-100">🚨 มิจฉาชีพ</button>
-                  <button onclick="reportPhone('callcenter')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100">📞 คอลเซ็นเตอร์</button>
-                  <button onclick="reportPhone('loan')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-100">💰 เงินกู้</button>
-                  <button onclick="reportPhone('ads')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100">📢 โฆษณา</button>
-                  <button onclick="reportPhone('safe')" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-green-50 text-green-700 border-green-200 hover:bg-green-100">✅ เบอร์ปกติ</button>
+                  <button data-report-cat="scam" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-red-50 text-red-700 border-red-200 hover:bg-red-100">🚨 มิจฉาชีพ</button>
+                  <button data-report-cat="callcenter" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100">📞 คอลเซ็นเตอร์</button>
+                  <button data-report-cat="loan" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-orange-50 text-orange-700 border-orange-200 hover:bg-orange-100">💰 เงินกู้</button>
+                  <button data-report-cat="ads" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100">📢 โฆษณา</button>
+                  <button data-report-cat="safe" class="px-3 py-1.5 rounded-lg text-xs font-semibold border bg-green-50 text-green-700 border-green-200 hover:bg-green-100">✅ เบอร์ปกติ</button>
                 </div>
               </div>
               <div id="shareBox"></div>
@@ -403,168 +403,7 @@
 </footer>
 
 <script src="/assets/phone-utils.js"></script>
-<script>
-const API_BASE = 'https://spaminthai.com';
-let lastCheckedNumber = '';
-
-function setPhone(n){
-  document.getElementById('phoneInput').value=n;
-  document.getElementById('checkForm').dispatchEvent(new Event('submit',{cancelable:true}));
-}
-
-document.getElementById('disputeBtn').addEventListener('click', (e) => {
-  const num = String(document.getElementById('phoneInput').value).replace(/\D/g, '').replace(/^66/, '0');
-  if (SpamPhone.isValidThaiPhone(num)) {
-    e.preventDefault();
-    location.href = '/dispute?num=' + encodeURIComponent(num);
-  }
-});
-
-function fmt(n){
-  n=String(n||'').replace(/\D/g,'');
-  if(n.startsWith('66')) n='0'+n.slice(2);
-  if(n.length===10) return n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6);
-  if(n.length===9) return n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6);
-  return n;
-}
-
-async function doCheck(ev){
-  ev.preventDefault();
-  const raw=document.getElementById('phoneInput').value;
-  const num=String(raw).replace(/\D/g,'').replace(/^66/,'0');
-  if(num.startsWith('0')){
-    if(!SpamPhone.isValidThaiPhone(num)) return false;
-  } else if(num.length<3){
-    return false;
-  }
-  lastCheckedNumber=num;
-  const btn=document.getElementById('checkBtn');
-  btn.disabled=true;btn.innerHTML='<svg class="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-opacity=".25" stroke-width="4"></circle><path fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path></svg><span>กำลังตรวจ...</span>';
-  try{
-    const r=await fetch(API_BASE+'/api/lookup?number='+encodeURIComponent(num));
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const d=await r.json();
-    if(!d||typeof d!=='object'||d.ok===false) throw new Error('bad response');
-    render(num,d);
-  }catch(e){
-    renderError(num);
-  }finally{
-    btn.disabled=false;btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><span>ตรวจสอบเบอร์</span>';
-  }
-  return false;
-}
-
-// API failed (network, 429/5xx, bad JSON): never show "not found" or "safe".
-function renderError(num){
-  const box=document.getElementById('result');
-  box.className='mt-6 p-5 rounded-2xl border bg-amber-50 border-amber-200 text-amber-800';
-  document.getElementById('rIcon').textContent='⚠️';
-  document.getElementById('rTitle').textContent='เชื่อมต่อระบบตรวจเบอร์ไม่สำเร็จ ลองใหม่อีกครั้ง';
-  document.getElementById('rSub').textContent=fmt(num)+' — ยังตรวจสอบไม่ได้ ไม่ได้แปลว่าปลอดภัย';
-  document.getElementById('rStats').innerHTML='';
-  document.getElementById('rReport').classList.add('hidden');
-  const shareBox=document.getElementById('shareBox');
-  if(shareBox) shareBox.innerHTML='';
-}
-
-function render(num,d){
-  const box=document.getElementById('result');
-  const n=d.reports||0;
-  let verdict=d.verdict,title=d.label,sub=d.advice;
-  if(!verdict){
-    const safeVotes=(d.categories&&d.categories.safe)||0;
-    const badVotes=n-safeVotes;
-    if(badVotes>=5){verdict='danger';title='เบอร์อันตราย';sub='มีรายงานจำนวนมาก — ไม่ควรรับสาย และห้ามโอนเงินเด็ดขาด';}
-    else if(badVotes>=1){verdict='caution';title='เบอร์น่าสงสัย';sub='มีคนรายงาน — รับสายด้วยความระมัดระวัง';}
-    else if(n>0){verdict='safe';title='น่าจะเป็นเบอร์ปกติ';sub='มีผู้ใช้ยืนยันว่าเป็นเบอร์ปกติ';}
-    else{verdict='unknown';title='ยังไม่พบรายงาน';sub='ไม่ได้แปลว่าปลอดภัย 100% — มิจฉาชีพเปลี่ยนเบอร์บ่อย';}
-  }
-  const map={
-    danger:{cls:'bg-red-50 border-red-200 text-red-800',icon:'🚨'},
-    caution:{cls:'bg-amber-50 border-amber-200 text-amber-800',icon:'⚠️'},
-    safe:{cls:'bg-green-50 border-green-200 text-green-800',icon:'✅'},
-    unknown:{cls:'bg-slate-50 border-slate-200 text-slate-800',icon:'🔍'}
-  };
-  const v=map[verdict]||map.unknown;
-  box.className='mt-6 p-5 rounded-2xl border '+v.cls;
-  document.getElementById('rIcon').textContent=v.icon;
-  document.getElementById('rTitle').textContent=fmt(num)+' — '+title;
-  document.getElementById('rSub').textContent=sub;
-  const hasScore=typeof d.score==='number'&&n>0;
-  const carrierStat=d.carrierLabel
-    ?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+d.carrierLabel+'</b> <small>เครือข่าย</small></div>'
-    :'';
-  const freshStat=d.freshnessLabel&&(d.freshness==='hot'||d.freshness==='recent')
-    ?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>🔥</b> <small>'+d.freshnessLabel+'</small></div>'
-    :'';
-  document.getElementById('rStats').innerHTML=
-    carrierStat+
-    freshStat+
-    (hasScore?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+d.score+'</b><small>/100 ความเสี่ยง</small></div>':'')+
-    '<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><b>'+n+'</b> <small>รายงาน</small></div>'+
-    (d.lastReport?'<div class="px-3 py-2 bg-white/60 rounded-lg border border-current/20"><small>รายงานล่าสุด: '+new Date(d.lastReport).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'})+'</small></div>':'');
-  document.getElementById('rReport').classList.remove('hidden');
-
-  const shareBox = document.getElementById('shareBox');
-  if (shareBox && window.SpamShare && (n > 0 || verdict === 'danger' || verdict === 'caution')) {
-    shareBox.innerHTML = '';
-    SpamShare.injectShareBar(shareBox, {
-      number: num,
-      label: title,
-      verdict,
-      source: 'home',
-      medium: 'share',
-      campaign: 'home_check',
-    });
-  } else if (shareBox) {
-    shareBox.innerHTML = '';
-  }
-}
-
-async function reportPhone(cat){
-  if(!lastCheckedNumber)return;
-  try{
-    const r=await fetch(API_BASE+'/api/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({number:lastCheckedNumber,category:cat})});
-    const d=await r.json();
-    if(d.ok){
-      const rn=d.deduped?'คุณเคยรายงานเบอร์นี้แล้ววันนี้':'ขอบคุณสำหรับรายงาน — เก็บเข้าฐานข้อมูลแล้ว ✅';
-      alert(rn);
-      doCheck(new Event('submit',{cancelable:true}));
-    }else{
-      alert('รายงานไม่สำเร็จ: '+(d.error||''));
-    }
-  }catch(e){alert('เกิดข้อผิดพลาด');}
-}
-
-// Live count from /api/stats + version from /api/version
-(async()=>{
-  try{
-    const r=await fetch(API_BASE+'/api/stats');
-    const d=await r.json();
-    if(d&&d.numbers_in_db!=null){
-      document.getElementById('reportCount').textContent=Number(d.numbers_in_db).toLocaleString('en-US');
-    }
-  }catch(e){}
-  try{
-    const r=await fetch(API_BASE+'/api/version');
-    const d=await r.json();
-    if(d&&d.version){
-      document.getElementById('siteVer').textContent='v'+d.version;
-    }
-  }catch(e){}
-  try{
-    const r=await fetch(API_BASE+'/api/app');
-    const d=await r.json();
-    if(d&&d.version){
-      document.getElementById('appVer').textContent='v'+d.version;
-      const dlVer=document.getElementById('dlAppVer');
-      if(dlVer) dlVer.textContent='v'+d.version;
-      const dlNote=document.getElementById('dlAppNote');
-      if(dlNote) dlNote.textContent='เวอร์ชันล่าสุดบน Google Play: '+d.version+(d.versionCode?' ('+d.versionCode+')':'');
-    }
-  }catch(e){}
-})();
-</script>
+<script src="/assets/js/home.js"></script>
 <script src="/assets/share.js"></script>
 <script src="/assets/site.js"></script>
 

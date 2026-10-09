@@ -129,10 +129,6 @@
 </footer>
 <script src="/assets/ga4.js" defer></script>
 <script src="/assets/site.js"></script>
-<script>
-fetch('/api/app').then(r=>r.json()).then(d=>{
-  document.getElementById('ver').textContent = 'เวอร์ชัน '+d.version+' · อัปเดต '+new Date(d.updatedAt).toLocaleDateString('th-TH');
-}).catch(()=>{ document.getElementById('ver').textContent = ''; });
-</script>
+<script src="/assets/js/download.js"></script>
 </body>
 </html>
