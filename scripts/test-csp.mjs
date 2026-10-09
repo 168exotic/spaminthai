@@ -109,5 +109,41 @@ check("no 'unsafe-eval' in script-src", !scriptSrc(staticCsp).includes("'unsafe-
 check('worker CSP identical to _headers CSP', staticCsp === workerCsp, `\n_headers: ${staticCsp}\nworker:   ${workerCsp}`);
 check('script-src allows AdSense loader', scriptSrc(staticCsp).includes('https://pagead2.googlesyndication.com'));
 
+// 5) Per-request nonce on HTML through the real worker fetch handler (mocked env.ASSETS).
+//    ASSETS responses carry the static _headers CSP to simulate Pages applying _headers;
+//    the worker must replace it so exactly one CSP (with nonce) reaches HTML.
+const { default: worker } = await import('../_worker.js');
+const assetEnv = {
+  ...env,
+  ASSETS: {
+    async fetch(req) {
+      const p = new URL(req.url).pathname;
+      const type = p.endsWith('.css') ? 'text/css' : p.endsWith('.js') ? 'application/javascript' : p.endsWith('.png') ? 'image/png' : 'text/html; charset=utf-8';
+      const h = new Headers({ 'Content-Type': type, 'Cache-Control': 'public, max-age=0, must-revalidate' });
+      h.append('Content-Security-Policy', staticCsp);
+      return new Response(type.startsWith('text/html') ? '<!doctype html><title>t</title>' : 'x', { status: 200, headers: h });
+    },
+  },
+};
+const call = (p) => worker.fetch(new Request('https://spaminthai.com' + p), assetEnv, { waitUntil() {} });
+const cspCount = (v) => (v || '').split(/,\s*(?=default-src)/).filter(Boolean).length;
+const nonceOf = (v) => (scriptSrc(v).match(/'nonce-([A-Za-z0-9+/=]+)'/) || [])[1];
+const seen = new Set();
+for (const p of ['/', '/privacy', '/news-1.html', '/404-missing', '/check/0812345678', '/thailand', '/prefix/081', '/monthly']) {
+  for (let i = 0; i < 2; i++) {
+    const res = await call(p);
+    const csp = res.headers.get('Content-Security-Policy');
+    const n = nonceOf(csp);
+    const ok = /text\/html/.test(res.headers.get('Content-Type') || '') && cspCount(csp) === 1 && n && Buffer.from(n, 'base64').length >= 16 && !seen.has(n) && !scriptSrc(csp).includes("'unsafe-inline'");
+    check(`HTML ${p} #${i + 1}: one CSP, fresh nonce, no 'unsafe-inline'`, ok, csp);
+    if (n) seen.add(n);
+  }
+}
+for (const p of ['/assets/tailwind.css', '/assets/app.js', '/assets/logo.png', '/api/version']) {
+  const res = await call(p);
+  const csp = res.headers.get('Content-Security-Policy');
+  check(`non-HTML ${p}: static CSP, no nonce`, cspCount(csp) === 1 && csp === staticCsp, csp);
+}
+
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) process.exit(1);

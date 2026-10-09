@@ -93,11 +93,38 @@ export function corsOrigin(request) {
   return SITE_ORIGIN;
 }
 
-/** Apply security headers to any Response (static assets, API, HTML). */
+/** Fresh per-request CSP nonce: 128 random bits, base64. */
+export function cspNonce() {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return btoa(String.fromCharCode(...bytes));
+}
+
+/** Static CSP with 'nonce-<n>' added to script-src. */
+export function cspWithNonce(nonce) {
+  return securityHeaders()['Content-Security-Policy'].replace(
+    /(^|; )script-src 'self'/,
+    `$1script-src 'self' 'nonce-${nonce}'`,
+  );
+}
+
+export function isHtmlResponse(response) {
+  return /^\s*text\/html\b/i.test(response?.headers?.get('Content-Type') || '');
+}
+
+/**
+ * Apply security headers to any Response (static assets, API, HTML).
+ * HTML gets exactly one CSP header carrying a fresh nonce (replacing any static CSP from
+ * _headers / the handler) so Cloudflare-injected inline scripts (JS detections,
+ * window.__CF$cv$params) can run: Cloudflare copies the nonce from this response header.
+ */
 export function withSecurityHeaders(response) {
   const headers = new Headers(response.headers);
   for (const [k, v] of Object.entries(securityHeaders())) {
     if (!headers.has(k)) headers.set(k, v);
+  }
+  if (isHtmlResponse(response)) {
+    headers.set('Content-Security-Policy', cspWithNonce(cspNonce()));
   }
   return new Response(response.body, {
     status: response.status,
