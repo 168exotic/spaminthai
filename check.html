@@ -332,14 +332,30 @@ async function doCheck(){
   btn.disabled = true; btn.textContent = 'กำลังเช็ค…';
   try{
     const r = await fetch('/api/lookup?number='+num);
-    const data = r.ok ? await r.json() : {reports:0};
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const data = await r.json();
+    if(!data || typeof data !== 'object' || data.ok === false) throw new Error('bad response');
     render(num, data);
     history.replaceState(null,'','/check?number='+num);
     document.title = 'เบอร์ '+fmt(num)+' ใครโทรมา? เช็คเบอร์สแปม | SpamInThai';
   }catch(e){
-    render(num, {reports:0, error:true});
+    renderError(num);
+  }finally{
+    btn.disabled = false; btn.textContent = 'เช็คเบอร์';
   }
-  btn.disabled = false; btn.textContent = 'เช็คเบอร์';
+}
+
+// API failed (network, 429/5xx, bad JSON): never show "not found" or "safe".
+function renderError(num){
+  box.className = 'result show warn';
+  document.getElementById('rIcon').textContent = '⚠️';
+  document.getElementById('rTitle').textContent = 'เชื่อมต่อระบบตรวจเบอร์ไม่สำเร็จ ลองใหม่อีกครั้ง';
+  document.getElementById('rNum').textContent = fmt(num) + ' — ยังตรวจสอบไม่ได้ ไม่ได้แปลว่าปลอดภัย';
+  document.getElementById('rDispute').hidden = true;
+  document.getElementById('rStats').innerHTML = '';
+  document.getElementById('rTags').innerHTML = '';
+  const shareBox = document.getElementById('shareBox');
+  if (shareBox) shareBox.innerHTML = '';
 }
 
 const fmt = n => n.length > 6 ? n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6) : n;
