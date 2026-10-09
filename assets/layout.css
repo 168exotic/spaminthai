@@ -614,3 +614,97 @@
   color: var(--color-text-muted);
   font-size: 0.9rem;
 }
+
+/* Facebook post embed (news index) — responsive scale + lazy-load via /assets/js/fb-embed.js */
+.site-main .fb-card {
+  margin-bottom: 1.25rem;
+}
+
+.site-main .fb-card:hover {
+  border-color: var(--color-line);
+}
+
+.fb-card__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.fb-card__label::before {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+.fb-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.875rem;
+}
+
+.fb-card__icon {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #1877f2;
+  color: #fff;
+  font-weight: 800;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fb-card__meta b {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.site-main .fb-card__meta span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.fb-embed {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.fb-embed__scaler {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  min-height: 120px;
+}
+
+.fb-embed__scaler iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 485px;
+  border: 0;
+  transform-origin: top left;
+}
+
+.fb-embed__hint {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 0.5rem;
+}
