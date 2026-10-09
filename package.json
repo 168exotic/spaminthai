@@ -11,9 +11,11 @@
     "seo:ping": "node scripts/seo-ping.mjs",
     "marketing:run": "node scripts/marketing-automation.mjs",
     "marketing:local": "node scripts/marketing-automation.mjs --local",
-    "release:weekly": "node scripts/prepare-weekly-release.mjs"
+    "release:weekly": "node scripts/prepare-weekly-release.mjs",
+    "build:css": "tailwindcss -c tailwind.config.js -i styles/tailwind.input.css -o assets/tailwind.css --minify"
   },
   "devDependencies": {
+    "tailwindcss": "3.4.17",
     "wrangler": "^4.0.0"
   }
 }

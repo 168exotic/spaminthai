@@ -10,3 +10,5 @@ package-lock.json
 AGENTS.md
 DEPLOY-GUIDE.md
 README.md
+tailwind.config.js
+styles/

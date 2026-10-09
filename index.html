@@ -62,7 +62,6 @@
   ]
 }
 </script>
-<script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/theme.css">
 <link rel="stylesheet" href="/assets/layout.css">
@@ -81,6 +80,8 @@
   .fade-up{animation:fadeUp .5s ease both}
   details>summary::-webkit-details-marker{display:none}
 </style>
+<!-- Tailwind (build-time, npm run build:css). Kept last in <head> to match the old CDN, which appended its <style> at the end of <head>. -->
+<link rel="stylesheet" href="/assets/tailwind.css">
 </head>
 <body class="site-body min-h-screen bg-slate-50 flex flex-col">
 
