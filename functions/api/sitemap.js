@@ -40,6 +40,10 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cib-spell-investment-admin-korat-2569',
+  'dsi-fake-police-kabinburi-mule-2569',
+  'tourist-police-pattaya-fake-pea-qr-2569',
+  'cyber-police-student-scam-sapan-sung-2569',
   'cib-fake-cyber-police-page-chonburi-2569',
   'highway-police-phangnga-mule-account-2569',
   'cib-online-investment-chumphon-arrest-2569',
