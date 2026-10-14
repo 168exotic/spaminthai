@@ -569,6 +569,21 @@
   margin: 1rem 0;
 }
 
+.app-cta {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.125rem;
+  margin: 1rem 0;
+}
+
+.app-cta a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
 .site-main table {
   width: 100%;
   border-collapse: collapse;
