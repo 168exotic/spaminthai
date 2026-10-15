@@ -40,6 +40,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'pattaya-fake-cyber-police-qr-refund-2569',
+  'cyber-police-corporate-mule-directors-2569',
+  'cyber-police-buriram-teacher-cash-mule-2569',
   'cib-spell-investment-admin-korat-2569',
   'dsi-fake-police-kabinburi-mule-2569',
   'tourist-police-pattaya-fake-pea-qr-2569',
