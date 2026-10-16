@@ -64,3 +64,4 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 | `DISCORD_WEBHOOK_URL` | โพสต์ Discord (ถ้ามี) |
 | `VPS_SSH_*` | deploy `vps/www/` ไป www.เบอร์ใคร.com |
 | `TIP_ADMIN_PASSWORD` | admin API (Cloudflare Pages env ไม่ใช่ GitHub) |
+| `SAFE_BROWSING_KEY` | `/api/linkcheck` ถาม Google Safe Browsing (Cloudflare Pages env, Production+Preview) — คีย์จาก GCP project `warm-rock-511923-j5` ต้องเปิด "Safe Browsing API" (ไม่ใช่ตัว Legacy); ไม่มีคีย์ = endpoint ตอบ `unavailable` แต่ยังใช้รายชื่อ `linkcheck:block:<host>` / `linkcheck:allow:<host>` ใน KV ได้ |
