@@ -50,7 +50,6 @@ import {
 import {
   detectThreat,
   withSecurityHeaders,
-  isHtmlResponse,
   jsonSec,
   bodyTooLarge,
 } from './functions/api/_security.js';
@@ -173,32 +172,6 @@ async function getNumbersInDb(env) {
 
 async function handleStats(env) {
   return json({ status: 'ok', numbers_in_db: await getNumbersInDb(env) }, 200, 300);
-}
-
-/**
- * Cloudflare Web Analytics beacon, appended to <head> of every HTML response so that all
- * pages are counted instead of the homepage alone. The token is public by design: it ships
- * inside the page HTML that every visitor downloads.
- * static.cloudflareinsights.com (script-src) and cloudflareinsights.com (connect-src) are
- * already allowed by the CSP in _headers and functions/api/_security.js.
- */
-const CF_BEACON_TOKEN = '61b52e6dd1dc4e3682ac12f84342cbbb';
-const CF_BEACON_TAG =
-  '<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" ' +
-  `data-cf-beacon='{"token": "${CF_BEACON_TOKEN}"}'></script>`;
-
-/** Inject the beacon into HTML responses. /admin stays untracked so staff visits are not counted. */
-function withWebAnalytics(response, path) {
-  if (typeof HTMLRewriter === 'undefined') return response;
-  if (!isHtmlResponse(response)) return response;
-  if (path === '/admin' || path.startsWith('/admin/')) return response;
-  return new HTMLRewriter()
-    .on('head', {
-      element(el) {
-        el.append(CF_BEACON_TAG, { html: true });
-      },
-    })
-    .transform(response);
 }
 
 /** Homepage: fill the "ร่วมกันรายงานแล้ว … เบอร์" counter server-side (no "…" flash, crawlers see it). */
@@ -349,6 +322,6 @@ export default {
     }
 
     const response = await route(request, env, url);
-    return withWebAnalytics(withSecurityHeaders(response), url.pathname);
+    return withSecurityHeaders(response);
   },
 };
