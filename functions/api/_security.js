@@ -165,8 +165,15 @@ export function detectThreat(request, url) {
   try { pathDecoded = decodeURIComponent(url.pathname); } catch { /* keep raw */ }
   if (INTERNAL_PATHS.test(url.pathname) || INTERNAL_PATHS.test(pathDecoded)) return 'internal_path';
 
+  // PATCH is used by the admin review APIs (/api/admin/tips|disputes, /admin/api/sms-reports).
   const method = request.method;
-  if (method !== 'GET' && method !== 'HEAD' && method !== 'POST' && method !== 'OPTIONS') {
+  if (
+    method !== 'GET' &&
+    method !== 'HEAD' &&
+    method !== 'POST' &&
+    method !== 'PATCH' &&
+    method !== 'OPTIONS'
+  ) {
     return 'bad_method';
   }
 

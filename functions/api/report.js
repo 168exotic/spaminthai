@@ -20,6 +20,7 @@ import {
   RATE_LIMITS,
   turnstileOk,
 } from './_security.js';
+import { autoAckEnabled, sendTipAckById, tipAckRecipient } from './tip-ack-mail.js';
 
 const LOANAPP_TYPES = ['phone', 'pkg', 'domain', 'line', 'name'];
 const LOANAPP_CATEGORIES = ['loan_shark', 'scam', 'spam', 'gambling', 'other'];
@@ -158,7 +159,24 @@ export async function handleAppReport({ request, env, body }) {
   return json({ ok: true });
 }
 
-export async function handleReportPost({ request, env }) {
+/**
+ * Acknowledgment email for a detailed tip ("ได้รับเรื่องแล้ว").
+ * Runs after the tip is stored so a KV failure never produces a false confirmation.
+ * Returns 'queued' | 'sent' | 'failed' | 'skipped' for the API response.
+ */
+async function scheduleTipAck(env, ctx, tipId, extras) {
+  if (!extras || !tipId) return 'skipped';
+  if (!autoAckEnabled(env) || !tipAckRecipient(extras)) return 'skipped';
+  const job = sendTipAckById(env, tipId);
+  if (ctx && typeof ctx.waitUntil === 'function') {
+    ctx.waitUntil(job);
+    return 'queued';
+  }
+  const res = await job;
+  return res.ok ? 'sent' : 'failed';
+}
+
+export async function handleReportPost({ request, env, ctx }) {
   const body = await parseReportBody(request);
   if (!body) return json({ error: 'bad_json' }, 400);
 
@@ -234,11 +252,13 @@ export async function handleReportPost({ request, env }) {
     : null;
 
   const { data } = await recordReport(env, number, category, extras);
-  return json({ ok: true, reports: data.reports, tipId });
+  const ackEmail = await scheduleTipAck(env, ctx, tipId, extras);
+  return json({ ok: true, reports: data.reports, tipId, ackEmail });
 }
 
 export async function onRequestPost(ctx) {
-  return handleReportPost(ctx);
+  // Pages Functions: ctx is the EventContext (has waitUntil) and carries request/env.
+  return handleReportPost({ request: ctx.request, env: ctx.env, ctx });
 }
 
 export async function onRequestOptions() {

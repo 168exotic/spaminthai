@@ -10,6 +10,7 @@ import {
   handleAdminTipsList,
   handleAdminTipGet,
   handleAdminTipPatch,
+  handleAdminTipAckEmail,
   handleAdminEvidence,
 } from './functions/api/admin-tips.js';
 import { handleDisputePost } from './functions/api/dispute.js';
@@ -190,7 +191,7 @@ async function serveHomeWithCount(request, env) {
     .transform(res);
 }
 
-async function route(request, env, url) {
+async function route(request, env, url, ctx) {
     const path = url.pathname;
 
     // API routes
@@ -199,7 +200,7 @@ async function route(request, env, url) {
     if (path === '/api/site-config') return handleSiteConfig(env);
     if (path === '/api/app') return handleApp();
     if (path === '/api/latest-version') return handleLatestVersion({ request, env });
-    if (path === '/api/report' && request.method === 'POST') return handleReportPost({ request, env });
+    if (path === '/api/report' && request.method === 'POST') return handleReportPost({ request, env, ctx });
     if (path === '/api/event' && request.method === 'POST') return handleEventPost({ request, env });
     if (path === '/api/event' && request.method === 'OPTIONS') return eventOptions();
     if (path === '/admin/api/live-stats' && request.method === 'GET') return handleLiveStats({ request, env });
@@ -221,6 +222,10 @@ async function route(request, env, url) {
 
     if (path === '/api/admin/tips' && request.method === 'GET') {
       return handleAdminTipsList({ request, env });
+    }
+    const adminTipAck = path.match(/^\/api\/admin\/tips\/([^/]+)\/ack-email$/);
+    if (adminTipAck && request.method === 'POST') {
+      return handleAdminTipAckEmail({ request, env, tipId: adminTipAck[1] });
     }
     const adminTip = path.match(/^\/api\/admin\/tips\/([^/]+)$/);
     if (adminTip) {
@@ -321,7 +326,7 @@ export default {
       return jsonSec({ error: 'payload_too_large' }, 413, request);
     }
 
-    const response = await route(request, env, url);
+    const response = await route(request, env, url, ctx);
     return withSecurityHeaders(response);
   },
 };

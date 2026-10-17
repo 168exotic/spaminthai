@@ -79,6 +79,8 @@ API ตอบ `Access-Control-Allow-Origin` เฉพาะ:
 | `APP_REPORT_KEY` | คีย์แอป Android ส่งรายงาน |
 | `TURNSTILE_SECRET` | เปิด captcha ฟอร์ม dispute/report |
 | `IP_HASH_SALT` | salt เพิ่มเติมสำหรับ hash IP dispute (optional) |
+| `RESEND_API_KEY` หรือ `BREVO_API_KEY` | ส่งอีเมลยืนยันรับเรื่องถึงผู้แจ้งเบาะแส (ดู `docs/TIP-ACK-EMAIL.md`) — ไม่ตั้ง = ไม่ส่ง |
+| `MAIL_FROM` / `MAIL_REPLY_TO` / `MAIL_BCC` / `MAIL_ACK_ENABLED` | ตั้งค่าอีเมลขาออก (optional) |
 
 ## เปิด Turnstile (แนะนำ production)
 

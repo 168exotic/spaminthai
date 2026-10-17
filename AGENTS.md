@@ -31,15 +31,16 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 
 ### Mail token / tokens ที่กำลังหมดอายุ (handoff สำหรับ agent อื่น)
 
-**สำคัญ:** repo นี้ **ไม่มี** env ชื่อ `MAIL_TOKEN` และ **ไม่มี** API ส่งอีเมล (ไม่มี SMTP/Resend/Mailgun ใน `functions/`)
+**สำคัญ:** repo นี้ **ไม่มี** env ชื่อ `MAIL_TOKEN` และไม่มี SMTP — อีเมลขาออกมีทางเดียวคือ `functions/api/mail.js` (HTTP API ของ Resend/Brevo, ตั้งแต่ ต.ค. 2569) ใช้ส่ง **อีเมลยืนยันรับเรื่องถึงผู้แจ้งเบาะแส** เท่านั้น (ดู `docs/TIP-ACK-EMAIL.md`)
 
 ถ้าผู้ใช้พูดถึง “mail token” ให้แยกความหมายก่อน:
 
 | สิ่งที่อาจหมายถึง | ใช้ทำอะไร | อยู่ที่ไหน |
 |---|---|---|
 | **`CLOUDFLARE_API_TOKEN`** (มักเรียก “main token” ไม่ใช่ mail) | Deploy Cloudflare Pages (`deploy.yml`), bust sitemap cache (`seo-triple-daily.yml`), seed/verify KV นอก CI (`scripts/verify-token.js`, `seed-spam-numbers.js`) | GitHub secret `CLOUDFLARE_API_TOKEN` → ดู `.github/SECRETS-SETUP.md`, policy ดู `docs/TOKEN-POLICY.md` |
-| **อีเมลโดเมน `admin@spaminthai.com`** | รับอีเมลติดต่อจากผู้ใช้ (`mailto:` ใน `vps/www/index.html`) — **ไม่ถูกเรียกจากโค้ดเว็บ** | Hostinger (MX/DKIM) — แยกจาก repo; อย่าเปลี่ยน DNS โดยไม่ตั้งใจเมื่อย้าย apex ไป Pages |
-| **ช่องทางอีเมลในฟอร์ม dispute** | เก็บ `contact_value` ใน KV เท่านั้น — **ไม่ส่งออกทาง SMTP** | `functions/api/dispute.js`, `dispute.html` |
+| **`RESEND_API_KEY` / `BREVO_API_KEY`** (+ `MAIL_FROM`, `MAIL_REPLY_TO`, `MAIL_BCC`, `MAIL_ACK_ENABLED`) | ส่งอีเมล "ได้รับเรื่องแล้ว" อัตโนมัติเมื่อมีเบาะแสเข้ามาทาง `/report` และปุ่มส่ง/ส่งซ้ำใน `/admin/tips` — ไม่ตั้งคีย์ = ไม่ส่ง, เว็บทำงานปกติ | Cloudflare Pages env (Production + Preview) — ตั้งค่าตาม `docs/TIP-ACK-EMAIL.md`; โค้ด `functions/api/mail.js`, `functions/api/tip-ack-mail.js` |
+| **อีเมลโดเมน `admin@spaminthai.com`** | รับอีเมลติดต่อจากผู้ใช้ และเป็น From/Reply-To ของอีเมลยืนยัน (โดเมนต้อง verify กับผู้ให้บริการส่งอีเมล) | Hostinger (MX/DKIM) — แยกจาก repo; อย่าเปลี่ยน MX โดยไม่ตั้งใจ (Resend ใช้ subdomain `send.` สำหรับ SPF จึงไม่ชน MX ของ Hostinger) |
+| **ช่องทางอีเมลในฟอร์ม dispute** | เก็บ `contact_value` ใน KV เท่านั้น — **ยังไม่ส่งอีเมลยืนยัน** (มีเฉพาะฟอร์ม /report) | `functions/api/dispute.js`, `dispute.html` |
 
 #### `CLOUDFLARE_API_TOKEN` — รายละเอียดเมื่อใกล้หมดอายุ
 

@@ -70,6 +70,9 @@ for (const p of ['/', '/check', '/check/0812345678', '/report', '/download', '/p
   check(`public path allowed: ${p}`, detectThreat(req(), new URL('https://spaminthai.com' + p)) === null);
 }
 check('bad method blocked', detectThreat(req({ method: 'TRACE' }), new URL('https://spaminthai.com/')) === 'bad_method');
+check('DELETE blocked', detectThreat(req({ method: 'DELETE' }), new URL('https://spaminthai.com/api/admin/tips/x')) === 'bad_method');
+// Admin review APIs save status with PATCH — must not be treated as a probe.
+check('PATCH allowed (admin status save)', detectThreat(req({ method: 'PATCH' }), new URL('https://spaminthai.com/api/admin/tips/x')) === null);
 
 // --- bodyTooLarge ---
 check('small body ok', bodyTooLarge(req({ contentLength: '1024' })) === false);
