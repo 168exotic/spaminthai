@@ -99,7 +99,14 @@ form.addEventListener('submit', async (e) => {
       throw new Error(msg);
     }
     box.className = 'result ok';
-    box.textContent = '✅ ส่งเบาะแสเรียบร้อยแล้ว ขอบคุณที่ช่วยกันเตือนภัยสังคม ทีมงานจะตรวจสอบข้อมูลก่อนเผยแพร่';
+    let doneMsg = '✅ ส่งเบาะแสเรียบร้อยแล้ว ขอบคุณที่ช่วยกันเตือนภัยสังคม ทีมงานจะตรวจสอบข้อมูลก่อนเผยแพร่';
+    if (data.ackEmail === 'queued' || data.ackEmail === 'sent') {
+      doneMsg += ' ระบบส่งอีเมลยืนยันการรับเรื่องไปที่ ' + contact + ' แล้ว (หากไม่พบ กรุณาตรวจในกล่องจดหมายขยะ)';
+    }
+    if (data.tipId) {
+      doneMsg += ' เลขอ้างอิง: ' + String(data.tipId).replace(/-/g, '').slice(0, 8).toUpperCase();
+    }
+    box.textContent = doneMsg;
     form.reset();
     fileName.textContent = 'ยังไม่ได้เลือกไฟล์';
     filePreview.style.display = 'none';
