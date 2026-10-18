@@ -48,7 +48,7 @@
   <!-- ============ THAI ============ -->
   <section id="th">
   <h1>นโยบายความเป็นส่วนตัว</h1>
-  <p class="meta"><strong>มีผลบังคับใช้:</strong> 28 กรกฎาคม 2568 · <strong>ปรับปรุงล่าสุด:</strong> 28 กรกฎาคม 2568</p>
+  <p class="meta"><strong>มีผลบังคับใช้:</strong> 28 กรกฎาคม 2568 · <strong>ปรับปรุงล่าสุด:</strong> 18 ตุลาคม 2569</p>
   <p>SpamInThai ("เรา") ให้บริการเว็บไซต์ <a href="https://spaminthai.com">spaminthai.com</a> และแอปพลิเคชัน Android สำหรับตรวจสอบและบล็อกเบอร์/ข้อความมิจฉาชีพ นโยบายนี้อธิบายว่าเราเก็บ ใช้ และปกป้องข้อมูลอย่างไร ตามหลักการ <strong>เก็บข้อมูลน้อยที่สุด (data minimization)</strong> และสอดคล้องกับ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)</p>
 
   <div class="box"><strong>หลักการสำคัญ:</strong> เราไม่อ่านกล่องข้อความ SMS ของคุณ ไม่เก็บเนื้อหา SMS ไม่ขอสิทธิ์รายชื่อผู้ติดต่อ ไม่ขายข้อมูลส่วนบุคคล และแอปตั้งค่าเริ่มต้นให้ฟีเจอร์กรอง SMS <strong>ปิดอยู่</strong> จนกว่าคุณจะเปิดเอง</p></div>
@@ -59,6 +59,7 @@
     <tr><td>สถิติการใช้งานแอป (heartbeat)</td><td>รหัสอุปกรณ์สุ่มแบบไม่ระบุตัวตน (UUID ที่สร้างในเครื่อง), เวอร์ชัน Android, ผู้ให้บริการเครือข่าย (carrier), สถานะเปิด/ปิดฟีเจอร์ SMS (<code>sms_enabled</code>), เวอร์ชันแอป</td><td>นับจำนวนผู้ใช้ที่ใช้งานจริง (ไม่ซ้ำ) และดูการกระจายของเวอร์ชัน เพื่อพัฒนาแอป</td><td>ประโยชน์โดยชอบด้วยกฎหมาย (ข้อมูลไม่ระบุตัวตน)</td></tr>
     <tr><td>การรายงานเบอร์</td><td>หมายเลขโทรศัพท์ที่รายงาน, ประเภท (มิจฉาชีพ/คอลเซ็นเตอร์/สแปม), จำนวนครั้ง และหลักฐานรูปภาพ<em>ถ้าผู้ใช้แนบเอง</em></td><td>สร้างฐานข้อมูลชุมชนเพื่อเตือนผู้ใช้คนอื่น</td><td>ความยินยอม + ประโยชน์สาธารณะ</td></tr>
     <tr><td>แบบฟอร์มโต้แย้ง (dispute)</td><td>ข้อมูลที่เจ้าของเบอร์ส่งมาเพื่อขอถอนเบอร์ออกจากฐานข้อมูล อาจรวมหลักฐานยืนยันตัวตน (เช่น รูปบัตรประชาชน) ที่เก็บใน Cloudflare R2</td><td>ตรวจสอบสิทธิ์ก่อนถอนเบอร์ออกจากรายการ</td><td>ความยินยอม (ผู้ใช้ส่งเอง)</td></tr>
+    <tr><td>การตรวจเบอร์และลิงก์ (เมื่อผู้ใช้กดตรวจเอง)</td><td>เฉพาะ<strong>หมายเลขโทรศัพท์</strong>และ<strong>ลิงก์ (URL)</strong> ที่ผู้ใช้วางหรือแชร์มาให้ตรวจ — <strong>ไม่ส่งข้อความทั้งข้อความ</strong> และไม่ผูกกับตัวตนผู้ใช้</td><td>ตรวจว่าเบอร์หรือลิงก์อยู่ในฐานข้อมูลภัยคุกคาม เพื่อเตือนผู้ใช้ก่อนโทรกลับหรือกดลิงก์ ลิงก์อาจถูกส่งต่อให้ผู้ให้บริการตรวจความปลอดภัยที่เราใช้ เพื่อตรวจสอบแทนเราเท่านั้น</td><td>ความยินยอม (ผู้ใช้สั่งตรวจเอง) + ประโยชน์โดยชอบด้วยกฎหมาย (ป้องกันการฉ้อโกง)</td></tr>
     <tr><td>การตรวจสอบ SMS</td><td><strong>เฉพาะค่าแฮช SHA-256</strong> ของข้อความ — <strong>ไม่มีการส่งหรือเก็บเนื้อหา SMS ต้นฉบับ</strong></td><td>เทียบกับฐานข้อมูลแฮชของข้อความสแปมที่ชุมชนรายงาน</td><td>ประโยชน์โดยชอบด้วยกฎหมาย (ข้อมูลถูกแฮชทางเดียว)</td></tr>
     <tr><td>คุกกี้ / localStorage</td><td>เฉพาะผู้ดูแลระบบ: <code>spaminthai_admin_key</code> เก็บใน localStorage ของเบราว์เซอร์ผู้ดูแล — <strong>ไม่มีคุกกี้ติดตามผู้ใช้ทั่วไป</strong></td><td>เข้าสู่ระบบหน้าผู้ดูแล</td><td>จำเป็นต่อการให้บริการ</td></tr>
   </table>
@@ -91,6 +92,7 @@
     <tr><td>Heartbeat นับผู้ใช้ไม่ซ้ำ (รายวัน/รายสัปดาห์)</td><td>สูงสุด ~40 วัน แล้วหมดอายุอัตโนมัติ</td></tr>
     <tr><td>รายงานเบอร์ (ในฐานข้อมูลชุมชน)</td><td>เก็บต่อเนื่องจนกว่าจะถูกถอนผ่านคำขอ/แบบฟอร์มโต้แย้ง</td></tr>
     <tr><td>หลักฐานแบบฟอร์มโต้แย้ง (R2)</td><td>เก็บระหว่างตรวจสอบและลบเมื่อปิดเรื่อง (โดยทั่วไปไม่เกิน 90 วัน)</td></tr>
+    <tr><td>ผลการตรวจลิงก์</td><td>ไม่เก็บลิงก์เต็ม เก็บเฉพาะชื่อโดเมนและผลตรวจ (อ้างอิงด้วยค่าแฮช SHA-256) ไม่เกิน 6 ชั่วโมง แล้วหมดอายุอัตโนมัติ</td></tr>
     <tr><td>ค่าแฮช SMS</td><td>เก็บในฐานข้อมูลชุมชนเพื่ออ้างอิงต่อเนื่อง (ไม่มีเนื้อหา จึงไม่ระบุตัวตน)</td></tr>
   </table>
 
@@ -112,7 +114,7 @@
   <!-- ============ ENGLISH ============ -->
   <section id="en">
   <h1 style="margin-top:48px">Privacy Policy</h1>
-  <p class="meta"><strong>Effective:</strong> 28 July 2025 · <strong>Last updated:</strong> 28 July 2025</p>
+  <p class="meta"><strong>Effective:</strong> 28 July 2025 · <strong>Last updated:</strong> 18 October 2026</p>
   <p>SpamInThai ("we", "us") operates the website <a href="https://spaminthai.com">spaminthai.com</a> and an Android application that lets people check and block scam phone numbers and spam messages. This policy explains what we collect, why, and how we protect it. We follow <strong>data minimization</strong> and comply with Thailand's Personal Data Protection Act (PDPA, B.E. 2562).</p>
 
   <div class="box"><strong>Key principles:</strong> We do not read your SMS inbox, do not store SMS content, do not request contacts access, do not sell personal data, and the app's SMS-filtering feature is <strong>OFF by default</strong> until you explicitly enable it.</div>
@@ -123,6 +125,7 @@
     <tr><td>App usage heartbeat</td><td>Random anonymous device UUID (generated on-device), Android version, carrier, SMS-feature on/off flag (<code>sms_enabled</code>), app version</td><td>Count unique active users and version distribution to improve the app</td><td>Legitimate interest (anonymous)</td></tr>
     <tr><td>Number reports</td><td>Reported phone number, category (scam/call-center/spam), report count, and evidence photos <em>only if the user attaches them</em></td><td>Build a community database that warns other users</td><td>Consent + public interest</td></tr>
     <tr><td>Dispute form</td><td>Information submitted by a number's owner to request removal, which may include identity evidence (e.g. an ID-card photo), stored in Cloudflare R2</td><td>Verify ownership before removing a number</td><td>Consent (user-submitted)</td></tr>
+    <tr><td>Number &amp; link checks (only when the user runs a check)</td><td>Only the <strong>phone numbers</strong> and <strong>links (URLs)</strong> the user pastes or shares for checking — <strong>never the full message</strong>, and not tied to the user's identity</td><td>Check whether a number or link appears in threat databases, to warn the user before calling back or opening it. Links may be passed to a security-check service provider acting on our behalf, solely to perform the check</td><td>Consent (user-initiated) + legitimate interest (fraud prevention)</td></tr>
     <tr><td>SMS check</td><td><strong>SHA-256 hash only</strong> of the message — <strong>the original SMS content is never sent or stored</strong></td><td>Match against a community database of reported spam-message hashes</td><td>Legitimate interest (one-way hashed)</td></tr>
     <tr><td>Cookies / localStorage</td><td>Admins only: <code>spaminthai_admin_key</code> in the admin's browser localStorage — <strong>no tracking cookies for regular users</strong></td><td>Admin login</td><td>Strictly necessary</td></tr>
   </table>
@@ -155,6 +158,7 @@
     <tr><td>Unique-user heartbeat (daily/weekly)</td><td>Up to ~40 days, then auto-expires</td></tr>
     <tr><td>Number reports (community DB)</td><td>Retained until removed via request/dispute</td></tr>
     <tr><td>Dispute-form evidence (R2)</td><td>Kept during review, deleted on closure (generally ≤ 90 days)</td></tr>
+    <tr><td>Link-check results</td><td>The full link is not stored; only the domain name and the verdict (keyed by a SHA-256 hash) for up to 6 hours, then expired automatically</td></tr>
     <tr><td>SMS hashes</td><td>Retained in the community DB for ongoing matching (no content, so non-identifying)</td></tr>
   </table>
 
