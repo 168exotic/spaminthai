@@ -8,9 +8,21 @@ import {
   FORM_CAT_LABELS,
 } from './tip-utils.js';
 import { guardAdmin } from './_security.js';
+import { isEmailAddress, mailConfigured, mailProvider } from './mail.js';
+import { autoAckEnabled, sendTipAckById, tipAckRecipient } from './tip-ack-mail.js';
 
 async function adminGuard(request, env) {
   return guardAdmin(request, env, isAdmin, json);
+}
+
+/** What the admin UI needs to know about outbound mail (never the keys themselves). */
+function mailStatus(env) {
+  return {
+    configured: mailConfigured(env),
+    provider: mailProvider(env),
+    autoAck: autoAckEnabled(env),
+    from: env.MAIL_FROM || 'SpamInThai <admin@spaminthai.com>',
+  };
 }
 
 export async function handleAdminTipsList({ request, env }) {
@@ -25,7 +37,41 @@ export async function handleAdminTipsList({ request, env }) {
     tips = tips.filter((t) => t.status === status);
   }
 
-  return json({ tips, labels: FORM_CAT_LABELS });
+  return json({ tips, labels: FORM_CAT_LABELS, mail: mailStatus(env) });
+}
+
+/**
+ * POST /api/admin/tips/:id/ack-email  — send (or re-send) the "ได้รับเรื่องแล้ว" email.
+ * Body (optional): { to: "someone@example.com" } to override the reporter's contact.
+ * Always a forced send: the admin pressed the button on purpose.
+ */
+export async function handleAdminTipAckEmail({ request, env, tipId }) {
+  const denied = await adminGuard(request, env);
+  if (denied) return denied;
+
+  if (!mailConfigured(env)) return json({ error: 'mail_not_configured', mail: mailStatus(env) }, 503);
+
+  let body = {};
+  try {
+    const text = await request.text();
+    body = text ? JSON.parse(text) : {};
+  } catch {
+    return json({ error: 'bad_json' }, 400);
+  }
+
+  const override = String(body.to || '').trim();
+  if (override && !isEmailAddress(override)) return json({ error: 'invalid_email' }, 400);
+
+  const raw = await env.SPAM_KV.get(`tip:${tipId}`);
+  if (!raw) return json({ error: 'not_found' }, 404);
+  const tip = JSON.parse(raw);
+  if (!tipAckRecipient(tip, override)) return json({ error: 'no_email', contact: tip.contact || null }, 400);
+
+  const res = await sendTipAckById(env, tipId, { to: override || undefined, force: true });
+  if (!res.ok) {
+    return json({ ok: false, error: res.error || 'send_failed', ackEmail: res.ackEmail || null }, 502);
+  }
+  return json({ ok: true, ackEmail: res.ackEmail });
 }
 
 export async function handleAdminTipGet({ request, env, tipId }) {

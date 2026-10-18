@@ -44,6 +44,15 @@ th{color:var(--muted);font-weight:600;font-size:.78rem;text-transform:uppercase}
 .err{color:#fca5a5;font-size:.85rem;margin-top:8px}
 .empty{color:var(--muted);padding:24px;text-align:center}
 a{color:#93c5fd}
+.notice{font-size:.85rem;padding:10px 12px;border-radius:10px;margin-bottom:12px;border:1px solid var(--line);background:#0b1220;color:var(--muted)}
+.notice.warn{border-color:#92400e;color:#fdba74}
+.notice.ok{border-color:#166534;color:#86efac}
+.ack-box{border:1px solid var(--line);border-radius:10px;padding:12px;background:#0b1220}
+.ack-box h3{font-size:.95rem;margin-bottom:6px}
+.ack-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.ack-row input{flex:1;min-width:200px}
+.ok-text{color:var(--ok)}
+.warn-text{color:var(--warn)}
 </style>
 </head>
 <body>
@@ -73,6 +82,7 @@ a{color:#93c5fd}
         <button class="btn-ghost btn-sm" id="refreshBtn" type="button">รีเฟรช</button>
         <button class="btn-ghost btn-sm" id="logoutBtn" type="button">ออกจากระบบ</button>
       </div>
+      <div class="notice hidden" id="mailNotice"></div>
       <div id="listWrap">
         <table>
           <thead>
@@ -82,6 +92,7 @@ a{color:#93c5fd}
               <th>ประเภท</th>
               <th>สถานะ</th>
               <th>หลักฐาน</th>
+              <th>อีเมลตอบรับ</th>
               <th></th>
             </tr>
           </thead>
@@ -94,6 +105,15 @@ a{color:#93c5fd}
     <div id="detailCard" class="card hidden">
       <h2 style="font-size:1.05rem;margin-bottom:12px">รายละเอียดเบาะแส</h2>
       <div class="detail-grid" id="detailContent"></div>
+      <div class="ack-box" id="ackBox" style="margin-top:14px">
+        <h3>อีเมลยืนยันรับเรื่องถึงผู้แจ้ง</h3>
+        <div class="meta" id="ackStatus">—</div>
+        <div class="ack-row">
+          <input type="text" id="ackTo" placeholder="อีเมลผู้แจ้ง" autocomplete="off">
+          <button class="btn-ghost btn-sm" id="ackSendBtn" type="button">ส่งอีเมลยืนยันรับเรื่อง</button>
+        </div>
+        <p class="err hidden" id="ackErr"></p>
+      </div>
       <div class="actions">
         <select id="newStatus">
           <option value="pending">รอตรวจสอบ</option>

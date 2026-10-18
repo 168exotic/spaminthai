@@ -121,6 +121,30 @@ export async function pushTipIndex(env, entry) {
   await env.SPAM_KV.put('tips:index', JSON.stringify(index.slice(0, 500)));
 }
 
+/** Merge `patch` into the tips:index entry for tipId (no-op when the index or entry is missing). */
+export async function patchTipIndex(env, tipId, patch) {
+  const raw = await env.SPAM_KV.get('tips:index');
+  if (!raw) return false;
+  let index;
+  try {
+    index = JSON.parse(raw);
+  } catch {
+    return false;
+  }
+  if (!Array.isArray(index)) return false;
+  let found = false;
+  const next = index.map((entry) => {
+    if (entry && entry.id === tipId) {
+      found = true;
+      return { ...entry, ...patch };
+    }
+    return entry;
+  });
+  if (!found) return false;
+  await env.SPAM_KV.put('tips:index', JSON.stringify(next));
+  return true;
+}
+
 async function updateSeoTopNumbers(env, number, reports) {
   const raw = await env.SPAM_KV.get('seo:top-numbers');
   let list = raw ? JSON.parse(raw) : [];

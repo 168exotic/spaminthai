@@ -12,6 +12,25 @@ full process.
 The format is based on [Keep a Changelog](https://keepachangelog.com/) and this
 project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Acknowledgment email to tip reporters.** When a detailed tip is filed at
+  `/report` with an email address in the contact field, the site now sends a formal
+  Thai "ได้รับเรื่องแล้ว" email (reference number, category, what the team does,
+  what SpamInThai is and is not, safety advice) through an HTTP email API —
+  Resend (`RESEND_API_KEY`) or Brevo (`BREVO_API_KEY`); see
+  [`docs/TIP-ACK-EMAIL.md`](docs/TIP-ACK-EMAIL.md). The outcome is stored on the tip
+  (`ackEmail`) and `/admin/tips` shows it per tip with a send/re-send button
+  (`POST /api/admin/tips/:id/ack-email`). Without a provider key nothing changes.
+- `/api/report` responds with `ackEmail: queued|sent|failed|skipped` and the report
+  page tells the reporter a confirmation email is on its way.
+
+### Fixed
+- **Admin status saves were rejected with `403 bad_method`** — the security layer
+  only allowed GET/HEAD/POST/OPTIONS, but every admin panel saves with `PATCH`.
+- Admin tip detail view now HTML-escapes reporter-supplied fields.
+
 ## [1.3.0] — 2026-07-21
 
 This release turns SpamInThai from a lookup-only tool into a full report-and-review
