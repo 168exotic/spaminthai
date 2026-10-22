@@ -40,6 +40,10 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'ecd-amata-stock-scam-mule-2569',
+  'cyber-police-mule-handlers-chinese-boss-2569',
+  'lopburi-cash-mule-fake-cyber-police-student-2569',
+  'maesot-broker-teen-mule-account-2569',
   'pattaya-fake-cyber-police-qr-refund-2569',
   'cyber-police-corporate-mule-directors-2569',
   'cyber-police-buriram-teacher-cash-mule-2569',
