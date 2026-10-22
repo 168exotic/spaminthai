@@ -200,6 +200,37 @@ ${s.categories.length ? `<section class="pv-sec"><h2>หลอกแบบไห
         { '@type': 'ListItem', position: 1, name: 'SpamInThai', item: SITE + '/' },
         { '@type': 'ListItem', position: 2, name: 'สรุปเบอร์มิจฉาชีพรายเดือน', item: SITE + '/monthly' },
         { '@type': 'ListItem', position: 3, name: label } ] },
+      ...(s.reported ? [
+        { '@type': 'Dataset',
+          name: `เบอร์ที่ถูกรายงานว่าเป็นมิจฉาชีพในไทย เดือน${label}`,
+          description: desc,
+          url: canonical,
+          inLanguage: 'th-TH',
+          dateModified: s.computedAt,
+          temporalCoverage: ym,
+          isAccessibleForFree: true,
+          creator: { '@type': 'Organization', name: 'SpamInThai', url: SITE + '/' },
+          spatialCoverage: { '@type': 'Country', name: 'Thailand' },
+          measurementTechnique: 'รายงานจากผู้ใช้ SpamInThai ทั่วประเทศ นับจากรายงานล่าสุดของแต่ละเบอร์',
+          variableMeasured: [
+            { '@type': 'PropertyValue', name: 'เบอร์ที่ถูกรายงาน', value: s.reported, unitText: 'เบอร์' },
+            { '@type': 'PropertyValue', name: 'รายงานรวม', value: s.totalReports, unitText: 'รายงาน' },
+            { '@type': 'PropertyValue', name: 'เบอร์อันตราย', value: s.danger, unitText: 'เบอร์' },
+            { '@type': 'PropertyValue', name: 'เบอร์น่าสงสัย', value: s.caution, unitText: 'เบอร์' },
+          ] },
+        { '@type': 'FAQPage', mainEntity: [
+          { '@type': 'Question', name: `เดือน${label} มีเบอร์ถูกรายงานว่าเป็นมิจฉาชีพกี่เบอร์`,
+            acceptedAnswer: { '@type': 'Answer', text: `เดือน${label} มีเบอร์ถูกรายงาน ${s.reported} เบอร์ รวม ${s.totalReports} รายงาน แบ่งเป็นเบอร์อันตราย ${s.danger} เบอร์ และเบอร์น่าสงสัย ${s.caution} เบอร์ ข้อมูลมาจากฐานข้อมูลที่ผู้ใช้ SpamInThai ทั่วประเทศช่วยกันรายงาน นับจากรายงานล่าสุดของแต่ละเบอร์` } },
+          ...(s.prefixes.length ? [
+            { '@type': 'Question', name: `เลขขึ้นต้นไหนถูกรายงานมากที่สุดเดือน${label}`,
+              acceptedAnswer: { '@type': 'Answer', text: `เดือน${label} เลขขึ้นต้นที่ถูกรายงานมากที่สุดคือ ${s.prefixes.slice(0, 5).map(([pf, v]) => `${pf} (${v} เบอร์)`).join(', ')} เช็คเบอร์ก่อนรับสายได้ฟรีที่ ${SITE}/check` } },
+          ] : []),
+          ...(s.categories.length ? [
+            { '@type': 'Question', name: `เดือน${label} ถูกหลอกแบบไหนมากที่สุด`,
+              acceptedAnswer: { '@type': 'Answer', text: `เดือน${label} รูปแบบที่ถูกรายงานมากที่สุดคือ ${s.categories.slice(0, 4).map(([c, v]) => `${CATEGORY_LABELS[c] || 'อื่น ๆ'} (${v} รายงาน)`).join(', ')} ถูกหลอกโอนเงินแล้วให้แจ้งสายด่วน 1441 เพื่ออายัดบัญชีให้เร็วที่สุด` } },
+          ] : []),
+        ] },
+      ] : []),
     ],
   };
   return html(page({ title, desc, canonical, schema, body: STAT_STYLE + body, robots: s.reported ? '' : 'noindex,follow' }), 200, isCurrent ? 1800 : 86400);
