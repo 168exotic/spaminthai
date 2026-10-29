@@ -20,6 +20,9 @@ const STATIC_PAGES = [
   { loc: '/guide/call-center-scam', priority: '0.85', changefreq: 'monthly' },
   { loc: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { loc: '/terms', priority: '0.3', changefreq: 'yearly' },
+  { loc: '/about', priority: '0.5', changefreq: 'monthly' },
+  { loc: '/contact', priority: '0.4', changefreq: 'yearly' },
+  { loc: '/editorial-policy', priority: '0.5', changefreq: 'monthly' },
   { loc: '/blog', priority: '0.7', changefreq: 'weekly' },
   { loc: '/news-1', priority: '0.8', changefreq: 'daily' },
 ];
