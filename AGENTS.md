@@ -22,6 +22,12 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 ### 🔒 นโยบายเว็บ spaminthai.com (บังคับใช้กับทุก agent — Cursor, Copilot, Claude, n8n)
 
 - **ผู้ดูแลเว็บ:** ตั้งแต่ 29 ก.ย. 2569 **Claude เป็นผู้จัดการเว็บ spaminthai.com แต่เพียงผู้เดียว** ตามคำสั่งบอส — agent อื่นห้ามแก้หน้าเว็บ/ปุ่ม/ลิงก์/workflow deploy เอง ให้แจ้งบอสหรือ Claude
+- **📣 ประกาศจากบอส (30 ต.ค. 2569):** บอสมอบ**ตำแหน่งผู้บริหารเว็บ spaminthai.com ให้ Claude** มีอำนาจตัดสินใจเองโดยไม่ต้องถามบอส ช่วง **29 ต.ค. – 29 พ.ย. 2569** (บอสต่ออายุได้) ทุก agent ที่เกี่ยวข้องต้องรับทราบและทำตาม — ได้แก่ ทีม **Hand on Me** (boss.spaminthai.com, branch `hom/*`), Cursor / Bugbot / Approval Agent, Copilot, n8n, ทีม agent บน VPS (site-monitor, seo-content, data-moderator, security-guard, release-manager, revenue-optimizer), เจมี่/เอวา (voice.spaminthai.com)
+  - **แผนงาน:** "แผนดัน SpamInThai.com 90 วัน" — https://claude.ai/artifact/59rMtcw5NzAhT9SnZHatK5
+  - **วิธีประสานงาน:** ทุกการแก้เว็บต้องเป็น PR (ห้าม push `main` ตรง) Claude รีวิว PR ของทีมอื่นทุกวัน และบอสเป็นคนกด merge
+  - **สั่งงานทีมอื่น:** Claude เปิด GitHub issue ติด label `hom-task` — ทีม Hand on Me หยิบงานจากตรงนี้ และระบุใน PR ว่าแก้ issue ไหน (`Closes #…`) เพื่อไม่ให้งานซ้ำหรือชนกัน
+  - **ก่อนเริ่มงานใหม่ที่ไม่มี issue:** เปิด issue บอกก่อนว่าจะทำอะไร เพื่อให้ Claude จัดลำดับไม่ให้ชนกัน
+  - **กฎหมาย (บอสสั่งให้ระวังอย่างเคร่งครัด):** ห้ามกล่าวหาบุคคล/บริษัทว่าเป็นมิจฉาชีพ ใช้คำว่า "มีรายงานจากผู้ใช้" เท่านั้น · ห้ามใส่ชื่อคน/ร้านในหน้าเบอร์ · ห้ามใช้เบอร์โทรจริงเป็นตัวอย่าง (ใช้ `08x-xxx-xxxx` หรือสายด่วนทางการ) · PDPA: เก็บข้อมูลน้อยที่สุด เบลอข้อมูลส่วนบุคคลในหลักฐาน · ห้ามคัดลอกข่าว/รูป/คลิป เขียนใหม่และอ้างแหล่งทางการ · โฆษณาต้องติดป้าย สินเชื่อเฉพาะที่ ธปท. อนุญาต ห้ามพนัน/เงินกู้นอกระบบ · ห้ามคลิกโฆษณาตัวเอง/ปั่นทราฟฟิก · เจอจดหมายทนายหรือหน่วยงานรัฐติดต่อ → หยุดงานนั้นแล้วแจ้งบอสทันที
 - **ปุ่มดาวน์โหลดแอปทุกปุ่มต้องลิงก์ตรงไป Google Play:** `https://play.google.com/store/apps/details?id=com.jarvis.callblocker`
   พร้อม `target="_blank" rel="noopener noreferrer"` — **ห้าม** ใส่ลิงก์ `/download/spaminthai-latest.apk`, GitHub Releases APK หรือ `/download` (หน้าเก่า) บนปุ่ม/ลิงก์ดาวน์โหลดใด ๆ (nav, tab, hero, popup, footer, ข่าว, บทความ, `functions/check/render-number-page.js`)
 - `/api/app` และ `/api/latest-version` ต้องคืน `downloadUrl`/`url` เป็นลิงก์ Google Play (ดู `functions/api/app-download.js`) และ `/download/spaminthai-latest.apk` ต้อง 302 ไป Google Play
