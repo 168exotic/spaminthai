@@ -1,0 +1,41 @@
+name: Social — Facebook + Instagram 2× daily
+
+# Posts the queued card from marketing/social/posts.json for today's slot.
+# Needs repo secrets FB_PAGE_ID + FB_PAGE_TOKEN (and IG_USER_ID for Instagram).
+# Without them the job logs a warning and does nothing.
+on:
+  schedule:
+    - cron: '47 1 * * *'   # 08:47 Asia/Bangkok — slot am
+    - cron: '13 12 * * *'  # 19:13 Asia/Bangkok — slot pm
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: 'am or pm (blank = by current Bangkok time)'
+        required: false
+      dry_run:
+        description: '1 = print only, do not post'
+        required: false
+        default: '0'
+
+concurrency:
+  group: social-daily
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Post to Facebook / Instagram
+        env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          GRAPH_VERSION: ${{ vars.GRAPH_VERSION }}
+          SLOT: ${{ inputs.slot }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: node scripts/social/post.mjs
