@@ -139,6 +139,9 @@ function footer() {
       <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">Telegram เตือนภัย</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
+      <a href="/about">เกี่ยวกับเรา</a>
+      <a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a>
+      <a href="/contact">ติดต่อเรา</a>
     </nav>
   </div>
 </footer>

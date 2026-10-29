@@ -48,7 +48,7 @@
   <!-- ============ THAI ============ -->
   <section id="th">
   <h1>นโยบายความเป็นส่วนตัว</h1>
-  <p class="meta"><strong>มีผลบังคับใช้:</strong> 28 กรกฎาคม 2568 · <strong>ปรับปรุงล่าสุด:</strong> 18 ตุลาคม 2569</p>
+  <p class="meta"><strong>มีผลบังคับใช้:</strong> 28 กรกฎาคม 2568 · <strong>ปรับปรุงล่าสุด:</strong> 29 ตุลาคม 2569</p>
   <p>SpamInThai ("เรา") ให้บริการเว็บไซต์ <a href="https://spaminthai.com">spaminthai.com</a> และแอปพลิเคชัน Android สำหรับตรวจสอบและบล็อกเบอร์/ข้อความมิจฉาชีพ นโยบายนี้อธิบายว่าเราเก็บ ใช้ และปกป้องข้อมูลอย่างไร ตามหลักการ <strong>เก็บข้อมูลน้อยที่สุด (data minimization)</strong> และสอดคล้องกับ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)</p>
 
   <div class="box"><strong>หลักการสำคัญ:</strong> เราไม่อ่านกล่องข้อความ SMS ของคุณ ไม่เก็บเนื้อหา SMS ไม่ขอสิทธิ์รายชื่อผู้ติดต่อ ไม่ขายข้อมูลส่วนบุคคล และแอปตั้งค่าเริ่มต้นให้ฟีเจอร์กรอง SMS <strong>ปิดอยู่</strong> จนกว่าคุณจะเปิดเอง</p></div>
@@ -61,7 +61,8 @@
     <tr><td>แบบฟอร์มโต้แย้ง (dispute)</td><td>ข้อมูลที่เจ้าของเบอร์ส่งมาเพื่อขอถอนเบอร์ออกจากฐานข้อมูล อาจรวมหลักฐานยืนยันตัวตน (เช่น รูปบัตรประชาชน) ที่เก็บใน Cloudflare R2</td><td>ตรวจสอบสิทธิ์ก่อนถอนเบอร์ออกจากรายการ</td><td>ความยินยอม (ผู้ใช้ส่งเอง)</td></tr>
     <tr><td>การตรวจเบอร์และลิงก์ (เมื่อผู้ใช้กดตรวจเอง)</td><td>เฉพาะ<strong>หมายเลขโทรศัพท์</strong>และ<strong>ลิงก์ (URL)</strong> ที่ผู้ใช้วางหรือแชร์มาให้ตรวจ — <strong>ไม่ส่งข้อความทั้งข้อความ</strong> และไม่ผูกกับตัวตนผู้ใช้</td><td>ตรวจว่าเบอร์หรือลิงก์อยู่ในฐานข้อมูลภัยคุกคาม เพื่อเตือนผู้ใช้ก่อนโทรกลับหรือกดลิงก์ ลิงก์อาจถูกส่งต่อให้ผู้ให้บริการตรวจความปลอดภัยที่เราใช้ เพื่อตรวจสอบแทนเราเท่านั้น</td><td>ความยินยอม (ผู้ใช้สั่งตรวจเอง) + ประโยชน์โดยชอบด้วยกฎหมาย (ป้องกันการฉ้อโกง)</td></tr>
     <tr><td>การตรวจสอบ SMS</td><td><strong>เฉพาะค่าแฮช SHA-256</strong> ของข้อความ — <strong>ไม่มีการส่งหรือเก็บเนื้อหา SMS ต้นฉบับ</strong></td><td>เทียบกับฐานข้อมูลแฮชของข้อความสแปมที่ชุมชนรายงาน</td><td>ประโยชน์โดยชอบด้วยกฎหมาย (ข้อมูลถูกแฮชทางเดียว)</td></tr>
-    <tr><td>คุกกี้ / localStorage</td><td>เฉพาะผู้ดูแลระบบ: <code>spaminthai_admin_key</code> เก็บใน localStorage ของเบราว์เซอร์ผู้ดูแล — <strong>ไม่มีคุกกี้ติดตามผู้ใช้ทั่วไป</strong></td><td>เข้าสู่ระบบหน้าผู้ดูแล</td><td>จำเป็นต่อการให้บริการ</td></tr>
+    <tr><td>คุกกี้ / localStorage</td><td>เฉพาะผู้ดูแลระบบ: <code>spaminthai_admin_key</code> เก็บใน localStorage ของเบราว์เซอร์ผู้ดูแล — <strong>เว็บไซต์เองไม่ตั้งคุกกี้ติดตามผู้ใช้ทั่วไป</strong></td><td>เข้าสู่ระบบหน้าผู้ดูแล</td><td>จำเป็นต่อการให้บริการ</td></tr>
+    <tr><td>คุกกี้ของบุคคลที่สาม (เว็บไซต์)</td><td>Google Analytics 4 และ Google AdSense อาจตั้งคุกกี้หรือใช้ตัวระบุบนเบราว์เซอร์ของคุณ (ดูหัวข้อ 3.1)</td><td>วัดสถิติการเข้าชมแบบรวม และแสดงโฆษณาเพื่อให้บริการฟรีต่อไปได้</td><td>ความยินยอม / ประโยชน์โดยชอบด้วยกฎหมาย</td></tr>
   </table>
 
   <h2>2. ข้อมูลที่เรา<em>ไม่</em>เก็บ</h2>
@@ -81,6 +82,16 @@
     <li><strong>LINE Official Account (@spaminthai)</strong> — ช่องทางติดต่อและรับคำขอ (ถ้าผู้ใช้เลือกติดต่อผ่าน LINE)</li>
     <li><strong>Google Play</strong> — เมื่อคุณติดตั้งผ่าน Play Store, Google จะประมวลผลข้อมูลตามนโยบายของ Google เอง</li>
   </ul>
+
+  <h2>3.1 โฆษณาและคุกกี้ของบุคคลที่สาม</h2>
+  <p>เว็บไซต์ spaminthai.com ใช้บริการ <strong>Google AdSense</strong> เพื่อแสดงโฆษณา ซึ่งเป็นรายได้หลักที่ทำให้บริการเช็คเบอร์ยังฟรีสำหรับทุกคน ผู้ให้บริการบุคคลที่สามรวมถึง Google ใช้คุกกี้เพื่อแสดงโฆษณาตามการเข้าชมเว็บไซต์นี้หรือเว็บไซต์อื่นของคุณก่อนหน้า การใช้คุกกี้โฆษณาทำให้ Google และพาร์ทเนอร์แสดงโฆษณาที่เกี่ยวข้องกับคุณได้</p>
+  <ul>
+    <li>คุณเลือกไม่รับโฆษณาตามความสนใจได้ที่ <a href="https://adssettings.google.com" rel="nofollow noopener" target="_blank">การตั้งค่าโฆษณาของ Google</a> หรือที่ <a href="https://www.aboutads.info/choices/" rel="nofollow noopener" target="_blank">aboutads.info</a></li>
+    <li>อ่านวิธีที่ Google ใช้ข้อมูลจากเว็บไซต์พาร์ทเนอร์ได้ที่ <a href="https://policies.google.com/technologies/partner-sites" rel="nofollow noopener" target="_blank">policies.google.com/technologies/partner-sites</a></li>
+    <li>เราใช้ <strong>Google Analytics 4</strong> และ Cloudflare Web Analytics เพื่อนับสถิติการเข้าชมแบบรวม ไม่ใช้ระบุตัวบุคคล</li>
+    <li>คุณลบหรือบล็อกคุกกี้ได้จากการตั้งค่าเบราว์เซอร์ โดยบริการเช็คเบอร์ยังใช้ได้ตามปกติ</li>
+  </ul>
+  <p>แอป Android ของ SpamInThai <strong>ไม่มีโฆษณาของบุคคลที่สาม</strong></p>
 
   <h2>4. การเข้ารหัสและความปลอดภัย</h2>
   <p>การรับส่งข้อมูลทั้งหมดเข้ารหัสผ่าน HTTPS/TLS ค่าแฮช SMS เป็นแบบทางเดียว (SHA-256) ไม่สามารถย้อนกลับเป็นข้อความต้นฉบับได้ ข้อมูลหลักฐานในแบบฟอร์มโต้แย้งจัดเก็บแบบจำกัดสิทธิ์การเข้าถึง</p>
@@ -114,7 +125,7 @@
   <!-- ============ ENGLISH ============ -->
   <section id="en">
   <h1 style="margin-top:48px">Privacy Policy</h1>
-  <p class="meta"><strong>Effective:</strong> 28 July 2025 · <strong>Last updated:</strong> 18 October 2026</p>
+  <p class="meta"><strong>Effective:</strong> 28 July 2025 · <strong>Last updated:</strong> 29 October 2026</p>
   <p>SpamInThai ("we", "us") operates the website <a href="https://spaminthai.com">spaminthai.com</a> and an Android application that lets people check and block scam phone numbers and spam messages. This policy explains what we collect, why, and how we protect it. We follow <strong>data minimization</strong> and comply with Thailand's Personal Data Protection Act (PDPA, B.E. 2562).</p>
 
   <div class="box"><strong>Key principles:</strong> We do not read your SMS inbox, do not store SMS content, do not request contacts access, do not sell personal data, and the app's SMS-filtering feature is <strong>OFF by default</strong> until you explicitly enable it.</div>
@@ -127,7 +138,8 @@
     <tr><td>Dispute form</td><td>Information submitted by a number's owner to request removal, which may include identity evidence (e.g. an ID-card photo), stored in Cloudflare R2</td><td>Verify ownership before removing a number</td><td>Consent (user-submitted)</td></tr>
     <tr><td>Number &amp; link checks (only when the user runs a check)</td><td>Only the <strong>phone numbers</strong> and <strong>links (URLs)</strong> the user pastes or shares for checking — <strong>never the full message</strong>, and not tied to the user's identity</td><td>Check whether a number or link appears in threat databases, to warn the user before calling back or opening it. Links may be passed to a security-check service provider acting on our behalf, solely to perform the check</td><td>Consent (user-initiated) + legitimate interest (fraud prevention)</td></tr>
     <tr><td>SMS check</td><td><strong>SHA-256 hash only</strong> of the message — <strong>the original SMS content is never sent or stored</strong></td><td>Match against a community database of reported spam-message hashes</td><td>Legitimate interest (one-way hashed)</td></tr>
-    <tr><td>Cookies / localStorage</td><td>Admins only: <code>spaminthai_admin_key</code> in the admin's browser localStorage — <strong>no tracking cookies for regular users</strong></td><td>Admin login</td><td>Strictly necessary</td></tr>
+    <tr><td>Cookies / localStorage</td><td>Admins only: <code>spaminthai_admin_key</code> in the admin's browser localStorage — <strong>no first-party tracking cookies for regular users</strong></td><td>Admin login</td><td>Strictly necessary</td></tr>
+    <tr><td>Third-party cookies (website)</td><td>Google Analytics 4 and Google AdSense may set cookies or use identifiers in your browser (see section 3.1)</td><td>Aggregate traffic statistics, and showing ads that keep the service free</td><td>Consent / legitimate interest</td></tr>
   </table>
 
   <h2>2. What we do <em>not</em> collect</h2>
@@ -147,6 +159,16 @@
     <li><strong>LINE Official Account (@spaminthai)</strong> — contact/support channel, if the user chooses to reach us via LINE.</li>
     <li><strong>Google Play</strong> — when you install via the Play Store, Google processes data under its own policy.</li>
   </ul>
+
+  <h2>3.1 Advertising &amp; third-party cookies</h2>
+  <p>spaminthai.com uses <strong>Google AdSense</strong> to show ads, the main income that keeps the number-check service free. Third-party vendors, including Google, use cookies to serve ads based on your prior visits to this or other websites. Google's use of advertising cookies enables it and its partners to serve ads to you.</p>
+  <ul>
+    <li>You can opt out of personalised advertising at <a href="https://adssettings.google.com" rel="nofollow noopener" target="_blank">Google Ads Settings</a> or <a href="https://www.aboutads.info/choices/" rel="nofollow noopener" target="_blank">aboutads.info</a>.</li>
+    <li>How Google uses data from partner sites: <a href="https://policies.google.com/technologies/partner-sites" rel="nofollow noopener" target="_blank">policies.google.com/technologies/partner-sites</a></li>
+    <li>We use <strong>Google Analytics 4</strong> and Cloudflare Web Analytics for aggregate traffic statistics only.</li>
+    <li>You can delete or block cookies in your browser settings; number checks keep working.</li>
+  </ul>
+  <p>The SpamInThai Android app shows <strong>no third-party ads</strong>.</p>
 
   <h2>4. Encryption &amp; security</h2>
   <p>All traffic is encrypted over HTTPS/TLS. SMS hashes are one-way (SHA-256) and cannot be reversed to the original text. Dispute-form evidence is stored with restricted access.</p>

@@ -157,6 +157,7 @@ export async function renderNumberPage(number, env) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${esc(canonical)}">
+${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${esc(canonical)}">
@@ -295,6 +296,9 @@ export async function renderNumberPage(number, env) {
       <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">Telegram เตือนภัย</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
+      <a href="/about">เกี่ยวกับเรา</a>
+      <a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a>
+      <a href="/contact">ติดต่อเรา</a>
     </nav>
   </div>
 </footer>
