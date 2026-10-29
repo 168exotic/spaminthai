@@ -12,7 +12,7 @@ async function load() {
   try {
     const r = await fetch('/api/stats');
     const stats = r.ok ? await r.json() : {};
-    const samples = ['021365777','026114777','0812345678','0999999999','020000000'];
+    const samples = ['021365777','026114777'];
     const items = [];
     for (const num of samples) {
       try {
@@ -23,7 +23,7 @@ async function load() {
     }
     status.remove();
     if (!items.length) {
-      list.innerHTML = '<li><a href="/check/021365777">021-365-777 <span class="badge">เช็คเบอร์นี้ →</span></a></li>';
+      list.innerHTML = '<li><a href="/check">ยังไม่มีรายการ — เช็คเบอร์ที่โทรมาหาคุณได้ที่นี่ <span class="badge">เช็คเบอร์ →</span></a></li>';
       return;
     }
     items.sort((a,b) => b.reports - a.reports);
