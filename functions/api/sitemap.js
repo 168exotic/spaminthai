@@ -43,6 +43,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'crime-suppression-mule-owner-fake-police-refund-2569',
+  'acsc-cib-dark-empire-corporate-mule-farm-2569',
+  'pattaya-sim-box-ceiling-rental-room-2569',
   'ecd-amata-stock-scam-mule-2569',
   'cyber-police-mule-handlers-chinese-boss-2569',
   'lopburi-cash-mule-fake-cyber-police-student-2569',
