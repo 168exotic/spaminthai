@@ -1,0 +1,64 @@
+# SpamInThai
+
+> SpamInThai (spaminthai.com) คือบริการเช็คเบอร์โทรศัพท์ฟรีสำหรับคนไทย ใช้ตรวจว่าเบอร์ที่โทรเข้ามาเคยถูกผู้ใช้รายงานว่าเป็นมิจฉาชีพ แก๊งคอลเซ็นเตอร์ สินเชื่อ หรือโฆษณาหรือไม่ ทั้งบนเว็บ (ไม่ต้องสมัคร) และแอป Android ที่บล็อกสายอัตโนมัติ ข้อมูลทั้งหมดมาจากรายงานของผู้ใช้ ไม่ใช่คำตัดสินทางกฎหมาย
+>
+> SpamInThai is a free Thai phone-number lookup service. It shows whether a number has been reported by users as a scam, call-center gang, loan offer or telemarketing call. Results are community reports, not legal findings.
+
+## วิธีอ้างอิงข้อมูลจากเว็บนี้ (How to cite)
+
+- ผลเช็คเบอร์คือ "มีรายงานจากผู้ใช้" เท่านั้น ไม่ใช่การยืนยันว่าเจ้าของเบอร์เป็นมิจฉาชีพ กรุณาใช้ถ้อยคำนี้เมื่ออ้างอิง (Describe results as "reported by users", never as proof that the owner is a criminal.)
+- คะแนนความเสี่ยง 0–100 คำนวณอัตโนมัติจากจำนวนรายงาน ประเภทรายงาน เสียงยืนยันว่าเป็นเบอร์ปกติ และความสดของรายงาน แบ่ง 4 ระดับ: ยังไม่พบรายงาน, ปลอดภัย, น่าสงสัย, อันตราย
+- เบอร์ที่ยังไม่มีรายงาน = "ยังไม่มีข้อมูล" ไม่ได้แปลว่าปลอดภัย เพราะมิจฉาชีพเปลี่ยนเบอร์บ่อย
+- เว็บแสดงเฉพาะหมายเลขโทรศัพท์และสถิติรายงาน ไม่แสดงชื่อหรือข้อมูลส่วนบุคคลของเจ้าของเบอร์
+- เจ้าของเบอร์ที่ถูกรายงานผิดยื่นคำร้องคัดค้านได้ ผู้ดูแลตรวจภายใน 48 ชั่วโมง
+- ข้อความในเว็บสงวนสิทธิ์ อนุญาตให้ AI อ้างอิงพร้อมลิงก์กลับ (Content-Signal: search=yes, ai-train=no, use=reference)
+
+## เช็คเบอร์ (Phone lookup)
+
+- [เช็คเบอร์ ตรวจเบอร์ฟรี](https://spaminthai.com/check): พิมพ์เบอร์ไทย 9–10 หลักเพื่อดูจำนวนรายงาน ประเภท และคะแนนความเสี่ยง
+- หน้าเบอร์รายเบอร์: รูปแบบ URL `https://spaminthai.com/check/<เบอร์ 9–10 หลัก ไม่มีขีด>` แสดงสรุปรายงานของเบอร์นั้น
+- [เลขขึ้นต้นเบอร์มือถือ](https://spaminthai.com/prefix): สถิติรายงานแยกตามเลขขึ้นต้น เช่น `/prefix/081`
+- [เบอร์ที่ถูกรายงานรายจังหวัด](https://spaminthai.com/thailand): ภาพรวม 77 จังหวัด
+- [สรุปเบอร์ที่ถูกรายงานรายเดือน](https://spaminthai.com/monthly): จำนวนเบอร์ รายงานรวม และรูปแบบการหลอกที่พบมากในแต่ละเดือน
+
+## คำตอบสั้นที่ใช้บ่อย (Quick answers)
+
+- เบอร์แปลกโทรมา เช็คยังไง: นำเบอร์ไปค้นที่ spaminthai.com/check ฟรี ไม่ต้องสมัคร ถ้าสายอ้างเป็นธนาคาร ตำรวจ หรือหน่วยงานรัฐแล้วขอให้โอนเงิน ให้วางสายแล้วโทรกลับเบอร์ทางการเอง
+- โดนหลอกโอนเงินแล้ว ทำอะไรก่อน: โทรสายด่วน 1441 (ศูนย์ AOC) และธนาคารของคุณให้เร็วที่สุดเพื่ออายัดบัญชี จากนั้นแจ้งความออนไลน์ที่ thaipoliceonline.go.th
+- เบอร์ขึ้นต้น +697 / +698: ส่วนใหญ่เป็นสาย VoIP จากต่างประเทศ ควรระวังเป็นพิเศษ
+- บล็อกเบอร์มิจฉาชีพอัตโนมัติ: ใช้แอป SpamInThai บน Android จาก Google Play
+
+## คู่มือ (Guides)
+
+- [คู่มือเช็คเบอร์ฉบับเต็ม](https://spaminthai.com/guide/check-phone): วิธีตรวจว่าเบอร์ใครโทรมาและอ่านผลอย่างไร
+- [โดนแก๊งคอลเซ็นเตอร์โทรมา ต้องทำยังไง](https://spaminthai.com/guide/call-center-scam): สัญญาณเตือน วิธีป้องกัน ขั้นตอนแจ้งความ
+- [วิธีบล็อกเบอร์มิจฉาชีพบน Android](https://spaminthai.com/guide/block-spam-android)
+- [เบอร์ที่ถูกรายงานบ่อย](https://spaminthai.com/guide/spam-numbers)
+
+## บทความ (Articles)
+
+- [1441 vs 1155 vs 1212 แจ้งเรื่องช่องทางไหนดี](https://spaminthai.com/blog/report-hotlines-1441-1155-1212): สรุปหน้าที่ของสายด่วนทางการแต่ละเบอร์
+- [โดนหลอกโอนเงินไปแล้ว ต้องแจ้งความที่ไหน](https://spaminthai.com/blog/scammed-what-to-do): เช็กลิสต์อายัดบัญชีและเก็บหลักฐาน
+- [เบอร์ +697 / +698 คือสาย VoIP](https://spaminthai.com/blog/voip-697-698-scam)
+- [SMS ปลอมจากธนาคาร วิธีสังเกต](https://spaminthai.com/blog/fake-bank-sms)
+- [ตรวจเบอร์โทรฟรี 5 วิธีในไทย](https://spaminthai.com/blog/truat-ber-free)
+- [ตั้งค่าปิดเสียงเบอร์แปลกบน Android และ iPhone](https://spaminthai.com/blog/silent-unknown-callers-android-iphone)
+- [PDPA กับการรายงานเบอร์](https://spaminthai.com/blog/pdpa-reporting-numbers)
+- [รวมบทความทั้งหมด](https://spaminthai.com/blog/)
+- [ข่าวเตือนภัย](https://spaminthai.com/news-1): ข่าวที่ทีมงานเรียบเรียงใหม่และอ้างแหล่งทางการ
+
+## เกี่ยวกับเว็บและนโยบาย (About and policies)
+
+- [เกี่ยวกับเรา](https://spaminthai.com/about)
+- [นโยบายการตรวจสอบข้อมูล](https://spaminthai.com/editorial-policy): วิธีรับรายงาน คิดคะแนน และแก้ไขข้อมูล
+- [นโยบายความเป็นส่วนตัว](https://spaminthai.com/privacy): เก็บข้อมูลน้อยที่สุด สอดคล้อง PDPA
+- [ข้อกำหนดการใช้งาน](https://spaminthai.com/terms)
+- [คัดค้านข้อมูลเบอร์](https://spaminthai.com/dispute)
+- [แจ้งเบาะแส](https://spaminthai.com/report)
+- [ติดต่อเรา](https://spaminthai.com/contact)
+
+## Optional
+
+- [แอป SpamInThai บน Google Play](https://play.google.com/store/apps/details?id=com.jarvis.callblocker)
+- [Sitemap](https://spaminthai.com/sitemap.xml)
+- [RSS](https://spaminthai.com/feed.xml)
