@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Tests for /check/:number SEO page (no real KV). */
-import { renderNumberPage, provincesForNumber, categoryBreakdown, buildFaq } from '../functions/check/render-number-page.js';
+import { renderNumberPage, provincesForNumber, categoryBreakdown, buildFaq, buildSummary, relatedGuides } from '../functions/check/render-number-page.js';
 
 const store = new Map([
   ['num:0812345678', JSON.stringify({ reports: 6, categories: { scam: 4, callcenter: 2 }, lastReport: new Date().toISOString() })],
@@ -33,6 +33,17 @@ check('danger share card', html.includes('content="https://spaminthai.com/assets
 check('no APK links', !/\.apk|href="\/download/.test(html));
 const ld = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
 check('JSON-LD valid + no raw <', !!ld && !ld[1].includes('<') && Array.isArray(JSON.parse(ld[1])));
+
+// Short answer (AI/featured-snippet friendly) + related guides
+check('summary block on page', html.includes('class="num-summary"') && html.includes('มีรายงานจากผู้ใช้ 6 ครั้ง'));
+check('summary neutral wording', /ไม่ใช่คำตัดสินว่าเจ้าของเบอร์กระทำผิด/.test(html) && !/เป็นมิจฉาชีพแน่นอน/.test(html));
+check('WebPage abstract + speakable + dateModified', ld && (() => { const w = JSON.parse(ld[1]).find((x) => x['@type'] === 'WebPage'); return w.abstract && w.speakable && w.dateModified; })());
+check('related guides section', html.includes('class="num-sec num-related"') && html.includes('href="/blog/scammed-what-to-do"'));
+const unk = buildSummary('02-123-4567', { reports: 0 }, null);
+check('summary for unreported number', unk.includes('ยังไม่มีรายงานจากผู้ใช้'));
+const rg = relatedGuides({ topCategory: 'callcenter' }, '0651234567');
+check('related: 065 + callcenter first, max 4, unique', rg[0].href === '/blog/numbers-065-scam' && rg[1].href === '/guide/call-center-scam' && rg.length === 4 && new Set(rg.map((g) => g.href)).size === 4, JSON.stringify(rg));
+check('related links internal only', relatedGuides({}, '0812345678').every((g) => g.href.startsWith('/')));
 
 const land = await (await renderNumberPage('076123456', env)).text();
 check('landline formatted', land.includes('076-123-456'));

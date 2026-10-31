@@ -99,6 +99,50 @@ export function buildFaq(display, result, provinces) {
   return faq;
 }
 
+/** Internal guides/articles per report category (all pages exist on the site). */
+const GUIDES = {
+  general: [
+    { href: '/blog/scammed-what-to-do', title: 'โดนหลอกโอนเงิน ต้องทำอะไรก่อน' },
+    { href: '/blog/report-hotlines-1441-1155-1212', title: 'สายด่วน 1441 / 1155 / 1212 แจ้งเรื่องอะไรได้บ้าง' }
+  ],
+  callcenter: [
+    { href: '/guide/call-center-scam', title: 'วิธีสังเกตแก๊งคอลเซ็นเตอร์' },
+    { href: '/blog/call-center-scam-guide-2568', title: 'มุกแก๊งคอลเซ็นเตอร์ที่พบบ่อย' }
+  ],
+  scam: [
+    { href: '/blog/fake-bank-sms', title: 'SMS ปลอมอ้างธนาคาร ดูอย่างไร' },
+    { href: '/guide/call-center-scam', title: 'วิธีสังเกตแก๊งคอลเซ็นเตอร์' }
+  ],
+  ads: [{ href: '/blog/silent-unknown-callers-android-iphone', title: 'ปิดเสียงสายไม่รู้จัก บน Android และ iPhone' }],
+  loan: [{ href: '/blog/scammed-what-to-do', title: 'โดนหลอกโอนเงิน ต้องทำอะไรก่อน' }],
+  prefix065: [{ href: '/blog/numbers-065-scam', title: 'เบอร์ขึ้นต้น 065 ที่มีคนรายงานบ่อย' }]
+};
+
+/** Up to 4 related internal links for this number, most relevant first, no duplicates. */
+export function relatedGuides(result, digits) {
+  const picks = [];
+  if (digits.startsWith('065')) picks.push(...GUIDES.prefix065);
+  if (result.topCategory && GUIDES[result.topCategory]) picks.push(...GUIDES[result.topCategory]);
+  picks.push(...GUIDES.general);
+  const seen = new Set();
+  return picks.filter((g) => (seen.has(g.href) ? false : seen.add(g.href))).slice(0, 4);
+}
+
+/**
+ * One- or two-sentence direct answer shown at the top of the page, written so
+ * search engines and AI assistants can quote it as-is. Neutral wording only
+ * ("มีรายงานจากผู้ใช้") — never names or accuses the number's owner.
+ */
+export function buildSummary(display, result, lastSeen) {
+  const net = result.carrierLabel ? ` (${result.carrierLabel})` : '';
+  if (!(result.reports > 0)) {
+    return `เบอร์ ${display}${net} ยังไม่มีรายงานจากผู้ใช้ในฐานข้อมูล SpamInThai — ถ้าปลายสายขอ OTP ให้โอนเงิน หรืออ้างเป็นเจ้าหน้าที่ ให้วางสายแล้วโทรกลับเบอร์ทางการเอง`;
+  }
+  const top = result.topCategory ? ` ส่วนใหญ่ระบุว่าเป็น "${CATEGORY_LABELS[result.topCategory] || 'อื่น ๆ'}"` : '';
+  const when = lastSeen ? ` รายงานล่าสุด ${lastSeen}` : '';
+  return `เบอร์ ${display}${net} มีรายงานจากผู้ใช้ ${result.reports} ครั้ง${top}${when} ระบบประเมินว่า "${result.label}" — ข้อมูลนี้มาจากผู้ใช้ ไม่ใช่คำตัดสินว่าเจ้าของเบอร์กระทำผิด`;
+}
+
 export async function renderNumberPage(number, env) {
   const digits = String(number || '').replace(/\D/g, '');
   if (!isValidThaiPhone(digits)) {
@@ -114,6 +158,9 @@ export async function renderNumberPage(number, env) {
   const breakdown = categoryBreakdown(result.categories, result.reports);
   const lastSeen = thaiDate(result.lastReport);
   const faq = buildFaq(display, result, provinces);
+  const summary = buildSummary(display, result, lastSeen);
+  const related = relatedGuides(result, digits);
+  const modified = Number.isFinite(Date.parse(result.lastReport)) ? new Date(Date.parse(result.lastReport)).toISOString() : null;
 
   const status = result.reports > 0 ? `${result.label} (${result.reports} รายงาน)` : 'ใครโทรมา?';
   const title = `เบอร์ ${display} ${status} เช็คเบอร์ ตรวจเบอร์ | SpamInThai`;
@@ -131,6 +178,9 @@ export async function renderNumberPage(number, env) {
       description: desc,
       url: canonical,
       inLanguage: 'th-TH',
+      abstract: summary,
+      ...(modified ? { dateModified: modified } : {}),
+      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.num-summary'] },
       isPartOf: { '@type': 'WebSite', name: 'SpamInThai', url: SITE + '/' }
     },
     {
@@ -202,6 +252,9 @@ ${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
 .num-faq summary{font-weight:700;cursor:pointer}
 .num-faq p{margin:8px 0 0;color:var(--color-text-muted)}
 .num-actions{display:flex;flex-wrap:wrap;gap:8px}
+.num-summary{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.7);font-size:.95rem;line-height:1.6}
+.num-related ul{margin:0;padding-left:18px}
+.num-related li{margin:6px 0}
 .num-actions a{background:#fff;border:1px solid var(--color-line);border-radius:99px;padding:8px 14px;text-decoration:none;font-size:.92rem}
 </style>
 </head>
@@ -236,6 +289,7 @@ ${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
   <nav class="crumbs" aria-label="breadcrumb"><a href="/">หน้าแรก</a> › <a href="/check">เช็คเบอร์โทร</a> › เบอร์ ${esc(display)}</nav>
   <article class="verdict-card ${verdictClass}">
     <h1>เบอร์ ${esc(display)} — ${esc(result.label)}</h1>
+    <p class="num-summary"><b>สรุปสั้น:</b> ${esc(summary)}</p>
     <p class="meta">${esc(result.advice)}</p>
     <div class="stats">
       ${result.carrierLabel ? `<div class="stat"><b>${esc(result.carrierLabel)}</b><small>เครือข่าย</small></div>` : ''}
@@ -271,6 +325,10 @@ ${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
       ${provinces.map((p) => `<a href="/${p.slug}">เบอร์ร้องเรียน${esc(p.th)}</a>`).join('')}
       ${result.networkType === 'mobile' && MOBILE_PREFIXES.includes(digits.slice(0, 3)) ? `<a href="/prefix/${digits.slice(0, 3)}">เบอร์ ${digits.slice(0, 3)} อื่นที่ถูกรายงาน</a>` : ''}
     </div>
+  </section>
+  <section class="num-sec num-related">
+    <h2>อ่านต่อ: วิธีรับมือ</h2>
+    <ul>${related.map((g) => `<li><a href="${g.href}">${esc(g.title)}</a></li>`).join('')}</ul>
   </section>
   <section class="num-sec num-faq">
     <h2>คำถามที่พบบ่อยเกี่ยวกับเบอร์ ${esc(display)}</h2>
