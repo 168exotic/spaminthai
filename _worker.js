@@ -42,6 +42,7 @@ import {
   renderPrefixIndex,
 } from './functions/prefix/render-prefix-page.js';
 import { handleSitemapGet, handleNumbersSitemapGet } from './functions/api/sitemap.js';
+import { handleBlogLatest } from './functions/api/blog-posts.js';
 import { matchMonthlyPath, renderMonthlyPage, renderMonthlyIndex } from './functions/monthly/render-monthly-page.js';
 import {
   handleMarketingFeedGet,
@@ -264,6 +265,7 @@ async function route(request, env, url, ctx) {
       if (request.method === 'GET') return policeVcfGet();
     }
 
+    if (path === '/api/blog/latest') return handleBlogLatest(request);
     if (path === '/sitemap.xml') return handleSitemapGet(env);
     if (path.startsWith('/sitemap-numbers')) {
       const res = await handleNumbersSitemapGet(env, path);
