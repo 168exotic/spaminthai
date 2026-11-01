@@ -240,6 +240,17 @@
           <a href="https://www.youtube.com/shorts/PUpOHJsn1VE" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm text-rose-500 font-semibold hover:underline">▶ ดูบน YouTube</a>
         </div>
       </div>
+
+      <!-- Latest articles (auto-updated from /api/blog/latest) -->
+      <section class="latest-posts bg-white rounded-2xl border border-slate-100 p-6 md:p-8 shadow-sm fade-up" aria-labelledby="latest-posts-title">
+        <div class="latest-posts__head">
+          <h2 id="latest-posts-title" class="text-xl font-extrabold text-slate-800">บทความล่าสุด</h2>
+          <a href="/blog" class="latest-posts__all">ดูบทความทั้งหมด →</a>
+        </div>
+        <div class="latest-posts__grid" data-latest-posts>
+          <a class="latest-card" href="/blog/fake-parcel-sms"><img src="/assets/blog/fake-parcel-sms.webp" alt="SMS พัสดุตกค้าง / สายแจ้งพัสดุผิดกฎหมาย คืออะไร? วิธีสังเกตและเช็คกับขนส่งจริง" width="1200" height="630" loading="lazy"><span class="latest-card__body"><span class="latest-card__title">SMS พัสดุตกค้าง / สายแจ้งพัสดุผิดกฎหมาย คืออะไร? วิธีสังเกตและเช็คกับขนส่งจริง</span><span class="latest-card__desc">ได้ SMS แจ้งพัสดุตกค้าง ให้จ่ายค่าส่งเพิ่ม หรือมีสายบอกว่าพัสดุของคุณผิดกฎหมาย ดูวิธีสังเกต วิธีเช็คกับขนส่งตัวจริง และต้องทำอะไรถ้ากดลิงก์ไปแล้ว</span></span></a><a class="latest-card" href="/blog/fake-police-dsi-call"><img src="/assets/blog/fake-police-dsi-call.webp" alt="สายอ้างเป็นตำรวจ / DSI / ปปง. บอกว่าเกี่ยวคดีฟอกเงิน ให้โอนเงินตรวจสอบ ทำยังไงดี" width="1200" height="630" loading="lazy"><span class="latest-card__body"><span class="latest-card__title">สายอ้างเป็นตำรวจ / DSI / ปปง. บอกว่าเกี่ยวคดีฟอกเงิน ให้โอนเงินตรวจสอบ ทำยังไงดี</span><span class="latest-card__desc">มีสายอ้างเป็นตำรวจ DSI หรือ ปปง. บอกว่าบัญชีคุณเกี่ยวกับคดีฟอกเงิน ให้โอนเงินไปตรวจสอบ รู้ทันบทพูด สัญญาณอันตราย วิธีเช็คกับหน่วยงานจริง และทำอะไรถ้าโอนไปแล้ว</span></span></a><a class="latest-card" href="/blog/08-mobile-who-called"><img src="/assets/blog/08-mobile-who-called.webp" alt="เบอร์ 08 โทรมา เบอร์อะไร? แยกสายเทเลเซลส์ ทวงหนี้ และมิจฉาชีพ" width="1200" height="630" loading="lazy"><span class="latest-card__body"><span class="latest-card__title">เบอร์ 08 โทรมา เบอร์อะไร? แยกสายเทเลเซลส์ ทวงหนี้ และมิจฉาชีพ</span><span class="latest-card__desc">เบอร์ 08 เป็นเบอร์มือถือที่ใช้มานาน ทำไมสายขายประกัน ทวงหนี้ และมิจฉาชีพใช้เบอร์ 08 ด้วย สิทธิของคุณเมื่อถูกโทรขายของหรือทวงหนี้ และทำไมดูค่ายจากเลขไม่ได้</span></span></a>
+        </div>
+      </section>
     </div>
 
     <!-- Right: Sidebar (tips + report first on mobile) -->
@@ -415,5 +426,6 @@
 <script src="/assets/share.js"></script>
 <script src="/assets/site.js"></script>
 
+<script src="/assets/latest-posts.js" defer></script>
 </body>
 </html>
