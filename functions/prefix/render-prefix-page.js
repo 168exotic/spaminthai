@@ -112,7 +112,7 @@ export async function renderPrefixPage(prefix, env) {
   <div class="pv-code">📱 เบอร์มือถือขึ้นต้น <b>${esc(prefix)}</b> · ค่าย ${esc(carrierLabel)}</div>
   ${items.length ? `<p class="lead" style="font-size:.9rem">มีเบอร์ ${esc(prefix)} ที่ถูกรายงาน ${total} เบอร์${dangerCount ? ` (อันตราย ${dangerCount} เบอร์ใน 20 อันดับแรก)` : ''}</p>` : ''}
   <form class="pv-form" action="/check" method="get" role="search">
-    <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="เช่น ${esc(prefix)}1234567" aria-label="เบอร์ที่ต้องการตรวจ" required>
+    <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="เช่น ${esc(prefix)}-xxx-xxxx" aria-label="เบอร์ที่ต้องการตรวจ" required>
     <button type="submit">ตรวจสอบ</button>
   </form>
 </section>

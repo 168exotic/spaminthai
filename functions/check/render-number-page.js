@@ -3,6 +3,7 @@
 import { assess } from '../api/risk-assess.js';
 import { identifyCarrier, isValidThaiPhone, MOBILE_PREFIXES } from '../api/carrier.js';
 import { PROVINCES } from '../province/provinces.js';
+import { relatedNews, thaiShortDate } from '../news/related-news.js';
 
 const SITE = 'https://spaminthai.com';
 // Share-card per verdict (assets/og/number-<verdict>.png, 1200x630).
@@ -158,6 +159,7 @@ export async function renderNumberPage(number, env) {
   const breakdown = categoryBreakdown(result.categories, result.reports);
   const lastSeen = thaiDate(result.lastReport);
   const faq = buildFaq(display, result, provinces);
+  const news = relatedNews(provinces.map((p) => p.slug), 3);
   const summary = buildSummary(display, result, lastSeen);
   const related = relatedGuides(result, digits);
   const modified = Number.isFinite(Date.parse(result.lastReport)) ? new Date(Date.parse(result.lastReport)).toISOString() : null;
@@ -329,6 +331,10 @@ ${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
   <section class="num-sec num-related">
     <h2>อ่านต่อ: วิธีรับมือ</h2>
     <ul>${related.map((g) => `<li><a href="${g.href}">${esc(g.title)}</a></li>`).join('')}</ul>
+  </section>
+  <section class="num-sec num-related">
+    <h2>ข่าวเตือนภัยล่าสุด</h2>
+    <ul>${news.map((n) => `<li><a href="${esc(n.href)}">${esc(n.title)}</a> <small>${esc(thaiShortDate(n.date))}</small></li>`).join('')}</ul>
   </section>
   <section class="num-sec num-faq">
     <h2>คำถามที่พบบ่อยเกี่ยวกับเบอร์ ${esc(display)}</h2>

@@ -4,6 +4,7 @@
 
 import { assess } from '../api/risk-assess.js';
 import { PROVINCES, REGIONS, ALIASES, sameCode } from './provinces.js';
+import { relatedNews, thaiShortDate } from '../news/related-news.js';
 
 const SITE = 'https://spaminthai.com';
 const OG_IMAGE = SITE + '/assets/og-image.jpg';
@@ -170,6 +171,7 @@ const STYLE = `<style>
 .pv-tag.safe,.pv-tag.unknown{background:var(--color-safe-bg);color:#065f46}
 .pv-empty{background:#fff;border:1px dashed var(--color-line);border-radius:14px;padding:14px;color:var(--color-text-muted)}
 .pv-tips{padding-left:20px;margin:0}.pv-tips li{margin:6px 0}
+.pv-news ul{padding-left:20px;margin:0}.pv-news li{margin:8px 0}.pv-news small{color:#64748b}
 .pv-app{margin-top:26px;padding:18px;border-radius:16px;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 .pv-app p{margin:0;max-width:440px}
 .pv-app a{background:#fff;color:#0f172a;font-weight:700;padding:10px 16px;border-radius:12px;text-decoration:none;white-space:nowrap}
@@ -226,6 +228,7 @@ export async function renderProvincePage(slug, env) {
   if (!p) return new Response('Not found', { status: 404 });
   const { total, items } = await reportedForCode(env, p.code);
   const shared = sameCode(p.code, slug);
+  const news = relatedNews([slug], 4);
   const canonical = `${SITE}/${slug}`;
   const title = `เช็คเบอร์มิจฉาชีพ ${p.th} — เบอร์ ${p.code} โทรมาจากไหน? | SpamInThai`;
   const desc = `เบอร์บ้านขึ้นต้น ${p.code} คือเบอร์จาก${p.th}${shared.length ? 'และจังหวัดใกล้เคียง' : ''} ตรวจเบอร์แปลกฟรี ดูเบอร์ ${p.code} ที่ถูกรายงานว่าเป็นมิจฉาชีพ/สแปม พร้อมวิธีป้องกันแก๊งคอลเซ็นเตอร์ใน${p.th}`;
@@ -255,7 +258,7 @@ export async function renderProvincePage(slug, env) {
   <div class="pv-code">☎️ เบอร์บ้าน${esc(p.th)} ขึ้นต้นด้วย <b>${esc(p.code)}</b></div>
   <p class="lead" style="font-size:.9rem">${esc(sharedTxt)}</p>
   <form class="pv-form" action="/check" method="get" role="search">
-    <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="เช่น ${esc(p.code === '02' ? '021234567' : p.code + '123456')}" aria-label="เบอร์ที่ต้องการตรวจ" required>
+    <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="เช่น ${esc(p.code === '02' ? '02-xxx-xxxx' : p.code + '-xxx-xxx')}" aria-label="เบอร์ที่ต้องการตรวจ" required>
     <button type="submit">ตรวจสอบ</button>
   </form>
 </section>
@@ -280,6 +283,12 @@ export async function renderProvincePage(slug, env) {
   </ul>
 </section>
 
+<section class="pv-sec pv-news">
+  <h2>ข่าวเตือนภัยที่เกี่ยวข้อง</h2>
+  <ul>${news.map((n) => `<li><a href="${esc(n.href)}">${esc(n.title)}</a><br><small>${n.local ? `ข่าวใน${esc(p.th)} · ` : ''}${esc(thaiShortDate(n.date))}</small></li>`).join('')}</ul>
+  <p><a href="/news-1">ข่าวเตือนภัยทั้งหมด →</a></p>
+</section>
+
 ${neighbors}
 
 <div class="pv-app">
@@ -296,6 +305,7 @@ ${neighbors}
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'WebPage', name: title, description: desc, url: canonical, inLanguage: 'th-TH',
+        relatedLink: news.map((n) => SITE + n.href),
         about: { '@type': 'AdministrativeArea', name: p.th, alternateName: p.en, containedInPlace: { '@type': 'Country', name: 'Thailand' } },
         isPartOf: { '@type': 'WebSite', name: 'SpamInThai', url: SITE + '/' } },
       { '@type': 'BreadcrumbList', itemListElement: [
