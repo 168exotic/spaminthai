@@ -41,6 +41,9 @@ const BLOG_SLUGS = [
   'berkhrai-check-caller',
   'truat-ber-free',
   '02-landline-who-called',
+  '06-mobile-who-called',
+  'silent-call-hang-up',
+  'check-bank-account-before-transfer',
 ];
 
 const NEWS_SLUGS = [
