@@ -79,6 +79,47 @@ export async function reportedForPrefix(env, prefix) {
   }
 }
 
+/**
+ * Short direct answer for the hero (cited by Google AI Overviews / ChatGPT / Perplexity).
+ * Never says a prefix "is" a scam — only that users have reported some numbers.
+ */
+export function buildPrefixSummary(prefix, carrierLabel, reportedCount) {
+  const reported = reportedCount > 0
+    ? `ในฐานข้อมูล SpamInThai มีเบอร์ ${prefix} ที่มีรายงานจากผู้ใช้ ${reportedCount} เบอร์`
+    : `ตอนนี้ยังไม่มีเบอร์ ${prefix} ที่มีรายงานจากผู้ใช้ในฐานข้อมูล SpamInThai`;
+  return `เบอร์ขึ้นต้น ${prefix} เป็นเบอร์มือถือที่ออกให้ค่าย ${carrierLabel} ใช้ได้ทั่วประเทศ ไม่ได้แปลว่าเป็นมิจฉาชีพทุกเบอร์ — ${reported} ควรเช็คเบอร์เต็มก่อนรับสายหรือโทรกลับ`;
+}
+
+/** Question/answer pairs shown on the page and emitted as FAQPage schema. */
+export function buildPrefixFaq(prefix, carrierLabel, reportedCount) {
+  return [
+    {
+      q: `เบอร์ ${prefix} เป็นมิจฉาชีพไหม?`,
+      a: `ไม่ใช่ทุกเบอร์ เบอร์ขึ้นต้น ${prefix} ส่วนใหญ่เป็นเบอร์ของคนทั่วไป ${
+        reportedCount > 0
+          ? `แต่มีเบอร์ ${prefix} ${reportedCount} เบอร์ที่มีรายงานจากผู้ใช้ใน SpamInThai`
+          : `และยังไม่มีเบอร์ ${prefix} ที่มีรายงานจากผู้ใช้ใน SpamInThai`
+      } ให้ใส่เบอร์เต็ม 10 หลักในช่องเช็คเบอร์เพื่อดูว่าเบอร์นั้นมีรายงานหรือไม่`,
+    },
+    {
+      q: `เบอร์ ${prefix} เป็นค่ายอะไร?`,
+      a: `เลขขึ้นต้น ${prefix} ถูกจัดสรรให้ค่าย ${carrierLabel} แต่เจ้าของเบอร์อาจย้ายค่ายแบบใช้เบอร์เดิมไปแล้ว จึงอาจไม่ตรงกับค่ายที่ใช้อยู่จริง`,
+    },
+    {
+      q: `เบอร์ ${prefix} โทรมาจากจังหวัดไหน?`,
+      a: `บอกไม่ได้ เพราะเบอร์มือถือขึ้นต้น ${prefix} ใช้ได้ทั่วประเทศ ไม่ผูกกับจังหวัด ต่างจากเบอร์บ้านที่ขึ้นต้นด้วยรหัสพื้นที่ เช่น 02 หรือ 053`,
+    },
+    {
+      q: `ถ้าถูกเบอร์ ${prefix} หลอกโอนเงินต้องทำอย่างไร?`,
+      a: 'โทรสายด่วน 1441 (ศูนย์ AOC) ทันทีเพื่อขออายัดบัญชีปลายทาง แจ้งธนาคารของคุณ แล้วแจ้งความกับตำรวจ พร้อมเก็บสลิปโอนเงินและแชตไว้เป็นหลักฐาน',
+    },
+    {
+      q: `จะบล็อกเบอร์ ${prefix} ที่มีรายงานอัตโนมัติได้อย่างไร?`,
+      a: 'ติดตั้งแอป SpamInThai จาก Google Play (Android) แอปจะเตือนเบอร์ที่มีรายงานจากผู้ใช้ก่อนคุณรับสาย ใช้ฟรี',
+    },
+  ];
+}
+
 function tag(verdict) {
   return verdict === 'danger' ? 'อันตราย' : verdict === 'caution' ? 'น่าสงสัย' : 'มีรายงาน';
 }
@@ -92,6 +133,8 @@ export async function renderPrefixPage(prefix, env) {
   const title = `เบอร์ ${prefix} มิจฉาชีพ? เช็คเบอร์ขึ้นต้น ${prefix} ค่าย ${carrierLabel} | SpamInThai`;
   const desc = `เบอร์ขึ้นต้น ${prefix} เป็นเบอร์มือถือที่ออกให้ค่าย ${carrierLabel}${items.length ? ` — มีเบอร์ ${prefix} ถูกรายงานในระบบ ${total} เบอร์` : ''} ดูรายการเบอร์ ${prefix} ที่ถูกรายงานว่าเป็นมิจฉาชีพ/สแปมล่าสุด และเช็คเบอร์ฟรี`;
   const blog = RELATED_BLOG[prefix];
+  const summary = buildPrefixSummary(prefix, carrierLabel, items.length ? total : 0);
+  const faq = buildPrefixFaq(prefix, carrierLabel, items.length ? total : 0);
 
   const list = items.length
     ? `<ul class="pv-list">${items
@@ -110,6 +153,7 @@ export async function renderPrefixPage(prefix, env) {
   <h1>เบอร์ ${esc(prefix)} มิจฉาชีพไหม? เช็คเบอร์ขึ้นต้น ${esc(prefix)}</h1>
   <p class="lead">เบอร์ ${esc(prefix)} โทรมาแล้วไม่รู้จัก? ตรวจก่อนรับสายจากฐานข้อมูลเบอร์ที่คนไทยช่วยกันรายงาน ฟรี ไม่ต้องสมัคร</p>
   <div class="pv-code">📱 เบอร์มือถือขึ้นต้น <b>${esc(prefix)}</b> · ค่าย ${esc(carrierLabel)}</div>
+  <p class="pv-summary"><b>สรุปสั้น:</b> ${esc(summary)}</p>
   ${items.length ? `<p class="lead" style="font-size:.9rem">มีเบอร์ ${esc(prefix)} ที่ถูกรายงาน ${total} เบอร์${dangerCount ? ` (อันตราย ${dangerCount} เบอร์ใน 20 อันดับแรก)` : ''}</p>` : ''}
   <form class="pv-form" action="/check" method="get" role="search">
     <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="เช่น ${esc(prefix)}-xxx-xxxx" aria-label="เบอร์ที่ต้องการตรวจ" required>
@@ -138,6 +182,11 @@ export async function renderPrefixPage(prefix, env) {
   ${blog ? `<p><a href="/blog/${esc(blog.slug)}">อ่านต่อ: ${esc(blog.title)} →</a></p>` : ''}
 </section>
 
+<section class="pv-sec pv-faq">
+  <h2>คำถามที่พบบ่อยเกี่ยวกับเบอร์ ${esc(prefix)}</h2>
+  ${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}
+</section>
+
 <div class="pv-app">
   <p><b>บล็อกเบอร์ ${esc(prefix)} อันตรายอัตโนมัติ</b><br>แอป SpamInThai เตือนเบอร์มิจฉาชีพก่อนรับสาย ใช้ฟรีบน Android</p>
   <a href="${PLAY}" target="_blank" rel="noopener noreferrer">▶ ดาวน์โหลดบน Google Play</a>
@@ -152,11 +201,13 @@ export async function renderPrefixPage(prefix, env) {
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'WebPage', name: title, description: desc, url: canonical, inLanguage: 'th-TH',
+        speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.pv-summary'] },
         isPartOf: { '@type': 'WebSite', name: 'SpamInThai', url: SITE + '/' } },
       { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'SpamInThai', item: SITE + '/' },
         { '@type': 'ListItem', position: 2, name: 'เบอร์มือถือตามเลขขึ้นต้น', item: SITE + '/prefix' },
         { '@type': 'ListItem', position: 3, name: `เบอร์ ${prefix}` } ] },
+      { '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
     ],
   };
   return html(page({ title, desc, canonical, schema, body }));

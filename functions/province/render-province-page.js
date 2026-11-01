@@ -172,6 +172,10 @@ const STYLE = `<style>
 .pv-empty{background:#fff;border:1px dashed var(--color-line);border-radius:14px;padding:14px;color:var(--color-text-muted)}
 .pv-tips{padding-left:20px;margin:0}.pv-tips li{margin:6px 0}
 .pv-news ul{padding-left:20px;margin:0}.pv-news li{margin:8px 0}.pv-news small{color:#64748b}
+.pv-summary{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:rgba(15,23,42,.04);font-size:.95rem;line-height:1.6}
+.pv-faq details{background:#fff;border:1px solid var(--color-line);border-radius:12px;padding:12px 14px;margin:8px 0}
+.pv-faq summary{font-weight:700;cursor:pointer}
+.pv-faq details p{margin:8px 0 0;color:var(--color-text-muted)}
 .pv-app{margin-top:26px;padding:18px;border-radius:16px;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 .pv-app p{margin:0;max-width:440px}
 .pv-app a{background:#fff;color:#0f172a;font-weight:700;padding:10px 16px;border-radius:12px;text-decoration:none;white-space:nowrap}

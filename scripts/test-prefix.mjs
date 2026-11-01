@@ -41,10 +41,18 @@ check('links related blog', html.includes('/blog/numbers-065-scam'));
 check('links sibling prefixes', html.includes('href="/prefix/061"'));
 check('Google Play CTA, no APK', html.includes(PLAY) && !/\.apk|href="\/download/.test(html));
 check('canonical', html.includes('<link rel="canonical" href="https://spaminthai.com/prefix/065">'));
+const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+const faqNode = ld['@graph'].find((n) => n['@type'] === 'FAQPage');
+check('FAQPage schema with 5 questions', faqNode && faqNode.mainEntity.length === 5);
+check('FAQ visible on page matches schema', faqNode && faqNode.mainEntity.every((q) => html.includes(q.name)));
+check('speakable points at summary', ld['@graph'][0].speakable?.cssSelector?.includes('.pv-summary') && html.includes('class="pv-summary"'));
+check('summary uses "มีรายงานจากผู้ใช้" wording', /class="pv-summary"[^]*?มีรายงานจากผู้ใช้ 2 เบอร์/.test(html));
+check('never claims prefix is a scam', !/เบอร์ 065 (เป็น|คือ)มิจฉาชีพ(?!ไหม|ทุก)/.test(html));
 check('invalid prefix -> 404', (await renderPrefixPage('070', env)).status === 404);
 
 const empty = await (await renderPrefixPage('099', env)).text();
 check('empty prefix shows report CTA', empty.includes('ยังไม่มีเบอร์ 099'));
+check('empty prefix summary: no reports', empty.includes('ยังไม่มีเบอร์ 099 ที่มีรายงานจากผู้ใช้'));
 
 const idx = await renderPrefixIndex().text();
 check('index links all prefixes', MOBILE_PREFIXES.every((p) => idx.includes(`href="/prefix/${p}"`)));
