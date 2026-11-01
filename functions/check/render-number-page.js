@@ -52,6 +52,55 @@ function thaiDate(value) {
   }
 }
 
+/** Category explainer shown on number pages — unique, useful guidance per report type. */
+const CATEGORY_GUIDE = {
+  scam: {
+    title: 'มิจฉาชีพหลอกโอนเงินมักใช้วิธีไหน',
+    signs: ['อ้างว่าคุณมีพัสดุผิดกฎหมาย บัญชีถูกใช้ฟอกเงิน หรือค้างชำระ เพื่อให้ตกใจ', 'เร่งให้ทำทันที ห้ามวางสาย ห้ามปรึกษาใคร', 'ให้โอนเงินไป "ตรวจสอบ" หรือ "พักเงิน" ในบัญชีที่ไม่ใช่ชื่อหน่วยงาน', 'ขอรหัส OTP เลขบัตร หรือให้กดลิงก์และติดตั้งแอป'],
+    todo: 'วางสายทันที อย่าโทรกลับเบอร์เดิม ถ้าต้องการตรวจสอบให้ติดต่อหน่วยงานนั้นผ่านเบอร์ทางการที่หาเองจากเว็บไซต์หรือหลังบัตร',
+  },
+  callcenter: {
+    title: 'ลักษณะสายจากแก๊งคอลเซ็นเตอร์',
+    signs: ['แนะนำตัวเป็นเจ้าหน้าที่ตำรวจ ธนาคาร ไปรษณีย์ ขนส่ง หรือหน่วยงานรัฐ', 'มีเสียงพื้นหลังเหมือนสำนักงาน หรือโอนสายต่อให้ "หัวหน้า" เพื่อให้ดูน่าเชื่อ', 'ขอให้แอดไลน์หรือวิดีโอคอลเพื่อ "สอบสวน"', 'เบอร์ที่โทรมาอาจดูเหมือนเบอร์ไทยปกติ เพราะใช้อุปกรณ์ส่งต่อสายจากต่างประเทศ'],
+    todo: 'หน่วยงานจริงไม่สอบสวนทางโทรศัพท์หรือไลน์ และไม่ให้โอนเงินเพื่อพิสูจน์ความบริสุทธิ์ วางสายแล้วโทรกลับหน่วยงานผ่านเบอร์ทางการเอง',
+  },
+  loan: {
+    title: 'สายเรื่องเงินกู้ที่ควรระวัง',
+    signs: ['เสนอเงินกู้อนุมัติง่าย ไม่เช็กเครดิต โดยที่คุณไม่ได้สมัคร', 'ให้จ่าย "ค่าธรรมเนียม" "ค่าค้ำประกัน" หรือ "ค่าปลดล็อกวงเงิน" ก่อนได้รับเงิน', 'ให้ติดตั้งแอปเงินกู้นอก Google Play ที่ขอสิทธิ์อ่านรายชื่อผู้ติดต่อ', 'ทวงหนี้ด้วยการข่มขู่ หรือโทรหาคนในรายชื่อผู้ติดต่อ'],
+    todo: 'ผู้ให้สินเชื่อที่ถูกกฎหมายไม่เก็บเงินก่อนปล่อยกู้ ตรวจรายชื่อผู้ให้บริการที่ได้รับอนุญาตได้จากเว็บไซต์ธนาคารแห่งประเทศไทยก่อนตัดสินใจ',
+  },
+  ads: {
+    title: 'สายโฆษณาและขายของ',
+    signs: ['โทรเสนอขายประกัน คอร์สเรียน บัตรเครดิต หรือโปรโมชันซ้ำหลายครั้ง', 'ได้เบอร์คุณมาโดยที่คุณจำไม่ได้ว่าเคยให้ไว้', 'กดดันให้ตัดสินใจทันที หรือขอข้อมูลส่วนตัวเพื่อ "ลงทะเบียน"'],
+    todo: 'สายโฆษณาส่วนใหญ่ไม่อันตราย แต่คุณมีสิทธิ์ปฏิเสธและขอให้ลบเบอร์ออกจากรายชื่อติดต่อ ไม่ควรให้เลขบัตรหรือรหัส OTP ทางโทรศัพท์',
+  },
+  safe: {
+    title: 'ผู้ใช้บางส่วนยืนยันว่าเป็นเบอร์ปกติ',
+    signs: ['อาจเป็นเบอร์ร้านค้า ขนส่ง หรือบริษัทที่โทรติดต่อลูกค้าจริง', 'เบอร์ที่เคยถูกใช้ในทางไม่ดีอาจเปลี่ยนเจ้าของแล้ว'],
+    todo: 'ยังควรระวังทุกครั้งที่มีการขอเงินหรือข้อมูลส่วนตัว ไม่ว่าเบอร์จะมีประวัติอย่างไร',
+  },
+};
+
+function categoryGuideHtml(topCategory, display) {
+  const g = CATEGORY_GUIDE[topCategory];
+  if (!g) return '';
+  return `<section class="num-sec num-guide">
+    <h2>${esc(g.title)}</h2>
+    <p>รายงานส่วนใหญ่ของเบอร์ ${esc(display)} อยู่ในหมวดนี้ สัญญาณที่ผู้ใช้มักพบกับสายประเภทนี้ ได้แก่</p>
+    <ul>${g.signs.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+    <p><b>ควรทำอย่างไร:</b> ${esc(g.todo)}</p>
+  </section>`;
+}
+
+function aboutNumberHtml(result, display, digits) {
+  const parts = [];
+  if (result.networkType === 'landline') parts.push(`เบอร์ ${display} เป็นเบอร์โทรศัพท์บ้าน/สำนักงาน (ขึ้นต้น ${digits.slice(0, 2)}) ซึ่งองค์กรและบริษัทมักใช้ แต่มิจฉาชีพก็ปลอมเบอร์ลักษณะนี้ได้`);
+  else if (result.networkType === 'mobile') parts.push(`เบอร์ ${display} เป็นเบอร์โทรศัพท์มือถือ${result.carrierLabel ? ` ระบบ${result.carrierLabel}` : ''} ผู้ให้บริการระบุจากเลขขึ้นต้นตามการจัดสรรเลขหมายเดิม ผู้ใช้อาจย้ายค่ายโดยใช้เบอร์เดิมได้`);
+  if (result.reports > 0) parts.push(`ข้อมูลในหน้านี้มาจากรายงานของผู้ใช้ ${result.reports} ครั้ง${result.freshnessLabel ? ` (${result.freshnessLabel})` : ''} คะแนนความเสี่ยงคำนวณอัตโนมัติตาม<a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a> ไม่ใช่คำตัดสินว่าเจ้าของเบอร์กระทำผิด`);
+  parts.push('ถ้านี่คือเบอร์ของคุณและข้อมูลไม่ถูกต้อง <a href="/dispute?num=' + digits + '">ยื่นคำร้องขอแก้ไข</a> ได้ ทีมงานตรวจสอบภายใน 48 ชั่วโมง');
+  return `<section class="num-sec num-about"><h2>เกี่ยวกับเบอร์ ${esc(display)}</h2>${parts.map((t) => `<p>${t}</p>`).join('')}</section>`;
+}
+
 /** Per-category report counts, largest first. */
 export function categoryBreakdown(categories, reports) {
   const total = Math.max(Number(reports) || 0, 1);
@@ -255,7 +304,9 @@ ${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
 .num-faq p{margin:8px 0 0;color:var(--color-text-muted)}
 .num-actions{display:flex;flex-wrap:wrap;gap:8px}
 .num-summary{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.7);font-size:.95rem;line-height:1.6}
-.num-related ul{margin:0;padding-left:18px}
+.num-related ul,.num-guide ul{margin:0;padding-left:18px}
+.num-guide li{margin:6px 0}
+.num-about p,.num-guide p{line-height:1.7;margin:8px 0}
 .num-related li{margin:6px 0}
 .num-actions a{background:#fff;border:1px solid var(--color-line);border-radius:99px;padding:8px 14px;text-decoration:none;font-size:.92rem}
 </style>
@@ -313,6 +364,8 @@ ${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
     <h2>ประเภทที่ถูกรายงาน</h2>
     ${breakdown.map((b) => `<div class="cat-row"><span><b>${esc(b.label)}</b><small>${b.count} ครั้ง</small></span><div class="cat-bar"><i style="width:${b.pct}%"></i></div></div>`).join('')}
   </section>` : ''}
+  ${categoryGuideHtml(result.topCategory, display)}
+  ${aboutNumberHtml(result, display, digits)}
   <aside class="num-app">
     <p><b>${result.verdict === 'danger' || result.verdict === 'caution' ? 'บล็อกเบอร์นี้อัตโนมัติ' : 'รู้ก่อนรับสายทุกครั้ง'}</b><br>แอป SpamInThai เตือนเบอร์มิจฉาชีพก่อนคุณรับสาย ฟรีบน Android</p>
     <a href="${PLAY}" target="_blank" rel="noopener noreferrer">ดาวน์โหลดบน Google Play</a>
