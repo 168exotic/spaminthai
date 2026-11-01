@@ -326,6 +326,8 @@ ${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
     </a>
     <nav class="site-nav" aria-label="หลัก">
       <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/news" class="site-nav__link">ข่าวสาร</a>
+      <a href="/blog" class="site-nav__link">บทความ</a>
       <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
       <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer" class="site-nav__link">ดาวน์โหลดแอป</a>
       <a class="site-nav__link site-nav__link--apk" href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดบน Google Play</a>
@@ -333,6 +335,8 @@ ${result.reports > 0 ? '' : '<meta name="robots" content="noindex, follow">'}
   </div>
   <div class="site-header__mobile">
     <a href="/check" class="site-tab site-tab--active">เช็คเบอร์โทร</a>
+    <a href="/news" class="site-tab">ข่าวสาร</a>
+    <a href="/blog" class="site-tab">บทความ</a>
     <a href="/report" class="site-tab">แจ้งเบาะแส</a>
     <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer" class="site-tab site-tab--apk">ดาวน์โหลดบน Google Play</a>
   </div>
