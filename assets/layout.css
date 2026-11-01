@@ -723,3 +723,17 @@
   text-align: center;
   margin-top: 0.5rem;
 }
+
+/* Blog article: hero image, app CTA, share bar */
+.post-hero{margin:16px 0 20px;border-radius:14px;overflow:hidden;line-height:0}
+.post-hero img{width:100%;height:auto;display:block}
+.app-cta{display:flex;gap:18px;align-items:center;margin:28px 0;padding:18px;border-radius:14px;background:linear-gradient(135deg,#0b1020,#16213f);color:#fff}
+.app-cta img{width:96px;height:auto;border-radius:12px;flex:none}
+.app-cta h3{margin:0 0 6px;font-size:1.1rem;color:#fff}
+.app-cta p{margin:0 0 12px;color:#cbd5e1;font-size:.95rem}
+.app-cta a.play-btn{display:inline-block;background:#f43f5e;color:#fff;font-weight:700;padding:10px 18px;border-radius:10px;text-decoration:none}
+.share-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:24px 0}
+.share-bar span{font-weight:600;margin-right:4px}
+.share-bar a,.share-bar button{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;border:0;font:inherit;font-size:.9rem;font-weight:600;color:#fff;text-decoration:none;cursor:pointer}
+.share-bar .s-line{background:#06c755}.share-bar .s-fb{background:#1877f2}.share-bar .s-x{background:#111}.share-bar .s-copy,.share-bar .s-native{background:#475569}
+@media (max-width:520px){.app-cta{flex-direction:column;text-align:center}.app-cta img{width:120px}}
