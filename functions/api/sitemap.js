@@ -40,6 +40,7 @@ const BLOG_SLUGS = [
   'new-scam-tricks-2568-07',
   'berkhrai-check-caller',
   'truat-ber-free',
+  '02-landline-who-called',
 ];
 
 const NEWS_SLUGS = [
