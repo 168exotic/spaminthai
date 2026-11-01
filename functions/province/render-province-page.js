@@ -108,6 +108,8 @@ function header() {
     </a>
     <nav class="site-nav" aria-label="หลัก">
       <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/news" class="site-nav__link">ข่าวสาร</a>
+      <a href="/blog" class="site-nav__link">บทความ</a>
       <a href="/thailand" class="site-nav__link">77 จังหวัด</a>
       <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
       <a class="site-nav__link site-nav__link--apk" href="${PLAY}" target="_blank" rel="noopener noreferrer">ดาวน์โหลดบน Google Play</a>
@@ -115,6 +117,8 @@ function header() {
   </div>
   <div class="site-header__mobile">
     <a href="/check" class="site-tab">เช็คเบอร์โทร</a>
+    <a href="/news" class="site-tab">ข่าวสาร</a>
+    <a href="/blog" class="site-tab">บทความ</a>
     <a href="/thailand" class="site-tab site-tab--active">77 จังหวัด</a>
     <a href="${PLAY}" target="_blank" rel="noopener noreferrer" class="site-tab site-tab--apk">ดาวน์โหลดบน Google Play</a>
   </div>
