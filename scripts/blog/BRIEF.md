@@ -3,7 +3,7 @@
 Goal: original, genuinely useful Thai articles to fix Google AdSense "Low value content". Quality over speed.
 
 ## Output format
-For each article, write ONE Python spec file to /home/claude/tools/specs/<id>.py. Use the same variables as the example /home/claude/tools/specs/a06.py (read it first):
+For each article, write ONE Python spec file to scripts/blog/specs/<slug>.py (inside the spaminthai repo). Read scripts/blog/specs/EXAMPLE.py first and use the same variables:
 slug, date ('YYYY-MM-DD', today), date_th (Thai Buddhist-era date, e.g. '3 พฤศจิกายน 2569'), title, desc (<=160 chars), faq (list of 4-6 (q,a) tuples), main (HTML string), related (HTML links string), hero = (icon, accent, chip_label, line1, line2).
 - hero: icon is one of: phone search shield alert bank sim family app sms badge bolt globe chart chat cart lock qr heart mute like. accent one of '#f43f5e' (warning/scam), '#22d3ee' (who-called/number), '#fbbf24' (money/shopping), '#a78bfa' (privacy/accounts), '#34d399' (protection/how-to). chip_label 1-3 Thai words; line1 <= 22 chars, line2 <= 26 chars (short headline split over 2 lines).
 After writing, run `python3 scripts/blog/publish.py --lint-only scripts/blog/specs/<slug>.py` from the repo root and fix every error. Do NOT run publish without --lint-only and do not edit any other repo file.
