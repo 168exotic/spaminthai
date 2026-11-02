@@ -1,0 +1,23 @@
+S='fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"'
+I={
+'phone':f'<rect x="70" y="20" width="140" height="260" rx="24" {S}/><line x1="120" y1="250" x2="160" y2="250" {S}/><path d="M230 70 q30 30 0 60 M250 50 q50 50 0 100" {S}/>',
+'search':f'<circle cx="130" cy="130" r="80" {S}/><line x1="190" y1="190" x2="260" y2="260" {S}/><path d="M100 120 l20 20 l40 -40" {S}/>',
+'shield':f'<path d="M150 20 L250 60 V140 C250 210 205 255 150 280 C95 255 50 210 50 140 V60 Z" {S}/><path d="M105 150 l30 30 l60 -65" {S}/>',
+'alert':f'<path d="M150 25 L280 260 H20 Z" {S}/><line x1="150" y1="100" x2="150" y2="180" {S}/><circle cx="150" cy="220" r="6" fill="currentColor"/>',
+'bank':f'<path d="M30 100 L150 35 L270 100 Z" {S}/><line x1="60" y1="120" x2="60" y2="220" {S}/><line x1="120" y1="120" x2="120" y2="220" {S}/><line x1="180" y1="120" x2="180" y2="220" {S}/><line x1="240" y1="120" x2="240" y2="220" {S}/><line x1="30" y1="250" x2="270" y2="250" {S}/>',
+'sim':f'<path d="M80 20 H190 L240 70 V280 H80 Z" {S}/><rect x="115" y="130" width="90" height="100" rx="10" {S}/><line x1="160" y1="130" x2="160" y2="230" {S}/><line x1="115" y1="180" x2="205" y2="180" {S}/>',
+'family':f'<circle cx="100" cy="80" r="35" {S}/><circle cx="205" cy="100" r="28" {S}/><path d="M40 270 V200 a60 60 0 0 1 120 0 V270" {S}/><path d="M160 270 V210 a45 45 0 0 1 90 0 V270" {S}/>',
+'app':f'<rect x="70" y="20" width="160" height="260" rx="24" {S}/><path d="M150 80 V180 M110 140 l40 40 l40 -40" {S}/><circle cx="240" cy="60" r="35" fill="currentColor" stroke="none"/><line x1="240" y1="42" x2="240" y2="65" stroke="#0b1020" stroke-width="9" stroke-linecap="round"/><circle cx="240" cy="80" r="5" fill="#0b1020"/>',
+'sms':f'<path d="M30 50 H270 V200 H120 L70 250 V200 H30 Z" {S}/><line x1="70" y1="100" x2="230" y2="100" {S}/><line x1="70" y1="145" x2="180" y2="145" {S}/>',
+'badge':f'<path d="M150 20 L180 80 L250 85 L195 130 L215 200 L150 160 L85 200 L105 130 L50 85 L120 80 Z" {S}/><line x1="60" y1="260" x2="240" y2="260" {S}/>',
+'bolt':f'<path d="M170 20 L70 165 H145 L120 280 L230 120 H155 Z" {S}/>',
+'globe':f'<circle cx="150" cy="150" r="120" {S}/><ellipse cx="150" cy="150" rx="55" ry="120" {S}/><line x1="30" y1="150" x2="270" y2="150" {S}/><path d="M50 90 H250 M50 210 H250" {S}/>',
+'chart':f'<path d="M30 270 H270" {S}/><path d="M50 220 L110 160 L160 190 L250 70" {S}/><path d="M210 70 H250 V110" {S}/>',
+'chat':f'<path d="M20 40 H190 V150 H90 L50 190 V150 H20 Z" {S}/><path d="M220 110 H280 V220 H250 V260 L210 220 H110 V180" {S}/>',
+'cart':f'<path d="M20 40 H70 L105 200 H240 L270 90 H85" {S}/><circle cx="120" cy="250" r="18" {S}/><circle cx="225" cy="250" r="18" {S}/>',
+'lock':f'<rect x="60" y="130" width="180" height="140" rx="18" {S}/><path d="M95 130 V90 a55 55 0 0 1 110 0 V130" {S}/><circle cx="150" cy="195" r="14" fill="currentColor"/>',
+'qr':f'<rect x="30" y="30" width="90" height="90" {S}/><rect x="180" y="30" width="90" height="90" {S}/><rect x="30" y="180" width="90" height="90" {S}/><rect x="60" y="60" width="30" height="30" fill="currentColor"/><rect x="210" y="60" width="30" height="30" fill="currentColor"/><rect x="60" y="210" width="30" height="30" fill="currentColor"/><path d="M180 180 h40 v40 h50 M180 240 v30 h30 M250 250 v20" {S}/>',
+'heart':f'<path d="M150 260 C40 180 20 120 50 75 C80 30 135 40 150 85 C165 40 220 30 250 75 C280 120 260 180 150 260 Z" {S}/>',
+'mute':f'<rect x="70" y="20" width="140" height="260" rx="24" {S}/><line x1="30" y1="40" x2="260" y2="270" {S}/>',
+'like':f'<path d="M90 130 L140 30 C170 30 175 60 165 100 H250 C270 100 275 125 265 140 L230 260 H90 Z" {S}/><rect x="30" y="130" width="60" height="130" rx="8" {S}/>',
+}
