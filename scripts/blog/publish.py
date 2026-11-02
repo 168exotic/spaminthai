@@ -193,7 +193,7 @@ background:radial-gradient(circle at 85% 40%,{acc}33 0,transparent 45%),linear-g
 .grid{{position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:40px 40px}}
 .l{{position:absolute;left:72px;top:0;bottom:0;width:700px;display:flex;flex-direction:column;justify-content:center;gap:22px}}
 .chip{{align-self:flex-start;background:{acc};color:#0b1020;font-weight:700;font-size:30px;padding:8px 26px;border-radius:999px}}
-h1{{font-weight:700;font-size:76px;line-height:1.25}} h2{{font-weight:600;font-size:46px;line-height:1.3;color:#cbd5e1}}
+h1{{font-weight:700;font-size:76px;line-height:1.25;white-space:nowrap}} h2{{font-weight:600;font-size:46px;line-height:1.3;color:#cbd5e1;white-space:nowrap}}
 .brand{{position:absolute;left:72px;bottom:44px;font-weight:600;font-size:28px;color:#94a3b8}} .brand b{{color:#f43f5e}}
 .ic{{position:absolute;right:90px;top:155px;width:320px;height:320px;color:{acc};filter:drop-shadow(0 0 30px {acc}66)}}
 .ring{{position:absolute;right:40px;top:105px;width:420px;height:420px;border-radius:50%;border:3px solid {acc}55}}
@@ -212,6 +212,10 @@ async def render_heroes(mods):
         for m in mods:
             await pg.set_content(hero_page(m))
             await pg.evaluate('document.fonts.ready')
+            # shrink headline/subline until each fits on one line beside the icon
+            await pg.evaluate('''() => { for (const [sel, min] of [['h1', 44], ['h2', 30]]) {
+                const el = document.querySelector(sel); let fs = parseFloat(getComputedStyle(el).fontSize);
+                while (el.scrollWidth > 680 && fs > min) { fs -= 2; el.style.fontSize = fs + 'px'; } } }''')
             png = await pg.screenshot()
             im = Image.open(io.BytesIO(png)).convert('RGB')
             im.save(os.path.join(ROOT, 'assets/blog', f'{m.slug}.webp'), 'WEBP', quality=82)
