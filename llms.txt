@@ -37,13 +37,56 @@
 
 ## บทความ (Articles)
 
-- [1441 vs 1155 vs 1212 แจ้งเรื่องช่องทางไหนดี](https://spaminthai.com/blog/report-hotlines-1441-1155-1212): สรุปหน้าที่ของสายด่วนทางการแต่ละเบอร์
-- [โดนหลอกโอนเงินไปแล้ว ต้องแจ้งความที่ไหน](https://spaminthai.com/blog/scammed-what-to-do): เช็กลิสต์อายัดบัญชีและเก็บหลักฐาน
-- [เบอร์ +697 / +698 คือสาย VoIP](https://spaminthai.com/blog/voip-697-698-scam)
-- [SMS ปลอมจากธนาคาร วิธีสังเกต](https://spaminthai.com/blog/fake-bank-sms)
-- [ตรวจเบอร์โทรฟรี 5 วิธีในไทย](https://spaminthai.com/blog/truat-ber-free)
-- [ตั้งค่าปิดเสียงเบอร์แปลกบน Android และ iPhone](https://spaminthai.com/blog/silent-unknown-callers-android-iphone)
-- [PDPA กับการรายงานเบอร์](https://spaminthai.com/blog/pdpa-reporting-numbers)
+บทความทั้งหมดเขียนใหม่โดยทีมงาน อ้างอิงแหล่งทางการ (Original articles, citing official sources)
+
+### เบอร์นี้ใครโทรมา (Who called from this number type)
+
+- [เบอร์ 02 โทรมา เบอร์อะไร](https://spaminthai.com/blog/02-landline-who-called): เบอร์บ้าน/สำนักงานเขตกรุงเทพฯ และปริมณฑล วิธีเช็คก่อนรับสายและโทรกลับ
+- [เบอร์ 06 โทรมา เบอร์อะไร](https://spaminthai.com/blog/06-mobile-who-called): เบอร์มือถือ 06 วิธีเช็คและสัญญาณอันตราย
+- [เบอร์ 08 โทรมา เบอร์อะไร](https://spaminthai.com/blog/08-mobile-who-called): แยกสายเทเลเซลส์ ทวงหนี้ และสายหลอกลวง และทำไมดูค่ายจากเลขไม่ได้
+- [เบอร์ 09 โทรมา เบอร์อะไร](https://spaminthai.com/blog/09-mobile-who-called): แยกสายธุรกิจจริงกับสายหลอกลวง และโทรกลับอย่างปลอดภัย
+- [เบอร์ต่างประเทศ (มี + นำหน้า) โทรมา](https://spaminthai.com/blog/foreign-number-calls): ควรรับไหม โทรกลับเสียเงินไหม และวิธีบล็อกสายต่างประเทศ
+- [เบอร์ +697 / +698 นำหน้า](https://spaminthai.com/blog/voip-697-698-scam): สาย VoIP จากต่างประเทศ ควรระวังและบล็อกอย่างไร
+- [เบอร์ 4 หลัก (1xxx) และเบอร์ 1800](https://spaminthai.com/blog/short-code-numbers): ใครใช้ ปลอมได้ไหม วิธีเช็คว่าเป็นศูนย์บริการจริง
+- [โทรมาไม่พูด โทรมาแล้ววาง](https://spaminthai.com/blog/silent-call-hang-up): สายเงียบเกิดจากอะไร ควรโทรกลับไหม
+- [เบอร์ขึ้นต้น 065](https://spaminthai.com/blog/numbers-065-scam): เบอร์ขึ้นต้น 065 ที่มีรายงานจากผู้ใช้ และวิธีบล็อกทั้งช่วงเบอร์
+- [เบอร์ใครโทรมา](https://spaminthai.com/blog/berkhrai-check-caller): ตรวจเบอร์ที่โทรเข้าบนเว็บ ไม่ต้องโหลดแอป
+- [ตรวจเบอร์โทรฟรี 5 วิธีในไทย](https://spaminthai.com/blog/truat-ber-free): เว็บ แอป และในตัวมือถือ พร้อมข้อดีข้อเสีย
+
+### รู้ทันกลโกง (Scam types)
+
+- [โดนแก๊งคอลเซ็นเตอร์โทรมา ต้องทำอย่างไร](https://spaminthai.com/blog/call-center-scam-guide-2568): สังเกต วางสาย เช็คเบอร์ และแจ้งเบาะแส
+- [สายอ้างเป็นตำรวจ / DSI / ปปง.](https://spaminthai.com/blog/fake-police-dsi-call): อ้างว่าบัญชีเกี่ยวคดีฟอกเงินแล้วให้โอนเงินตรวจสอบ
+- [สายอ้างสรรพากร กรมที่ดิน หน่วยงานรัฐ](https://spaminthai.com/blog/fake-tax-land-office-call): แจ้งคืนภาษีหรือให้อัปเดตข้อมูลผ่านแอปปลอม
+- [สายอ้างการไฟฟ้า การประปา คืนเงินประกันมิเตอร์](https://spaminthai.com/blog/fake-utility-refund-call): ให้แอดไลน์และโหลดแอปเพื่อยึดมือถือ
+- [แอปดูดเงิน / แอปควบคุมมือถือระยะไกล](https://spaminthai.com/blog/fake-app-remote-access): สัญญาณเตือนและสิ่งที่ต้องทำทันทีถ้าเผลอติดตั้ง
+- [SMS ปลอมจากธนาคาร](https://spaminthai.com/blog/fake-bank-sms): วิธีสังเกตลิงก์ปลอมและบล็อก SMS
+- [SMS พัสดุตกค้าง / สายแจ้งพัสดุผิดกฎหมาย](https://spaminthai.com/blog/fake-parcel-sms): วิธีเช็คกับขนส่งตัวจริง
+- [ซิมสวอป (SIM Swap)](https://spaminthai.com/blog/sim-swap-otp): ทำไมห้ามบอก OTP และสิ่งที่ต้องทำเมื่อสัญญาณหายกะทันหัน
+- [QR code ปลอม](https://spaminthai.com/blog/qr-code-scam): วิธีตรวจชื่อผู้รับและลิงก์ก่อนสแกนจ่าย
+- [บัญชี LINE/Facebook เพื่อนโดนแฮกแล้วทักมายืมเงิน](https://spaminthai.com/blog/line-account-hacked-borrow-money): เช็คก่อนโอน และป้องกันบัญชีตัวเอง
+- [หลอกลงทุนออนไลน์ หุ้น คริปโต](https://spaminthai.com/blog/investment-scam-online): วิธีเช็คผู้ได้รับอนุญาตกับ ก.ล.ต.
+- [หลอกทำงานออนไลน์ กดไลก์ รีวิว รับเงิน](https://spaminthai.com/blog/task-scam-like-for-money): ขั้นตอนการหลอกให้เติมเงินทำภารกิจ
+- [หลอกรักออนไลน์ (โรแมนซ์สแกม)](https://spaminthai.com/blog/romance-scam-online): สัญญาณเตือนและวิธีคุยกับคนในครอบครัวที่กำลังโดน
+- [โดนโกงซื้อของออนไลน์ ตั๋วปลอม มัดจำที่พักปลอม](https://spaminthai.com/blog/online-shopping-ticket-scam): จุดสังเกตก่อนจ่ายและระบบคุ้มครองผู้ซื้อ
+- [สินเชื่อปลอม ให้โอนค่าธรรมเนียมก่อน](https://spaminthai.com/blog/loan-scam-check-license): วิธีเช็คผู้ให้บริการที่ได้รับอนุญาตจาก ธปท.
+- [10 มุกแก๊งคอลเซ็นเตอร์ (ก.ค. 2568)](https://spaminthai.com/blog/new-scam-tricks-2568-07): สรุปรูปแบบกลโกงที่พบในช่วงนั้น
+
+### โดนแล้วทำอย่างไร / ป้องกัน (After a scam / prevention)
+
+- [โดนหลอกโอนเงินไปแล้ว ต้องแจ้งความที่ไหน](https://spaminthai.com/blog/scammed-what-to-do): เช็กลิสต์อายัดบัญชี เก็บหลักฐาน และแจ้งความออนไลน์
+- [1441 vs 1155 vs 1212 แจ้งเรื่องช่องทางไหนดี](https://spaminthai.com/blog/report-hotlines-1441-1155-1212): หน้าที่ของสายด่วนทางการแต่ละเบอร์
+- [เช็คเลขบัญชีก่อนโอนเงิน](https://spaminthai.com/blog/check-bank-account-before-transfer): 7 ขั้นตอนกันโดนโกงซื้อของออนไลน์
+- [เช็คว่ามีเบอร์มือถือกี่เบอร์ในชื่อเรา](https://spaminthai.com/blog/check-numbers-registered-in-your-name): *179* ตรวจอะไรได้และไม่ได้ เพื่อกันซิมม้า
+- [คู่มือสอนพ่อแม่ผู้สูงอายุรับมือสายหลอกลวง](https://spaminthai.com/blog/elderly-parents-scam-guide): รหัสลับครอบครัว กฎติดตู้เย็น และการตั้งค่ามือถือ
+- [ตั้งค่าปิดเสียงเบอร์แปลกบน Android และ iPhone](https://spaminthai.com/blog/silent-unknown-callers-android-iphone): ไม่พลาดสายสำคัญ
+- [เปรียบเทียบแอปเช็คเบอร์และบล็อกสาย](https://spaminthai.com/blog/best-spam-checker-apps-2568): จุดเด่น ความเป็นส่วนตัว และการบล็อกอัตโนมัติ
+
+### สิทธิ์และ PDPA (Rights and privacy)
+
+- [ขายประกัน บัตรเครดิต โทรมาบ่อย ขอให้หยุดโทรได้ไหม](https://spaminthai.com/blog/stop-telesales-calls-pdpa): ใช้สิทธิตาม PDPA ถอนความยินยอมและคัดค้านการตลาดแบบตรง
+- [PDPA กับการรายงานเบอร์](https://spaminthai.com/blog/pdpa-reporting-numbers): สิ่งที่ทำได้ ทำไม่ได้ และแนวทางที่ปลอดภัย
+
 - [รวมบทความทั้งหมด](https://spaminthai.com/blog/)
 - [ข่าวเตือนภัย](https://spaminthai.com/news-1): ข่าวที่ทีมงานเรียบเรียงใหม่และอ้างแหล่งทางการ
 
