@@ -255,6 +255,16 @@ async function route(request, env, url, ctx) {
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
     if (checkNumber) return renderNumberPage(checkNumber[1], env);
+    // Normalise /check/061-234-5678, /check/+66612345678, /check/66 61 234 5678 -> 301 /check/0612345678
+    if (path.startsWith('/check/') && path.length > 7) {
+      let raw = '';
+      try { raw = decodeURIComponent(path.slice(7)); } catch { raw = path.slice(7); }
+      let d = raw.replace(/\D/g, '');
+      if (/^66\d{8,9}$/.test(d)) d = '0' + d.slice(2);
+      if (/^0\d{8,9}$/.test(d) && d !== raw) {
+        return Response.redirect(`${url.origin}/check/${d}${url.search}`, 301);
+      }
+    }
 
     if (path === '/download/spaminthai-latest.apk') {
       if (request.method === 'HEAD') return apkDownloadHead();
