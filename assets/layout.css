@@ -750,3 +750,10 @@
 .latest-card__title{font-weight:700;font-size:.95rem;line-height:1.45;color:#1e293b;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .latest-card__desc{font-size:.8rem;line-height:1.5;color:#64748b;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media (max-width:767px){.latest-posts__grid{grid-template-columns:1fr}}
+
+/* Homepage Facebook page feed (Page Plugin, timeline tab) */
+.fb-home .fb-embed__scaler iframe { height: 600px; }
+.fb-home .fb-card__meta span { display: block; font-size: 0.8rem; color: #64748b; }
+.fb-home .fb-card__meta b { color: #1e293b; }
+.fb-home .fb-embed__hint { text-align: center; margin-top: 0.75rem; font-size: 0.875rem; }
+.fb-home .fb-embed__hint a { color: #f43f5e; font-weight: 600; }

@@ -43,6 +43,7 @@ import {
 } from './functions/prefix/render-prefix-page.js';
 import { handleSitemapGet, handleNumbersSitemapGet } from './functions/api/sitemap.js';
 import { handleBlogLatest } from './functions/api/blog-posts.js';
+import { handleFbLatest } from './functions/api/fb-latest.js';
 import { matchMonthlyPath, renderMonthlyPage, renderMonthlyIndex } from './functions/monthly/render-monthly-page.js';
 import {
   handleMarketingFeedGet,
@@ -276,6 +277,7 @@ async function route(request, env, url, ctx) {
     }
 
     if (path === '/api/blog/latest') return handleBlogLatest(request);
+    if (path === '/api/fb/latest') return handleFbLatest(request, env, ctx);
     if (path === '/sitemap.xml') return handleSitemapGet(env);
     if (path.startsWith('/sitemap-numbers')) {
       const res = await handleNumbersSitemapGet(env, path);
