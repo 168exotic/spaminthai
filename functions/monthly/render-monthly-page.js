@@ -210,7 +210,8 @@ ${s.categories.length ? `<section class="pv-sec"><h2>หลอกแบบไห
           temporalCoverage: ym,
           isAccessibleForFree: true,
           creator: { '@type': 'Organization', name: 'SpamInThai', url: SITE + '/' },
-          spatialCoverage: { '@type': 'Country', name: 'Thailand' },
+          license: SITE + '/terms',
+          spatialCoverage: { '@type': 'Place', name: 'ประเทศไทย', address: { '@type': 'PostalAddress', addressCountry: 'TH' } },
           measurementTechnique: 'รายงานจากผู้ใช้ SpamInThai ทั่วประเทศ นับจากรายงานล่าสุดของแต่ละเบอร์',
           variableMeasured: [
             { '@type': 'PropertyValue', name: 'เบอร์ที่ถูกรายงาน', value: s.reported, unitText: 'เบอร์' },
