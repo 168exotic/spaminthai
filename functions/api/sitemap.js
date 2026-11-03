@@ -87,6 +87,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cyber-police-nonthaburi-olive-tree-page-gold-laundering-2569',
+  'immigration-loei-laos-handover-40-call-center-suspects-2569',
+  'cyber-police-kamphaengphet-fake-pea-meter-gold-mule-2569',
   'crime-suppression-mule-owner-fake-police-refund-2569',
   'acsc-cib-dark-empire-corporate-mule-farm-2569',
   'pattaya-sim-box-ceiling-rental-room-2569',
