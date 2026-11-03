@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'change-phone-number-checklist',
+  'video-call-isolation-scam',
+  'provincial-landline-who-called',
   'ai-voice-deepfake-call',
   'overseas-job-scam',
   'mule-account-recruitment',
