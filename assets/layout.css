@@ -772,3 +772,35 @@
 .blog-filter__input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;font:inherit;font-size:1rem}
 .blog-filter__input:focus{outline:0;border-color:#22d3ee;box-shadow:0 0 0 3px rgba(34,211,238,.15)}
 .blog-filter__count{margin:8px 2px 0;color:#64748b;font-size:.9rem}
+
+/* —— Header responsive fix (Nov 2026) ——
+   <1024px: compact header (logo + search) with the scrollable tab row underneath.
+   1024–1279px: full nav without the tagline and the two least-used links.
+   ≥1280px: everything. Text never wraps inside header items. */
+.site-nav__link, .site-tab, .site-brand__title, .site-brand__tag { white-space: nowrap; }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .site-nav { display: none; }
+  .site-header__mobile { display: flex; padding: 0 1.5rem 0.75rem; }
+  .site-header__inner { height: 4rem; }
+  .site-brand__tag { display: none; }
+  .site-search { max-width: 26rem; margin-left: auto; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .site-brand__tag { display: none; }
+  .site-nav__link { padding: 0.55rem 0.7rem; }
+  .site-nav__link--mule, .site-nav a[href="#official"], .site-nav a[href="/#official"] { display: none; }
+  .site-search { max-width: 13rem; }
+}
+@media (min-width: 1024px) {
+  .site-header__inner { gap: 0.75rem; }
+  .site-nav { flex-shrink: 0; }
+}
+/* Homepage sidebar on tablets: 2-column grid instead of one very long stack */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .home-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start; }
+  .home-sidebar > * { margin-top: 0 !important; }
+}
+@media (max-width: 1023px) {
+  .home-sidebar picture img, .home-sidebar .aff-card__img { max-width: 360px; margin-left: auto; margin-right: auto; display: block; }
+}
+.fb-home .fb-embed { max-width: 420px; }
