@@ -3,6 +3,7 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 Disallow: /site/
+Disallow: /search
 
 Sitemap: https://spaminthai.com/sitemap.xml
 Sitemap: https://spaminthai.com/sitemap-numbers.xml
