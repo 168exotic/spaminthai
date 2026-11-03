@@ -757,3 +757,18 @@
 .fb-home .fb-card__meta b { color: #1e293b; }
 .fb-home .fb-embed__hint { text-align: center; margin-top: 0.75rem; font-size: 0.875rem; }
 .fb-home .fb-embed__hint a { color: #f43f5e; font-weight: 600; }
+
+/* Header search (numbers -> /check/<n>, text -> /blog?q=) handled by /search */
+.site-search{flex:1 1 auto;max-width:22rem;min-width:0;display:flex;align-items:center;background:rgba(15,23,42,.7);border:1px solid var(--color-line-dark);border-radius:.75rem;overflow:hidden;margin:0 .25rem}
+.site-search:focus-within{border-color:var(--brand-cyan);box-shadow:0 0 0 3px rgba(34,211,238,.15)}
+.site-search__input{flex:1 1 auto;min-width:0;width:100%;background:transparent;border:0;outline:0;color:var(--color-text-on-dark);font:inherit;font-size:.85rem;padding:.55rem .75rem}
+.site-search__input::placeholder{color:var(--color-text-muted-dark)}
+.site-search__input::-webkit-search-cancel-button{display:none}
+.site-search__btn{flex:none;display:flex;align-items:center;justify-content:center;width:2.5rem;height:2.4rem;border:0;background:transparent;color:var(--color-text-muted-dark);cursor:pointer}
+.site-search__btn:hover{color:var(--brand-cyan)}
+@media (max-width:767px){.site-header__inner{gap:.5rem}.site-brand__tag{display:none}.site-brand__title{font-size:1rem}.site-brand__logo img{width:2.25rem;height:2.25rem}}
+@media (max-width:380px){.site-brand__text{display:none}}
+.blog-filter{margin:0 0 16px}
+.blog-filter__input{width:100%;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;font:inherit;font-size:1rem}
+.blog-filter__input:focus{outline:0;border-color:#22d3ee;box-shadow:0 0 0 3px rgba(34,211,238,.15)}
+.blog-filter__count{margin:8px 2px 0;color:#64748b;font-size:.9rem}

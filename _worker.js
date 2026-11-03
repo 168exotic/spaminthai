@@ -278,6 +278,16 @@ async function route(request, env, url, ctx) {
 
     if (path === '/api/blog/latest') return handleBlogLatest(request);
     if (path === '/api/fb/latest') return handleFbLatest(request, env, ctx);
+    if (path === '/search') {
+      // Header search: a phone number goes to its /check page, anything else to the blog filter.
+      const q = (url.searchParams.get('q') || '').trim().slice(0, 80);
+      let d = q.replace(/\D/g, '');
+      if (/^66\d{8,9}$/.test(d)) d = '0' + d.slice(2);
+      const looksNumeric = q !== '' && /^[\d\s+\-().]+$/.test(q);
+      if (looksNumeric && /^0\d{8,9}$/.test(d)) return Response.redirect(`${url.origin}/check/${d}`, 302);
+      if (looksNumeric) return Response.redirect(`${url.origin}/check?number=${encodeURIComponent(d)}`, 302);
+      return Response.redirect(q ? `${url.origin}/blog?q=${encodeURIComponent(q)}` : `${url.origin}/blog`, 302);
+    }
     if (path === '/sitemap.xml') return handleSitemapGet(env);
     if (path.startsWith('/sitemap-numbers')) {
       const res = await handleNumbersSitemapGet(env, path);
