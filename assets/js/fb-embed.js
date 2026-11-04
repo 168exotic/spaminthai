@@ -22,12 +22,29 @@
       scaler.style.height = Math.round(baseH * scale) + 'px';
     }
 
-    function load() {
+    function start(src) {
       if (iframe.getAttribute('src')) return;
-      var src = iframe.getAttribute('data-src');
       if (!src || src.indexOf('https://www.facebook.com/') !== 0) return;
       iframe.setAttribute('src', src);
       fit();
+    }
+
+    function load() {
+      var fallback = iframe.getAttribute('data-src');
+      var endpoint = scaler.getAttribute('data-latest');
+      if (!endpoint || !window.fetch) return start(fallback);
+      // Ask the site for the newest page post; fall back to the static post on any error.
+      fetch(endpoint, { headers: { accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          var url = d && d.url;
+          if (!url || !/^https:\/\/www\.facebook\.com\//.test(url)) return start(fallback);
+          var w = parseInt(iframe.getAttribute('width'), 10) || 500;
+          start('https://www.facebook.com/plugins/post.php?href=' + encodeURIComponent(url) + '&show_text=true&width=' + w);
+          var link = scaler.parentNode && scaler.parentNode.querySelector('[data-fb-post-link]');
+          if (link) link.setAttribute('href', url);
+        })
+        .catch(function () { start(fallback); });
     }
 
     window.addEventListener('resize', fit);

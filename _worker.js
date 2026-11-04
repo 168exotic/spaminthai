@@ -43,6 +43,8 @@ import {
 } from './functions/prefix/render-prefix-page.js';
 import { handleSitemapGet, handleNumbersSitemapGet } from './functions/api/sitemap.js';
 import { handleBlogLatest } from './functions/api/blog-posts.js';
+import { handleFbLatest } from './functions/api/fb-latest.js';
+import { renderSearchPage } from './functions/search/search-page.js';
 import { matchMonthlyPath, renderMonthlyPage, renderMonthlyIndex } from './functions/monthly/render-monthly-page.js';
 import {
   handleMarketingFeedGet,
@@ -255,6 +257,16 @@ async function route(request, env, url, ctx) {
 
     const checkNumber = path.match(/^\/check\/(\d{9,10})$/);
     if (checkNumber) return renderNumberPage(checkNumber[1], env);
+    // Normalise /check/061-234-5678, /check/+66612345678, /check/66 61 234 5678 -> 301 /check/0612345678
+    if (path.startsWith('/check/') && path.length > 7) {
+      let raw = '';
+      try { raw = decodeURIComponent(path.slice(7)); } catch { raw = path.slice(7); }
+      let d = raw.replace(/\D/g, '');
+      if (/^66\d{8,9}$/.test(d)) d = '0' + d.slice(2);
+      if (/^0\d{8,9}$/.test(d) && d !== raw) {
+        return Response.redirect(`${url.origin}/check/${d}${url.search}`, 301);
+      }
+    }
 
     if (path === '/download/spaminthai-latest.apk') {
       if (request.method === 'HEAD') return apkDownloadHead();
@@ -266,6 +278,16 @@ async function route(request, env, url, ctx) {
     }
 
     if (path === '/api/blog/latest') return handleBlogLatest(request);
+    if (path === '/api/fb/latest') return handleFbLatest(request, env, ctx);
+    if (path === '/search') {
+      // Header search: a phone number goes to its /check page, anything else to the site search results page.
+      const q = (url.searchParams.get('q') || '').trim().slice(0, 80);
+      let d = q.replace(/\D/g, '');
+      if (/^66\d{8,9}$/.test(d)) d = '0' + d.slice(2);
+      const looksNumeric = q !== '' && /^[\d\s+\-().]+$/.test(q);
+      if (looksNumeric && /^0\d{8,9}$/.test(d)) return Response.redirect(`${url.origin}/check/${d}`, 302);
+      return renderSearchPage(q);
+    }
     if (path === '/sitemap.xml') return handleSitemapGet(env);
     if (path.startsWith('/sitemap-numbers')) {
       const res = await handleNumbersSitemapGet(env, path);

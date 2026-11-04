@@ -2,6 +2,56 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cib-ratchaburi-fake-bank-police-video-call-mule-account-2569",
+    "title": "บก.ปพ.รวบชายวัย 52 ผู้ต้องหาคดีบัญชีม้าที่ราชบุรี แก๊งอ้างธนาคารโอนสายให้ตำรวจปลอมวิดีโอคอลขู่คดีฟอกเงิน เหยื่อสูญ 76,000 บาท ผู้ต้องหาปฏิเสธ",
+    "date": "2026-11-03",
+    "provinces": [
+      "bangkok",
+      "udon-thani",
+      "ratchaburi"
+    ]
+  },
+  {
+    "slug": "maechan-chiangrai-cash-collector-fake-police-student-2569",
+    "title": "ตำรวจแม่จันรวบผู้ต้องหาคดีรับเงินสดแก๊งคอลเซ็นเตอร์ อ้างเป็นตำรวจขู่นักศึกษาเชียงรายถอนเงินวางกระท่อมริมถนน ยึดเงินสด 378,400 บาท",
+    "date": "2026-11-03",
+    "provinces": [
+      "chiang-rai"
+    ]
+  },
+  {
+    "slug": "consumer-police-ayutthaya-tiktok-fake-iphone-student-victims-2569",
+    "title": "ปคบ.รวบคู่สามีภรรยาผู้ต้องหาคดีหลอกขายไอโฟนมือสองผ่าน TikTok ที่พระนครศรีอยุธยา โยง 15 คดี 10 จังหวัด เหยื่อส่วนใหญ่นักเรียน-นักศึกษา",
+    "date": "2026-11-02",
+    "provinces": [
+      "ayutthaya"
+    ]
+  },
+  {
+    "slug": "cyber-police-nonthaburi-olive-tree-page-gold-laundering-2569",
+    "title": "ตร.ไซเบอร์รวบ 5 ผู้ต้องหา 2 เครือข่ายถอนเงินซื้อทองส่งนายทุนจีน เพจปลอมขายต้นมะกอกสูญ 6,481,165 บาท",
+    "date": "2026-11-02",
+    "provinces": [
+      "prachuap-khiri-khan"
+    ]
+  },
+  {
+    "slug": "immigration-loei-laos-handover-40-call-center-suspects-2569",
+    "title": "สปป.ลาวส่งตัวคนไทย 40 คน ผู้ต้องหาแก๊งคอลเซ็นเตอร์-พนันออนไลน์ กลับไทยที่ด่านท่าลี่ จ.เลย เข้าศูนย์คัดกรอง",
+    "date": "2026-11-02",
+    "provinces": [
+      "loei"
+    ]
+  },
+  {
+    "slug": "cyber-police-kamphaengphet-fake-pea-meter-gold-mule-2569",
+    "title": "ตร.ไซเบอร์รวบ 5 ผู้ต้องหาคดีบัญชีม้า แก๊งอ้างการไฟฟ้าหลอกเปลี่ยนมิเตอร์ สูญ 1,965,400 บาท จับคาห้างกำแพงเพชร",
+    "date": "2026-10-30",
+    "provinces": [
+      "kamphaeng-phet"
+    ]
+  },
+  {
     "slug": "crime-suppression-mule-owner-fake-police-refund-2569",
     "title": "บก.ปพ.จับหญิงวัย 38 ผู้ต้องหาคดีบัญชีม้า แก๊งอ้างตำรวจเสนอช่วยตามเงินคืน หลอกซ้ำเหยื่อสูญกว่า 8.1 ล้าน",
     "date": "2026-10-28",
