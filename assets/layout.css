@@ -804,3 +804,41 @@
   .home-sidebar picture img, .home-sidebar .aff-card__img { max-width: 360px; margin-left: auto; margin-right: auto; display: block; }
 }
 .fb-home .fb-embed { max-width: 420px; }
+
+/* —— Homepage hero v2 (HTML, Thai) —— */
+.hero2{position:relative;overflow:hidden;background:#020b1a;color:#fff;isolation:isolate}
+.hero2__bg{position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(60% 80% at 85% 40%,rgba(34,211,238,.18),transparent 60%),
+    radial-gradient(50% 70% at 10% 100%,rgba(99,102,241,.22),transparent 60%),
+    linear-gradient(180deg,#020b1a 0%,#07142b 100%);}
+.hero2__bg::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 100%);mask-image:linear-gradient(180deg,#000 30%,transparent 100%)}
+.hero2__inner{max-width:80rem;margin:0 auto;padding:2.25rem 1.25rem 4.25rem;display:grid;grid-template-columns:1fr;gap:1.5rem;align-items:center}
+@media (min-width:768px){.hero2__inner{grid-template-columns:1.25fr .75fr;padding:3.5rem 1.5rem 4.5rem}}
+@media (min-width:1024px){.hero2__inner{padding:4rem 2rem 5rem}}
+.hero2__eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:600;color:#a5f3fc;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);padding:.35rem .8rem;border-radius:999px}
+.hero2__dot{width:.5rem;height:.5rem;border-radius:50%;background:#22d3ee;box-shadow:0 0 0 0 rgba(34,211,238,.6);animation:h2pulse 2s infinite}
+@keyframes h2pulse{70%{box-shadow:0 0 0 8px rgba(34,211,238,0)}100%{box-shadow:0 0 0 0 rgba(34,211,238,0)}}
+.hero2__title{margin:1rem 0 .75rem;font-size:clamp(2rem,6vw,3.6rem);line-height:1.28;font-weight:800;letter-spacing:-.01em}
+.hero2__title span{background:linear-gradient(90deg,#22d3ee,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero2__sub{margin:0 0 1.5rem;max-width:36rem;color:#cbd5e1;font-size:clamp(.95rem,2.2vw,1.125rem);line-height:1.7}
+.hero2__cta{display:flex;flex-wrap:wrap;gap:.75rem}
+.hero2__btn{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:0 1.4rem;border-radius:.9rem;font-weight:700;font-size:1rem;text-decoration:none;transition:transform .15s,box-shadow .15s,background .15s}
+.hero2__btn:hover{text-decoration:none;transform:translateY(-1px)}
+.hero2__btn--primary{background:#f43f5e;color:#fff;box-shadow:0 8px 24px rgba(244,63,94,.35)}
+.hero2__btn--primary:hover{background:#e11d48;color:#fff}
+.hero2__btn--ghost{color:#e2e8f0;border:1px solid rgba(226,232,240,.25);background:rgba(255,255,255,.04)}
+.hero2__btn--ghost:hover{border-color:#22d3ee;color:#fff}
+.hero2__chips{list-style:none;margin:1.5rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.hero2__chips li{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;color:#cbd5e1;background:rgba(15,23,42,.6);border:1px solid rgba(148,163,184,.18);padding:.35rem .75rem;border-radius:.6rem}
+.hero2__chips svg,.hero2__badge svg{width:15px;height:15px;fill:none;stroke:#22d3ee;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.hero2__art{display:none;justify-self:center;width:100%;max-width:340px}
+.hero2__art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 20px 40px rgba(34,211,238,.18))}
+@media (min-width:768px){.hero2__art{display:block}}
+.hero2__ring{transform-origin:180px 180px;animation:h2spin 40s linear infinite}
+.hero2__ring--2{animation-duration:26s;animation-direction:reverse}
+@keyframes h2spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.hero2__ring,.hero2__dot{animation:none}}
+.hero2__badge{position:absolute;left:1.25rem;bottom:1rem;display:inline-flex;align-items:center;gap:.5rem;background:rgba(2,11,26,.75);backdrop-filter:blur(8px);border:1px solid rgba(34,211,238,.22);padding:.45rem .8rem;border-radius:.75rem;font-size:.78rem;color:#e2e8f0}
+.hero2__badge strong{color:#22d3ee}
+@media (min-width:768px){.hero2__badge{left:auto;right:1.5rem;bottom:1.25rem}}
