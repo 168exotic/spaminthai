@@ -90,6 +90,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'maechan-chiangrai-cash-collector-fake-police-student-2569',
+  'cib-ratchaburi-fake-bank-police-video-call-mule-account-2569',
+  'consumer-police-ayutthaya-tiktok-fake-iphone-student-victims-2569',
   'cyber-police-nonthaburi-olive-tree-page-gold-laundering-2569',
   'immigration-loei-laos-handover-40-call-center-suspects-2569',
   'cyber-police-kamphaengphet-fake-pea-meter-gold-mule-2569',
