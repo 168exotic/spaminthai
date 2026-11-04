@@ -52,6 +52,8 @@
 - [เบอร์ขึ้นต้น 065](https://spaminthai.com/blog/numbers-065-scam): เบอร์ขึ้นต้น 065 ที่มีรายงานจากผู้ใช้ และวิธีบล็อกทั้งช่วงเบอร์
 - [เบอร์ใครโทรมา](https://spaminthai.com/blog/berkhrai-check-caller): ตรวจเบอร์ที่โทรเข้าบนเว็บ ไม่ต้องโหลดแอป
 - [ตรวจเบอร์โทรฟรี 5 วิธีในไทย](https://spaminthai.com/blog/truat-ber-free): เว็บ แอป และในตัวมือถือ พร้อมข้อดีข้อเสีย
+- [เบอร์บ้านต่างจังหวัด 03 04 05 07 โทรมา](https://spaminthai.com/blog/provincial-landline-who-called): ดูรหัสพื้นที่ว่ามาจากภาคไหน และเช็คก่อนรับสายหรือโทรกลับ
+- [สายเสียงอัตโนมัติให้กด 1 หรือกด 9](https://spaminthai.com/blog/robocall-press-1): สายแบบนี้ทำงานอย่างไร เผลอกดแล้วเสี่ยงแค่ไหน และควรทำอย่างไร
 
 ### รู้ทันกลโกง (Scam types)
 
@@ -71,6 +73,22 @@
 - [โดนโกงซื้อของออนไลน์ ตั๋วปลอม มัดจำที่พักปลอม](https://spaminthai.com/blog/online-shopping-ticket-scam): จุดสังเกตก่อนจ่ายและระบบคุ้มครองผู้ซื้อ
 - [สินเชื่อปลอม ให้โอนค่าธรรมเนียมก่อน](https://spaminthai.com/blog/loan-scam-check-license): วิธีเช็คผู้ให้บริการที่ได้รับอนุญาตจาก ธปท.
 - [10 มุกแก๊งคอลเซ็นเตอร์ (ก.ค. 2568)](https://spaminthai.com/blog/new-scam-tricks-2568-07): สรุปรูปแบบกลโกงที่พบในช่วงนั้น
+- [AI ปลอมเสียง / วิดีโอคอลปลอมเป็นคนใกล้ตัวขอยืมเงิน](https://spaminthai.com/blog/ai-voice-deepfake-call): วิธีจับพิรุธ รหัสลับครอบครัว และกฎวางสายแล้วโทรกลับ
+- [ถูกสั่งให้วิดีโอคอลค้างไว้ ห้ามบอกใคร (กักตัวออนไลน์)](https://spaminthai.com/blog/video-call-isolation-scam): สัญญาณเตือนและวิธีช่วยคนที่กำลังถูกควบคุมผ่านวิดีโอคอล
+- [สายหรือ SMS อ้าง กสทช. ว่าซิมจะถูกระงับ](https://spaminthai.com/blog/fake-nbtc-sim-suspension-call): วิธีเช็คเอง และทำไมไม่ควรยอมให้โอนสายต่อ
+- [SMS ใบสั่งจราจรค้างชำระพร้อมลิงก์จ่ายค่าปรับ](https://spaminthai.com/blog/fake-traffic-fine-sms): วิธีเช็คใบสั่งผ่านช่องทางทางการ และต้องทำอะไรถ้ากดลิงก์ไปแล้ว
+- [SMS แต้มสะสมใกล้หมดอายุ ให้กดลิงก์แลกรางวัล](https://spaminthai.com/blog/fake-points-expiry-reward-sms): ลิงก์ปลอมขโมยเลขบัตรและ OTP อย่างไร และวิธีเช็คแต้มที่ปลอดภัย
+- [SMS / สายอ้างโครงการรัฐแจกเงิน ลงทะเบียนรับสิทธิ์](https://spaminthai.com/blog/fake-government-handout-scam): วิธีแยกช่องทางรัฐจริงกับลิงก์ปลอม
+- [สายอ้างบริษัทประกันหรือ คปภ. จะคืนเบี้ยแต่ให้โอนค่าธรรมเนียมก่อน](https://spaminthai.com/blog/fake-insurance-refund-call): วิธีเช็คกับสายด่วน คปภ. 1186
+- [แจ้งว่าได้รางวัลชิงโชคแต่ต้องโอนค่าภาษีก่อน](https://spaminthai.com/blog/fake-prize-lucky-draw): วิธีแยกรางวัลจริงกับกลโกง
+- [สายอ้างร้านค้าออนไลน์จะคืนเงิน ให้แอดไลน์หรือสแกน QR](https://spaminthai.com/blog/online-shop-refund-call): ขั้นตอนหลอกและวิธีเช็คกับร้านตัวจริง
+- [ค้นเบอร์คอลเซ็นเตอร์ใน Google แล้วเจอเบอร์ปลอม](https://spaminthai.com/blog/fake-customer-service-number-search): วิธีหาเบอร์ติดต่อทางการที่ถูกต้อง
+- [เพจปลอม โฆษณาปลอมบน Facebook](https://spaminthai.com/blog/fake-facebook-page-ads): วิธีดูความโปร่งใสของเพจก่อนทักแชตหรือโอนเงิน
+- [อีเมลฟิชชิ่ง ดูยังไงว่าปลอม](https://spaminthai.com/blog/phishing-email): เช็คโดเมนผู้ส่ง ลิงก์ ไฟล์แนบ และสิ่งที่ต้องทำถ้ากดไปแล้ว
+- [หลอกไปทำงานต่างประเทศเงินเดือนสูง](https://spaminthai.com/blog/overseas-job-scam): วิธีเช็คบริษัทจัดหางานที่ได้รับอนุญาตกับกรมการจัดหางาน
+- [ซื้อขายของมือสองออนไลน์](https://spaminthai.com/blog/secondhand-marketplace-scam): สลิปปลอม ผู้ขายไม่ส่งของ และวิธีนัดรับให้ปลอดภัย
+- [ชวนรับจ้างเปิดบัญชี ให้เช่าบัญชี ขายซิม (บัญชีม้า)](https://spaminthai.com/blog/mule-account-recruitment): มีโทษตามกฎหมาย รู้ทันคำชวนและวิธีแก้ถ้าให้ไปแล้ว
+- [รวมบทพูดมิจฉาชีพที่พบบ่อยปี 2569](https://spaminthai.com/blog/scam-call-scripts-2569): ประโยคที่ควรตอบและสิ่งที่ควรทำในแต่ละแบบ
 
 ### โดนแล้วทำอย่างไร / ป้องกัน (After a scam / prevention)
 
@@ -81,6 +99,14 @@
 - [คู่มือสอนพ่อแม่ผู้สูงอายุรับมือสายหลอกลวง](https://spaminthai.com/blog/elderly-parents-scam-guide): รหัสลับครอบครัว กฎติดตู้เย็น และการตั้งค่ามือถือ
 - [ตั้งค่าปิดเสียงเบอร์แปลกบน Android และ iPhone](https://spaminthai.com/blog/silent-unknown-callers-android-iphone): ไม่พลาดสายสำคัญ
 - [เปรียบเทียบแอปเช็คเบอร์และบล็อกสาย](https://spaminthai.com/blog/best-spam-checker-apps-2568): จุดเด่น ความเป็นส่วนตัว และการบล็อกอัตโนมัติ
+- [วิธีรายงานเบอร์บน SpamInThai](https://spaminthai.com/blog/how-to-report-scam-number): ทีละขั้น ระบบตรวจรายงานอย่างไร และแจ้งหน่วยงานรัฐที่ไหนต่อ
+- [บัตรเครดิต/เดบิตถูกใช้โดยไม่รู้ตัว](https://spaminthai.com/blog/credit-card-fraud-what-to-do): อายัดบัตร ปฏิเสธรายการกับธนาคาร และป้องกันซ้ำ
+- [มือถือถูกแฮกหรือติดแอปอันตราย สังเกตอย่างไร](https://spaminthai.com/blog/phone-hacked-signs): วิธีตรวจและแก้ไขบน Android และ iPhone
+- [ตั้งค่าแอปธนาคารให้ปลอดภัย](https://spaminthai.com/blog/secure-mobile-banking-settings): วงเงินโอนต่อวัน การแจ้งเตือน และสิ่งที่ไม่ควรทำบนมือถือ
+- [ตั้งรหัสผ่านและเปิดยืนยันตัวตน 2 ชั้น (2FA)](https://spaminthai.com/blog/strong-password-2fa): สำหรับอีเมล LINE Facebook และแอปธนาคาร
+- [จะเลิกใช้หรือเปลี่ยนเบอร์มือถือ ต้องย้ายอะไรบ้าง](https://spaminthai.com/blog/change-phone-number-checklist): ธนาคาร พร้อมเพย์ LINE อีเมล และแอปรัฐ
+- [Wi-Fi และจุดชาร์จสาธารณะปลอดภัยไหม](https://spaminthai.com/blog/public-wifi-charging-safety): ความเสี่ยงจริง เรื่องที่ถูกขยายเกินจริง และวิธีใช้ให้ปลอดภัย
+- [สอนลูกวัยรุ่นรู้ทันมิจฉาชีพออนไลน์](https://spaminthai.com/blog/kids-teens-online-scams): เติมเกมราคาถูก ซื้อขายไอดีเกม และงานรับเปิดบัญชี
 
 ### สิทธิ์และ PDPA (Rights and privacy)
 
