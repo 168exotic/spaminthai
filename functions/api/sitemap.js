@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'fake-points-expiry-reward-sms',
+  'fake-nbtc-sim-suspension-call',
+  'fake-traffic-fine-sms',
   'change-phone-number-checklist',
   'video-call-isolation-scam',
   'provincial-landline-who-called',
