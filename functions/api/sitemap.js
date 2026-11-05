@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'money-recovery-scam-fake-lawyer',
+  'fake-online-fortune-teller-scam',
+  'flood-relief-donation-scam',
   'fake-points-expiry-reward-sms',
   'fake-nbtc-sim-suspension-call',
   'fake-traffic-fine-sms',
