@@ -2,6 +2,31 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "bangsrimuang-nonthaburi-ai-fortune-teller-cardless-withdrawal-2569",
+    "title": "ตำรวจบางศรีเมืองรวบผู้ต้องหาอ้างเป็นหมอดูใช้ AI ทำนาย หลอกหญิงนนทบุรีกดเงินสดไร้บัตร สูญ 80,000 บาท",
+    "date": "2026-11-05",
+    "provinces": [
+      "nonthaburi",
+      "ayutthaya"
+    ]
+  },
+  {
+    "slug": "cib-klongprem-prison-gate-mule-account-fake-online-shop-2569",
+    "title": "บก.ปพ.รวบผู้ต้องหาวัย 37 คดีบัญชีม้าหน้าเรือนจำคลองเปรม แก๊งหลอกรักชวนลงทุนร้านค้าออนไลน์ สูญกว่า 10.1 ล้าน",
+    "date": "2026-11-05",
+    "provinces": [
+      "bangkok"
+    ]
+  },
+  {
+    "slug": "immigration-suvarnabhumi-brand-name-investment-fraud-warrant-2569",
+    "title": "ตม.รวบผู้ต้องหาหญิงวัย 28 คาสนามบินสุวรรณภูมิ คดีเพจชวนลงทุนแบรนด์เนมอ้างผลตอบแทน 10% ต่อเดือน สูญ 4 ล้าน",
+    "date": "2026-11-05",
+    "provinces": [
+      "samut-prakan"
+    ]
+  },
+  {
     "slug": "cib-ratchaburi-fake-bank-police-video-call-mule-account-2569",
     "title": "บก.ปพ.รวบชายวัย 52 ผู้ต้องหาคดีบัญชีม้าที่ราชบุรี แก๊งอ้างธนาคารโอนสายให้ตำรวจปลอมวิดีโอคอลขู่คดีฟอกเงิน เหยื่อสูญ 76,000 บาท ผู้ต้องหาปฏิเสธ",
     "date": "2026-11-03",

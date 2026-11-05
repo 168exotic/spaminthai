@@ -93,6 +93,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cib-klongprem-prison-gate-mule-account-fake-online-shop-2569',
+  'bangsrimuang-nonthaburi-ai-fortune-teller-cardless-withdrawal-2569',
+  'immigration-suvarnabhumi-brand-name-investment-fraud-warrant-2569',
   'maechan-chiangrai-cash-collector-fake-police-student-2569',
   'cib-ratchaburi-fake-bank-police-video-call-mule-account-2569',
   'consumer-police-ayutthaya-tiktok-fake-iphone-student-victims-2569',
