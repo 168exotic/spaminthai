@@ -3,8 +3,10 @@
 // with that prefix (from KV, cached), a check form, safety tips and app CTA.
 
 import { assess } from '../api/risk-assess.js';
+import { summarizeReports, statsSentence, renderStatsSection, STATS_STYLE } from '../seo/area-stats.js';
 import { PROVINCES, REGIONS, ALIASES, sameCode } from './provinces.js';
 import { relatedNews, thaiShortDate } from '../news/related-news.js';
+import { provinceNotes } from './province-notes.js';
 
 const SITE = 'https://spaminthai.com';
 const OG_IMAGE = SITE + '/assets/og-image.jpg';
@@ -43,7 +45,10 @@ export async function reportedForCode(env, code) {
   const cacheKey = 'seo:area:' + code;
   try {
     const cached = await env.SPAM_KV.get(cacheKey);
-    if (cached) return JSON.parse(cached);
+    if (cached) {
+      const c = JSON.parse(cached);
+      if (c && c.stats) return c;
+    }
   } catch {
     /* fall through */
   }
@@ -81,7 +86,7 @@ export async function reportedForCode(env, code) {
       });
     }
     out.sort((x, y) => (y.reports - x.reports) || String(y.lastReport).localeCompare(String(x.lastReport)));
-    const result = { total: keys.length, items: out.slice(0, 20) };
+    const result = { total: keys.length, items: out.slice(0, 20), stats: summarizeReports(vals.filter(Boolean), keys.length) };
     try {
       await env.SPAM_KV.put(cacheKey, JSON.stringify(result), { expirationTtl: CACHE_TTL });
     } catch {
@@ -89,7 +94,7 @@ export async function reportedForCode(env, code) {
     }
     return result;
   } catch {
-    return { total: 0, items: [] };
+    return { total: 0, items: [], stats: null };
   }
 }
 
@@ -191,6 +196,9 @@ const STYLE = `<style>
 .pv-grid a{display:block;background:#fff;border:1px solid var(--color-line);border-radius:12px;padding:10px 12px;text-decoration:none;color:inherit;height:100%}
 .pv-grid a:hover{border-color:var(--color-secondary)}
 .pv-grid b{display:block}.pv-grid small{color:var(--color-text-muted)}
+.pv-note{background:#fff;border:1px solid var(--color-line);border-radius:14px;padding:12px 14px;margin:8px 0}
+.pv-note h3{font-size:1rem;margin:0 0 6px}.pv-note p{margin:0;line-height:1.65}
+${STATS_STYLE}
 </style>`;
 
 export function page({ title, desc, canonical, schema, body, robots = '' }) {
@@ -235,7 +243,9 @@ export function html(body, status = 200, maxAge = 1800) {
 export async function renderProvincePage(slug, env) {
   const p = PROVINCES.get(slug);
   if (!p) return new Response('Not found', { status: 404 });
-  const { total, items } = await reportedForCode(env, p.code);
+  const { total, items, stats } = await reportedForCode(env, p.code);
+  const statLine = statsSentence(stats, `เบอร์บ้านขึ้นต้น ${p.code} `);
+  const notes = provinceNotes(p);
   const shared = sameCode(p.code, slug);
   const news = relatedNews([slug], 4);
   const canonical = `${SITE}/${slug}`;
@@ -266,6 +276,7 @@ export async function renderProvincePage(slug, env) {
   <p class="lead">เบอร์โทรแปลกโทรมา? ตรวจก่อนรับสายจากฐานข้อมูลเบอร์ที่คนไทยช่วยกันรายงาน ฟรี ไม่ต้องสมัคร</p>
   <div class="pv-code">☎️ เบอร์บ้าน${esc(p.th)} ขึ้นต้นด้วย <b>${esc(p.code)}</b></div>
   <p class="lead" style="font-size:.9rem">${esc(sharedTxt)}</p>
+  ${statLine ? `<p class="pv-summary"><b>สรุปจากข้อมูล:</b> ${esc(statLine)}</p>` : ''}
   <form class="pv-form" action="/check" method="get" role="search">
     <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="เช่น ${esc(p.code === '02' ? '02-xxx-xxxx' : p.code + '-xxx-xxx')}" aria-label="เบอร์ที่ต้องการตรวจ" required>
     <button type="submit">ตรวจสอบ</button>
@@ -275,6 +286,13 @@ export async function renderProvincePage(slug, env) {
 <section class="pv-sec">
   <h2>เบอร์ ${esc(p.code)} ที่ถูกรายงานล่าสุด</h2>
   ${list}
+</section>
+
+${renderStatsSection(stats, `เบอร์ ${p.code}`)}
+
+<section class="pv-sec">
+  <h2>กลโกงที่ควรระวังใน${esc(p.th)}</h2>
+  ${notes.map((n) => `<div class="pv-note"><h3>${esc(n.title)}</h3><p>${esc(n.text)}</p></div>`).join('')}
 </section>
 
 <section class="pv-sec">

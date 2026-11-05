@@ -3,6 +3,7 @@
 // numbers with that prefix (from KV, cached), a check form, safety tips and app CTA.
 
 import { assess } from '../api/risk-assess.js';
+import { summarizeReports, statsSentence, renderStatsSection } from '../seo/area-stats.js';
 import { identifyCarrier, MOBILE_PREFIXES } from '../api/carrier.js';
 import { esc, fmt, page, html } from '../province/render-province-page.js';
 
@@ -29,7 +30,10 @@ export async function reportedForPrefix(env, prefix) {
   const cacheKey = 'seo:prefix:' + prefix;
   try {
     const cached = await env.SPAM_KV.get(cacheKey);
-    if (cached) return JSON.parse(cached);
+    if (cached) {
+      const c = JSON.parse(cached);
+      if (c && c.stats) return c;
+    }
   } catch {
     /* fall through */
   }
@@ -67,7 +71,7 @@ export async function reportedForPrefix(env, prefix) {
       });
     }
     out.sort((x, y) => (y.reports - x.reports) || String(y.lastReport).localeCompare(String(x.lastReport)));
-    const result = { total: keys.length, items: out.slice(0, 20) };
+    const result = { total: keys.length, items: out.slice(0, 20), stats: summarizeReports(vals.filter(Boolean), keys.length) };
     try {
       await env.SPAM_KV.put(cacheKey, JSON.stringify(result), { expirationTtl: CACHE_TTL });
     } catch {
@@ -75,7 +79,7 @@ export async function reportedForPrefix(env, prefix) {
     }
     return result;
   } catch {
-    return { total: 0, items: [] };
+    return { total: 0, items: [], stats: null };
   }
 }
 
@@ -120,6 +124,22 @@ export function buildPrefixFaq(prefix, carrierLabel, reportedCount) {
   ];
 }
 
+// Official carrier call centers (customer service), used for "report spam to your carrier".
+const CARRIER_HOTLINE = { AIS: '1175', 'ทรู': '1242', 'ดีแทค': '1678', NT: '1888' };
+
+function carrierSection(prefix, carrierLabel) {
+  const hot = CARRIER_HOTLINE[carrierLabel];
+  return `<section class="pv-sec">
+  <h2>แจ้งเบอร์ ${esc(prefix)} ที่รบกวนกับค่าย${hot ? ` ${esc(carrierLabel)}` : ''}</h2>
+  <ul class="pv-tips">
+    ${hot ? `<li>โทรศูนย์บริการลูกค้า ${esc(carrierLabel)} <b>${hot}</b> แจ้งเบอร์ที่โทรหรือส่ง SMS หลอกลวง พร้อมวันเวลาที่ได้รับ (ค่ายจะดูแลได้ดีที่สุดเมื่อคุณเป็นลูกค้าของค่ายนั้นเอง)</li>` : ''}
+    <li>SMS โฆษณาที่ไม่ได้สมัคร กด <b>*137</b> แล้วโทรออก (ฟรี) เพื่อดูและยกเลิกบริการ SMS ที่หักเงินหรือส่งโฆษณามาหาคุณ</li>
+    <li>ร้องเรียนการถูกรบกวนจากบริการโทรคมนาคมกับ กสทช. ได้ที่ <b>1200</b> (โทรฟรี)</li>
+    <li>แจ้งเบอร์นี้ใน SpamInThai ที่ <a href="/report">หน้าแจ้งเบาะแส</a> เพื่อเตือนคนอื่นที่อาจถูกโทรหาเช่นกัน</li>
+  </ul>
+</section>`;
+}
+
 function tag(verdict) {
   return verdict === 'danger' ? 'อันตราย' : verdict === 'caution' ? 'น่าสงสัย' : 'มีรายงาน';
 }
@@ -127,7 +147,8 @@ function tag(verdict) {
 export async function renderPrefixPage(prefix, env) {
   if (!MOBILE_PREFIXES.includes(prefix)) return new Response('Not found', { status: 404 });
   const { carrierLabel } = identifyCarrier(prefix + '0000000');
-  const { total, items } = await reportedForPrefix(env, prefix);
+  const { total, items, stats } = await reportedForPrefix(env, prefix);
+  const statLine = statsSentence(stats, `เบอร์ ${prefix} `);
   const canonical = `${SITE}/prefix/${prefix}`;
   const dangerCount = items.filter((it) => it.verdict === 'danger').length;
   const title = `เบอร์ ${prefix} มิจฉาชีพ? เช็คเบอร์ขึ้นต้น ${prefix} ค่าย ${carrierLabel} | SpamInThai`;
@@ -154,6 +175,7 @@ export async function renderPrefixPage(prefix, env) {
   <p class="lead">เบอร์ ${esc(prefix)} โทรมาแล้วไม่รู้จัก? ตรวจก่อนรับสายจากฐานข้อมูลเบอร์ที่คนไทยช่วยกันรายงาน ฟรี ไม่ต้องสมัคร</p>
   <div class="pv-code">📱 เบอร์มือถือขึ้นต้น <b>${esc(prefix)}</b> · ค่าย ${esc(carrierLabel)}</div>
   <p class="pv-summary"><b>สรุปสั้น:</b> ${esc(summary)}</p>
+  ${statLine ? `<p class="pv-summary"><b>สรุปจากข้อมูล:</b> ${esc(statLine)}</p>` : ''}
   ${items.length ? `<p class="lead" style="font-size:.9rem">มีเบอร์ ${esc(prefix)} ที่ถูกรายงาน ${total} เบอร์${dangerCount ? ` (อันตราย ${dangerCount} เบอร์ใน 20 อันดับแรก)` : ''}</p>` : ''}
   <form class="pv-form" action="/check" method="get" role="search">
     <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="เช่น ${esc(prefix)}-xxx-xxxx" aria-label="เบอร์ที่ต้องการตรวจ" required>
@@ -165,6 +187,8 @@ export async function renderPrefixPage(prefix, env) {
   <h2>เบอร์ ${esc(prefix)} ที่ถูกรายงานล่าสุด</h2>
   ${list}
 </section>
+
+${renderStatsSection(stats, `เบอร์ ${prefix}`)}
 
 <section class="pv-sec">
   <h2>เบอร์ ${esc(prefix)} เป็นของค่ายไหน?</h2>
@@ -181,6 +205,8 @@ export async function renderPrefixPage(prefix, env) {
   </ul>
   ${blog ? `<p><a href="/blog/${esc(blog.slug)}">อ่านต่อ: ${esc(blog.title)} →</a></p>` : ''}
 </section>
+
+${carrierSection(prefix, carrierLabel)}
 
 <section class="pv-sec pv-faq">
   <h2>คำถามที่พบบ่อยเกี่ยวกับเบอร์ ${esc(prefix)}</h2>
