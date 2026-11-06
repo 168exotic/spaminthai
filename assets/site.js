@@ -92,8 +92,18 @@
     }
   }
 
+  // Never slide the banner in while someone is typing a number: retry after they leave the field.
+  function isTyping() {
+    const a = document.activeElement;
+    return !!a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA');
+  }
+
   function injectPopup() {
     if (!shouldShowPopup() || document.getElementById('appPopup')) return;
+    if (isTyping()) {
+      document.activeElement.addEventListener('blur', () => setTimeout(injectPopup, 1500), { once: true });
+      return;
+    }
 
     const style = document.createElement('style');
     style.textContent = `
@@ -147,10 +157,10 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       highlightNav();
-      setTimeout(injectPopup, 800);
+      setTimeout(injectPopup, 4000);
     });
   } else {
     highlightNav();
-    setTimeout(injectPopup, 800);
+    setTimeout(injectPopup, 4000);
   }
 })();
