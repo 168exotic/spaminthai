@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'lost-stolen-phone-what-to-do',
+  'debt-collection-call-not-my-debt',
+  'line-privacy-settings-block-scammers',
   'fake-points-expiry-reward-sms',
   'fake-nbtc-sim-suspension-call',
   'fake-traffic-fine-sms',
