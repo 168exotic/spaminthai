@@ -93,6 +93,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'acsc-cib-highway-scam-hunter-corporate-mule-56-warrants-2569',
+  'acsc-sukreep-fake-phuket-police-call-center-17-arrests-2569',
+  'cib-klongprem-prison-gate-mule-account-romance-investment-2569',
   'maechan-chiangrai-cash-collector-fake-police-student-2569',
   'cib-ratchaburi-fake-bank-police-video-call-mule-account-2569',
   'consumer-police-ayutthaya-tiktok-fake-iphone-student-victims-2569',
