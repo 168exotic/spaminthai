@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'setup-parents-phone-safety',
+  'personal-data-leaked-what-to-do',
+  'call-forwarding-code-scam',
   'fake-points-expiry-reward-sms',
   'fake-nbtc-sim-suspension-call',
   'fake-traffic-fine-sms',
