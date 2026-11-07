@@ -2,6 +2,30 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "acsc-cib-highway-scam-hunter-corporate-mule-56-warrants-2569",
+    "title": "ACSC-CIB เปิดปฏิบัติการ Highway Scam Hunter EP.5 กวาดล้างบัญชีม้านิติบุคคล 56 หมายจับ จับได้ 32 ราย โยง 130 คดี เสียหายกว่า 250 ล้าน",
+    "date": "2026-11-05",
+    "provinces": [
+      "bangkok"
+    ]
+  },
+  {
+    "slug": "acsc-sukreep-fake-phuket-police-call-center-17-arrests-2569",
+    "title": "ACSC เปิดปฏิบัติการ \"สุครีพหักคอลฯ\" รวบ 17 ผู้ต้องหาแก๊งคอลเซ็นเตอร์ แต่งชุดคล้ายตำรวจวิดีโอคอลอ้างเป็นตำรวจภูเก็ต ศาลออกหมายจับ 32 ราย",
+    "date": "2026-11-05",
+    "provinces": [
+      "phuket"
+    ]
+  },
+  {
+    "slug": "cib-klongprem-prison-gate-mule-account-romance-investment-2569",
+    "title": "บก.ปพ.ดักรวบผู้ต้องหาคดีบัญชีม้าวัย 37 หน้าเรือนจำคลองเปรม กรุงเทพฯ ขณะพ้นโทษ โยงแก๊งหลอกรักชวนลงทุนร้านค้าออนไลน์ เหยื่อสูญ 10,118,133.51 บาท",
+    "date": "2026-11-04",
+    "provinces": [
+      "bangkok"
+    ]
+  },
+  {
     "slug": "cib-ratchaburi-fake-bank-police-video-call-mule-account-2569",
     "title": "บก.ปพ.รวบชายวัย 52 ผู้ต้องหาคดีบัญชีม้าที่ราชบุรี แก๊งอ้างธนาคารโอนสายให้ตำรวจปลอมวิดีโอคอลขู่คดีฟอกเงิน เหยื่อสูญ 76,000 บาท ผู้ต้องหาปฏิเสธ",
     "date": "2026-11-03",
