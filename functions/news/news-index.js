@@ -2,6 +2,32 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "metro-police-huaikhwang-chinese-call-center-elderly-gold-5-baht-2569",
+    "title": "ตำรวจนครบาลรวบ 2 ผู้ต้องหาชาวจีนที่ห้วยขวาง ตำรวจระบุโยงแก๊งคอลเซ็นเตอร์อ้างเป็นตำรวจหลอกหญิงสูงอายุว่าพัวพันคดี หลอกส่งทองคำหนัก 5 บาท ยึดเงินสด 36,700 บาท",
+    "date": "2026-11-08",
+    "provinces": [
+      "bangkok"
+    ]
+  },
+  {
+    "slug": "cyber-police-maesot-mule-account-office-40-phones-2569",
+    "title": "ตร.ไซเบอร์บุกค้นอาคารกลางแม่สอด รวบ 3 ผู้ต้องหาจัดหาคนเปิดบัญชีม้าป้อนแก๊งสแกมเมอร์-พนันออนไลน์ ยึดมือถือลงแอปธนาคารพร้อมใช้ 40 เครื่อง",
+    "date": "2026-11-07",
+    "provinces": [
+      "tak"
+    ]
+  },
+  {
+    "slug": "pattaya-police-mule-account-investment-scam-refund-119000-2569",
+    "title": "ตำรวจพัทยาคืนเงิน 119,000 บาทให้ผู้เสียหายคดีหลอกลงทุนออนไลน์ หลังสกัดจับ 2 ผู้ต้องหาคดีบัญชีม้าคาลานจอดรถห้าง ขยายผลพบกลุ่มรับซื้อ-เช่าบัญชี โยงคดีกรุงเทพฯ-นครศรีธรรมราช",
+    "date": "2026-11-07",
+    "provinces": [
+      "bangkok",
+      "chonburi",
+      "nakhon-si-thammarat"
+    ]
+  },
+  {
     "slug": "acsc-cib-highway-scam-hunter-corporate-mule-56-warrants-2569",
     "title": "ACSC-CIB เปิดปฏิบัติการ Highway Scam Hunter EP.5 กวาดล้างบัญชีม้านิติบุคคล 56 หมายจับ จับได้ 32 ราย โยง 130 คดี เสียหายกว่า 250 ล้าน",
     "date": "2026-11-05",
