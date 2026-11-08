@@ -96,6 +96,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'metro-police-huaikhwang-chinese-call-center-elderly-gold-5-baht-2569',
+  'cyber-police-maesot-mule-account-office-40-phones-2569',
+  'pattaya-police-mule-account-investment-scam-refund-119000-2569',
   'acsc-cib-highway-scam-hunter-corporate-mule-56-warrants-2569',
   'acsc-sukreep-fake-phuket-police-call-center-17-arrests-2569',
   'cib-klongprem-prison-gate-mule-account-romance-investment-2569',
