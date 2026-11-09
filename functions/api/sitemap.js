@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'mega-sale-11-11-12-12-scams',
+  'id-card-copy-sign-safely',
+  'wrong-transfer-into-my-account',
   'setup-parents-phone-safety',
   'personal-data-leaked-what-to-do',
   'call-forwarding-code-scam',
