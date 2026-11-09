@@ -2,6 +2,31 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cib-nakhonpathom-mule-account-teen-victim-fake-ransom-grandmother-2569",
+    "title": "บก.ปพ.รวบผู้ต้องหาคดีบัญชีม้าวัย 27 ที่นครปฐม ตำรวจระบุโยงแก๊งคอลเซ็นเตอร์อ้างเป็นตำรวจขู่เด็กหญิงวัย 17 และหลอกย่าว่าหลานถูกลักพาตัว เสียหายรวมกว่า 310,000 บาท",
+    "date": "2026-11-09",
+    "provinces": [
+      "nakhon-pathom"
+    ]
+  },
+  {
+    "slug": "cib-nongchok-mule-account-fake-used-wheels-facebook-7-cases-2569",
+    "title": "บก.ปพ.รวบผู้ต้องหาคดีบัญชีม้าวัย 21 ที่หนองจอก กรุงเทพฯ ตำรวจระบุบัญชีรับเงินแก๊งหลอกขายล้อแม็กมือสองราคาถูกผ่านเฟซบุ๊ก พบประวัติเชื่อมโยงอีก 7 รายการ",
+    "date": "2026-11-09",
+    "provinces": [
+      "bangkok",
+      "lopburi"
+    ]
+  },
+  {
+    "slug": "police-region2-pattaya-condo-transnational-scammer-8-suspects-100m-2569",
+    "title": "ตำรวจภูธรภาค 2 บุกค้นคอนโดพัทยากลาง รวบ 8 ผู้ต้องหาไทย-จีน ตำรวจระบุเป็นเครือข่ายจัดหาบัญชีม้าและเคลื่อนย้ายเงินให้สแกมเมอร์ข้ามชาติ โยงคดีเสียหายกว่า 100 ล้านบาท",
+    "date": "2026-11-09",
+    "provinces": [
+      "chonburi"
+    ]
+  },
+  {
     "slug": "metro-police-huaikhwang-chinese-call-center-elderly-gold-5-baht-2569",
     "title": "ตำรวจนครบาลรวบ 2 ผู้ต้องหาชาวจีนที่ห้วยขวาง ตำรวจระบุโยงแก๊งคอลเซ็นเตอร์อ้างเป็นตำรวจหลอกหญิงสูงอายุว่าพัวพันคดี หลอกส่งทองคำหนัก 5 บาท ยึดเงินสด 36,700 บาท",
     "date": "2026-11-08",

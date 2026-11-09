@@ -96,6 +96,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'police-region2-pattaya-condo-transnational-scammer-8-suspects-100m-2569',
+  'cib-nakhonpathom-mule-account-teen-victim-fake-ransom-grandmother-2569',
+  'cib-nongchok-mule-account-fake-used-wheels-facebook-7-cases-2569',
   'metro-police-huaikhwang-chinese-call-center-elderly-gold-5-baht-2569',
   'cyber-police-maesot-mule-account-office-40-phones-2569',
   'pattaya-police-mule-account-investment-scam-refund-119000-2569',
