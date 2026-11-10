@@ -19,5 +19,18 @@
       "binding": "EVIDENCE_R2",
       "bucket_name": "spaminthai-evidence"
     }
+  ],
+  // Passive Spam Signal Collection (v3.1.6): hashed crowdsourced call signals.
+  // database_id is filled by `wrangler d1 create spaminthai-signals`.
+  "d1_databases": [
+    {
+      "binding": "SIGNAL_DB",
+      "database_name": "spaminthai-signals",
+      "database_id": "a7e720e8-0330-4245-b3c8-3c7aaab79c12"
+    }
   ]
+  // Hourly aggregation (number_risk rebuild + retention purge) runs via the
+  // GitHub Actions workflow .github/workflows/signals-aggregate.yml, which POSTs
+  // /api/v1/aggregate. Cloudflare Pages has no native cron. lookupSignalRisk()
+  // also refreshes a number lazily on read, so scores stay correct between runs.
 }
