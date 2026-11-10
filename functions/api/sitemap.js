@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'caller-id-spoofing-real-bank-number',
+  'scammer-sends-courier-collect-cash-gold',
+  'openchat-expose-shame-groups-parents',
   'setup-parents-phone-safety',
   'personal-data-leaked-what-to-do',
   'call-forwarding-code-scam',
