@@ -96,6 +96,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cyber-police-5-province-raid-fake-massager-ad-investment-48-cases-22m-2569',
+  'cyber-police-trang-mule-account-buying-house-4-suspects-18-phones-2569',
+  'highway-police-chanthaburi-mule-account-5-suspects-6-warrants-poipet-face-scan-2569',
   'police-region2-pattaya-condo-transnational-scammer-8-suspects-100m-2569',
   'cib-nakhonpathom-mule-account-teen-victim-fake-ransom-grandmother-2569',
   'cib-nongchok-mule-account-fake-used-wheels-facebook-7-cases-2569',
