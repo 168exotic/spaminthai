@@ -2,6 +2,34 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cyber-police-5-province-raid-fake-massager-ad-investment-48-cases-22m-2569",
+    "title": "ตร.ไซเบอร์ค้น 5 จังหวัด รวบ 7 ผู้ต้องหาคดีบัญชีม้า ตำรวจระบุโยงแก๊งโฆษณาเครื่องนวดไฟฟ้าดึงเข้ากลุ่มไลน์หลอกลงทุน ผู้เสียหายสูญ 4,983,968 บาท โยงกว่า 48 เคสไอดี เสียหายรวมกว่า 22 ล้าน คืนเงินแล้ว 1,804,294 บาท",
+    "date": "2026-11-11",
+    "provinces": [
+      "bangkok",
+      "pathum-thani",
+      "samut-prakan",
+      "sisaket",
+      "ubon-ratchathani"
+    ]
+  },
+  {
+    "slug": "cyber-police-trang-mule-account-buying-house-4-suspects-18-phones-2569",
+    "title": "ตร.ไซเบอร์บุกค้นบ้านรับซื้อบัญชีม้ากลางเมืองตรัง รวบ 4 ผู้ต้องหา ยึดมือถือเตรียมลงแอปธนาคาร 18 เครื่อง ตำรวจระบุจ่ายเจ้าของบัญชีละ 2,500 บาท พบหลายคนยืนรอขายบัญชีหน้าบ้าน",
+    "date": "2026-11-11",
+    "provinces": [
+      "trang"
+    ]
+  },
+  {
+    "slug": "highway-police-chanthaburi-mule-account-5-suspects-6-warrants-poipet-face-scan-2569",
+    "title": "ตำรวจทางหลวงจันทบุรีเปิดปฏิบัติการทลายคอกบัญชีม้า รวบ 5 ผู้ต้องหาตาม 6 หมายจับ ตำรวจระบุบัญชีโยงหลอกลงทุนและอ้างเป็นญาติยืมเงิน ผู้ต้องหาบางรายให้การว่าถูกพาไปสแกนหน้าที่ปอยเปต",
+    "date": "2026-11-11",
+    "provinces": [
+      "chanthaburi"
+    ]
+  },
+  {
     "slug": "cib-nakhonpathom-mule-account-teen-victim-fake-ransom-grandmother-2569",
     "title": "บก.ปพ.รวบผู้ต้องหาคดีบัญชีม้าวัย 27 ที่นครปฐม ตำรวจระบุโยงแก๊งคอลเซ็นเตอร์อ้างเป็นตำรวจขู่เด็กหญิงวัย 17 และหลอกย่าว่าหลานถูกลักพาตัว เสียหายรวมกว่า 310,000 บาท",
     "date": "2026-11-09",
