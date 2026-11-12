@@ -2,6 +2,40 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cyber-police-5-provinces-online-mission-scam-former-teacher-ubon-7-suspects-2569",
+    "title": "ตร.ไซเบอร์ปูพรม 5 จังหวัด รวบ 7 ผู้ต้องหาคดีบัญชีม้าเครือข่ายหลอกทำภารกิจออนไลน์ อดีตครูวัย 65 สูญ 4,983,968 บาท ตำรวจระบุโยง 48 เคส กว่า 22 ล้าน คืนเงินแล้ว 1,804,294 บาท",
+    "date": "2026-11-12",
+    "provinces": [
+      "bangkok",
+      "nonthaburi",
+      "pathum-thani",
+      "samut-prakan",
+      "sisaket",
+      "ubon-ratchathani"
+    ]
+  },
+  {
+    "slug": "cyber-police-angthong-bangkok-mule-account-mission-scam-gold-2-7m-2569",
+    "title": "ตร.ไซเบอร์รวบ 2 ผู้ต้องหาหญิงคดีบัญชีม้าที่อ่างทองและกรุงเทพฯ ตำรวจระบุรับเงินแก๊งหลอกทำภารกิจออนไลน์แล้วนำไปซื้อทอง ผู้เสียหายสุโขทัยสูญ 2,698,800 บาท",
+    "date": "2026-11-12",
+    "provinces": [
+      "bangkok",
+      "nonthaburi",
+      "ang-thong",
+      "sukhothai"
+    ]
+  },
+  {
+    "slug": "cyber-police-trang-mule-account-buying-hub-4-suspects-18-phones-2569",
+    "title": "ตร.ไซเบอร์บุกค้นบ้านกลางเมืองตรัง รวบ 4 ผู้ต้องหาคดีรับซื้อบัญชีม้า ตำรวจระบุจ่ายบัญชีละ 2,500 บาท นายหน้าได้หัวละ 500 บาท ยึดมือถือ 18 เครื่อง พบคนรอขายบัญชีหน้าบ้าน",
+    "date": "2026-11-12",
+    "provinces": [
+      "phuket",
+      "songkhla",
+      "trang"
+    ]
+  },
+  {
     "slug": "cib-nakhonpathom-mule-account-teen-victim-fake-ransom-grandmother-2569",
     "title": "บก.ปพ.รวบผู้ต้องหาคดีบัญชีม้าวัย 27 ที่นครปฐม ตำรวจระบุโยงแก๊งคอลเซ็นเตอร์อ้างเป็นตำรวจขู่เด็กหญิงวัย 17 และหลอกย่าว่าหลานถูกลักพาตัว เสียหายรวมกว่า 310,000 บาท",
     "date": "2026-11-09",
