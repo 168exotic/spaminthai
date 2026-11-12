@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'bank-account-frozen-suspected-mule',
+  'cod-parcel-not-ordered',
+  'fake-base-station-sms-blaster',
   'setup-parents-phone-safety',
   'personal-data-leaked-what-to-do',
   'call-forwarding-code-scam',
