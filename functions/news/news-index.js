@@ -2,6 +2,23 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cib-highway-police-chanthaburi-mule-account-dating-app-5-suspects-6-warrants-2569",
+    "title": "ตำรวจทางหลวงรวบ 5 ผู้ต้องหา 6 หมายจับคดีบัญชีม้าจันทบุรี ตำรวจระบุบัญชีรับเงินหลอกลงทุนผ่านแอปหาคู่ กรุงเทพธุรกิจระบุเสียหายกว่า 6 ล้าน",
+    "date": "2026-11-13",
+    "provinces": [
+      "bangkok",
+      "chanthaburi"
+    ]
+  },
+  {
+    "slug": "police-region5-chiangmai-sansai-cash-mule-fake-pea-meter-268k-2569",
+    "title": "ตร.ภาค 5 รวบหญิงวัย 26 ผู้ต้องหาคดีรับจ้างกดเงินให้แก๊งคอลเซ็นเตอร์อ้างการไฟฟ้า ที่สันทราย เชียงใหม่ สูญ 268,346.75 บาท",
+    "date": "2026-11-13",
+    "provinces": [
+      "chiang-mai"
+    ]
+  },
+  {
     "slug": "cyber-police-5-provinces-online-mission-scam-former-teacher-ubon-7-suspects-2569",
     "title": "ตร.ไซเบอร์ปูพรม 5 จังหวัด รวบ 7 ผู้ต้องหาคดีบัญชีม้าเครือข่ายหลอกทำภารกิจออนไลน์ อดีตครูวัย 65 สูญ 4,983,968 บาท ตำรวจระบุโยง 48 เคส กว่า 22 ล้าน คืนเงินแล้ว 1,804,294 บาท",
     "date": "2026-11-12",

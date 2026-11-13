@@ -96,6 +96,8 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'police-region5-chiangmai-sansai-cash-mule-fake-pea-meter-268k-2569',
+  'cib-highway-police-chanthaburi-mule-account-dating-app-5-suspects-6-warrants-2569',
   'cyber-police-5-provinces-online-mission-scam-former-teacher-ubon-7-suspects-2569',
   'cyber-police-trang-mule-account-buying-hub-4-suspects-18-phones-2569',
   'cyber-police-angthong-bangkok-mule-account-mission-scam-gold-2-7m-2569',
