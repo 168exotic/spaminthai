@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'private-hidden-number-calls',
+  'fake-profile-impersonation-what-to-do',
+  'fake-transfer-slip-check',
   'setup-parents-phone-safety',
   'personal-data-leaked-what-to-do',
   'call-forwarding-code-scam',
