@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'facebook-account-hacked-recovery',
+  'cloud-storage-full-phishing',
+  'thaid-fake-sms-line-scam',
   'setup-parents-phone-safety',
   'personal-data-leaked-what-to-do',
   'call-forwarding-code-scam',
