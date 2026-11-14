@@ -96,6 +96,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cib-anti-trafficking-phatthalung-mule-account-online-sales-scam-863300-baht-2569',
+  'nongkhai-immigration-mule-account-3-warrants-cambodia-3000-baht-per-account-2569',
+  'samutprakan-police-money-cash-back-cash-mule-rama2-mall-1499520-baht-seized-2569',
   'police-region5-chiangmai-sansai-cash-mule-fake-pea-meter-268k-2569',
   'cib-highway-police-chanthaburi-mule-account-dating-app-5-suspects-6-warrants-2569',
   'cyber-police-5-provinces-online-mission-scam-former-teacher-ubon-7-suspects-2569',
