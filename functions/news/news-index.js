@@ -2,6 +2,36 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cib-anti-trafficking-phatthalung-mule-account-online-sales-scam-863300-baht-2569",
+    "title": "ตำรวจสอบสวนกลางรวบผู้ต้องหาหญิงวัย 23 คดีบัญชีม้าที่ปากพะยูน จ.พัทลุง ตำรวจระบุบัญชีรับเงินแก๊งหลอกชวนเป็นนายหน้าขายสินค้าออนไลน์ คดีแจ้งความที่พิจิตร ผู้เสียหายสูญ 863,300 บาท ผู้ต้องหาปฏิเสธ",
+    "date": "2026-11-14",
+    "provinces": [
+      "bangkok",
+      "phichit",
+      "phatthalung"
+    ]
+  },
+  {
+    "slug": "nongkhai-immigration-mule-account-3-warrants-cambodia-3000-baht-per-account-2569",
+    "title": "ตม.หนองคายรวบผู้ต้องหาชายวัย 45 คดีบัญชีม้า 3 หมายจับ ตำรวจระบุโยงคดีฉ้อโกงออนไลน์สุราษฎร์ธานี-ภูเก็ต ผู้ต้องหาอ้างขายบัญชีละ 3,000 บาทแล้วถูกพาข้ามไปกัมพูชา",
+    "date": "2026-11-14",
+    "provinces": [
+      "khon-kaen",
+      "nong-khai",
+      "phuket",
+      "surat-thani"
+    ]
+  },
+  {
+    "slug": "samutprakan-police-money-cash-back-cash-mule-rama2-mall-1499520-baht-seized-2569",
+    "title": "ตำรวจสมุทรปราการรวบผู้ต้องหาหญิงวัย 45 ตามหมายจับคดีหลอกลวงออนไลน์คาห้างย่านพระราม 2 พบเงินสด 1 ล้านในกระเป๋า อายัดอีก 1,499,520 บาท เตรียมคืนผู้เสียหายวัย 63 ที่ถูกหลอกทำภารกิจออนไลน์",
+    "date": "2026-11-14",
+    "provinces": [
+      "bangkok",
+      "samut-prakan"
+    ]
+  },
+  {
     "slug": "cib-highway-police-chanthaburi-mule-account-dating-app-5-suspects-6-warrants-2569",
     "title": "ตำรวจทางหลวงรวบ 5 ผู้ต้องหา 6 หมายจับคดีบัญชีม้าจันทบุรี ตำรวจระบุบัญชีรับเงินหลอกลงทุนผ่านแอปหาคู่ กรุงเทพธุรกิจระบุเสียหายกว่า 6 ล้าน",
     "date": "2026-11-13",
