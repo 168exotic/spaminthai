@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'check-link-before-click',
+  'debt-collection-call-rights',
+  'fund-recovery-scam',
   'setup-parents-phone-safety',
   'personal-data-leaked-what-to-do',
   'call-forwarding-code-scam',
