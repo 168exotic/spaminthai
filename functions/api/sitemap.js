@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'scam-evidence-checklist-police-report',
+  'oversharing-social-media-scam-risk',
+  'sms-blaster-fake-base-station',
   'setup-parents-phone-safety',
   'personal-data-leaked-what-to-do',
   'call-forwarding-code-scam',
