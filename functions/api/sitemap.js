@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'sign-id-card-copy-safely',
+  'lost-stolen-phone-what-to-do',
+  'fake-donation-disaster-scam',
   'scam-evidence-checklist-police-report',
   'oversharing-social-media-scam-risk',
   'sms-blaster-fake-base-station',
