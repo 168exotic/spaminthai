@@ -99,6 +99,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'government-aoc-1441-mule-accounts-1-million-suspended-damage-down-42-percent-2569',
+  'dsi-google-apple-unlicensed-loan-apps-8-licensed-operators-2569',
+  'immigration-pattaya-chinese-student-virtual-kidnapping-call-center-2-million-yuan-2569',
   'cib-anti-trafficking-phatthalung-mule-account-online-sales-scam-863300-baht-2569',
   'nongkhai-immigration-mule-account-3-warrants-cambodia-3000-baht-per-account-2569',
   'samutprakan-police-money-cash-back-cash-mule-rama2-mall-1499520-baht-seized-2569',

@@ -2,6 +2,26 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "dsi-google-apple-unlicensed-loan-apps-8-licensed-operators-2569",
+    "title": "DSI ส่งรายชื่อผู้ให้บริการสินเชื่อส่วนบุคคลดิจิทัลที่มีใบอนุญาต 8 ราย ให้ Google และ Apple ขอให้ถอดแอปเงินกู้ที่ไม่มีใบอนุญาตออกจากสโตร์ DSI ระบุแอปบังคับเข้าถึงรายชื่อติดต่อและรูปภาพ แล้วนำไปประจานทวงหนี้",
+    "date": "2026-11-15",
+    "provinces": []
+  },
+  {
+    "slug": "government-aoc-1441-mule-accounts-1-million-suspended-damage-down-42-percent-2569",
+    "title": "รัฐบาลแถลงระงับบัญชีม้าแล้วกว่า 1 ล้านบัญชี ความเสียหายจากการหลอกลวงออนไลน์ช่วง มิ.ย.–ต.ค. 2569 เหลือ 3,801 ล้านบาท ลดลงกว่า 42% จากช่วง ม.ค.–พ.ค. ที่ 6,577 ล้านบาท",
+    "date": "2026-11-15",
+    "provinces": []
+  },
+  {
+    "slug": "immigration-pattaya-chinese-student-virtual-kidnapping-call-center-2-million-yuan-2569",
+    "title": "ตม.เคลื่อนที่เร็วพบนักศึกษาชาวจีนวัย 19 ในโรงแรมที่พัทยาภายใน 30 นาที หลังครอบครัวได้คลิป 6 วินาทีและถูกเรียกเงิน 2 ล้านหยวนผ่าน WeChat ตำรวจระบุเชื่อว่าถูกแก๊งคอลเซ็นเตอร์หลอกให้เดินทางเข้าไทย",
+    "date": "2026-11-15",
+    "provinces": [
+      "chonburi"
+    ]
+  },
+  {
     "slug": "cib-anti-trafficking-phatthalung-mule-account-online-sales-scam-863300-baht-2569",
     "title": "ตำรวจสอบสวนกลางรวบผู้ต้องหาหญิงวัย 23 คดีบัญชีม้าที่ปากพะยูน จ.พัทลุง ตำรวจระบุบัญชีรับเงินแก๊งหลอกชวนเป็นนายหน้าขายสินค้าออนไลน์ คดีแจ้งความที่พิจิตร ผู้เสียหายสูญ 863,300 บาท ผู้ต้องหาปฏิเสธ",
     "date": "2026-11-14",
