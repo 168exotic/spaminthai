@@ -5,9 +5,7 @@ export const NEWS = [
     "slug": "dsi-google-apple-unlicensed-loan-apps-8-licensed-operators-2569",
     "title": "DSI ส่งรายชื่อผู้ให้บริการสินเชื่อส่วนบุคคลดิจิทัลที่มีใบอนุญาต 8 ราย ให้ Google และ Apple ขอให้ถอดแอปเงินกู้ที่ไม่มีใบอนุญาตออกจากสโตร์ DSI ระบุแอปบังคับเข้าถึงรายชื่อติดต่อและรูปภาพ แล้วนำไปประจานทวงหนี้",
     "date": "2026-11-15",
-    "provinces": [
-      "trat"
-    ]
+    "provinces": []
   },
   {
     "slug": "government-aoc-1441-mule-accounts-1-million-suspended-damage-down-42-percent-2569",
