@@ -240,6 +240,40 @@ export function html(body, status = 200, maxAge = 1800) {
   });
 }
 
+/**
+ * Short Q&A for a province page (visible section + FAQPage schema) so search
+ * engines and AI assistants can quote a direct answer. Wording stays neutral:
+ * numbers "have user reports", never "are scammers".
+ */
+export function buildProvinceFaq(p, shared, total) {
+  const where = shared.length ? `${p.th} (ใช้ร่วมกับ ${shared.map((s) => s.th).join(', ')})` : p.th;
+  const count = total >= 400 ? `มากกว่า ${total}` : String(total);
+  return [
+    {
+      q: `เบอร์ ${p.code} เป็นเบอร์จังหวัดอะไร?`,
+      a: `เบอร์บ้านหรือเบอร์สำนักงานที่ขึ้นต้นด้วย ${p.code} เป็นรหัสพื้นที่ของ${where} ส่วนเบอร์มือถือที่ขึ้นต้นด้วย 06, 08 หรือ 09 ใช้ได้ทั่วประเทศ จึงบอกไม่ได้ว่าโทรมาจากจังหวัดไหน`,
+    },
+    {
+      q: `มีเบอร์ ${p.code} ที่ถูกรายงานใน SpamInThai กี่เบอร์?`,
+      a: total > 0
+        ? `ขณะนี้มีเบอร์บ้านขึ้นต้น ${p.code} ที่มีรายงานจากผู้ใช้ ${count} เบอร์ (ข้อมูลอัปเดตทุก 6 ชั่วโมง) การมีรายงานเป็นข้อมูลประกอบการตัดสินใจ ไม่ได้หมายความว่าเจ้าของเบอร์กระทำผิด`
+        : `ขณะนี้ยังไม่มีเบอร์บ้านขึ้นต้น ${p.code} ที่มีรายงานจากผู้ใช้ในระบบ ถ้าเจอเบอร์แปลกโทรมา แจ้งเบาะแสได้ที่ spaminthai.com/report`,
+    },
+    {
+      q: `จะเช็คได้อย่างไรว่าเบอร์ ${p.code} ที่โทรมามีคนรายงานว่าเป็นมิจฉาชีพไหม?`,
+      a: `พิมพ์เบอร์ลงในช่องตรวจสอบบนหน้านี้ หรือที่ spaminthai.com/check ใช้ฟรีและไม่ต้องสมัคร ระบบจะแสดงจำนวนรายงานจากผู้ใช้ ประเภทภัยที่ถูกรายงาน และคำแนะนำ`,
+    },
+    {
+      q: `ถ้ามีคนโทรมาอ้างว่าเป็นหน่วยงานใน${p.th} ควรทำอย่างไร?`,
+      a: `อย่าโอนเงินหรือบอกรหัส OTP ทางโทรศัพท์ เพราะตำรวจ ธนาคาร และหน่วยงานรัฐไม่ขอข้อมูลเหล่านี้ทางโทรศัพท์ ให้วางสายแล้วโทรกลับหน่วยงานจากเบอร์ทางการที่หาเอง เบอร์ที่แสดงบนหน้าจออาจไม่ใช่เบอร์จริงของผู้โทร`,
+    },
+    {
+      q: 'ถ้าถูกหลอกโอนเงินแล้วต้องทำอะไร?',
+      a: 'โทรสายด่วน 1441 (ศูนย์ AOC) ให้เร็วที่สุดเพื่อขออายัดบัญชีปลายทาง แล้วเก็บหลักฐาน เช่น สลิปโอนเงินและประวัติการโทร ไว้ใช้แจ้งความ',
+    },
+  ];
+}
+
 export async function renderProvincePage(slug, env) {
   const p = PROVINCES.get(slug);
   if (!p) return new Response('Not found', { status: 404 });
@@ -254,6 +288,8 @@ export async function renderProvincePage(slug, env) {
   const sharedTxt = shared.length
     ? `รหัส ${p.code} ใช้ร่วมกับ ${shared.map((s) => s.th).join(', ')}`
     : `รหัส ${p.code} ใช้เฉพาะ${p.th}`;
+  const faq = buildProvinceFaq(p, shared, total);
+  const shortAnswer = faq[0].a;
 
   const list = items.length
     ? `<ul class="pv-list">${items
@@ -276,6 +312,7 @@ export async function renderProvincePage(slug, env) {
   <p class="lead">เบอร์โทรแปลกโทรมา? ตรวจก่อนรับสายจากฐานข้อมูลเบอร์ที่คนไทยช่วยกันรายงาน ฟรี ไม่ต้องสมัคร</p>
   <div class="pv-code">☎️ เบอร์บ้าน${esc(p.th)} ขึ้นต้นด้วย <b>${esc(p.code)}</b></div>
   <p class="lead" style="font-size:.9rem">${esc(sharedTxt)}</p>
+  <p class="pv-summary pv-answer"><b>คำตอบสั้น:</b> ${esc(shortAnswer)}</p>
   ${statLine ? `<p class="pv-summary"><b>สรุปจากข้อมูล:</b> ${esc(statLine)}</p>` : ''}
   <form class="pv-form" action="/check" method="get" role="search">
     <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="เช่น ${esc(p.code === '02' ? '02-xxx-xxxx' : p.code + '-xxx-xxx')}" aria-label="เบอร์ที่ต้องการตรวจ" required>
@@ -318,6 +355,11 @@ ${renderStatsSection(stats, `เบอร์ ${p.code}`)}
 
 ${neighbors}
 
+<section class="pv-sec pv-faq">
+  <h2>คำถามที่พบบ่อยเกี่ยวกับเบอร์ ${esc(p.code)} ${esc(p.th)}</h2>
+  ${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}
+</section>
+
 <div class="pv-app">
   <p><b>บล็อกสายมิจฉาชีพอัตโนมัติ</b><br>แอป SpamInThai เตือนเบอร์อันตรายก่อนรับสาย ใช้ฟรีบน Android</p>
   <a href="${PLAY}" target="_blank" rel="noopener noreferrer">▶ ดาวน์โหลดบน Google Play</a>
@@ -333,12 +375,14 @@ ${neighbors}
     '@graph': [
       { '@type': 'WebPage', name: title, description: desc, url: canonical, inLanguage: 'th-TH',
         relatedLink: news.map((n) => SITE + n.href),
+        speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.pv-answer'] },
         about: { '@type': 'AdministrativeArea', name: p.th, alternateName: p.en, containedInPlace: { '@type': 'Country', name: 'Thailand' } },
         isPartOf: { '@type': 'WebSite', name: 'SpamInThai', url: SITE + '/' } },
       { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'SpamInThai', item: SITE + '/' },
         { '@type': 'ListItem', position: 2, name: 'เช็คเบอร์ 77 จังหวัด', item: SITE + '/thailand' },
         { '@type': 'ListItem', position: 3, name: p.th } ] },
+      { '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
     ],
   };
   return html(page({ title, desc, canonical, schema, body }));
