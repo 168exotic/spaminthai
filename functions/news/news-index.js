@@ -2,6 +2,23 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cib-highway-police-chiangrai-2-warrants-mule-account-3000-fake-pea-app-1980800-recovered-2569",
+    "title": "ตำรวจทางหลวงรวบ 2 ผู้ต้องหาหมายจับที่เชียงราย ตำรวจระบุขายบัญชี 3,000 บาท-โยงแก๊งอ้างการไฟฟ้าดูดเงิน 1,980,800 บาท โทร 1441 ได้คืนครบ",
+    "date": "2026-11-16",
+    "provinces": [
+      "chiang-rai"
+    ]
+  },
+  {
+    "slug": "metro-police-bangkae-chinese-suspect-fake-khonkaen-police-woman-70-cash-4m-gold-45-baht-2569",
+    "title": "ตำรวจนครบาลซ้อนแผนรวบผู้ต้องหาชาวจีนวัย 29 หน้าห้างย่านบางแค ตำรวจระบุแก๊งอ้างตำรวจขอนแก่นหลอกหญิงวัย 70 มอบเงินสด 4 ล้าน-ทองคำแท่ง 45 บาท",
+    "date": "2026-11-16",
+    "provinces": [
+      "bangkok",
+      "khon-kaen"
+    ]
+  },
+  {
     "slug": "dsi-google-apple-unlicensed-loan-apps-8-licensed-operators-2569",
     "title": "DSI ส่งรายชื่อผู้ให้บริการสินเชื่อส่วนบุคคลดิจิทัลที่มีใบอนุญาต 8 ราย ให้ Google และ Apple ขอให้ถอดแอปเงินกู้ที่ไม่มีใบอนุญาตออกจากสโตร์ DSI ระบุแอปบังคับเข้าถึงรายชื่อติดต่อและรูปภาพ แล้วนำไปประจานทวงหนี้",
     "date": "2026-11-15",

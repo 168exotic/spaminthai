@@ -102,6 +102,8 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'metro-police-bangkae-chinese-suspect-fake-khonkaen-police-woman-70-cash-4m-gold-45-baht-2569',
+  'cib-highway-police-chiangrai-2-warrants-mule-account-3000-fake-pea-app-1980800-recovered-2569',
   'government-aoc-1441-mule-accounts-1-million-suspended-damage-down-42-percent-2569',
   'dsi-google-apple-unlicensed-loan-apps-8-licensed-operators-2569',
   'immigration-pattaya-chinese-student-virtual-kidnapping-call-center-2-million-yuan-2569',
