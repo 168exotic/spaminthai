@@ -54,6 +54,7 @@
 - [ตรวจเบอร์โทรฟรี 5 วิธีในไทย](https://spaminthai.com/blog/truat-ber-free): เว็บ แอป และในตัวมือถือ พร้อมข้อดีข้อเสีย
 - [เบอร์บ้านต่างจังหวัด 03 04 05 07 โทรมา](https://spaminthai.com/blog/provincial-landline-who-called): ดูรหัสพื้นที่ว่ามาจากภาคไหน และเช็คก่อนรับสายหรือโทรกลับ
 - [สายเสียงอัตโนมัติให้กด 1 หรือกด 9](https://spaminthai.com/blog/robocall-press-1): สายแบบนี้ทำงานอย่างไร เผลอกดแล้วเสี่ยงแค่ไหน และควรทำอย่างไร
+- [เบอร์ที่ขึ้นบนจอปลอมได้ไหม](https://spaminthai.com/blog/caller-id-spoofing-can-number-be-faked): ชื่อธนาคารหรือหน่วยงานที่โชว์ตอนโทรเข้าเชื่อได้แค่ไหน และกฎวางสายแล้วโทรกลับเอง
 
 ### รู้ทันกลโกง (Scam types)
 
@@ -89,6 +90,10 @@
 - [ซื้อขายของมือสองออนไลน์](https://spaminthai.com/blog/secondhand-marketplace-scam): สลิปปลอม ผู้ขายไม่ส่งของ และวิธีนัดรับให้ปลอดภัย
 - [ชวนรับจ้างเปิดบัญชี ให้เช่าบัญชี ขายซิม (บัญชีม้า)](https://spaminthai.com/blog/mule-account-recruitment): มีโทษตามกฎหมาย รู้ทันคำชวนและวิธีแก้ถ้าให้ไปแล้ว
 - [รวมบทพูดมิจฉาชีพที่พบบ่อยปี 2569](https://spaminthai.com/blog/scam-call-scripts-2569): ประโยคที่ควรตอบและสิ่งที่ควรทำในแต่ละแบบ
+- [ถูกหลอกให้กดรหัส *21* โอนสาย](https://spaminthai.com/blog/call-forwarding-code-scam): วิธีเช็คด้วย *#21# และยกเลิกด้วย ##002#
+- [SMS ปลอมจากสถานีฐานปลอม (SMS Blaster)](https://spaminthai.com/blog/sms-blaster-fake-base-station): ทำไมโผล่ในแชทธนาคารจริง และวิธีปิด 2G บน Android และ iPhone
+- [เพจรับบริจาคช่วยน้ำท่วมปลอม และ SMS เยียวยาปลอม](https://spaminthai.com/blog/fake-donation-disaster-scam): เช็คชื่อบัญชีและใบอนุญาตเรี่ยไรก่อนโอน
+- [จองที่พัก ตั๋วเครื่องบิน ทัวร์ปีใหม่ ระวังของปลอม](https://spaminthai.com/blog/fake-travel-booking-new-year): วิธีเช็คที่พักและบริษัททัวร์ก่อนโอนมัดจำ
 
 ### โดนแล้วทำอย่างไร / ป้องกัน (After a scam / prevention)
 
@@ -107,11 +112,18 @@
 - [จะเลิกใช้หรือเปลี่ยนเบอร์มือถือ ต้องย้ายอะไรบ้าง](https://spaminthai.com/blog/change-phone-number-checklist): ธนาคาร พร้อมเพย์ LINE อีเมล และแอปรัฐ
 - [Wi-Fi และจุดชาร์จสาธารณะปลอดภัยไหม](https://spaminthai.com/blog/public-wifi-charging-safety): ความเสี่ยงจริง เรื่องที่ถูกขยายเกินจริง และวิธีใช้ให้ปลอดภัย
 - [สอนลูกวัยรุ่นรู้ทันมิจฉาชีพออนไลน์](https://spaminthai.com/blog/kids-teens-online-scams): เติมเกมราคาถูก ซื้อขายไอดีเกม และงานรับเปิดบัญชี
+- [มือถือหายหรือถูกขโมย ทำอะไรก่อนในชั่วโมงแรก](https://spaminthai.com/blog/lost-stolen-phone-what-to-do): ล็อกเครื่อง แจ้งธนาคาร ระงับซิม และกันคนสวมรอย
+- [เก็บหลักฐานโดนโกงออนไลน์ให้ครบก่อนแจ้งความ](https://spaminthai.com/blog/scam-evidence-checklist-police-report): แคปหน้าจอ ส่งออกแชท และทำไทม์ไลน์
+- [ตั้งค่ามือถือให้พ่อแม่ผู้สูงอายุ](https://spaminthai.com/blog/setup-parents-phone-safety): เช็กลิสต์ 30 นาที Android และ iPhone กันแอปดูดเงินและสายแปลก
+- [ตั้งค่า LINE ให้ปลอดภัยจากมิจฉาชีพ](https://spaminthai.com/blog/line-privacy-security-settings): ปิดการเพิ่มเพื่อน ปฏิเสธข้อความคนแปลกหน้า และเช็คอุปกรณ์ที่ล็อกอิน
 
 ### สิทธิ์และ PDPA (Rights and privacy)
 
 - [ขายประกัน บัตรเครดิต โทรมาบ่อย ขอให้หยุดโทรได้ไหม](https://spaminthai.com/blog/stop-telesales-calls-pdpa): ใช้สิทธิตาม PDPA ถอนความยินยอมและคัดค้านการตลาดแบบตรง
 - [PDPA กับการรายงานเบอร์](https://spaminthai.com/blog/pdpa-reporting-numbers): สิ่งที่ทำได้ ทำไม่ได้ และแนวทางที่ปลอดภัย
+- [ข้อมูลส่วนตัวหลุด ทำไมมิจฉาชีพรู้ชื่อเรา](https://spaminthai.com/blog/personal-data-leaked-what-to-do): แผนรับมือแยกตามกรณี ตั้งแต่เบอร์หลุดถึงมีคนเปิดซิมในชื่อเรา
+- [เซ็นสำเนาบัตรประชาชนให้ปลอดภัย](https://spaminthai.com/blog/sign-id-card-copy-safely): ข้อความกำกับ ปิด Laser ID และต้องทำอะไรถ้าสำเนาหลุด
+- [โพสต์อะไรบนโซเชียลแล้วเปิดช่องให้มิจฉาชีพ](https://spaminthai.com/blog/oversharing-social-media-scam-risk): 9 สิ่งที่ไม่ควรโพสต์ และเช็กลิสต์ก่อนกดแชร์
 
 - [รวมบทความทั้งหมด](https://spaminthai.com/blog/)
 - [ข่าวเตือนภัย](https://spaminthai.com/news-1): ข่าวที่ทีมงานเรียบเรียงใหม่และอ้างแหล่งทางการ
