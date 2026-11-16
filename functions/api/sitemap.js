@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'caller-id-spoofing-can-number-be-faked',
+  'line-privacy-security-settings',
+  'fake-travel-booking-new-year',
   'sign-id-card-copy-safely',
   'lost-stolen-phone-what-to-do',
   'fake-donation-disaster-scam',
