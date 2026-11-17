@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'unrequested-otp-sms-what-to-do',
+  'unordered-cod-parcel-scam',
+  'recovery-scam-get-money-back',
   'caller-id-spoofing-can-number-be-faked',
   'line-privacy-security-settings',
   'fake-travel-booking-new-year',
