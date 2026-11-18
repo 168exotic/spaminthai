@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'check-link-safe-before-click',
+  'facebook-account-hacked-recovery',
+  'bank-app-guided-settings-call-scam',
   'unrequested-otp-sms-what-to-do',
   'unordered-cod-parcel-scam',
   'recovery-scam-get-money-back',
