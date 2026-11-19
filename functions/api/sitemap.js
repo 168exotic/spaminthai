@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'home-wifi-router-security',
+  'google-account-hacked-recovery',
+  'bank-account-frozen-what-to-do',
   'check-link-safe-before-click',
   'facebook-account-hacked-recovery',
   'bank-app-guided-settings-call-scam',
