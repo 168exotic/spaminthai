@@ -2,6 +2,24 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "nongkhai-immigration-khonkaen-mule-account-broker-3-students-laos-2500-baht-2569",
+    "title": "ตม.หนองคายรวบผู้ต้องหาชายวัย 21 จากขอนแก่น ตามหมายจับคดีบัญชีม้าคาปั๊มน้ำมันก่อนถึงด่านพรมแดน ผู้จัดการออนไลน์ระบุกำลังพานักศึกษา 3 คนข้ามโขงไปขายบัญชีธนาคาร ผู้ต้องหาให้การว่าถูกเสนอค่านายหน้ารายละ 2,500 บาท",
+    "date": "2026-11-20",
+    "provinces": [
+      "khon-kaen",
+      "nong-khai"
+    ]
+  },
+  {
+    "slug": "tourist-police-pattaya-hotel-mule-account-network-5-suspects-80-cases-13m-2569",
+    "title": "ตำรวจท่องเที่ยวแถลงทลายเครือข่ายบัญชีม้าที่ใช้โรงแรมในพัทยาเป็นจุดนัดซื้อขายบัญชีและสแกนใบหน้า รวบ 5 ผู้ต้องหา ชาวจีน 1 ชาวไทย 4 ตำรวจระบุโยงคดีหลอกลวงออนไลน์กว่า 80 Case ID เสียหายกว่า 13 ล้านบาท",
+    "date": "2026-11-20",
+    "provinces": [
+      "pathum-thani",
+      "chonburi"
+    ]
+  },
+  {
     "slug": "dsi-google-apple-unlicensed-loan-apps-8-licensed-operators-2569",
     "title": "DSI ส่งรายชื่อผู้ให้บริการสินเชื่อส่วนบุคคลดิจิทัลที่มีใบอนุญาต 8 ราย ให้ Google และ Apple ขอให้ถอดแอปเงินกู้ที่ไม่มีใบอนุญาตออกจากสโตร์ DSI ระบุแอปบังคับเข้าถึงรายชื่อติดต่อและรูปภาพ แล้วนำไปประจานทวงหนี้",
     "date": "2026-11-15",
