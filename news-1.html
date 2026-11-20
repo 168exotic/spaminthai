@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="64x64">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"ข่าวสารคดีฉ้อโกง | SpamInThai","url":"https://spaminthai.com/news-1","inLanguage":"th-TH","publisher":{"@type":"Organization","name":"SpamInThai","url":"https://spaminthai.com"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "CollectionPage", "@id": "https://spaminthai.com/news-1#page", "name": "ข่าวสารคดีฉ้อโกง | SpamInThai", "url": "https://spaminthai.com/news-1", "inLanguage": "th-TH", "description": "รวมข่าวคดีฉ้อโกงออนไลน์ แก๊งคอลเซ็นเตอร์ บัญชีม้า และการปราบปรามในไทย เรียบเรียงใหม่พร้อมอ้างอิงแหล่งที่มา", "isPartOf": {"@type": "WebSite", "name": "SpamInThai", "url": "https://spaminthai.com"}, "publisher": {"@type": "Organization", "name": "SpamInThai", "url": "https://spaminthai.com"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://spaminthai.com/"}, {"@type": "ListItem", "position": 2, "name": "ข่าวสารคดีฉ้อโกง", "item": "https://spaminthai.com/news-1"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "ข่าวในหน้านี้มาจากไหน", "acceptedAnswer": {"@type": "Answer", "text": "ทีม SpamInThai เรียบเรียงใหม่จากข่าวและประกาศที่เผยแพร่ต่อสาธารณะ เช่น ข่าวแถลงของตำรวจและหน่วยงานรัฐ แล้วระบุแหล่งที่มาไว้ในข่าวทุกชิ้น ไม่คัดลอกข้อความ รูป หรือคลิปของผู้อื่น ดูรายละเอียดได้ที่หน้านโยบายการตรวจสอบข้อมูล"}}, {"@type": "Question", "name": "คำว่า \"ผู้ต้องหา\" ในข่าวหมายความว่าเป็นคนผิดแล้วหรือไม่", "acceptedAnswer": {"@type": "Answer", "text": "ไม่ใช่ ผู้ต้องหาคือผู้ที่ถูกกล่าวหาตามที่เจ้าหน้าที่ระบุในข่าว ยังไม่ได้มีคำพิพากษาของศาล SpamInThai รายงานตามแหล่งข่าวและไม่ได้ตัดสินว่าบุคคลใดมีความผิด"}}, {"@type": "Question", "name": "ข่าวใหม่อยู่ตรงไหน และอัปเดตบ่อยแค่ไหน", "acceptedAnswer": {"@type": "Answer", "text": "ข่าวล่าสุดอยู่บนสุดของหน้านี้ ข่าวเก่าเลื่อนไปหน้าถัดไปตามลำดับวันที่ ทีมงานเพิ่มข่าวใหม่เป็นประจำเมื่อมีคดีหรือประกาศเตือนภัยที่น่าสนใจ"}}, {"@type": "Question", "name": "ถ้าโดนหลอกให้โอนเงินควรทำอย่างไร", "acceptedAnswer": {"@type": "Answer", "text": "ติดต่อธนาคารของคุณทันทีเพื่อขอระงับบัญชีปลายทาง โทรสายด่วนศูนย์ AOC 1441 และแจ้งความกับตำรวจ เก็บหลักฐานเช่นสลิปโอนเงินและแชตไว้ทั้งหมด อ่านขั้นตอนเพิ่มเติมได้ในคู่มือรับมือแก๊งคอลเซ็นเตอร์"}}, {"@type": "Question", "name": "มีเบอร์แปลกโทรมา เช็กได้ที่ไหน", "acceptedAnswer": {"@type": "Answer", "text": "พิมพ์เบอร์ที่หน้าเช็คเบอร์ของ SpamInThai เพื่อดูว่ามีรายงานจากผู้ใช้หรือไม่ ข้อมูลเป็นรายงานจากผู้ใช้ ไม่ใช่การยืนยันตัวตนเจ้าของเบอร์"}}]}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,6 +23,11 @@
 <link rel="stylesheet" href="/assets/layout.css">
 <style>
 .news-index .card time { display:block; font-size:0.85rem; color:var(--muted,#888); margin-bottom:4px; }
+.news-answer { background:var(--color-surface,#f6f8fb); border-left:4px solid var(--color-primary,#2563eb); border-radius:8px; padding:12px 16px; margin:8px 0 12px; line-height:1.7; }
+.news-faq { margin-top:32px; }
+.news-faq details { border:1px solid var(--color-line,#e5e5e5); border-radius:8px; padding:10px 14px; margin-bottom:8px; }
+.news-faq summary { font-weight:600; cursor:pointer; }
+.news-faq p { margin:8px 0 0; line-height:1.7; }
 .news-index .sub { color:var(--muted,#888); margin-bottom:24px; }
 .news-pagination { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; margin-top:28px; padding-top:20px; border-top:1px solid var(--color-line,#e5e5e5); }
 .news-pagination__btn { display:inline-block; padding:10px 18px; border-radius:8px; border:1px solid var(--color-line,#e5e5e5); background:var(--color-surface,#fff); color:inherit; text-decoration:none; font-size:0.95rem; }
@@ -68,6 +73,7 @@
 </header>
 <main class="site-main site-main--wide news-index">
   <h1>ข่าวสารคดีฉ้อโกง</h1>
+  <p class="news-answer"><strong>สรุปสั้น:</strong> หน้านี้รวมข่าวคดีฉ้อโกงออนไลน์ แก๊งคอลเซ็นเตอร์ บัญชีม้า และการปราบปรามในไทย ทีม SpamInThai เรียบเรียงใหม่ทุกชิ้นและอ้างอิงแหล่งที่มา ข่าวการจับกุมใช้คำว่า "ผู้ต้องหา" ตามที่เจ้าหน้าที่ระบุ ไม่ได้ตัดสินว่ามีความผิด ถ้าโดนหลอกโอนเงิน ติดต่อธนาคารทันทีและโทรศูนย์ AOC 1441</p>
   <p class="sub">รวมข่าวคดีฉ้อโกงออนไลน์และแก๊งคอลเซ็นเตอร์จากหลายแหล่ง เรียบเรียงเนื้อหาใหม่และอ้างอิงแหล่งที่มาทุกบทความ อัปเดตวันละ 3–4 เรื่อง</p>
 
   <a class="card" href="/news/tourist-police-pattaya-hotel-mule-account-network-5-suspects-80-cases-13m-2569"><time datetime="2026-11-20">20 พ.ย. 2569</time><h2>ตำรวจท่องเที่ยวแถลงทลายเครือข่ายบัญชีม้าที่ใช้โรงแรมในพัทยาเป็นจุดนัดซื้อขายบัญชีและสแกนใบหน้า รวบ 5 ผู้ต้องหา ชาวจีน 1 ชาวไทย 4 ตำรวจระบุโยงคดีหลอกลวงออนไลน์กว่า 80 Case ID เสียหายกว่า 13 ล้านบาท</h2><p>กองบัญชาการตำรวจท่องเที่ยวแถลงเมื่อ 16 พ.ย. 2569 ผลขยายผลเครือข่ายบัญชีม้า หลังได้รับเบาะแสจากผู้ประกอบการโรงแรมในเมืองพัทยาว่ามีกลุ่มบุคคลใช้ห้องพักโรงแรมเป็นที่นัดพบเพื่อซื้อขายบัญชีธนาคารและให้สแกนใบหน้า จับกุมผู้ต้องหาได้ 5 ราย เป็นชาวจีน 1 ราย ชาวไทย 4 ราย ระหว่าง 4–9 พ.ย. 2569 ตำรวจระบุว่าเชื่อมโยงได้กับคดีหลอกลวงออนไลน์กว่า 80 Case ID คิดเป็นความเสียหายรวมกว่า 13 ล้านบาท</p></a>
@@ -132,6 +138,14 @@
   <span class="news-pagination__info">หน้า 1 / 9</span>
   <a class="news-pagination__btn news-pagination__btn--primary" href="/news-2">หน้าถัดไป →</a>
 </nav>
+  <section class="news-faq" aria-labelledby="news-faq-h">
+    <h2 id="news-faq-h">คำถามที่พบบ่อยเกี่ยวกับข่าว</h2>
+    <details><summary>ข่าวในหน้านี้มาจากไหน</summary><p>ทีม SpamInThai เรียบเรียงใหม่จากข่าวและประกาศที่เผยแพร่ต่อสาธารณะ เช่น ข่าวแถลงของตำรวจและหน่วยงานรัฐ แล้วระบุแหล่งที่มาไว้ในข่าวทุกชิ้น ไม่คัดลอกข้อความ รูป หรือคลิปของผู้อื่น ดูรายละเอียดได้ที่หน้า<a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a></p></details>
+    <details><summary>คำว่า "ผู้ต้องหา" ในข่าวหมายความว่าเป็นคนผิดแล้วหรือไม่</summary><p>ไม่ใช่ ผู้ต้องหาคือผู้ที่ถูกกล่าวหาตามที่เจ้าหน้าที่ระบุในข่าว ยังไม่ได้มีคำพิพากษาของศาล SpamInThai รายงานตามแหล่งข่าวและไม่ได้ตัดสินว่าบุคคลใดมีความผิด</p></details>
+    <details><summary>ข่าวใหม่อยู่ตรงไหน และอัปเดตบ่อยแค่ไหน</summary><p>ข่าวล่าสุดอยู่บนสุดของหน้านี้ ข่าวเก่าเลื่อนไปหน้าถัดไปตามลำดับวันที่ ทีมงานเพิ่มข่าวใหม่เป็นประจำเมื่อมีคดีหรือประกาศเตือนภัยที่น่าสนใจ</p></details>
+    <details><summary>ถ้าโดนหลอกให้โอนเงินควรทำอย่างไร</summary><p>ติดต่อธนาคารของคุณทันทีเพื่อขอระงับบัญชีปลายทาง โทรสายด่วนศูนย์ AOC 1441 และแจ้งความกับตำรวจ เก็บหลักฐานเช่นสลิปโอนเงินและแชตไว้ทั้งหมด อ่านขั้นตอนเพิ่มเติมได้ใน<a href="/guide/call-center-scam">คู่มือรับมือแก๊งคอลเซ็นเตอร์</a></p></details>
+    <details><summary>มีเบอร์แปลกโทรมา เช็กได้ที่ไหน</summary><p>พิมพ์เบอร์ที่<a href="/check">หน้าเช็คเบอร์</a>ของ SpamInThai เพื่อดูว่ามีรายงานจากผู้ใช้หรือไม่ ข้อมูลเป็นรายงานจากผู้ใช้ ไม่ใช่การยืนยันตัวตนเจ้าของเบอร์</p></details>
+  </section>
 </main>
 <footer class="site-footer">
   <div class="site-footer__inner">
