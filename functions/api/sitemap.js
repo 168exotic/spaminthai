@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'instagram-tiktok-account-hacked',
+  'sell-old-phone-wipe-data',
+  'rental-deposit-scam',
   'home-wifi-router-security',
   'google-account-hacked-recovery',
   'bank-account-frozen-what-to-do',
