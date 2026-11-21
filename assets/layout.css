@@ -864,7 +864,7 @@ a.bg-rose-500,
   .site-tab--active,
   .hero2__btn--primary,
   .btn-primary,
-  #checkBtn,
+  #checkBtn:not(:disabled),
   a.bg-rose-500,
   .from-rose-500 { animation: none; }
 }
