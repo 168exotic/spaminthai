@@ -52,6 +52,7 @@ import { handleBlogLatest } from './functions/api/blog-posts.js';
 import { handleFbLatest } from './functions/api/fb-latest.js';
 import { renderSearchPage } from './functions/search/search-page.js';
 import { matchMonthlyPath, renderMonthlyPage, renderMonthlyIndex } from './functions/monthly/render-monthly-page.js';
+import { normalizePage } from './functions/site-chrome.js';
 import {
   handleMarketingFeedGet,
   handleMarketingRssGet,
@@ -343,15 +344,6 @@ async function route(request, env, url, ctx) {
     return env.ASSETS.fetch(request);
 }
 
-/** Cookie consent (PDPA + Google Consent Mode v2): load /assets/consent.js first in <head> on every public HTML page. */
-function injectConsent(response, url) {
-  if (typeof HTMLRewriter === 'undefined') return response;
-  if (url.pathname.startsWith('/admin')) return response;
-  if (!/^\s*text\/html\b/i.test(response.headers.get('Content-Type') || '')) return response;
-  return new HTMLRewriter()
-    .on('head', { element(el) { el.prepend('<script src="/assets/consent.js?v=1"></script>', { html: true }); } })
-    .transform(response);
-}
 
 export default {
   async fetch(request, env, ctx) {
@@ -371,7 +363,7 @@ export default {
     }
 
     let response = await route(request, env, url, ctx);
-    response = injectConsent(response, url);
+    response = normalizePage(response, url);
     return withSecurityHeaders(response);
   },
 
