@@ -24,11 +24,109 @@ const STATIC_PAGES = [
   { loc: '/contact', priority: '0.4', changefreq: 'yearly' },
   { loc: '/editorial-policy', priority: '0.5', changefreq: 'monthly' },
   { loc: '/dispute', priority: '0.4', changefreq: 'yearly' },
-  { loc: '/blog', priority: '0.7', changefreq: 'weekly' },
+  { loc: '/blog/', priority: '0.7', changefreq: 'weekly' },
   { loc: '/news-1', priority: '0.8', changefreq: 'daily' },
 ];
 
+// Thin pages marked noindex (Nov 2026, AdSense quality) — kept out of the sitemap until expanded to 500+ words.
+// When you expand one, remove its <meta name="robots" content="noindex, follow"> AND its slug here.
+const THIN_NOINDEX = new Set([
+  "blog/berkhrai-check-caller",
+  "blog/best-spam-checker-apps-2568",
+  "blog/call-center-scam-guide-2568",
+  "blog/fake-bank-sms",
+  "blog/new-scam-tricks-2568-07",
+  "blog/numbers-065-scam",
+  "blog/pdpa-reporting-numbers",
+  "blog/report-hotlines-1441-1155-1212",
+  "blog/scammed-what-to-do",
+  "blog/silent-unknown-callers-android-iphone",
+  "blog/truat-ber-free",
+  "blog/voip-697-698-scam",
+  "news/acsc-august-weekly-2569",
+  "news/acsc-cib-dark-empire-corporate-mule-farm-2569",
+  "news/acsc-elderly-protection-2569",
+  "news/acsc-july-summer-spike-2569",
+  "news/acsc-june-monthly-2569",
+  "news/acsc-may-monthly-2569",
+  "news/acsc-rescue-students-2-7m-2569",
+  "news/acsc-september-stats-2569",
+  "news/acsc-stats-aug-sep-2569",
+  "news/acsc-stats-february-2569",
+  "news/acsc-stats-january-2569",
+  "news/acsc-weekly-492m-march-2569",
+  "news/acsc-weekly-6-12-sep-2569",
+  "news/acsc-weekly-april-2569",
+  "news/aoc-1441-scam-report-guide-2025",
+  "news/call-center-account-mule-2569",
+  "news/call-center-bangkok-raid-2569",
+  "news/call-center-bust-9-suspects-2569",
+  "news/call-center-chiang-rai-network-2569",
+  "news/call-center-khon-kaen-bust-2569",
+  "news/cib-fake-cyber-police-page-chonburi-2569",
+  "news/cib-money-laundering-ring-2569",
+  "news/cib-online-investment-chumphon-arrest-2569",
+  "news/cib-romance-scam-2569",
+  "news/cib-sim-box-raid-2569",
+  "news/cib-spell-investment-admin-korat-2569",
+  "news/crime-suppression-mule-owner-fake-police-refund-2569",
+  "news/cyber-police-buriram-teacher-cash-mule-2569",
+  "news/cyber-police-corporate-mule-directors-2569",
+  "news/cyber-police-khonkaen-refund-2569",
+  "news/cyber-police-mule-handlers-chinese-boss-2569",
+  "news/cyber-police-student-scam-sapan-sung-2569",
+  "news/deepfake-politician-impersonation-2569",
+  "news/deepfake-scam-warning-2025",
+  "news/deepfake-video-call-scam-2569",
+  "news/dsi-fake-police-kabinburi-mule-2569",
+  "news/ecd-amata-stock-scam-mule-2569",
+  "news/fake-concert-ticket-bts-2569",
+  "news/fake-concert-ticket-kpop-2569",
+  "news/gen-z-scam-surge-2569",
+  "news/highway-police-phangnga-mule-account-2569",
+  "news/hotline-1441-report-guide-2569",
+  "news/hotline-1441-success-stories-2569",
+  "news/immigration-loei-laos-handover-40-call-center-suspects-2569",
+  "news/investment-scam-crypto-app-2569",
+  "news/investment-scam-forex-2569",
+  "news/investment-scam-gold-trading-2569",
+  "news/investment-scam-line-group-2025",
+  "news/job-scam-line-recruitment-2569",
+  "news/job-scam-package-delivery-2569",
+  "news/job-scam-remote-work-2569",
+  "news/korean-scam-center-samut-prakan-2025-09",
+  "news/lopburi-cash-mule-fake-cyber-police-student-2569",
+  "news/maesot-broker-teen-mule-account-2569",
+  "news/mgronline-online-shopping-scam-2569",
+  "news/money-laundering-crypto-exchange-2569",
+  "news/money-laundering-sim-box-2569",
+  "news/off-platform-shopping-scam-2569",
+  "news/parcel-redelivery-scam-2569",
+  "news/pattaya-fake-cyber-police-qr-refund-2569",
+  "news/pattaya-sim-box-ceiling-rental-room-2569",
+  "news/poipet-border-rescue-2569",
+  "news/poipet-scam-compound-2569",
+  "news/poipet-thai-workers-trapped-2569",
+  "news/romance-scam-dating-app-2569",
+  "news/sim-box-mae-sot-raid-2569",
+  "news/sim-box-sms-banking-2569",
+  "news/student-scam-part-time-job-2569",
+  "news/student-scam-poipet-trick-2569",
+  "news/student-scam-university-victim-2569",
+  "news/thaipbs-scam-awareness-campaign-2569",
+  "news/tourist-police-pattaya-fake-pea-qr-2569"
+]);
+
 const BLOG_SLUGS = [
+  'fake-thaid-digital-id-scam',
+  'fake-social-security-sms-call',
+  'customs-fee-parcel-scam',
+  'instagram-tiktok-account-hacked',
+  'sell-old-phone-wipe-data',
+  'rental-deposit-scam',
+  'home-wifi-router-security',
+  'google-account-hacked-recovery',
+  'bank-account-frozen-what-to-do',
   'check-link-safe-before-click',
   'facebook-account-hacked-recovery',
   'bank-app-guided-settings-call-scam',
@@ -112,6 +210,11 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cyber-police-nakhonphanom-gold-laundering-cannabis-warehouse-5-suspects-430-cases-109m-2569',
+  'cyber-police-chiangmai-nominee-exchange-usdt-24-mule-accounts-9-4m-2569',
+  'cib-pathumthani-mule-account-beauty-business-investment-scam-saraburi-194000-baht-2569',
+  'tourist-police-pattaya-hotel-mule-account-network-5-suspects-80-cases-13m-2569',
+  'nongkhai-immigration-khonkaen-mule-account-broker-3-students-laos-2500-baht-2569',
   'government-aoc-1441-mule-accounts-1-million-suspended-damage-down-42-percent-2569',
   'dsi-google-apple-unlicensed-loan-apps-8-licensed-operators-2569',
   'immigration-pattaya-chinese-student-virtual-kidnapping-call-center-2-million-yuan-2569',
@@ -300,10 +403,12 @@ export async function buildSitemapXml(env) {
   }
 
   for (const slug of BLOG_SLUGS) {
+    if (THIN_NOINDEX.has(`blog/${slug}`)) continue;
     lines.push(urlEntry(`/blog/${slug}`, { priority: '0.75', changefreq: 'monthly', lastmod }));
   }
 
   for (const slug of NEWS_SLUGS) {
+    if (THIN_NOINDEX.has(`news/${slug}`)) continue;
     lines.push(urlEntry(`/news/${slug}`, { priority: '0.78', changefreq: 'weekly', lastmod }));
   }
 

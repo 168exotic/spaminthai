@@ -5,6 +5,8 @@
   const FALLBACK = PLAY_STORE;
   const POPUP_KEY = 'spaminthai_app_popup_dismissed';
   const POPUP_DAYS = 3;
+  // Top app popup disabled while Google AdSense review is pending (avoid intrusive/download-page signals).
+  const POPUP_ENABLED = false;
 
   let downloadUrl = FALLBACK;
 
@@ -93,7 +95,7 @@
   }
 
   function injectPopup() {
-    if (!shouldShowPopup() || document.getElementById('appPopup')) return;
+    if (!POPUP_ENABLED || !shouldShowPopup() || document.getElementById('appPopup')) return;
 
     const style = document.createElement('style');
     style.textContent = `

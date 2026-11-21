@@ -52,6 +52,7 @@ import { handleBlogLatest } from './functions/api/blog-posts.js';
 import { handleFbLatest } from './functions/api/fb-latest.js';
 import { renderSearchPage } from './functions/search/search-page.js';
 import { matchMonthlyPath, renderMonthlyPage, renderMonthlyIndex } from './functions/monthly/render-monthly-page.js';
+import { normalizePage } from './functions/site-chrome.js';
 import {
   handleMarketingFeedGet,
   handleMarketingRssGet,
@@ -343,6 +344,7 @@ async function route(request, env, url, ctx) {
     return env.ASSETS.fetch(request);
 }
 
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -360,7 +362,8 @@ export default {
       return jsonSec({ error: 'payload_too_large' }, 413, request);
     }
 
-    const response = await route(request, env, url, ctx);
+    let response = await route(request, env, url, ctx);
+    response = normalizePage(response, url);
     return withSecurityHeaders(response);
   },
 
