@@ -343,6 +343,16 @@ async function route(request, env, url, ctx) {
     return env.ASSETS.fetch(request);
 }
 
+/** Cookie consent (PDPA + Google Consent Mode v2): load /assets/consent.js first in <head> on every public HTML page. */
+function injectConsent(response, url) {
+  if (typeof HTMLRewriter === 'undefined') return response;
+  if (url.pathname.startsWith('/admin')) return response;
+  if (!/^\s*text\/html\b/i.test(response.headers.get('Content-Type') || '')) return response;
+  return new HTMLRewriter()
+    .on('head', { element(el) { el.prepend('<script src="/assets/consent.js?v=1"></script>', { html: true }); } })
+    .transform(response);
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -360,7 +370,8 @@ export default {
       return jsonSec({ error: 'payload_too_large' }, 413, request);
     }
 
-    const response = await route(request, env, url, ctx);
+    let response = await route(request, env, url, ctx);
+    response = injectConsent(response, url);
     return withSecurityHeaders(response);
   },
 
