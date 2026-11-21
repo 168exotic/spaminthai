@@ -28,6 +28,9 @@ const STATIC_PAGES = [
 ];
 
 const BLOG_SLUGS = [
+  'fake-thaid-digital-id-scam',
+  'fake-social-security-sms-call',
+  'customs-fee-parcel-scam',
   'instagram-tiktok-account-hacked',
   'sell-old-phone-wipe-data',
   'rental-deposit-scam',
