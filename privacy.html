@@ -67,8 +67,8 @@
     <tr><td>การตรวจเบอร์และลิงก์ (เมื่อผู้ใช้กดตรวจเอง)</td><td>เฉพาะ<strong>หมายเลขโทรศัพท์</strong>และ<strong>ลิงก์ (URL)</strong> ที่ผู้ใช้วางหรือแชร์มาให้ตรวจ — <strong>ไม่ส่งข้อความทั้งข้อความ</strong> และไม่ผูกกับตัวตนผู้ใช้</td><td>ตรวจว่าเบอร์หรือลิงก์อยู่ในฐานข้อมูลภัยคุกคาม เพื่อเตือนผู้ใช้ก่อนโทรกลับหรือกดลิงก์ ลิงก์อาจถูกส่งต่อให้ผู้ให้บริการตรวจความปลอดภัยที่เราใช้ เพื่อตรวจสอบแทนเราเท่านั้น</td><td>ความยินยอม (ผู้ใช้สั่งตรวจเอง) + ประโยชน์โดยชอบด้วยกฎหมาย (ป้องกันการฉ้อโกง)</td></tr>
     <tr><td>การตรวจสอบ SMS</td><td><strong>เฉพาะค่าแฮช SHA-256</strong> ของข้อความ — <strong>ไม่มีการส่งหรือเก็บเนื้อหา SMS ต้นฉบับ</strong></td><td>เทียบกับฐานข้อมูลแฮชของข้อความสแปมที่ชุมชนรายงาน</td><td>ประโยชน์โดยชอบด้วยกฎหมาย (ข้อมูลถูกแฮชทางเดียว)</td></tr>
     <tr><td>สัญญาณสายสแปมแบบไม่ระบุตัวตน (แอป · เปิดใช้เอง)</td><td><strong>เฉพาะค่าแฮช SHA-256 ของเบอร์</strong> (ผสม salt จึงย้อนกลับเป็นเบอร์ไม่ได้) + ประเภทเหตุการณ์ (ปฏิเสธ / รับแล้ววางเร็ว / ถูกบล็อก / ถูกรายงาน) + เวลา + รหัสนำหน้า 4 หลัก + รหัสติดตั้งแบบสุ่มไม่ระบุตัวตน (ใช้จำกัดอัตราการส่งเท่านั้น) — <strong>ไม่ส่งเบอร์จริง ชื่อผู้ติดต่อ หรือรหัสอุปกรณ์</strong> และเก็บเฉพาะเบอร์ที่<strong>ไม่อยู่ในรายชื่อผู้ติดต่อ</strong>ของคุณ ค่าเริ่มต้น<strong>ปิด</strong></td><td>ขยายฐานข้อมูลเบอร์สแปมของชุมชนให้ครอบคลุมขึ้น</td><td>ความยินยอม (เปิด/ปิดเองได้ที่ ตั้งค่า &gt; ชุมชน)</td></tr>
-    <tr><td>คุกกี้ / localStorage</td><td>เฉพาะผู้ดูแลระบบ: <code>spaminthai_admin_key</code> เก็บใน localStorage ของเบราว์เซอร์ผู้ดูแล — <strong>เว็บไซต์เองไม่ตั้งคุกกี้ติดตามผู้ใช้ทั่วไป</strong></td><td>เข้าสู่ระบบหน้าผู้ดูแล</td><td>จำเป็นต่อการให้บริการ</td></tr>
-    <tr><td>คุกกี้ของบุคคลที่สาม (เว็บไซต์)</td><td>Google Analytics 4 และ Google AdSense อาจตั้งคุกกี้หรือใช้ตัวระบุบนเบราว์เซอร์ของคุณ (ดูหัวข้อ 3.1)</td><td>วัดสถิติการเข้าชมแบบรวม และแสดงโฆษณาเพื่อให้บริการฟรีต่อไปได้</td><td>ความยินยอม / ประโยชน์โดยชอบด้วยกฎหมาย</td></tr>
+    <tr><td>คุกกี้ / localStorage</td><td>เฉพาะผู้ดูแลระบบ: <code>spaminthai_admin_key</code> เก็บใน localStorage ของเบราว์เซอร์ผู้ดูแล — <strong>เว็บไซต์เองไม่ตั้งคุกกี้ติดตามผู้ใช้ทั่วไป</strong> มีเพียงคุกกี้ <code>sit_consent</code> ที่จำการเลือกตั้งค่าคุกกี้ของคุณ (อายุ 180 วัน)</td><td>เข้าสู่ระบบหน้าผู้ดูแล / จำการตั้งค่าคุกกี้</td><td>จำเป็นต่อการให้บริการ</td></tr>
+    <tr><td>คุกกี้ของบุคคลที่สาม (เว็บไซต์)</td><td>Google Analytics 4 และ Google AdSense อาจตั้งคุกกี้หรือใช้ตัวระบุบนเบราว์เซอร์ของคุณ (ดูหัวข้อ 3.1)</td><td>วัดสถิติการเข้าชมแบบรวม และแสดงโฆษณาเพื่อให้บริการฟรีต่อไปได้</td><td>ความยินยอม (เลือกได้ที่แบนเนอร์คุกกี้)</td></tr>
   </table>
 
   <h2>2. ข้อมูลที่เรา<em>ไม่</em>เก็บ</h2>
@@ -89,12 +89,14 @@
     <li><strong>Google Play</strong> — เมื่อคุณติดตั้งผ่าน Play Store, Google จะประมวลผลข้อมูลตามนโยบายของ Google เอง</li>
   </ul>
 
-  <h2>3.1 โฆษณาและคุกกี้ของบุคคลที่สาม</h2>
+  <h2 id="cookies">3.1 โฆษณาและคุกกี้ของบุคคลที่สาม</h2>
   <p>เว็บไซต์ spaminthai.com ใช้บริการ <strong>Google AdSense</strong> เพื่อแสดงโฆษณา ซึ่งเป็นรายได้หลักที่ทำให้บริการเช็คเบอร์ยังฟรีสำหรับทุกคน ผู้ให้บริการบุคคลที่สามรวมถึง Google ใช้คุกกี้เพื่อแสดงโฆษณาตามการเข้าชมเว็บไซต์นี้หรือเว็บไซต์อื่นของคุณก่อนหน้า การใช้คุกกี้โฆษณาทำให้ Google และพาร์ทเนอร์แสดงโฆษณาที่เกี่ยวข้องกับคุณได้</p>
   <ul>
     <li>คุณเลือกไม่รับโฆษณาตามความสนใจได้ที่ <a href="https://adssettings.google.com" rel="nofollow noopener" target="_blank">การตั้งค่าโฆษณาของ Google</a> หรือที่ <a href="https://www.aboutads.info/choices/" rel="nofollow noopener" target="_blank">aboutads.info</a></li>
+    <li>Google ใช้คุกกี้โฆษณา (รวมถึงคุกกี้ DoubleClick/DART) เพื่อแสดงโฆษณาตามการเข้าชม spaminthai.com และเว็บไซต์อื่น คุณปิดการใช้คุกกี้ DART ได้ที่ <a href="https://policies.google.com/technologies/ads" rel="nofollow noopener" target="_blank">นโยบายโฆษณาของ Google</a></li>
     <li>อ่านวิธีที่ Google ใช้ข้อมูลจากเว็บไซต์พาร์ทเนอร์ได้ที่ <a href="https://policies.google.com/technologies/partner-sites" rel="nofollow noopener" target="_blank">policies.google.com/technologies/partner-sites</a></li>
     <li>เราใช้ <strong>Google Analytics 4</strong> และ Cloudflare Web Analytics เพื่อนับสถิติการเข้าชมแบบรวม ไม่ใช้ระบุตัวบุคคล</li>
+    <li>เมื่อเข้าเว็บครั้งแรก เราจะถามความยินยอมก่อน หากเลือก "เฉพาะที่จำเป็น" Google Analytics จะไม่ตั้งคุกกี้ และ AdSense จะแสดงเฉพาะโฆษณาที่ไม่อิงความสนใจของคุณ — <a href="#" data-cookie-settings>เปลี่ยนการตั้งค่าคุกกี้</a></li>
     <li>คุณลบหรือบล็อกคุกกี้ได้จากการตั้งค่าเบราว์เซอร์ โดยบริการเช็คเบอร์ยังใช้ได้ตามปกติ</li>
   </ul>
   <p>แอป Android ของ SpamInThai <strong>ไม่มีโฆษณาของบุคคลที่สาม</strong></p>
@@ -146,8 +148,8 @@
     <tr><td>Number &amp; link checks (only when the user runs a check)</td><td>Only the <strong>phone numbers</strong> and <strong>links (URLs)</strong> the user pastes or shares for checking — <strong>never the full message</strong>, and not tied to the user's identity</td><td>Check whether a number or link appears in threat databases, to warn the user before calling back or opening it. Links may be passed to a security-check service provider acting on our behalf, solely to perform the check</td><td>Consent (user-initiated) + legitimate interest (fraud prevention)</td></tr>
     <tr><td>SMS check</td><td><strong>SHA-256 hash only</strong> of the message — <strong>the original SMS content is never sent or stored</strong></td><td>Match against a community database of reported spam-message hashes</td><td>Legitimate interest (one-way hashed)</td></tr>
     <tr><td>Anonymous spam-call signals (app · opt-in)</td><td><strong>SHA-256 hash of the number only</strong> (salted, so it cannot be reversed to the number) + event type (rejected / short call / auto-blocked / reported) + timestamp + 4-digit prefix + a random anonymous install id (rate-limiting only) — <strong>never the real number, a contact name, or a device id</strong>, and only for numbers <strong>not in your contacts</strong>. <strong>OFF by default</strong></td><td>Grow the community spam-number database</td><td>Consent (opt-in; toggle in Settings &gt; Community)</td></tr>
-    <tr><td>Cookies / localStorage</td><td>Admins only: <code>spaminthai_admin_key</code> in the admin's browser localStorage — <strong>no first-party tracking cookies for regular users</strong></td><td>Admin login</td><td>Strictly necessary</td></tr>
-    <tr><td>Third-party cookies (website)</td><td>Google Analytics 4 and Google AdSense may set cookies or use identifiers in your browser (see section 3.1)</td><td>Aggregate traffic statistics, and showing ads that keep the service free</td><td>Consent / legitimate interest</td></tr>
+    <tr><td>Cookies / localStorage</td><td>Admins only: <code>spaminthai_admin_key</code> in the admin's browser localStorage — <strong>no first-party tracking cookies for regular users</strong>; only a <code>sit_consent</code> cookie that remembers your cookie choice (180 days)</td><td>Admin login / remember cookie choice</td><td>Strictly necessary</td></tr>
+    <tr><td>Third-party cookies (website)</td><td>Google Analytics 4 and Google AdSense may set cookies or use identifiers in your browser (see section 3.1)</td><td>Aggregate traffic statistics, and showing ads that keep the service free</td><td>Consent (set via the cookie banner)</td></tr>
   </table>
 
   <h2>2. What we do <em>not</em> collect</h2>
@@ -174,6 +176,7 @@
     <li>You can opt out of personalised advertising at <a href="https://adssettings.google.com" rel="nofollow noopener" target="_blank">Google Ads Settings</a> or <a href="https://www.aboutads.info/choices/" rel="nofollow noopener" target="_blank">aboutads.info</a>.</li>
     <li>How Google uses data from partner sites: <a href="https://policies.google.com/technologies/partner-sites" rel="nofollow noopener" target="_blank">policies.google.com/technologies/partner-sites</a></li>
     <li>We use <strong>Google Analytics 4</strong> and Cloudflare Web Analytics for aggregate traffic statistics only.</li>
+    <li>On your first visit we ask for consent. If you choose "necessary only", Google Analytics sets no cookies and AdSense shows only non-personalised ads — <a href="#" data-cookie-settings>change cookie settings</a></li>
     <li>You can delete or block cookies in your browser settings; number checks keep working.</li>
   </ul>
   <p>The SpamInThai Android app shows <strong>no third-party ads</strong>.</p>
