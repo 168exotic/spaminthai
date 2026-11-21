@@ -117,6 +117,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cyber-police-nakhonphanom-gold-laundering-cannabis-warehouse-5-suspects-430-cases-109m-2569',
+  'cyber-police-chiangmai-nominee-exchange-usdt-24-mule-accounts-9-4m-2569',
+  'cib-pathumthani-mule-account-beauty-business-investment-scam-saraburi-194000-baht-2569',
   'tourist-police-pattaya-hotel-mule-account-network-5-suspects-80-cases-13m-2569',
   'nongkhai-immigration-khonkaen-mule-account-broker-3-students-laos-2500-baht-2569',
   'government-aoc-1441-mule-accounts-1-million-suspended-damage-down-42-percent-2569',
