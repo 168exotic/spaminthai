@@ -44,9 +44,18 @@ check('page has user-report stats', html.includes('สถิติรายง�
 check('page has data summary', html.includes('สรุปจากข้อมูล'));
 check('page has province-specific notes', html.includes('กลโกงที่ควรระวังในภูเก็ต') && html.includes('จองที่พักและทัวร์ในภูเก็ตปลอม'));
 check('cached result carries stats', !!JSON.parse(store.get('seo:area:076')).stats);
+const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+const faqLd = ld['@graph'].find((n) => n['@type'] === 'FAQPage');
+check('page has FAQPage schema with 5 Qs', faqLd && faqLd.mainEntity.length === 5);
+check('FAQ answer mentions code + province', faqLd.mainEntity[0].acceptedAnswer.text.includes('076') && faqLd.mainEntity[0].acceptedAnswer.text.includes('ภูเก็ต'));
+check('FAQ count uses neutral wording', faqLd.mainEntity[1].acceptedAnswer.text.includes('มีรายงานจากผู้ใช้ 2 เบอร์') && faqLd.mainEntity[1].acceptedAnswer.text.includes('ไม่ได้หมายความว่าเจ้าของเบอร์กระทำผิด'));
+check('page shows short answer + visible FAQ', html.includes('คำตอบสั้น:') && html.includes('class="pv-sec pv-faq"'));
+check('speakable points at short answer', ld['@graph'][0].speakable.cssSelector.includes('.pv-answer'));
+check('FAQ has no real phone numbers', !/\b0\d{8,9}\b/.test(JSON.stringify(faqLd)));
 const empty = await (await renderProvincePage('yala', env)).text();
 check('empty province shows report CTA', empty.includes('/report'));
 check('empty province has no stats box', !empty.includes('สถิติรายงานเบอร์'));
+check('empty province FAQ says no reports yet', empty.includes('ยังไม่มีเบอร์บ้านขึ้นต้น 073 ที่มีรายงานจากผู้ใช้'));
 check('every province gets 2+ notes', [...PROVINCES.values()].every((p) => provinceNotes(p).length >= 2));
 check('unknown province 404', (await renderProvincePage('nowhere', env)).status === 404);
 const idx = await renderThailandIndex().text();
