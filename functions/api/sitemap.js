@@ -117,6 +117,9 @@ const THIN_NOINDEX = new Set([
 ]);
 
 const BLOG_SLUGS = [
+  'fake-hospital-health-rights-call',
+  'fake-debt-collector-call',
+  'money-transferred-by-mistake-scam',
   'fake-thaid-digital-id-scam',
   'fake-social-security-sms-call',
   'customs-fee-parcel-scam',
