@@ -209,6 +209,7 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cyber-police-phetchaburi-exchange-company-mule-network-11-warrants-7-arrests-350m-2569',
   'cyber-police-nakhonphanom-gold-laundering-cannabis-warehouse-5-suspects-430-cases-109m-2569',
   'cyber-police-chiangmai-nominee-exchange-usdt-24-mule-accounts-9-4m-2569',
   'cib-pathumthani-mule-account-beauty-business-investment-scam-saraburi-194000-baht-2569',
