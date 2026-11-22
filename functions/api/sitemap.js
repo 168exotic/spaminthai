@@ -30,18 +30,6 @@ const STATIC_PAGES = [
 // Thin pages marked noindex (Nov 2026, AdSense quality) — kept out of the sitemap until expanded to 500+ words.
 // When you expand one, remove its <meta name="robots" content="noindex, follow"> AND its slug here.
 const THIN_NOINDEX = new Set([
-  "blog/berkhrai-check-caller",
-  "blog/best-spam-checker-apps-2568",
-  "blog/call-center-scam-guide-2568",
-  "blog/fake-bank-sms",
-  "blog/new-scam-tricks-2568-07",
-  "blog/numbers-065-scam",
-  "blog/pdpa-reporting-numbers",
-  "blog/report-hotlines-1441-1155-1212",
-  "blog/scammed-what-to-do",
-  "blog/silent-unknown-callers-android-iphone",
-  "blog/truat-ber-free",
-  "blog/voip-697-698-scam",
   "news/acsc-august-weekly-2569",
   "news/acsc-cib-dark-empire-corporate-mule-farm-2569",
   "news/acsc-elderly-protection-2569",
