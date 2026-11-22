@@ -30,20 +30,7 @@ const STATIC_PAGES = [
 // Thin pages marked noindex (Nov 2026, AdSense quality) — kept out of the sitemap until expanded to 500+ words.
 // When you expand one, remove its <meta name="robots" content="noindex, follow"> AND its slug here.
 const THIN_NOINDEX = new Set([
-  "news/acsc-august-weekly-2569",
   "news/acsc-cib-dark-empire-corporate-mule-farm-2569",
-  "news/acsc-elderly-protection-2569",
-  "news/acsc-july-summer-spike-2569",
-  "news/acsc-june-monthly-2569",
-  "news/acsc-may-monthly-2569",
-  "news/acsc-rescue-students-2-7m-2569",
-  "news/acsc-september-stats-2569",
-  "news/acsc-stats-aug-sep-2569",
-  "news/acsc-stats-february-2569",
-  "news/acsc-stats-january-2569",
-  "news/acsc-weekly-492m-march-2569",
-  "news/acsc-weekly-6-12-sep-2569",
-  "news/acsc-weekly-april-2569",
   "news/aoc-1441-scam-report-guide-2025",
   "news/call-center-account-mule-2569",
   "news/call-center-bangkok-raid-2569",
