@@ -31,24 +31,13 @@ const STATIC_PAGES = [
 // When you expand one, remove its <meta name="robots" content="noindex, follow"> AND its slug here.
 const THIN_NOINDEX = new Set([
   "news/aoc-1441-scam-report-guide-2025",
-  "news/cib-fake-cyber-police-page-chonburi-2569",
-  "news/cib-online-investment-chumphon-arrest-2569",
   "news/cib-romance-scam-2569",
-  "news/cib-sim-box-raid-2569",
-  "news/cib-spell-investment-admin-korat-2569",
-  "news/crime-suppression-mule-owner-fake-police-refund-2569",
-  "news/cyber-police-buriram-teacher-cash-mule-2569",
-  "news/cyber-police-khonkaen-refund-2569",
-  "news/cyber-police-student-scam-sapan-sung-2569",
   "news/deepfake-politician-impersonation-2569",
   "news/deepfake-scam-warning-2025",
   "news/deepfake-video-call-scam-2569",
-  "news/dsi-fake-police-kabinburi-mule-2569",
-  "news/ecd-amata-stock-scam-mule-2569",
   "news/fake-concert-ticket-bts-2569",
   "news/fake-concert-ticket-kpop-2569",
   "news/gen-z-scam-surge-2569",
-  "news/highway-police-phangnga-mule-account-2569",
   "news/hotline-1441-report-guide-2569",
   "news/hotline-1441-success-stories-2569",
   "news/investment-scam-crypto-app-2569",
@@ -58,13 +47,9 @@ const THIN_NOINDEX = new Set([
   "news/job-scam-line-recruitment-2569",
   "news/job-scam-package-delivery-2569",
   "news/job-scam-remote-work-2569",
-  "news/lopburi-cash-mule-fake-cyber-police-student-2569",
-  "news/maesot-broker-teen-mule-account-2569",
   "news/mgronline-online-shopping-scam-2569",
   "news/off-platform-shopping-scam-2569",
   "news/parcel-redelivery-scam-2569",
-  "news/pattaya-fake-cyber-police-qr-refund-2569",
-  "news/pattaya-sim-box-ceiling-rental-room-2569",
   "news/poipet-border-rescue-2569",
   "news/poipet-scam-compound-2569",
   "news/poipet-thai-workers-trapped-2569",
@@ -74,8 +59,7 @@ const THIN_NOINDEX = new Set([
   "news/student-scam-part-time-job-2569",
   "news/student-scam-poipet-trick-2569",
   "news/student-scam-university-victim-2569",
-  "news/thaipbs-scam-awareness-campaign-2569",
-  "news/tourist-police-pattaya-fake-pea-qr-2569"
+  "news/thaipbs-scam-awareness-campaign-2569"
 ]);
 
 const BLOG_SLUGS = [
