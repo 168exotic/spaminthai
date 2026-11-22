@@ -30,20 +30,6 @@ const STATIC_PAGES = [
 // Thin pages marked noindex (Nov 2026, AdSense quality) — kept out of the sitemap until expanded to 500+ words.
 // When you expand one, remove its <meta name="robots" content="noindex, follow"> AND its slug here.
 const THIN_NOINDEX = new Set([
-  "news/fake-concert-ticket-bts-2569",
-  "news/fake-concert-ticket-kpop-2569",
-  "news/job-scam-line-recruitment-2569",
-  "news/job-scam-package-delivery-2569",
-  "news/job-scam-remote-work-2569",
-  "news/mgronline-online-shopping-scam-2569",
-  "news/off-platform-shopping-scam-2569",
-  "news/parcel-redelivery-scam-2569",
-  "news/poipet-border-rescue-2569",
-  "news/poipet-scam-compound-2569",
-  "news/poipet-thai-workers-trapped-2569",
-  "news/student-scam-part-time-job-2569",
-  "news/student-scam-poipet-trick-2569",
-  "news/student-scam-university-victim-2569"
 ]);
 
 const BLOG_SLUGS = [
