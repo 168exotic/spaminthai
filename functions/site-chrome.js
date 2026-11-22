@@ -121,6 +121,20 @@ const CONSENT_TAG = '<script src="/assets/consent.js?v=1"></script>';
 const ADSENSE_META = `<meta name="google-adsense-account" content="${ADSENSE_CLIENT}">`;
 const ADSENSE_SCRIPT = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>`;
 
+/**
+ * AdSense must never receive personal data (PII). Ad tags send the page URL to Google, so pages whose
+ * URL can carry a phone number (number lookups, searches) get NO adsbygoogle script — the verification
+ * meta tag stays. See AdSense policy on PII.
+ */
+export function urlMayCarryPII(url) {
+  const p = url.pathname;
+  if (p === '/check' || p.startsWith('/check/') || p === '/search' || p.startsWith('/search/')) return true;
+  for (const v of url.searchParams.values()) {
+    if ((v.replace(/\D/g, '').length >= 6)) return true;
+  }
+  return false;
+}
+
 export function normalizePage(response, url) {
   if (typeof HTMLRewriter === 'undefined') return response;
   if (url.pathname.startsWith('/admin')) return response;
@@ -131,11 +145,13 @@ export function normalizePage(response, url) {
   const navHtml = markActive(NAV_HTML, section, 'site-nav__link');
   const tabsHtml = markActive(TABS_HTML, section, 'site-tab');
   const headerHtml = HEADER_HTML.replace(NAV_HTML, navHtml).replace(TABS_HTML, tabsHtml);
+  const noAds = urlMayCarryPII(url);
   const seen = { meta: false, ads: false, footer: false, layout: false, header: false };
 
   return new HTMLRewriter()
     .on('meta[name="google-adsense-account"]', { element() { seen.meta = true; } })
-    .on('script[src*="adsbygoogle.js"]', { element() { seen.ads = true; } })
+    .on('script[src*="adsbygoogle.js"]', { element(el) { seen.ads = true; if (noAds) el.remove(); } })
+    .on('ins.adsbygoogle', { element(el) { if (noAds) el.remove(); } })
     .on('footer.site-footer', {
       element(el) {
         seen.footer = true;
@@ -163,7 +179,7 @@ export function normalizePage(response, url) {
         el.onEndTag((end) => {
           let add = '';
           if (!seen.meta) add += ADSENSE_META + '\n';
-          if (!seen.ads) add += ADSENSE_SCRIPT + '\n';
+          if (!seen.ads && !noAds) add += ADSENSE_SCRIPT + '\n';
           if (add) end.before(add, { html: true });
         });
       },
