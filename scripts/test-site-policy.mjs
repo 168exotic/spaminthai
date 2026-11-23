@@ -53,7 +53,7 @@ check(`Google Play links use target=_blank + rel=noopener noreferrer (${playCoun
 
 console.log('== AdSense ==');
 const newsDir = path.join(ROOT, 'news');
-const adPages = ['index.html', 'check.html', ...Array.from({ length: 9 }, (_, i) => `news-${i + 1}.html`),
+const adPages = ['index.html', 'check.html', ...fs.readdirSync(ROOT).filter((n) => /^news-\d+\.html$/.test(n)),
   ...fs.readdirSync(newsDir).filter((n) => n.endsWith('.html')).map((n) => `news/${n}`)];
 const missing = [];
 for (const p of adPages) {

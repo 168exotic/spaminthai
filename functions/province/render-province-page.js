@@ -4,7 +4,7 @@
 
 import { assess } from '../api/risk-assess.js';
 import { summarizeReports, statsSentence, renderStatsSection, STATS_STYLE } from '../seo/area-stats.js';
-import { PROVINCES, REGIONS, ALIASES, sameCode } from './provinces.js';
+import { PROVINCES, REGIONS, ALIASES, sameCode, isPrimaryProvince } from './provinces.js';
 import { relatedNews, thaiShortDate } from '../news/related-news.js';
 import { provinceNotes } from './province-notes.js';
 
@@ -358,7 +358,8 @@ ${neighbors}
   };
   // Provinces whose area code has no user reports yet are near-identical to each other.
   // Keep them usable for visitors but out of Google's index until a first report arrives (AdSense quality).
-  const robots = total > 0 ? '' : 'noindex, follow';
+  // Also: only the main province of a shared area code is indexed (same number list on the others).
+  const robots = total > 0 && isPrimaryProvince(slug) ? '' : 'noindex, follow';
   return html(page({ title, desc, canonical, schema, body, robots }));
 }
 
