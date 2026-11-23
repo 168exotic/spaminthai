@@ -30,36 +30,6 @@ const STATIC_PAGES = [
 // Thin pages marked noindex (Nov 2026, AdSense quality) — kept out of the sitemap until expanded to 500+ words.
 // When you expand one, remove its <meta name="robots" content="noindex, follow"> AND its slug here.
 const THIN_NOINDEX = new Set([
-  "news/aoc-1441-scam-report-guide-2025",
-  "news/cib-romance-scam-2569",
-  "news/deepfake-politician-impersonation-2569",
-  "news/deepfake-scam-warning-2025",
-  "news/deepfake-video-call-scam-2569",
-  "news/fake-concert-ticket-bts-2569",
-  "news/fake-concert-ticket-kpop-2569",
-  "news/gen-z-scam-surge-2569",
-  "news/hotline-1441-report-guide-2569",
-  "news/hotline-1441-success-stories-2569",
-  "news/investment-scam-crypto-app-2569",
-  "news/investment-scam-forex-2569",
-  "news/investment-scam-gold-trading-2569",
-  "news/investment-scam-line-group-2025",
-  "news/job-scam-line-recruitment-2569",
-  "news/job-scam-package-delivery-2569",
-  "news/job-scam-remote-work-2569",
-  "news/mgronline-online-shopping-scam-2569",
-  "news/off-platform-shopping-scam-2569",
-  "news/parcel-redelivery-scam-2569",
-  "news/poipet-border-rescue-2569",
-  "news/poipet-scam-compound-2569",
-  "news/poipet-thai-workers-trapped-2569",
-  "news/romance-scam-dating-app-2569",
-  "news/sim-box-mae-sot-raid-2569",
-  "news/sim-box-sms-banking-2569",
-  "news/student-scam-part-time-job-2569",
-  "news/student-scam-poipet-trick-2569",
-  "news/student-scam-university-victim-2569",
-  "news/thaipbs-scam-awareness-campaign-2569"
 ]);
 
 const BLOG_SLUGS = [
