@@ -158,6 +158,8 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cyber-police-rayong-pluakdaeng-mule-controller-47-fake-customs-deposit-protection-retiree-62-4m-2569',
+  'cib-commando-pathumthani-thanyaburi-mule-account-38-fake-cib-test-system-transfer-3-accounts-9000-baht-2569',
   'cyber-police-phetchaburi-exchange-company-mule-network-11-warrants-7-arrests-350m-2569',
   'cyber-police-nakhonphanom-gold-laundering-cannabis-warehouse-5-suspects-430-cases-109m-2569',
   'cyber-police-chiangmai-nominee-exchange-usdt-24-mule-accounts-9-4m-2569',

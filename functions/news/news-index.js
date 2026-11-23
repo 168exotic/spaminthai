@@ -2,6 +2,24 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cib-commando-pathumthani-thanyaburi-mule-account-38-fake-cib-test-system-transfer-3-accounts-9000-baht-2569",
+    "title": "บก.ปพ.รวบผู้ต้องหาชายวัย 38 คดีบัญชีม้าที่ อ.ธัญบุรี จ.ปทุมธานี ตำรวจระบุบัญชีถูกใช้รับเงินแก๊งคอลเซ็นเตอร์ที่อ้างเป็นตำรวจสอบสวนกลาง หลอกผู้เสียหายโอนเงิน \"ทดสอบระบบธนาคาร\" ขู่อายัดบัญชี 6 เดือน ตามรายงานข่าว ผู้ต้องหารับสารภาพว่าเพิ่งพ้นโทษคดีบัญชีม้า และรับจ้างเปิด 3 บัญชี ได้เงิน 9,000 บาท",
+    "date": "2026-11-23",
+    "provinces": [
+      "pathum-thani",
+      "chaiyaphum"
+    ]
+  },
+  {
+    "slug": "cyber-police-rayong-pluakdaeng-mule-controller-47-fake-customs-deposit-protection-retiree-62-4m-2569",
+    "title": "ตร.ไซเบอร์รวบผู้ต้องหาชายวัย 47 ที่ อ.ปลวกแดง จ.ระยอง ตำรวจระบุทำหน้าที่คุมบัญชีม้าถอนเงิน-ซื้อทองให้แก๊งคอลเซ็นเตอร์ที่อ้างเป็นกรมศุลกากรและกระทรวงการคลัง หลอกข้าราชการบำนาญหญิงวัย 62 โอน 9 ครั้งสูญกว่า 4 ล้านบาท ตำรวจระบุว่าผู้ต้องหาให้การรับสารภาพว่ารับงานผ่าน Telegram ครั้งละ 4,000–5,000 บาท",
+    "date": "2026-11-23",
+    "provinces": [
+      "samut-prakan",
+      "rayong"
+    ]
+  },
+  {
     "slug": "cyber-police-phetchaburi-exchange-company-mule-network-11-warrants-7-arrests-350m-2569",
     "title": "ตร.ไซเบอร์บุกค้นบริษัทรับแลกเงินใน อ.เขาย้อย จ.เพชรบุรี ตามเส้นเงินกลุ่มบัญชีม้าที่มียอดเงินผ่านกว่า 350 ล้านบาท ศาลออกหมายจับ 11 ราย จับแล้ว 7 ตำรวจระบุสงสัยเชื่อมโยงคอลเซ็นเตอร์ที่อยู่ฝั่งเมียนมา ต้นเรื่องผู้เสียหายนนทบุรีถูกหลอกเปิดร้านค้าออนไลน์สูญ 2,335,500.33 บาท",
     "date": "2026-11-22",
@@ -267,11 +285,327 @@ export const NEWS = [
     ]
   },
   {
+    "slug": "immigration-loei-laos-handover-40-call-center-suspects-2569",
+    "title": "สปป.ลาวส่งตัวคนไทย 40 คน ผู้ต้องหาแก๊งคอลเซ็นเตอร์-พนันออนไลน์ กลับไทยที่ด่านท่าลี่ จ.เลย เข้าศูนย์คัดกรอง",
+    "date": "2026-11-02",
+    "provinces": [
+      "loei"
+    ]
+  },
+  {
     "slug": "cyber-police-kamphaengphet-fake-pea-meter-gold-mule-2569",
     "title": "ตร.ไซเบอร์รวบ 5 ผู้ต้องหาคดีบัญชีม้า แก๊งอ้างการไฟฟ้าหลอกเปลี่ยนมิเตอร์ สูญ 1,965,400 บาท จับคาห้างกำแพงเพชร",
     "date": "2026-10-30",
     "provinces": [
       "kamphaeng-phet"
+    ]
+  },
+  {
+    "slug": "crime-suppression-mule-owner-fake-police-refund-2569",
+    "title": "บก.ปพ.จับหญิงวัย 38 ผู้ต้องหาคดีบัญชีม้า แก๊งอ้างตำรวจเสนอช่วยตามเงินคืน หลอกซ้ำเหยื่อสูญกว่า 8.1 ล้าน",
+    "date": "2026-10-28",
+    "provinces": [
+      "bangkok",
+      "kamphaeng-phet",
+      "chiang-mai"
+    ]
+  },
+  {
+    "slug": "acsc-cib-dark-empire-corporate-mule-farm-2569",
+    "title": "ACSC-CIB ทลายฟาร์มบัญชีม้านิติบุคคลข้ามชาติ พบบริษัทบังหน้ากว่า 1,500 แห่ง จับได้ 11 จาก 16 หมายจับ",
+    "date": "2026-10-27",
+    "provinces": []
+  },
+  {
+    "slug": "pattaya-sim-box-ceiling-rental-room-2569",
+    "title": "ตำรวจภาค 2 บุกห้องเช่ากลางพัทยา พบซิมบ็อกซ์ 32 ช่อง 2 เครื่องซ่อนบนฝ้าเพดาน ผู้เช่าหนีไปก่อน",
+    "date": "2026-10-27",
+    "provinces": [
+      "chonburi"
+    ]
+  },
+  {
+    "slug": "cyber-police-mule-handlers-chinese-boss-2569",
+    "title": "ตร.ไซเบอร์รวบ 8 ผู้คุมบัญชีม้า ประกบเจ้าของบัญชีถอนเงินสดส่งบอสจีน เงินเข้าบัญชีละหลักแสนถึงล้านต่อวัน",
+    "date": "2026-10-20",
+    "provinces": [
+      "nonthaburi"
+    ]
+  },
+  {
+    "slug": "ecd-amata-stock-scam-mule-2569",
+    "title": "ปอศ.จับ 6 บัญชีม้าแถว 1 แก๊งหลอกลงทุนหุ้นอมตะนคร ผู้เสียหาย 185 ราย สูญกว่า 25 ล้าน",
+    "date": "2026-10-20",
+    "provinces": [
+      "nonthaburi",
+      "prachinburi",
+      "rayong",
+      "kanchanaburi"
+    ]
+  },
+  {
+    "slug": "lopburi-cash-mule-fake-cyber-police-student-2569",
+    "title": "รวบม้ากดเงินที่ลพบุรี แก๊งอ้างตำรวจไซเบอร์ หลอกนักศึกษาวัย 22 สูญเงินและทองกว่า 1.2 ล้าน",
+    "date": "2026-10-18",
+    "provinces": [
+      "lopburi",
+      "buriram"
+    ]
+  },
+  {
+    "slug": "maesot-broker-teen-mule-account-2569",
+    "title": "ตร.ไซเบอร์รวบนายหน้าวัย 20 ที่แม่สอด หลอกเด็ก ม.2 เปิดบัญชีม้า 3 บัญชี โยงคดีหลอกลงทุน 675,000 บาท",
+    "date": "2026-10-18",
+    "provinces": [
+      "tak"
+    ]
+  },
+  {
+    "slug": "pattaya-fake-cyber-police-qr-refund-2569",
+    "title": "ทลายออฟฟิศคอลเซ็นเตอร์กลางพัทยา รวบ 3 อดีตสแกมเมอร์จากกัมพูชา อ้างตำรวจไซเบอร์หลอกเหยื่อเก่าซ้ำ",
+    "date": "2026-10-13",
+    "provinces": [
+      "chonburi"
+    ]
+  },
+  {
+    "slug": "cyber-police-corporate-mule-directors-2569",
+    "title": "ตร.ไซเบอร์รวบ 3 กรรมการบริษัท บัญชีม้านิติบุคคล โยง 46 คดีหลอกลงทุน เสียหายเฉียด 60 ล้าน",
+    "date": "2026-10-11",
+    "provinces": [
+      "nonthaburi",
+      "khon-kaen",
+      "chonburi"
+    ]
+  },
+  {
+    "slug": "cyber-police-buriram-teacher-cash-mule-2569",
+    "title": "ตร.ไซเบอร์รวบมือรับเงินสดวัย 59 แก๊งอ้างเป็นตำรวจ หลอกครูบุรีรัมย์เสียหาย 9,491,000 บาท",
+    "date": "2026-10-10",
+    "provinces": [
+      "bangkok",
+      "buriram"
+    ]
+  },
+  {
+    "slug": "cib-spell-investment-admin-korat-2569",
+    "title": "ตำรวจทางหลวงจับแอดมินแก๊งหลอกลงทุนแอป Spell รายงานข่าวระบุเสียหายกว่า 200 ล้านต่อเดือน",
+    "date": "2026-10-09",
+    "provinces": [
+      "bangkok",
+      "samut-prakan",
+      "nakhon-ratchasima"
+    ]
+  },
+  {
+    "slug": "dsi-fake-police-kabinburi-mule-2569",
+    "title": "DSI จับ 2 เจ้าของบัญชีรับเงิน แก๊งอ้างตำรวจหลอกเหยื่อสูญกว่า 7.5 ล้านบาท",
+    "date": "2026-10-08",
+    "provinces": [
+      "prachinburi"
+    ]
+  },
+  {
+    "slug": "tourist-police-pattaya-fake-pea-qr-2569",
+    "title": "ตำรวจท่องเที่ยวรวบ 4 ผู้ต้องหาบัญชีม้าที่พัทยา แก๊งอ้างการไฟฟ้าหลอกสแกน QR Code",
+    "date": "2026-10-08",
+    "provinces": [
+      "khon-kaen",
+      "chonburi"
+    ]
+  },
+  {
+    "slug": "cib-fake-cyber-police-page-chonburi-2569",
+    "title": "จับผู้ต้องหาคดีเพจปลอมอ้างตำรวจไซเบอร์ หลอกซ้ำเหยื่อ เสียหายกว่า 5 ล้านบาท",
+    "date": "2026-10-06",
+    "provinces": [
+      "bangkok",
+      "chonburi"
+    ]
+  },
+  {
+    "slug": "cib-online-investment-chumphon-arrest-2569",
+    "title": "ตำรวจสอบสวนกลางจับผู้ต้องหาคดีหลอกลงทุน เสียหายประมาณ 2,341,440 บาท",
+    "date": "2026-10-06",
+    "provinces": [
+      "bangkok",
+      "chumphon",
+      "songkhla"
+    ]
+  },
+  {
+    "slug": "cyber-police-khonkaen-refund-2569",
+    "title": "ตำรวจไซเบอร์ส่งเงินคืนผู้เสียหาย 2 คดี รวม 1,339,649 บาท",
+    "date": "2026-10-06",
+    "provinces": [
+      "khon-kaen"
+    ]
+  },
+  {
+    "slug": "cyber-police-student-scam-sapan-sung-2569",
+    "title": "ตำรวจไซเบอร์ค้นบ้านหรูสะพานสูง จับ 3 ราย แก๊งคอลเซ็นเตอร์หลอกนักศึกษา ยึดทรัพย์ไม่ต่ำกว่า 100 ล้าน",
+    "date": "2026-10-06",
+    "provinces": [
+      "bangkok"
+    ]
+  },
+  {
+    "slug": "highway-police-phangnga-mule-account-2569",
+    "title": "ตำรวจทางหลวงจับหญิง 54 ปี คดีบัญชีรับเงินหลอกลงทุน เสียหายกว่า 5 ล้านบาท",
+    "date": "2026-10-06",
+    "provinces": [
+      "bangkok",
+      "krabi",
+      "phang-nga",
+      "phuket"
+    ]
+  },
+  {
+    "slug": "acsc-september-stats-2569",
+    "title": "ACSC เผยสถิติกันยายน 2569 คดีโกงออนไลน์ 7,693 คดี ความเสียหายกว่า 366 ล้านบาท",
+    "date": "2026-09-15",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-weekly-6-12-sep-2569",
+    "title": "ACSC รายงานสัปดาห์ 6–12 ก.ย. 2569 คดีโกง 5,718 คดี ความเสียหาย 297 ล้านบาท",
+    "date": "2026-09-14",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-rescue-students-2-7m-2569",
+    "title": "ACSC ช่วย 3 นักศึกษาเหยื่อแก๊งคอลเซ็นเตอร์ สูญเงินรวม 2.7 ล้านบาท",
+    "date": "2026-09-06",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-stats-aug-sep-2569",
+    "title": "ACSC เปิดสถิติ 5,863 คดีโกงออนไลน์ ความเสียหาย 241 ล้านบาท สัปดาห์แรกกันยายน 2569",
+    "date": "2026-09-06",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-august-weekly-2569",
+    "title": "ACSC รายงานสัปดาห์ 10–16 สิงหาคม 2569 คดีโกง 6,102 คดี ความเสียหาย 356 ล้านบาท",
+    "date": "2026-08-18",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-july-summer-spike-2569",
+    "title": "ACSC เตือนคดีโกงออนไลน์พุ่งช่วงหน้าร้อน กรกฎาคม 2569 ความเสียหาย 1,650 ล้านบาท",
+    "date": "2026-08-05",
+    "provinces": []
+  },
+  {
+    "slug": "cib-sim-box-raid-2569",
+    "title": "CIB ยึดซิมบ็อกซ์แม่สอด ส่ง SMS หลอกธนาคาร กว่า 50,000 ข้อความต่อวัน",
+    "date": "2026-07-22",
+    "provinces": [
+      "tak"
+    ]
+  },
+  {
+    "slug": "acsc-june-monthly-2569",
+    "title": "ACSC เผยมิถุนายน 2569 คดีโกงออนไลน์ 26,900 คดี ช่วยกู้เงินเหยื่อคืนกว่า 89 ล้าน",
+    "date": "2026-07-03",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-elderly-protection-2569",
+    "title": "ACSC เปิดโครงการปกป้องผู้สูงอายุ หลังพบว่าเสียหายเฉลี่ย 1.2 ล้านต่อคดี",
+    "date": "2026-06-20",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-may-monthly-2569",
+    "title": "ACSC สรุปพฤษภาคม 2569 คดีโกงออนไลน์ทะลุ 27,000 คดี เน้นเตือนกลุ่มนักศึกษา",
+    "date": "2026-06-04",
+    "provinces": []
+  },
+  {
+    "slug": "call-center-account-mule-2569",
+    "title": "ตำรวจจับเครือข่ายบัญชีม้าให้คอลเซ็นเตอร์ 6 ราย เปิดบัญชีกว่า 200 บัญชี",
+    "date": "2026-05-20",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-weekly-april-2569",
+    "title": "ACSC รายงานสัปดาห์ 7–13 เมษายน 2569 คดีโกง 6,521 คดี ความเสียหาย 398 ล้านบาท",
+    "date": "2026-04-15",
+    "provinces": []
+  },
+  {
+    "slug": "money-laundering-crypto-exchange-2569",
+    "title": "ตำรวจจับเครือข่ายฟอกเงินผ่านคริปโต 4 ราย หมุนเวียน 150 ล้านบาทให้แก๊งคอลเซ็นเตอร์",
+    "date": "2026-04-12",
+    "provinces": []
+  },
+  {
+    "slug": "call-center-chiang-rai-network-2569",
+    "title": "จับเครือข่ายคอลเซ็นเตอร์เชียงราย หลอกเหยื่อฝากเงินเทรดหุ้น ยึดทรัพย์ 12 ล้านบาท",
+    "date": "2026-04-08",
+    "provinces": [
+      "chiang-rai"
+    ]
+  },
+  {
+    "slug": "acsc-weekly-492m-march-2569",
+    "title": "ACSC เผยสัปดาห์เดียวคดีโกงออนไลน์ 7,193 คดี ความเสียหายเกือบ 500 ล้านบาท",
+    "date": "2026-03-29",
+    "provinces": []
+  },
+  {
+    "slug": "call-center-bust-9-suspects-2569",
+    "title": "ทลายเครือข่ายคอลเซ็นเตอร์ รวบ 9 ผู้ต้องหาไทย–จีน ยึดเงินสด 1.9 ล้านบาท",
+    "date": "2026-03-15",
+    "provinces": []
+  },
+  {
+    "slug": "cib-money-laundering-ring-2569",
+    "title": "CIB ทลายขบวนการฟอกเงิน–ฟอกคนให้แก๊งคอลเซ็นเตอร์ จับ 8 ราย ความเสียหายพุ่ง 1,000 ล้าน/เดือน",
+    "date": "2026-03-12",
+    "provinces": []
+  },
+  {
+    "slug": "acsc-stats-february-2569",
+    "title": "ACSC เผยกุมภาพันธ์ 2569 คดีโกงออนไลน์ลดลงเล็กน้อย แต่ยอดเสียหายต่อคดีสูงขึ้น",
+    "date": "2026-03-05",
+    "provinces": []
+  },
+  {
+    "slug": "call-center-khon-kaen-bust-2569",
+    "title": "ทลายคอลเซ็นเตอร์ขอนแก่น จับ 11 ราย หลอกขายประกันภัยปลอม เหยื่อสูญเงิน 28 ล้าน",
+    "date": "2026-02-18",
+    "provinces": [
+      "khon-kaen"
+    ]
+  },
+  {
+    "slug": "acsc-stats-january-2569",
+    "title": "ACSC เปิดสถิติมกราคม 2569 คดีโกงออนไลน์พุ่ง กว่า 28,000 คดี ความเสียหายเกิน 1,800 ล้าน",
+    "date": "2026-02-03",
+    "provinces": []
+  },
+  {
+    "slug": "money-laundering-sim-box-2569",
+    "title": "CIB ทลายเครือข่ายฟอกเงินผ่านซิมบ็อกซ์ จับ 5 ราย ยึดซิม 3,000 ใบ หมุนเวียน 200 ล้าน",
+    "date": "2026-01-30",
+    "provinces": []
+  },
+  {
+    "slug": "call-center-bangkok-raid-2569",
+    "title": "ตำรวจบุกทลายคอลเซ็นเตอร์กรุงเทพ จับ 14 ราย ยึดอุปกรณ์ 200 ชิ้น หลอกเหยื่อไทย–ต่างชาติ",
+    "date": "2026-01-22",
+    "provinces": [
+      "bangkok"
+    ]
+  },
+  {
+    "slug": "korean-scam-center-samut-prakan-2025-09",
+    "title": "จับกุมชาวเกาหลีใต้ 12 คน ศูนย์หลอกลวงใน จ.สมุทรปราการ พบเวิร์กสเตชั่น 13 จุด",
+    "date": "2025-09-09",
+    "provinces": [
+      "samut-prakan"
     ]
   }
 ];
