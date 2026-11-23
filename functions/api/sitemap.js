@@ -1,6 +1,6 @@
 // GET /sitemap.xml — dynamic sitemap with top reported numbers from KV.
 
-import { PROVINCES } from '../province/provinces.js';
+import { PROVINCES, isPrimaryProvince } from '../province/provinces.js';
 import { codeHasReports } from '../province/render-province-page.js';
 import { MOBILE_PREFIXES } from './carrier.js';
 import { getAllNumbersCached } from './kv-scan.js';
@@ -15,7 +15,6 @@ const STATIC_PAGES = [
   { loc: '/check', priority: '0.95', changefreq: 'daily' },
   { loc: '/guide/check-phone', priority: '0.9', changefreq: 'weekly' },
   { loc: '/guide/block-spam-android', priority: '0.88', changefreq: 'weekly' },
-  { loc: '/guide/spam-numbers', priority: '0.87', changefreq: 'daily' },
   { loc: '/report', priority: '0.9', changefreq: 'weekly' },
   { loc: '/download', priority: '0.8', changefreq: 'weekly' },
   { loc: '/guide/call-center-scam', priority: '0.85', changefreq: 'monthly' },
@@ -236,7 +235,7 @@ const NEWS_SLUGS = [
   'thaipbs-scam-awareness-campaign-2569',
 ];
 
-const NEWS_PAGE_COUNT = 9;
+const NEWS_PAGE_COUNT = 6;
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -310,16 +309,23 @@ export async function buildSitemapXml(env) {
   }
 
   lines.push(urlEntry('/thailand', { priority: '0.85', changefreq: 'weekly', lastmod }));
-  // Only list provinces whose area code has reports; empty ones are served noindex (see render-province-page.js).
+  // Only list the main province of each area code, and only when that code has reports; the rest are served noindex (see render-province-page.js).
   const codeCache = new Map();
   for (const [slug, prov] of PROVINCES) {
     if (!codeCache.has(prov.code)) codeCache.set(prov.code, await codeHasReports(env, prov.code));
-    if (!codeCache.get(prov.code)) continue;
+    if (!codeCache.get(prov.code) || !isPrimaryProvince(slug)) continue;
     lines.push(urlEntry(`/${slug}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
   lines.push(urlEntry('/prefix', { priority: '0.85', changefreq: 'weekly', lastmod }));
   for (const p of MOBILE_PREFIXES) {
+    // prefixes with no reported numbers are served noindex (render-prefix-page.js) — keep them out of the sitemap
+    let hasReports = true;
+    try {
+      const page = await env.SPAM_KV.list({ prefix: 'num:' + p, limit: 1 });
+      hasReports = page.keys.length > 0;
+    } catch { /* keep listed on error */ }
+    if (!hasReports) continue;
     lines.push(urlEntry(`/prefix/${p}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
@@ -338,9 +344,8 @@ export async function buildSitemapXml(env) {
     lines.push(urlEntry(`/news/${slug}`, { priority: '0.78', changefreq: 'weekly', lastmod }));
   }
 
-  for (let p = 1; p <= NEWS_PAGE_COUNT; p++) {
-    lines.push(urlEntry(`/news-${p}`, { priority: p === 1 ? '0.8' : '0.72', changefreq: 'daily', lastmod }));
-  }
+  // Only page 1 of the news listing is indexable; pages 2..NEWS_PAGE_COUNT are noindex,follow (scripts/paginate-news.mjs).
+  // (/news-1 is already in STATIC_PAGES)
 
   const numbers = await getTopNumbers(env, 500);
   for (const num of numbers) {

@@ -14,7 +14,9 @@ const mockEnv = {
       }
       return null;
     },
-    async list() {
+    async list({ prefix } = {}) {
+      // Only area code 02 (Bangkok metro) has a reported landline in this mock.
+      if (prefix === 'num:02') return { keys: [{ name: 'num:021365777' }], list_complete: true };
       return { keys: [], list_complete: true };
     },
     async put() {},
@@ -44,8 +46,9 @@ async function main() {
   check('xml has top number page', xml.includes('/check/021365777'));
   check('xml has lastmod', xml.includes('<lastmod>'));
   check('xml has /thailand index', xml.includes('<loc>https://spaminthai.com/thailand</loc>'));
-  check('xml has province page', xml.includes('<loc>https://spaminthai.com/phuket</loc>'));
-  check('xml has 77 provinces', (xml.match(/<loc>https:\/\/spaminthai\.com\/[a-z-]+<\/loc>/g) || []).filter(l => !/\/(check|report|download|privacy|terms|blog|thailand)<|\/$/.test(l)).length >= 77);
+  check('xml lists a province whose area code has reports', xml.includes('<loc>https://spaminthai.com/bangkok</loc>'));
+  check('xml omits a province with no reports (served noindex)', !xml.includes('<loc>https://spaminthai.com/phuket</loc>'));
+  check('xml omits provinces that share a code with the main one', !xml.includes('<loc>https://spaminthai.com/nonthaburi</loc>'));
   check('xml escapes ok', !xml.includes('&amp;amp;'));
 
   console.log(`\n${passed} passed, ${failed} failed`);

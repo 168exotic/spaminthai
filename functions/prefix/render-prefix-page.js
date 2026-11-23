@@ -236,7 +236,8 @@ ${carrierSection(prefix, carrierLabel)}
       { '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
     ],
   };
-  return html(page({ title, desc, canonical, schema, body }));
+  // Prefix pages with no reported numbers are near-identical to each other — keep them out of the index until data arrives.
+  return html(page({ title, desc, canonical, schema, body, robots: total > 0 ? '' : 'noindex, follow' }));
 }
 
 export function renderPrefixIndex() {
