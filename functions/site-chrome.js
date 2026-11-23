@@ -138,14 +138,15 @@ export function urlMayCarryPII(url) {
 export function normalizePage(response, url) {
   if (typeof HTMLRewriter === 'undefined') return response;
   if (url.pathname.startsWith('/admin')) return response;
-  if (response.status !== 200) return response;
+  // 404 pages get the shared header/footer too, but never an ad tag (no ads on pages without content).
+  if (response.status !== 200 && response.status !== 404) return response;
   if (!/^\s*text\/html\b/i.test(response.headers.get('Content-Type') || '')) return response;
 
   const section = sectionOf(url.pathname);
   const navHtml = markActive(NAV_HTML, section, 'site-nav__link');
   const tabsHtml = markActive(TABS_HTML, section, 'site-tab');
   const headerHtml = HEADER_HTML.replace(NAV_HTML, navHtml).replace(TABS_HTML, tabsHtml);
-  const noAds = urlMayCarryPII(url);
+  const noAds = response.status === 404 || urlMayCarryPII(url);
   const seen = { meta: false, ads: false, footer: false, layout: false, header: false };
 
   return new HTMLRewriter()

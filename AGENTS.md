@@ -78,3 +78,7 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 | `VPS_SSH_*` | deploy `vps/www/` ไป www.เบอร์ใคร.com |
 | `TIP_ADMIN_PASSWORD` | admin API (Cloudflare Pages env ไม่ใช่ GitHub) |
 | `SAFE_BROWSING_KEY` | `/api/linkcheck` ถาม Google Safe Browsing (Cloudflare Pages env, Production+Preview) — คีย์จาก GCP project `warm-rock-511923-j5` ต้องเปิด "Safe Browsing API" (ไม่ใช่ตัว Legacy); ไม่มีคีย์ = endpoint ตอบ `unavailable` แต่ยังใช้รายชื่อ `linkcheck:block:<host>` / `linkcheck:allow:<host>` ใน KV ได้ |
+
+## 404 page
+
+`404.html` must stay at the repo root. Without it Cloudflare Pages serves the homepage with HTTP 200 for every unknown URL (soft 404). `normalizePage` adds the shared header/footer to 404 responses and removes ad tags from them — never put AdSense code on the 404 page.
