@@ -94,6 +94,17 @@
 - [SMS ปลอมจากสถานีฐานปลอม (SMS Blaster)](https://spaminthai.com/blog/sms-blaster-fake-base-station): ทำไมโผล่ในแชทธนาคารจริง และวิธีปิด 2G บน Android และ iPhone
 - [เพจรับบริจาคช่วยน้ำท่วมปลอม และ SMS เยียวยาปลอม](https://spaminthai.com/blog/fake-donation-disaster-scam): เช็คชื่อบัญชีและใบอนุญาตเรี่ยไรก่อนโอน
 - [จองที่พัก ตั๋วเครื่องบิน ทัวร์ปีใหม่ ระวังของปลอม](https://spaminthai.com/blog/fake-travel-booking-new-year): วิธีเช็คที่พักและบริษัททัวร์ก่อนโอนมัดจำ
+- [มิจฉาชีพโทรมาสอนกดแอปธนาคาร ให้เปลี่ยนเป็นภาษาอังกฤษ](https://spaminthai.com/blog/bank-app-guided-settings-call-scam): รู้ทันคำว่า Transfer, Confirm, Limit และต้องทำอะไรถ้ากดไปแล้ว
+- [พัสดุจากต่างประเทศติดศุลกากร ให้โอนค่าภาษี-ค่าปรับ](https://spaminthai.com/blog/customs-fee-parcel-scam): วิธีตรวจสอบกับช่องทางทางการก่อนจ่าย
+- [โทรมาทวงหนี้ที่เราไม่ได้ก่อ ขู่ฟ้อง ให้โอนปิดยอดด่วน](https://spaminthai.com/blog/fake-debt-collector-call): วิธีแยกผู้ทวงหนี้จริงกับมิจฉาชีพ และช่องทางร้องเรียน
+- [สายหรือข้อความอ้างโรงพยาบาล สปสช. สิทธิบัตรทอง](https://spaminthai.com/blog/fake-hospital-health-rights-call): ให้ยืนยันสิทธิ์หรือรับเงินคืนค่ารักษา เช็คอย่างไร
+- [SMS หรือสายอ้างประกันสังคม ให้กดลิงก์อัปเดตข้อมูล](https://spaminthai.com/blog/fake-social-security-sms-call): วิธีแยกของจริงกับของปลอม
+- [ThaID ปลอม อ้างอำเภอให้ลงทะเบียนผ่านลิงก์](https://spaminthai.com/blog/fake-thaid-digital-id-scam): วิธีดูของจริง และต้องทำอะไรถ้าเผลอกด
+- [มีเงินแปลกโอนเข้าบัญชี แล้วมีคนโทรมาขอให้โอนคืน](https://spaminthai.com/blog/money-transferred-by-mistake-scam): อย่าโอนคืนเอง วิธีคืนเงินผ่านธนาคารที่ถูกต้อง
+- [ซื้อลูกหมา ลูกแมวออนไลน์ โดนโกง](https://spaminthai.com/blog/online-pet-purchase-scam): มัดจำแล้วเงียบหรือเรียกค่าใช้จ่ายเพิ่ม วิธีเช็คก่อนโอน
+- [แก๊งรับตามเงินคืน](https://spaminthai.com/blog/recovery-scam-get-money-back): โดนหลอกแล้วมีคนเสนอช่วยเอาเงินคืน ระวังโดนซ้ำ
+- [ประกาศให้เช่าห้อง คอนโด หอพักปลอม](https://spaminthai.com/blog/rental-deposit-scam): เช็กลิสต์ 10 ข้อก่อนโอนเงินจองหรือมัดจำ
+- [พัสดุเก็บเงินปลายทาง (COD) ที่ไม่ได้สั่ง](https://spaminthai.com/blog/unordered-cod-parcel-scam): ปฏิเสธอย่างไร และจ่ายไปแล้วขอเงินคืนได้ไหม
 
 ### โดนแล้วทำอย่างไร / ป้องกัน (After a scam / prevention)
 
@@ -116,6 +127,16 @@
 - [เก็บหลักฐานโดนโกงออนไลน์ให้ครบก่อนแจ้งความ](https://spaminthai.com/blog/scam-evidence-checklist-police-report): แคปหน้าจอ ส่งออกแชท และทำไทม์ไลน์
 - [ตั้งค่ามือถือให้พ่อแม่ผู้สูงอายุ](https://spaminthai.com/blog/setup-parents-phone-safety): เช็กลิสต์ 30 นาที Android และ iPhone กันแอปดูดเงินและสายแปลก
 - [ตั้งค่า LINE ให้ปลอดภัยจากมิจฉาชีพ](https://spaminthai.com/blog/line-privacy-security-settings): ปิดการเพิ่มเพื่อน ปฏิเสธข้อความคนแปลกหน้า และเช็คอุปกรณ์ที่ล็อกอิน
+- [บัญชีธนาคารถูกระงับหรืออายัด โอนไม่ได้ ถอนไม่ได้](https://spaminthai.com/blog/bank-account-frozen-what-to-do): เกิดจากอะไร และต้องติดต่อใครเพื่อแก้
+- [วิธีเช็กลิงก์ก่อนกด](https://spaminthai.com/blog/check-link-safe-before-click): อ่าน URL ให้เป็นใน 30 วินาที และต้องทำอะไรถ้ากดไปแล้ว
+- [ได้ SMS รหัส OTP ทั้งที่ไม่ได้ขอ](https://spaminthai.com/blog/unrequested-otp-sms-what-to-do): หมายความว่าอะไร และต้องทำอะไรทันที
+- [พาสคีย์ (Passkey) คืออะไร](https://spaminthai.com/blog/passkey-what-is-how-to-set-up): กันเว็บปลอมได้ดีกว่ารหัสผ่าน+OTP อย่างไร พร้อมวิธีตั้งค่า
+- [เฟซบุ๊กโดนแฮก ถูกเปลี่ยนรหัสหรืออีเมล](https://spaminthai.com/blog/facebook-account-hacked-recovery): ขั้นตอนกู้คืนแยกตามสถานการณ์
+- [บัญชี Google / Gmail ถูกแฮก](https://spaminthai.com/blog/google-account-hacked-recovery): กู้คืนทีละขั้น และสิ่งที่ต้องเช็กหลังได้บัญชีคืน
+- [IG หรือ TikTok ถูกแฮก](https://spaminthai.com/blog/instagram-tiktok-account-hacked): วิธีกู้คืนทีละขั้นแยกตามสถานการณ์
+- [ตั้งค่า Wi-Fi และเราเตอร์ที่บ้านให้ปลอดภัย](https://spaminthai.com/blog/home-wifi-router-security): เช็กลิสต์ 15 นาทีสำหรับเราเตอร์จากผู้ให้บริการ
+- [ส่งมือถือซ่อม ต้องเตรียมอะไร](https://spaminthai.com/blog/phone-repair-shop-data-safety): ไม่ให้ข้อมูลและเงินในแอปธนาคารหลุด
+- [ก่อนขายหรือส่งต่อมือถือเครื่องเก่า ต้องลบอะไรบ้าง](https://spaminthai.com/blog/sell-old-phone-wipe-data): แอปธนาคาร LINE รูปบัตรประชาชน eSIM และการล้างเครื่อง
 
 ### สิทธิ์และ PDPA (Rights and privacy)
 
@@ -126,7 +147,7 @@
 - [โพสต์อะไรบนโซเชียลแล้วเปิดช่องให้มิจฉาชีพ](https://spaminthai.com/blog/oversharing-social-media-scam-risk): 9 สิ่งที่ไม่ควรโพสต์ และเช็กลิสต์ก่อนกดแชร์
 
 - [รวมบทความทั้งหมด](https://spaminthai.com/blog/)
-- [ข่าวเตือนภัย](https://spaminthai.com/news-1): ข่าวที่ทีมงานเรียบเรียงใหม่และอ้างแหล่งทางการ
+- [ข่าวเตือนภัย](https://spaminthai.com/news-1): ข่าวเตือนภัยที่ทีมงานเขียนเอง พร้อมลิงก์แหล่งข่าวต้นทางและช่องทางทางการ
 
 ## เกี่ยวกับเว็บและนโยบาย (About and policies)
 
