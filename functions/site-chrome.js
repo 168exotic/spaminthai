@@ -126,6 +126,13 @@ const ADSENSE_SCRIPT = `<script async src="https://pagead2.googlesyndication.com
  * URL can carry a phone number (number lookups, searches) get NO adsbygoogle script — the verification
  * meta tag stays. See AdSense policy on PII.
  */
+// Pages that are a form or have no article content of their own: AdSense does not allow ads on
+// "non-content" screens, so these keep the verification meta tag but get no ad script.
+const NO_AD_PATHS = new Set(['/report', '/dispute', '/guide/spam-numbers', '/changelog']);
+export function isNonContentPath(pathname) {
+  return NO_AD_PATHS.has(pathname.replace(/\.html$/, '').replace(/(.)\/$/, '$1'));
+}
+
 export function urlMayCarryPII(url) {
   const p = url.pathname;
   if (p === '/check' || p.startsWith('/check/') || p === '/search' || p.startsWith('/search/')) return true;
@@ -146,7 +153,7 @@ export function normalizePage(response, url) {
   const navHtml = markActive(NAV_HTML, section, 'site-nav__link');
   const tabsHtml = markActive(TABS_HTML, section, 'site-tab');
   const headerHtml = HEADER_HTML.replace(NAV_HTML, navHtml).replace(TABS_HTML, tabsHtml);
-  const noAds = response.status === 404 || urlMayCarryPII(url);
+  const noAds = response.status === 404 || urlMayCarryPII(url) || isNonContentPath(url.pathname);
   const seen = { meta: false, ads: false, footer: false, layout: false, header: false };
 
   return new HTMLRewriter()
