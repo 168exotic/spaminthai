@@ -327,7 +327,7 @@ ${renderStatsSection(stats, `เบอร์ ${p.code}`)}
 
 <section class="pv-sec pv-news">
   <h2>ข่าวเตือนภัยที่เกี่ยวข้อง</h2>
-  <ul>${news.map((n) => `<li><a href="${esc(n.href)}">${esc(n.title)}</a><br><small>${n.local ? `ข่าวใน${esc(p.th)} · ` : ''}${esc(thaiShortDate(n.date))}</small></li>`).join('')}</ul>
+  <ul>${news.map((n) => `<li><a href="${esc(n.href)}">${esc(n.title)}</a><br><small>${esc(thaiShortDate(n.date))}</small></li>`).join('')}</ul>
   <p><a href="/news-1">ข่าวเตือนภัยทั้งหมด →</a></p>
 </section>
 

@@ -34,7 +34,8 @@ check('bad date -> empty', thaiShortDate('x') === '');
 const env = { SPAM_KV: { async get() { return null; }, async put() {}, async list() { return { keys: [], list_complete: true }; } } };
 const ph = await (await renderProvincePage('chonburi', env)).text();
 check('province page has news section', ph.includes('ข่าวเตือนภัยที่เกี่ยวข้อง') && ph.includes('href="/news/'));
-check('province page labels local news', ph.includes('ข่าวในชลบุรี'));
+// News is matched by a province being mentioned, not by where it happened — never label it "ข่าวใน<จังหวัด>".
+check('province page does not claim news location', !ph.includes('ข่าวในชลบุรี'));
 check('province page has relatedLink schema', ph.includes('"relatedLink"'));
 check('province placeholder has no real-looking number', !/placeholder="เช่น \d{6,}/.test(ph));
 const nh = await (await renderNumberPage('0812345678', env)).text();
