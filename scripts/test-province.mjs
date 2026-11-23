@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Tests for province SEO pages (no real KV). */
 import { PROVINCES, REGIONS, ALIASES } from '../functions/province/provinces.js';
+import { provinceNotes } from '../functions/province/province-notes.js';
 import { matchProvincePath, renderProvincePage, renderThailandIndex, reportedForCode } from '../functions/province/render-province-page.js';
 
 const store = new Map([
@@ -39,8 +40,14 @@ check('page lists reported number', html.includes('/check/076123456'));
 check('page links neighbour Phang Nga', html.includes('href="/phang-nga"'));
 check('page has Google Play link', html.includes('play.google.com/store/apps/details?id=com.jarvis.callblocker'));
 check('no APK links', !/spaminthai-latest\.apk|href="\/download"/.test(html));
+check('page has user-report stats', html.includes('สถิติรายงานเบอร์ 076') && html.includes('มิจฉาชีพ/หลอกโอนเงิน'));
+check('page has data summary', html.includes('สรุปจากข้อมูล'));
+check('page has province-specific notes', html.includes('กลโกงที่ควรระวังในภูเก็ต') && html.includes('จองที่พักและทัวร์ในภูเก็ตปลอม'));
+check('cached result carries stats', !!JSON.parse(store.get('seo:area:076')).stats);
 const empty = await (await renderProvincePage('yala', env)).text();
 check('empty province shows report CTA', empty.includes('/report'));
+check('empty province has no stats box', !empty.includes('สถิติรายงานเบอร์'));
+check('every province gets 2+ notes', [...PROVINCES.values()].every((p) => provinceNotes(p).length >= 2));
 check('unknown province 404', (await renderProvincePage('nowhere', env)).status === 404);
 const idx = await renderThailandIndex().text();
 check('index lists 77 links', (idx.match(/<li><a href="\/[a-z-]+">/g) || []).length === 77);

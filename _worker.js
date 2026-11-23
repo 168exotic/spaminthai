@@ -24,6 +24,12 @@ import { countNumbersInKv } from './functions/api/stats.js';
 import { handleLatestVersion } from './functions/api/latest-version.js';
 import { buildSiteConfig } from './functions/api/site-config.js';
 import { handleEventPost, onRequestOptions as eventOptions } from './functions/api/event.js';
+import {
+  handleSignalsPost,
+  handleAggregateTrigger,
+  runAggregation,
+  signalsOptions,
+} from './functions/api/signals.js';
 import { handleLiveStats } from './functions/api/admin-live.js';
 import { handleSmsCheck, onRequestOptions as smsCheckOptions } from './functions/api/sms-check.js';
 import { handleLinkCheck, onRequestOptions as linkCheckOptions } from './functions/api/linkcheck.js';
@@ -46,6 +52,7 @@ import { handleBlogLatest } from './functions/api/blog-posts.js';
 import { handleFbLatest } from './functions/api/fb-latest.js';
 import { renderSearchPage } from './functions/search/search-page.js';
 import { matchMonthlyPath, renderMonthlyPage, renderMonthlyIndex } from './functions/monthly/render-monthly-page.js';
+import { normalizePage } from './functions/site-chrome.js';
 import {
   handleMarketingFeedGet,
   handleMarketingRssGet,
@@ -206,6 +213,10 @@ async function route(request, env, url, ctx) {
     if (path === '/api/report' && request.method === 'POST') return handleReportPost({ request, env, ctx });
     if (path === '/api/event' && request.method === 'POST') return handleEventPost({ request, env });
     if (path === '/api/event' && request.method === 'OPTIONS') return eventOptions();
+    // Passive Spam Signal Collection (v3.1.6) — hashed, opt-in call signals.
+    if (path === '/api/v1/signals' && request.method === 'POST') return handleSignalsPost({ request, env });
+    if (path === '/api/v1/signals' && request.method === 'OPTIONS') return signalsOptions();
+    if (path === '/api/v1/aggregate' && request.method === 'POST') return handleAggregateTrigger({ request, env });
     if (path === '/admin/api/live-stats' && request.method === 'GET') return handleLiveStats({ request, env });
     // SMS blocking (v2.0.0, Path D)
     if (path === '/api/sms-check' && request.method === 'POST') return handleSmsCheck({ request, env });
@@ -333,6 +344,7 @@ async function route(request, env, url, ctx) {
     return env.ASSETS.fetch(request);
 }
 
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -350,7 +362,14 @@ export default {
       return jsonSec({ error: 'payload_too_large' }, 413, request);
     }
 
-    const response = await route(request, env, url, ctx);
+    let response = await route(request, env, url, ctx);
+    response = normalizePage(response, url);
     return withSecurityHeaders(response);
+  },
+
+  // Hourly aggregation for Passive Spam Signal Collection (v3.1.6):
+  // rebuild number_risk from call_signals and purge data past retention.
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(runAggregation(env));
   },
 };

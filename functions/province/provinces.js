@@ -119,3 +119,22 @@ export const ALIASES = (() => {
 export function sameCode(code, slug) {
   return [...PROVINCES.values()].filter((p) => p.code === code && p.slug !== slug);
 }
+
+// Several provinces share one landline area code and therefore show the same reported-number list.
+// Only the main province of each code is indexed by search engines; the others stay reachable but
+// are served `noindex, follow` so near-duplicate pages don't lower site quality (AdSense, Nov 2026).
+const PRIMARY_BY_CODE = {
+  '02': 'bangkok', '032': 'ratchaburi', '034': 'nakhon-pathom', '035': 'ayutthaya', '036': 'saraburi',
+  '037': 'prachinburi', '038': 'chonburi', '039': 'chanthaburi', '042': 'udon-thani', '043': 'khon-kaen',
+  '044': 'nakhon-ratchasima', '045': 'ubon-ratchathani', '053': 'chiang-mai', '054': 'lampang',
+  '055': 'phitsanulok', '056': 'nakhon-sawan', '073': 'yala', '074': 'songkhla', '075': 'nakhon-si-thammarat',
+  '076': 'phuket', '077': 'surat-thani',
+};
+
+/** True when `slug` is the province that represents its area code in search results. */
+export function isPrimaryProvince(slug) {
+  const p = PROVINCES.get(slug);
+  if (!p) return false;
+  const primary = PRIMARY_BY_CODE[p.code];
+  return primary ? primary === slug : sameCode(p.code, slug).length === 0;
+}

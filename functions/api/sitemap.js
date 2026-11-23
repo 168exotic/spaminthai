@@ -1,6 +1,7 @@
 // GET /sitemap.xml — dynamic sitemap with top reported numbers from KV.
 
-import { PROVINCES } from '../province/provinces.js';
+import { PROVINCES, isPrimaryProvince } from '../province/provinces.js';
+import { codeHasReports } from '../province/render-province-page.js';
 import { MOBILE_PREFIXES } from './carrier.js';
 import { getAllNumbersCached } from './kv-scan.js';
 import { listMonths } from '../monthly/render-monthly-page.js';
@@ -14,7 +15,6 @@ const STATIC_PAGES = [
   { loc: '/check', priority: '0.95', changefreq: 'daily' },
   { loc: '/guide/check-phone', priority: '0.9', changefreq: 'weekly' },
   { loc: '/guide/block-spam-android', priority: '0.88', changefreq: 'weekly' },
-  { loc: '/guide/spam-numbers', priority: '0.87', changefreq: 'daily' },
   { loc: '/report', priority: '0.9', changefreq: 'weekly' },
   { loc: '/download', priority: '0.8', changefreq: 'weekly' },
   { loc: '/guide/call-center-scam', priority: '0.85', changefreq: 'monthly' },
@@ -23,11 +23,49 @@ const STATIC_PAGES = [
   { loc: '/about', priority: '0.5', changefreq: 'monthly' },
   { loc: '/contact', priority: '0.4', changefreq: 'yearly' },
   { loc: '/editorial-policy', priority: '0.5', changefreq: 'monthly' },
-  { loc: '/blog', priority: '0.7', changefreq: 'weekly' },
+  { loc: '/blog/', priority: '0.7', changefreq: 'weekly' },
   { loc: '/news-1', priority: '0.8', changefreq: 'daily' },
 ];
 
+// Thin pages marked noindex (Nov 2026, AdSense quality) — kept out of the sitemap until expanded to 500+ words.
+// When you expand one, remove its <meta name="robots" content="noindex, follow"> AND its slug here.
+const THIN_NOINDEX = new Set([
+]);
+
 const BLOG_SLUGS = [
+  'online-pet-purchase-scam',
+  'phone-repair-shop-data-safety',
+  'passkey-what-is-how-to-set-up',
+  'fake-hospital-health-rights-call',
+  'fake-debt-collector-call',
+  'money-transferred-by-mistake-scam',
+  'fake-thaid-digital-id-scam',
+  'fake-social-security-sms-call',
+  'customs-fee-parcel-scam',
+  'instagram-tiktok-account-hacked',
+  'sell-old-phone-wipe-data',
+  'rental-deposit-scam',
+  'home-wifi-router-security',
+  'google-account-hacked-recovery',
+  'bank-account-frozen-what-to-do',
+  'check-link-safe-before-click',
+  'facebook-account-hacked-recovery',
+  'bank-app-guided-settings-call-scam',
+  'unrequested-otp-sms-what-to-do',
+  'unordered-cod-parcel-scam',
+  'recovery-scam-get-money-back',
+  'caller-id-spoofing-can-number-be-faked',
+  'line-privacy-security-settings',
+  'fake-travel-booking-new-year',
+  'sign-id-card-copy-safely',
+  'lost-stolen-phone-what-to-do',
+  'fake-donation-disaster-scam',
+  'scam-evidence-checklist-police-report',
+  'oversharing-social-media-scam-risk',
+  'sms-blaster-fake-base-station',
+  'setup-parents-phone-safety',
+  'personal-data-leaked-what-to-do',
+  'call-forwarding-code-scam',
   'fake-points-expiry-reward-sms',
   'fake-nbtc-sim-suspension-call',
   'fake-traffic-fine-sms',
@@ -93,6 +131,34 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cyber-police-rayong-pluakdaeng-mule-controller-47-fake-customs-deposit-protection-retiree-62-4m-2569',
+  'cib-commando-pathumthani-thanyaburi-mule-account-38-fake-cib-test-system-transfer-3-accounts-9000-baht-2569',
+  'cyber-police-phetchaburi-exchange-company-mule-network-11-warrants-7-arrests-350m-2569',
+  'cyber-police-nakhonphanom-gold-laundering-cannabis-warehouse-5-suspects-430-cases-109m-2569',
+  'cyber-police-chiangmai-nominee-exchange-usdt-24-mule-accounts-9-4m-2569',
+  'cib-pathumthani-mule-account-beauty-business-investment-scam-saraburi-194000-baht-2569',
+  'tourist-police-pattaya-hotel-mule-account-network-5-suspects-80-cases-13m-2569',
+  'nongkhai-immigration-khonkaen-mule-account-broker-3-students-laos-2500-baht-2569',
+  'government-aoc-1441-mule-accounts-1-million-suspended-damage-down-42-percent-2569',
+  'dsi-google-apple-unlicensed-loan-apps-8-licensed-operators-2569',
+  'immigration-pattaya-chinese-student-virtual-kidnapping-call-center-2-million-yuan-2569',
+  'cib-anti-trafficking-phatthalung-mule-account-online-sales-scam-863300-baht-2569',
+  'nongkhai-immigration-mule-account-3-warrants-cambodia-3000-baht-per-account-2569',
+  'samutprakan-police-money-cash-back-cash-mule-rama2-mall-1499520-baht-seized-2569',
+  'police-region5-chiangmai-sansai-cash-mule-fake-pea-meter-268k-2569',
+  'cib-highway-police-chanthaburi-mule-account-dating-app-5-suspects-6-warrants-2569',
+  'cyber-police-5-provinces-online-mission-scam-former-teacher-ubon-7-suspects-2569',
+  'cyber-police-trang-mule-account-buying-hub-4-suspects-18-phones-2569',
+  'cyber-police-angthong-bangkok-mule-account-mission-scam-gold-2-7m-2569',
+  'police-region2-pattaya-condo-transnational-scammer-8-suspects-100m-2569',
+  'cib-nakhonpathom-mule-account-teen-victim-fake-ransom-grandmother-2569',
+  'cib-nongchok-mule-account-fake-used-wheels-facebook-7-cases-2569',
+  'metro-police-huaikhwang-chinese-call-center-elderly-gold-5-baht-2569',
+  'cyber-police-maesot-mule-account-office-40-phones-2569',
+  'pattaya-police-mule-account-investment-scam-refund-119000-2569',
+  'acsc-cib-highway-scam-hunter-corporate-mule-56-warrants-2569',
+  'acsc-sukreep-fake-phuket-police-call-center-17-arrests-2569',
+  'cib-klongprem-prison-gate-mule-account-romance-investment-2569',
   'maechan-chiangrai-cash-collector-fake-police-student-2569',
   'cib-ratchaburi-fake-bank-police-video-call-mule-account-2569',
   'consumer-police-ayutthaya-tiktok-fake-iphone-student-victims-2569',
@@ -172,7 +238,7 @@ const NEWS_SLUGS = [
   'thaipbs-scam-awareness-campaign-2569',
 ];
 
-const NEWS_PAGE_COUNT = 9;
+const NEWS_PAGE_COUNT = 6;
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -246,12 +312,23 @@ export async function buildSitemapXml(env) {
   }
 
   lines.push(urlEntry('/thailand', { priority: '0.85', changefreq: 'weekly', lastmod }));
-  for (const slug of PROVINCES.keys()) {
+  // Only list the main province of each area code, and only when that code has reports; the rest are served noindex (see render-province-page.js).
+  const codeCache = new Map();
+  for (const [slug, prov] of PROVINCES) {
+    if (!codeCache.has(prov.code)) codeCache.set(prov.code, await codeHasReports(env, prov.code));
+    if (!codeCache.get(prov.code) || !isPrimaryProvince(slug)) continue;
     lines.push(urlEntry(`/${slug}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
   lines.push(urlEntry('/prefix', { priority: '0.85', changefreq: 'weekly', lastmod }));
   for (const p of MOBILE_PREFIXES) {
+    // prefixes with no reported numbers are served noindex (render-prefix-page.js) — keep them out of the sitemap
+    let hasReports = true;
+    try {
+      const page = await env.SPAM_KV.list({ prefix: 'num:' + p, limit: 1 });
+      hasReports = page.keys.length > 0;
+    } catch { /* keep listed on error */ }
+    if (!hasReports) continue;
     lines.push(urlEntry(`/prefix/${p}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
@@ -261,16 +338,17 @@ export async function buildSitemapXml(env) {
   }
 
   for (const slug of BLOG_SLUGS) {
+    if (THIN_NOINDEX.has(`blog/${slug}`)) continue;
     lines.push(urlEntry(`/blog/${slug}`, { priority: '0.75', changefreq: 'monthly', lastmod }));
   }
 
   for (const slug of NEWS_SLUGS) {
+    if (THIN_NOINDEX.has(`news/${slug}`)) continue;
     lines.push(urlEntry(`/news/${slug}`, { priority: '0.78', changefreq: 'weekly', lastmod }));
   }
 
-  for (let p = 1; p <= NEWS_PAGE_COUNT; p++) {
-    lines.push(urlEntry(`/news-${p}`, { priority: p === 1 ? '0.8' : '0.72', changefreq: 'daily', lastmod }));
-  }
+  // Only page 1 of the news listing is indexable; pages 2..NEWS_PAGE_COUNT are noindex,follow (scripts/paginate-news.mjs).
+  // (/news-1 is already in STATIC_PAGES)
 
   const numbers = await getTopNumbers(env, 500);
   for (const num of numbers) {
