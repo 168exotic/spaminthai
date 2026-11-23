@@ -41,6 +41,21 @@ export function matchProvincePath(path) {
 }
 
 /** Reported numbers whose landline prefix matches `code` (cached in KV). */
+/** Cheap check for the sitemap: does this landline area code have at least one reported number? */
+export async function codeHasReports(env, code) {
+  try {
+    const cached = await env.SPAM_KV.get('seo:area:' + code);
+    if (cached) {
+      const c = JSON.parse(cached);
+      if (c && typeof c.total === 'number') return c.total > 0;
+    }
+    const page = await env.SPAM_KV.list({ prefix: 'num:' + code, limit: 50 });
+    return page.keys.some((k) => /^\d{9}$/.test(k.name.slice(4)));
+  } catch {
+    return true; // on error keep the page listed
+  }
+}
+
 export async function reportedForCode(env, code) {
   const cacheKey = 'seo:area:' + code;
   try {
@@ -341,7 +356,10 @@ ${neighbors}
         { '@type': 'ListItem', position: 3, name: p.th } ] },
     ],
   };
-  return html(page({ title, desc, canonical, schema, body }));
+  // Provinces whose area code has no user reports yet are near-identical to each other.
+  // Keep them usable for visitors but out of Google's index until a first report arrives (AdSense quality).
+  const robots = total > 0 ? '' : 'noindex, follow';
+  return html(page({ title, desc, canonical, schema, body, robots }));
 }
 
 export function renderThailandIndex() {

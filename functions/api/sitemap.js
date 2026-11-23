@@ -1,6 +1,7 @@
 // GET /sitemap.xml — dynamic sitemap with top reported numbers from KV.
 
 import { PROVINCES } from '../province/provinces.js';
+import { codeHasReports } from '../province/render-province-page.js';
 import { MOBILE_PREFIXES } from './carrier.js';
 import { getAllNumbersCached } from './kv-scan.js';
 import { listMonths } from '../monthly/render-monthly-page.js';
@@ -309,7 +310,11 @@ export async function buildSitemapXml(env) {
   }
 
   lines.push(urlEntry('/thailand', { priority: '0.85', changefreq: 'weekly', lastmod }));
-  for (const slug of PROVINCES.keys()) {
+  // Only list provinces whose area code has reports; empty ones are served noindex (see render-province-page.js).
+  const codeCache = new Map();
+  for (const [slug, prov] of PROVINCES) {
+    if (!codeCache.has(prov.code)) codeCache.set(prov.code, await codeHasReports(env, prov.code));
+    if (!codeCache.get(prov.code)) continue;
     lines.push(urlEntry(`/${slug}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
