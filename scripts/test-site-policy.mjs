@@ -51,6 +51,12 @@ for (const f of files) {
 check('homepage has a Google Play link', read('index.html').includes(PLAY));
 check(`Google Play links use target=_blank + rel=noopener noreferrer (${playCount} links)`, badPlay.length === 0, [...new Set(badPlay)].join(', '));
 
+console.log('== 404 page ==');
+// Without 404.html Cloudflare Pages answers every unknown URL with the homepage and HTTP 200 (soft 404).
+check('404.html exists', fs.existsSync(path.join(ROOT, '404.html')));
+check('404.html is noindex', /<meta name="robots" content="noindex/.test(read('404.html')));
+check('404.html carries no ad tag', !read('404.html').includes('adsbygoogle'));
+
 console.log('== AdSense ==');
 const newsDir = path.join(ROOT, 'news');
 const adPages = ['index.html', 'check.html', ...fs.readdirSync(ROOT).filter((n) => /^news-\d+\.html$/.test(n)),
