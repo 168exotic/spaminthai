@@ -128,9 +128,17 @@ const ADSENSE_SCRIPT = `<script async src="https://pagead2.googlesyndication.com
  */
 // Pages that are a form or have no article content of their own: AdSense does not allow ads on
 // "non-content" screens, so these keep the verification meta tag but get no ad script.
-const NO_AD_PATHS = new Set(['/report', '/dispute', '/guide/spam-numbers', '/changelog']);
+const NO_AD_PATHS = new Set([
+  '/report', '/dispute', '/guide/spam-numbers', '/changelog',
+  // utility / policy / hub pages: short by nature, not article content
+  '/contact', '/terms', '/privacy', '/about', '/editorial-policy', '/download', '/monthly', '/prefix', '/thailand',
+]);
 export function isNonContentPath(pathname) {
-  return NO_AD_PATHS.has(pathname.replace(/\.html$/, '').replace(/(.)\/$/, '$1'));
+  const p = pathname.replace(/\.html$/, '').replace(/(.)\/$/, '$1');
+  if (NO_AD_PATHS.has(p)) return true;
+  // news listing pages 2+ are noindex duplicates of the listing (scripts/paginate-news.mjs)
+  const m = p.match(/^\/news-(\d+)$/);
+  return !!m && Number(m[1]) > 1;
 }
 
 export function urlMayCarryPII(url) {
@@ -153,7 +161,11 @@ export function normalizePage(response, url) {
   const navHtml = markActive(NAV_HTML, section, 'site-nav__link');
   const tabsHtml = markActive(TABS_HTML, section, 'site-tab');
   const headerHtml = HEADER_HTML.replace(NAV_HTML, navHtml).replace(TABS_HTML, tabsHtml);
-  const noAds = response.status === 404 || urlMayCarryPII(url) || isNonContentPath(url.pathname);
+  const noAds =
+    response.status === 404 ||
+    urlMayCarryPII(url) ||
+    isNonContentPath(url.pathname) ||
+    /noindex/i.test(response.headers.get('X-Robots-Tag') || ''); // worker-rendered pages served noindex (see html())
   const seen = { meta: false, ads: false, footer: false, layout: false, header: false };
 
   return new HTMLRewriter()

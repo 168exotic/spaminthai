@@ -5,7 +5,7 @@
 import { assess } from '../api/risk-assess.js';
 import { summarizeReports, statsSentence, renderStatsSection } from '../seo/area-stats.js';
 import { identifyCarrier, MOBILE_PREFIXES } from '../api/carrier.js';
-import { esc, fmt, page, html } from '../province/render-province-page.js';
+import { esc, fmt, page, html, MIN_REPORTED_FOR_INDEX } from '../province/render-province-page.js';
 
 const SITE = 'https://spaminthai.com';
 const PLAY = 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
@@ -237,7 +237,7 @@ ${carrierSection(prefix, carrierLabel)}
     ],
   };
   // Prefix pages with no reported numbers are near-identical to each other — keep them out of the index until data arrives.
-  return html(page({ title, desc, canonical, schema, body, robots: total > 0 ? '' : 'noindex, follow' }));
+  return html(page({ title, desc, canonical, schema, body, robots: total >= MIN_REPORTED_FOR_INDEX ? '' : 'noindex, follow' }));
 }
 
 export function renderPrefixIndex() {

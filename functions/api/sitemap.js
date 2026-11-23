@@ -1,13 +1,18 @@
 // GET /sitemap.xml — dynamic sitemap with top reported numbers from KV.
 
 import { PROVINCES, isPrimaryProvince } from '../province/provinces.js';
-import { codeHasReports } from '../province/render-province-page.js';
+import { codeHasReports, MIN_REPORTED_FOR_INDEX } from '../province/render-province-page.js';
 import { MOBILE_PREFIXES } from './carrier.js';
 import { getAllNumbersCached } from './kv-scan.js';
 import { listMonths } from '../monthly/render-monthly-page.js';
 
 const SITE = 'https://spaminthai.com';
-const CACHE_KEY = 'seo:sitemap:xml';
+const CACHE_KEY = 'seo:sitemap:xml:v2';
+
+// Number pages (/check/<number>) are templated pages. While the site is under AdSense review they are not
+// advertised in the sitemap or robots.txt (they stay live and indexable). Set to true after approval and
+// restore the "Sitemap: https://spaminthai.com/sitemap-numbers.xml" line in robots.txt.
+export const LIST_NUMBER_PAGES = false;
 const CACHE_TTL_SEC = 60 * 60; // 1h (per spec) — sitemap refreshes hourly
 
 const STATIC_PAGES = [
@@ -322,11 +327,11 @@ export async function buildSitemapXml(env) {
 
   lines.push(urlEntry('/prefix', { priority: '0.85', changefreq: 'weekly', lastmod }));
   for (const p of MOBILE_PREFIXES) {
-    // prefixes with no reported numbers are served noindex (render-prefix-page.js) — keep them out of the sitemap
+    // prefixes with fewer than MIN_REPORTED_FOR_INDEX reported numbers are served noindex (render-prefix-page.js) — keep them out of the sitemap
     let hasReports = true;
     try {
-      const page = await env.SPAM_KV.list({ prefix: 'num:' + p, limit: 1 });
-      hasReports = page.keys.length > 0;
+      const page = await env.SPAM_KV.list({ prefix: 'num:' + p, limit: MIN_REPORTED_FOR_INDEX });
+      hasReports = page.keys.length >= MIN_REPORTED_FOR_INDEX;
     } catch { /* keep listed on error */ }
     if (!hasReports) continue;
     lines.push(urlEntry(`/prefix/${p}`, { priority: '0.8', changefreq: 'daily', lastmod }));
@@ -350,7 +355,7 @@ export async function buildSitemapXml(env) {
   // Only page 1 of the news listing is indexable; pages 2..NEWS_PAGE_COUNT are noindex,follow (scripts/paginate-news.mjs).
   // (/news-1 is already in STATIC_PAGES)
 
-  const numbers = await getTopNumbers(env, 500);
+  const numbers = LIST_NUMBER_PAGES ? await getTopNumbers(env, 500) : [];
   for (const num of numbers) {
     if (!isValidThaiNumber(num)) continue;
     lines.push(urlEntry(`/check/${num}`, {

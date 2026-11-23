@@ -10,6 +10,10 @@ const store = new Map([
   ['num:0655059914', JSON.stringify({ reports: 2, categories: { ads: 2 }, lastReport: '2026-01-01T00:00:00Z' })],
   ['num:065123456', JSON.stringify({ reports: 3 })], // 9 digits: not a mobile, must be ignored
   ['num:0812345678', JSON.stringify({ reports: 5 })],
+  // extra 065 numbers so the prefix clears MIN_REPORTED_FOR_INDEX (5) and is indexable / listed in the sitemap
+  ['num:0655000001', JSON.stringify({ reports: 1 })],
+  ['num:0655000002', JSON.stringify({ reports: 1 })],
+  ['num:0655000003', JSON.stringify({ reports: 1 })],
 ]);
 const env = { SPAM_KV: {
   async get(k) { return store.get(k) ?? null; },
@@ -28,7 +32,7 @@ check('unknown prefix -> null', matchPrefixPath('/prefix/070') === null && match
 check('/prefix does not clash with provinces', matchProvincePath('/prefix') === null);
 
 const r = await reportedForPrefix(env, '065');
-check('only 10-digit 065 numbers, most reported first', r.total === 2 && r.items[0].number === '0655084765', JSON.stringify(r));
+check('only 10-digit 065 numbers, most reported first', r.total === 5 && r.items[0].number === '0655084765', JSON.stringify(r));
 check('prefix list cached', store.has('seo:prefix:065'));
 
 const res = await renderPrefixPage('065', env);
@@ -46,7 +50,7 @@ const faqNode = ld['@graph'].find((n) => n['@type'] === 'FAQPage');
 check('FAQPage schema with 5 questions', faqNode && faqNode.mainEntity.length === 5);
 check('FAQ visible on page matches schema', faqNode && faqNode.mainEntity.every((q) => html.includes(q.name)));
 check('speakable points at summary', ld['@graph'][0].speakable?.cssSelector?.includes('.pv-summary') && html.includes('class="pv-summary"'));
-check('summary uses "มีรายงานจากผู้ใช้" wording', /class="pv-summary"[^]*?มีรายงานจากผู้ใช้ 2 เบอร์/.test(html));
+check('summary uses "มีรายงานจากผู้ใช้" wording', /class="pv-summary"[^]*?มีรายงานจากผู้ใช้ 5 เบอร์/.test(html));
 check('never claims prefix is a scam', !/เบอร์ 065 (เป็น|คือ)มิจฉาชีพ(?!ไหม|ทุก)/.test(html));
 check('invalid prefix -> 404', (await renderPrefixPage('070', env)).status === 404);
 
