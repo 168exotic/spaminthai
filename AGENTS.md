@@ -89,3 +89,7 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 - Province and prefix pages are indexable and listed in the sitemap only with at least `MIN_REPORTED_FOR_INDEX` (5) reported numbers.
 - `LIST_NUMBER_PAGES` in `functions/api/sitemap.js` is `false` while the site is under AdSense review: `/check/<number>` pages stay live but are not advertised in `sitemap.xml` or `robots.txt`. After approval set it to `true` and restore the `Sitemap: https://spaminthai.com/sitemap-numbers.xml` line in `robots.txt`.
 
+## Editor credit
+
+Every blog and news article ends with the editor credit `<p class="editor-credit" data-editor="1">` (pen name **WOE**, linking to `/about#editor`) just before `</article>`, and its Article schema uses `"author":{"@type":"Person","name":"WOE","url":"https://spaminthai.com/about#editor"}`. Copy both from an existing article when adding a new one (`scripts/blog/publish.py` already does). Do not put BOSS's real name on the site.
+
