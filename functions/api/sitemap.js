@@ -33,6 +33,9 @@ const THIN_NOINDEX = new Set([
 ]);
 
 const BLOG_SLUGS = [
+  'online-pet-purchase-scam',
+  'phone-repair-shop-data-safety',
+  'passkey-what-is-how-to-set-up',
   'fake-hospital-health-rights-call',
   'fake-debt-collector-call',
   'money-transferred-by-mistake-scam',
