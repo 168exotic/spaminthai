@@ -82,3 +82,14 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 ## 404 page
 
 `404.html` must stay at the repo root. Without it Cloudflare Pages serves the homepage with HTTP 200 for every unknown URL (soft 404). `normalizePage` adds the shared header/footer to 404 responses and removes ad tags from them — never put AdSense code on the 404 page.
+
+## Ads only on content pages (AdSense review)
+
+- `normalizePage` removes the ad script (never the `google-adsense-account` meta) from: 404s, URLs that may carry a phone number, the paths in `NO_AD_PATHS` (forms, policy, contact, hub pages), `/news-2+`, and any worker-rendered page served `noindex` (detected through the `X-Robots-Tag` header that `html()` sets). New utility pages belong in `NO_AD_PATHS`.
+- Province and prefix pages are indexable and listed in the sitemap only with at least `MIN_REPORTED_FOR_INDEX` (5) reported numbers.
+- `LIST_NUMBER_PAGES` in `functions/api/sitemap.js` is `false` while the site is under AdSense review: `/check/<number>` pages stay live but are not advertised in `sitemap.xml` or `robots.txt`. After approval set it to `true` and restore the `Sitemap: https://spaminthai.com/sitemap-numbers.xml` line in `robots.txt`.
+
+## Editor credit
+
+Every blog and news article ends with the editor credit `<p class="editor-credit" data-editor="1">` (pen name **WOE**, linking to `/about#editor`) just before `</article>`, and its Article schema uses `"author":{"@type":"Person","name":"WOE","url":"https://spaminthai.com/about#editor"}`. Copy both from an existing article when adding a new one (`scripts/blog/publish.py` already does). Do not put BOSS's real name on the site.
+

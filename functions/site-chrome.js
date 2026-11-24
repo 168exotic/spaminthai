@@ -74,7 +74,7 @@ const FOOTER_INNER = `
     <div>
       <p class="site-footer__title">SpamInThai — หยุดสแปมในไทยร่วมกัน</p>
       <p class="site-footer__desc">ฐานข้อมูลเบอร์ร้องเรียน คัดกรองภัยสังคมออนไลน์ ด้วยพลังประชาชน</p>
-      <p class="site-footer__copy">© 2026 spaminthai · Web <span id="siteVer">v1.3.0</span> · App <span id="appVer">v3.1.5</span></p>
+      <p class="site-footer__copy">© 2026 spaminthai · Web <span id="siteVer">v1.3.0</span> · App <span id="appVer">v3.1.7</span></p>
     </div>
     <nav class="site-footer__links" aria-label="ลิงก์">${FOOTER_LINKS}
     </nav>
@@ -126,6 +126,21 @@ const ADSENSE_SCRIPT = `<script async src="https://pagead2.googlesyndication.com
  * URL can carry a phone number (number lookups, searches) get NO adsbygoogle script — the verification
  * meta tag stays. See AdSense policy on PII.
  */
+// Pages that are a form or have no article content of their own: AdSense does not allow ads on
+// "non-content" screens, so these keep the verification meta tag but get no ad script.
+const NO_AD_PATHS = new Set([
+  '/report', '/dispute', '/guide/spam-numbers', '/changelog',
+  // utility / policy / hub pages: short by nature, not article content
+  '/contact', '/terms', '/privacy', '/about', '/editorial-policy', '/download', '/monthly', '/prefix', '/thailand',
+]);
+export function isNonContentPath(pathname) {
+  const p = pathname.replace(/\.html$/, '').replace(/(.)\/$/, '$1');
+  if (NO_AD_PATHS.has(p)) return true;
+  // news listing pages 2+ are noindex duplicates of the listing (scripts/paginate-news.mjs)
+  const m = p.match(/^\/news-(\d+)$/);
+  return !!m && Number(m[1]) > 1;
+}
+
 export function urlMayCarryPII(url) {
   const p = url.pathname;
   if (p === '/check' || p.startsWith('/check/') || p === '/search' || p.startsWith('/search/')) return true;
@@ -146,7 +161,11 @@ export function normalizePage(response, url) {
   const navHtml = markActive(NAV_HTML, section, 'site-nav__link');
   const tabsHtml = markActive(TABS_HTML, section, 'site-tab');
   const headerHtml = HEADER_HTML.replace(NAV_HTML, navHtml).replace(TABS_HTML, tabsHtml);
-  const noAds = response.status === 404 || urlMayCarryPII(url);
+  const noAds =
+    response.status === 404 ||
+    urlMayCarryPII(url) ||
+    isNonContentPath(url.pathname) ||
+    /noindex/i.test(response.headers.get('X-Robots-Tag') || ''); // worker-rendered pages served noindex (see html())
   const seen = { meta: false, ads: false, footer: false, layout: false, header: false };
 
   return new HTMLRewriter()

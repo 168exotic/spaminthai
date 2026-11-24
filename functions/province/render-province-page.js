@@ -41,16 +41,22 @@ export function matchProvincePath(path) {
 }
 
 /** Reported numbers whose landline prefix matches `code` (cached in KV). */
-/** Cheap check for the sitemap: does this landline area code have at least one reported number? */
+/**
+ * A province / prefix page is only indexable (and listed in the sitemap) once it has at least this many
+ * reported numbers. Below that the page is mostly template text, which reads as scaled / doorway content.
+ */
+export const MIN_REPORTED_FOR_INDEX = 5;
+
+/** Cheap check for the sitemap: does this landline area code have enough reported numbers to be indexable? */
 export async function codeHasReports(env, code) {
   try {
     const cached = await env.SPAM_KV.get('seo:area:' + code);
     if (cached) {
       const c = JSON.parse(cached);
-      if (c && typeof c.total === 'number') return c.total > 0;
+      if (c && typeof c.total === 'number') return c.total >= MIN_REPORTED_FOR_INDEX;
     }
     const page = await env.SPAM_KV.list({ prefix: 'num:' + code, limit: 50 });
-    return page.keys.some((k) => /^\d{9}$/.test(k.name.slice(4)));
+    return page.keys.filter((k) => /^\d{9}$/.test(k.name.slice(4))).length >= MIN_REPORTED_FOR_INDEX;
   } catch {
     return true; // on error keep the page listed
   }
@@ -249,10 +255,10 @@ ${footer()}
 }
 
 export function html(body, status = 200, maxAge = 1800) {
-  return new Response(body, {
-    status,
-    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': `public, max-age=${maxAge}` },
-  });
+  const headers = { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': `public, max-age=${maxAge}` };
+  // Mirror a noindex meta tag as a header: crawlers honour it, and normalizePage uses it to drop the ad script.
+  if (/<meta name="robots" content="noindex/.test(body)) headers['X-Robots-Tag'] = 'noindex, follow';
+  return new Response(body, { status, headers });
 }
 
 export async function renderProvincePage(slug, env) {
@@ -327,7 +333,7 @@ ${renderStatsSection(stats, `เบอร์ ${p.code}`)}
 
 <section class="pv-sec pv-news">
   <h2>ข่าวเตือนภัยที่เกี่ยวข้อง</h2>
-  <ul>${news.map((n) => `<li><a href="${esc(n.href)}">${esc(n.title)}</a><br><small>${n.local ? `ข่าวใน${esc(p.th)} · ` : ''}${esc(thaiShortDate(n.date))}</small></li>`).join('')}</ul>
+  <ul>${news.map((n) => `<li><a href="${esc(n.href)}">${esc(n.title)}</a><br><small>${esc(thaiShortDate(n.date))}</small></li>`).join('')}</ul>
   <p><a href="/news-1">ข่าวเตือนภัยทั้งหมด →</a></p>
 </section>
 
@@ -359,7 +365,7 @@ ${neighbors}
   // Provinces whose area code has no user reports yet are near-identical to each other.
   // Keep them usable for visitors but out of Google's index until a first report arrives (AdSense quality).
   // Also: only the main province of a shared area code is indexed (same number list on the others).
-  const robots = total > 0 && isPrimaryProvince(slug) ? '' : 'noindex, follow';
+  const robots = total >= MIN_REPORTED_FOR_INDEX && isPrimaryProvince(slug) ? '' : 'noindex, follow';
   return html(page({ title, desc, canonical, schema, body, robots }));
 }
 
