@@ -38,6 +38,18 @@ const THIN_NOINDEX = new Set([
 ]);
 
 const BLOG_SLUGS = [
+  'face-scan-selfie-verification-safety',
+  'added-to-unknown-line-telegram-group',
+  'used-car-motorcycle-online-deposit-scam',
+  'seller-fake-buyer-payment-link-scam',
+  'check-credit-bureau-identity-misuse',
+  'lost-id-card-what-to-do',
+  'invoice-bank-account-change-email-scam',
+  'fake-transfer-slip-check-for-sellers',
+  'esim-qr-code-scam-safety',
+  'illegal-loan-app-harassment',
+  'sextortion-video-call-blackmail',
+  'job-application-fee-deposit-scam',
   'online-pet-purchase-scam',
   'phone-repair-shop-data-safety',
   'passkey-what-is-how-to-set-up',
