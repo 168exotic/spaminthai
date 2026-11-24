@@ -38,6 +38,9 @@ const THIN_NOINDEX = new Set([
 ]);
 
 const BLOG_SLUGS = [
+  'free-sticker-new-year-card-link-scam',
+  'wrong-number-text-friendly-chat-scam',
+  'cash-gold-handover-courier-scam',
   'face-scan-selfie-verification-safety',
   'added-to-unknown-line-telegram-group',
   'used-car-motorcycle-online-deposit-scam',
