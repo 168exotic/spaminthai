@@ -58,6 +58,16 @@
 
 ### รู้ทันกลโกง (Scam types)
 
+- [ลิงก์แจกสติกเกอร์ฟรี การ์ดอวยพรปีใหม่ ดูดวง 2570 ในกลุ่มไลน์](https://spaminthai.com/blog/free-sticker-new-year-card-link-scam): แยกลิงก์จริงกับลิงก์ปลอม และทำอะไรถ้ากรอกรหัสไปแล้ว
+- [ข้อความ "ทักผิดคน" จากเบอร์แปลก](https://spaminthai.com/blog/wrong-number-text-friendly-chat-scam): ทำไมมิจฉาชีพแกล้งส่งผิด ตอบแบบไหนปลอดภัย และออกจากแชทก่อนถูกชวนลงทุน
+- [ถูกสั่งให้ถอนเงินสดหรือซื้อทองแล้วส่งให้คนมารับ](https://spaminthai.com/blog/cash-gold-handover-courier-scam): กลโกงที่เลี่ยงการโอนเงิน และวิธีป้องกันพ่อแม่
+- [ถูกขอให้สแกนใบหน้าหรือถ่ายเซลฟี่คู่บัตร](https://spaminthai.com/blog/face-scan-selfie-verification-safety): แบบไหนปลอดภัย แบบไหนคือการหลอกเอาใบหน้าไปอนุมัติโอนเงิน
+- [ถูกดึงเข้ากลุ่ม LINE หรือ Telegram ที่ไม่รู้จัก](https://spaminthai.com/blog/added-to-unknown-line-telegram-group): อันตรายอย่างไร และตั้งค่าไม่ให้ใครเพิ่มเข้ากลุ่มได้อีก
+- [ซื้อรถมือสองออนไลน์ ให้โอนมัดจำก่อนดูรถ](https://spaminthai.com/blog/used-car-motorcycle-online-deposit-scam): กลโกงที่พบบ่อย และเช็กลิสต์ก่อนจ่ายเงิน
+- [ผู้ซื้อส่งลิงก์ให้ผู้ขายกดรับเงินหรือสแกน QR](https://spaminthai.com/blog/seller-fake-buyer-payment-link-scam): กลโกงที่เล็งผู้ขาย วิธีสังเกต และขั้นตอนเมื่อกรอกข้อมูลไปแล้ว
+- [อีเมลแจ้งเปลี่ยนเลขบัญชีรับเงินหรือใบแจ้งหนี้ปลอม](https://spaminthai.com/blog/invoice-bank-account-change-email-scam): กลโกงที่ร้านค้าและ SME โดนบ่อย และวิธีตรวจก่อนโอน
+- [eSIM ปลอดภัยไหม](https://spaminthai.com/blog/esim-qr-code-scam-safety): กลโกงหลอกขอ QR code หรือรหัสย้ายซิม สัญญาณเตือนและวิธีป้องกัน
+- [สมัครงานแล้วถูกเรียกเก็บค่าสมัคร ค่าชุด หรือเงินประกัน](https://spaminthai.com/blog/job-application-fee-deposit-scam): แบบไหนผิดกฎหมาย แบบไหนคือหลอกลวง และถ้าโอนไปแล้วต้องทำอย่างไร
 - [โดนแก๊งคอลเซ็นเตอร์โทรมา ต้องทำอย่างไร](https://spaminthai.com/blog/call-center-scam-guide-2568): สังเกต วางสาย เช็คเบอร์ และแจ้งเบาะแส
 - [สายอ้างเป็นตำรวจ / DSI / ปปง.](https://spaminthai.com/blog/fake-police-dsi-call): อ้างว่าบัญชีเกี่ยวคดีฟอกเงินแล้วให้โอนเงินตรวจสอบ
 - [สายอ้างสรรพากร กรมที่ดิน หน่วยงานรัฐ](https://spaminthai.com/blog/fake-tax-land-office-call): แจ้งคืนภาษีหรือให้อัปเดตข้อมูลผ่านแอปปลอม
@@ -108,6 +118,10 @@
 
 ### โดนแล้วทำอย่างไร / ป้องกัน (After a scam / prevention)
 
+- [เช็กเครดิตบูโรว่ามีใครเอาชื่อเราไปกู้หรือไม่](https://spaminthai.com/blog/check-credit-bureau-identity-misuse): ตรวจช่องทางไหน อ่านรายงานอย่างไร และพบรายการแปลกต้องทำอะไร
+- [บัตรประชาชนหาย ต้องทำอะไรบ้าง](https://spaminthai.com/blog/lost-id-card-what-to-do): ทำบัตรใหม่ แจ้งความ และกันไม่ให้ถูกนำไปเปิดบัญชีหรือเปิดเบอร์
+- [สลิปโอนเงินปลอม ดูอย่างไร](https://spaminthai.com/blog/fake-transfer-slip-check-for-sellers): วิธีตรวจสลิปสำหรับร้านค้าก่อนส่งของ
+- [ถูกขู่ปล่อยคลิปหลังวิดีโอคอล (Sextortion)](https://spaminthai.com/blog/sextortion-video-call-blackmail): ห้ามโอน สิ่งที่ต้องทำใน 1 ชั่วโมงแรก และการขอให้แพลตฟอร์มกันภาพ
 - [โดนหลอกโอนเงินไปแล้ว ต้องแจ้งความที่ไหน](https://spaminthai.com/blog/scammed-what-to-do): เช็กลิสต์อายัดบัญชี เก็บหลักฐาน และแจ้งความออนไลน์
 - [1441 vs 1155 vs 1212 แจ้งเรื่องช่องทางไหนดี](https://spaminthai.com/blog/report-hotlines-1441-1155-1212): หน้าที่ของสายด่วนทางการแต่ละเบอร์
 - [เช็คเลขบัญชีก่อนโอนเงิน](https://spaminthai.com/blog/check-bank-account-before-transfer): 7 ขั้นตอนกันโดนโกงซื้อของออนไลน์
@@ -140,6 +154,7 @@
 
 ### สิทธิ์และ PDPA (Rights and privacy)
 
+- [แอปเงินกู้ทวงโหด โทรหาคนในรายชื่อ ประจานในโซเชียล](https://spaminthai.com/blog/illegal-loan-app-harassment): สิทธิของลูกหนี้ตามกฎหมายทวงหนี้ และขั้นตอนรับมือ
 - [ขายประกัน บัตรเครดิต โทรมาบ่อย ขอให้หยุดโทรได้ไหม](https://spaminthai.com/blog/stop-telesales-calls-pdpa): ใช้สิทธิตาม PDPA ถอนความยินยอมและคัดค้านการตลาดแบบตรง
 - [PDPA กับการรายงานเบอร์](https://spaminthai.com/blog/pdpa-reporting-numbers): สิ่งที่ทำได้ ทำไม่ได้ และแนวทางที่ปลอดภัย
 - [ข้อมูลส่วนตัวหลุด ทำไมมิจฉาชีพรู้ชื่อเรา](https://spaminthai.com/blog/personal-data-leaked-what-to-do): แผนรับมือแยกตามกรณี ตั้งแต่เบอร์หลุดถึงมีคนเปิดซิมในชื่อเรา
