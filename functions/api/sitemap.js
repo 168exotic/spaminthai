@@ -148,6 +148,8 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'acsc-weekly-15-21-nov-5674-cases-288m-fake-police-dsi-amlo-ceo-fraud-warning-2569',
+  'cyber-police-huaikhwang-sting-teen-17-fake-police-gold-25-baht-1-5m-fake-hospital-amlo-2569',
   'cyber-police-rayong-pluakdaeng-mule-controller-47-fake-customs-deposit-protection-retiree-62-4m-2569',
   'cib-commando-pathumthani-thanyaburi-mule-account-38-fake-cib-test-system-transfer-3-accounts-9000-baht-2569',
   'cyber-police-phetchaburi-exchange-company-mule-network-11-warrants-7-arrests-350m-2569',
