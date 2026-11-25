@@ -151,6 +151,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cib-special-ops-bangkok-chatuchak-mule-account-21-three-warrants-nan-ubon-surat-2-2m-2569',
+  'cib-dsi-loy-krathong-online-fake-link-warning-aoc-1441-2569',
+  'cib-crime-suppression-chiangmai-fang-sold-account-2500-fake-taiwan-businessman-crypto-7m-2569',
   'cyber-police-rayong-pluakdaeng-mule-controller-47-fake-customs-deposit-protection-retiree-62-4m-2569',
   'cib-commando-pathumthani-thanyaburi-mule-account-38-fake-cib-test-system-transfer-3-accounts-9000-baht-2569',
   'cyber-police-phetchaburi-exchange-company-mule-network-11-warrants-7-arrests-350m-2569',
