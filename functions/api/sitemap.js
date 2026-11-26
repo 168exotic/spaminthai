@@ -38,6 +38,9 @@ const THIN_NOINDEX = new Set([
 ]);
 
 const BLOG_SLUGS = [
+  'separate-online-spending-account-virtual-card',
+  'callback-phishing-call-this-number-scam',
+  'private-number-no-caller-id',
   'game-topup-id-trading-scam',
   'fake-boss-line-urgent-transfer',
   'spam-risk-label-incoming-call',
