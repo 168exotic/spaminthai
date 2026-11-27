@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-2455374115304550">
+<title>พาสคีย์ (Passkey) คืออะไร กันเว็บปลอมได้ดีกว่ารหัสผ่าน+OTP อย่างไร พร้อมวิธีตั้งค่า Google, iPhone, Facebook และ LINE | SpamInThai</title>
+<meta name="description" content="พาสคีย์คือการล็อกอินด้วยใบหน้าหรือลายนิ้วมือแทนรหัสผ่าน ทำไมเว็บปลอมขโมยไม่ได้ วิธีตั้งค่า Google iPhone Facebook LINE และถ้ามือถือหายต้องทำอย่างไร">
+<link rel="canonical" href="https://spaminthai.com/blog/passkey-what-is-how-to-set-up">
+<meta property="og:title" content="พาสคีย์ (Passkey) คืออะไร กันเว็บปลอมได้ดีกว่ารหัสผ่าน+OTP อย่างไร พร้อมวิธีตั้งค่า Google, iPhone, Facebook และ LINE">
+<meta property="og:description" content="พาสคีย์คือการล็อกอินด้วยใบหน้าหรือลายนิ้วมือแทนรหัสผ่าน ทำไมเว็บปลอมขโมยไม่ได้ วิธีตั้งค่า Google iPhone Facebook LINE และถ้ามือถือหายต้องทำอย่างไร">
+<meta property="og:url" content="https://spaminthai.com/blog/passkey-what-is-how-to-set-up">
+<meta property="og:image" content="https://spaminthai.com/assets/blog/passkey-what-is-how-to-set-up.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://spaminthai.com/assets/blog/passkey-what-is-how-to-set-up.jpg">
+<link rel="icon" href="/assets/favicon.png" type="image/png" sizes="64x64">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/theme.css">
+<link rel="stylesheet" href="/assets/layout.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "image": "https://spaminthai.com/assets/blog/passkey-what-is-how-to-set-up.jpg", "headline": "พาสคีย์ (Passkey) คืออะไร กันเว็บปลอมได้ดีกว่ารหัสผ่าน+OTP อย่างไร พร้อมวิธีตั้งค่า Google, iPhone, Facebook และ LINE", "description": "พาสคีย์คือการล็อกอินด้วยใบหน้าหรือลายนิ้วมือแทนรหัสผ่าน ทำไมเว็บปลอมขโมยไม่ได้ วิธีตั้งค่า Google iPhone Facebook LINE และถ้ามือถือหายต้องทำอย่างไร", "datePublished": "2026-11-23", "dateModified": "2026-11-23", "inLanguage": "th-TH", "author":{"@type":"Person","name":"WOE","url":"https://spaminthai.com/about#editor"}, "publisher": {"@type": "Organization", "name": "SpamInThai", "logo": {"@type": "ImageObject", "url": "https://spaminthai.com/assets/logo.png"}}, "mainEntityOfPage": "https://spaminthai.com/blog/passkey-what-is-how-to-set-up"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "พาสคีย์กับรหัสผ่านต่างกันอย่างไร", "acceptedAnswer": {"@type": "Answer", "text": "รหัสผ่านคือสิ่งที่คุณจำแล้วพิมพ์ จึงถูกหลอกให้พิมพ์ลงเว็บปลอมได้ ส่วนพาสคีย์เป็นกุญแจดิจิทัลที่เครื่องของคุณสร้างและเก็บไว้ ปลดล็อกด้วยใบหน้า ลายนิ้วมือ หรือรหัสหน้าจอ ไม่มีอะไรให้พิมพ์หรือบอกใคร และใช้ได้เฉพาะกับเว็บหรือแอปที่สร้างมันขึ้นมาเท่านั้น"}}, {"@type": "Question", "name": "ถ้าตั้งพาสคีย์แล้ว ยังต้องมีรหัสผ่านอยู่ไหม", "acceptedAnswer": {"@type": "Answer", "text": "บริการส่วนใหญ่ยังเก็บรหัสผ่านไว้เป็นทางสำรอง เช่น Facebook ยังให้ใช้รหัสผ่านบนอุปกรณ์ที่ไม่รองรับพาสคีย์ จึงควรตั้งรหัสผ่านที่ยาวและไม่ซ้ำไว้ด้วย และอย่ากรอกรหัสผ่านนั้นในลิงก์ที่ส่งมาทางข้อความ"}}, {"@type": "Question", "name": "มือถือหายแล้วคนเก็บได้จะเข้าบัญชีด้วยพาสคีย์ได้ไหม", "acceptedAnswer": {"@type": "Answer", "text": "ต้องปลดล็อกเครื่องให้ได้ก่อน ด้วยใบหน้า ลายนิ้วมือ หรือรหัสหน้าจอของคุณ จึงสำคัญมากที่ต้องตั้งรหัสหน้าจอที่เดายาก และเมื่อเครื่องหาย ให้ล็อกอินจากอุปกรณ์อื่นแล้วลบพาสคีย์หรือออกจากระบบเครื่องที่หายทันที"}}, {"@type": "Question", "name": "เปลี่ยนมือถือใหม่ พาสคีย์จะหายไหม", "acceptedAnswer": {"@type": "Answer", "text": "ถ้าพาสคีย์เก็บไว้ในตัวจัดการรหัสผ่านของ Google หรือ iCloud Keychain ของ Apple จะซิงก์ไปเครื่องใหม่ที่ล็อกอินบัญชีเดียวกัน โดยต้องยืนยันด้วยรหัสหน้าจอของเครื่องเดิมหรือ PIN ที่ตั้งไว้ ถ้าย้ายจาก Android ไป iPhone หรือกลับกัน ให้ล็อกอินบนเครื่องใหม่แล้วสร้างพาสคีย์ใหม่"}}, {"@type": "Question", "name": "มีคนส่ง QR Code มาให้สแกนเพื่อยืนยันตัวตน ควรสแกนไหม", "acceptedAnswer": {"@type": "Answer", "text": "ไม่ควร การสแกน QR เพื่อใช้พาสคีย์จะทำเฉพาะตอนที่คุณกำลังล็อกอินบนคอมพิวเตอร์ที่อยู่ตรงหน้าคุณเองเท่านั้น ถ้า QR ส่งมาทางแชท อีเมล หรือคนโทรมาบอกให้สแกน ให้ปฏิเสธทุกกรณี"}}, {"@type": "Question", "name": "พาสคีย์ช่วยกันโดนหลอกโอนเงินได้ไหม", "acceptedAnswer": {"@type": "Answer", "text": "ไม่ได้ พาสคีย์ช่วยกันบัญชีออนไลน์ถูกยึดผ่านเว็บปลอม แต่ถ้ามิจฉาชีพโทรมาหลอกให้คุณโอนเงินเอง หรือหลอกให้ติดตั้งแอปควบคุมเครื่อง พาสคีย์ช่วยไม่ได้ ยังต้องยึดหลักวางสายแล้วโทรกลับเบอร์ทางการ"}}]}]</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2455374115304550" crossorigin="anonymous"></script>
+<script src="/assets/ga4.js" defer></script>
+</head>
+<body class="site-body">
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="site-brand">
+      <picture class="site-brand__logo">
+        <source srcset="/assets/logo-64.webp" type="image/webp">
+        <img src="/assets/logo-64.png" alt="SpamInThai" width="40" height="40">
+      </picture>
+      <span class="site-brand__text">
+        <span class="site-brand__title">SpamInThai</span>
+        <span class="site-brand__tag">บล็อกสายมิจฉาชีพ · SMS · ลิงก์อันตราย</span>
+      </span>
+    </a>
+    <form class="site-search" action="/search" method="get" role="search"><input class="site-search__input" type="search" name="q" placeholder="ค้นหาเบอร์ บทความ ข่าว" aria-label="ค้นหาเบอร์โทร บทความ ข่าว และหมวดหมู่" autocomplete="off" enterkeyhint="search" maxlength="80"><button class="site-search__btn" type="submit" aria-label="ค้นหา"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></button></form>
+    <nav class="site-nav" aria-label="หลัก">
+      <a href="/check" class="site-nav__link site-nav__link--primary">เช็คเบอร์โทร</a>
+      <a href="/news" class="site-nav__link">ข่าวสาร</a>
+      <a href="/blog" class="site-nav__link">บทความ</a>
+      <a href="/report" class="site-nav__link">แจ้งเบาะแส</a>
+      <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer" class="site-nav__link">ดาวน์โหลดแอป</a>
+      <a class="site-nav__link site-nav__link--apk" data-download href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดบน Google Play</a>
+    </nav>
+  </div>
+  <div class="site-header__mobile">
+    <a href="/check" class="site-tab">เช็คเบอร์โทร</a>
+    <a href="/news" class="site-tab">ข่าวสาร</a>
+    <a href="/blog" class="site-tab site-tab--active">บทความ</a>
+    <a href="/report" class="site-tab">แจ้งเบาะแส</a>
+    <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer" class="site-tab site-tab--apk" data-download>ดาวน์โหลดบน Google Play</a>
+  </div>
+</header>
+<main class="site-main site-main--wide">
+<article class="wrap" style="max-width:760px;margin:0 auto">
+<p class="crumb"><a href="/">หน้าแรก</a> · <a href="/blog/">บทความ</a></p>
+<h1>พาสคีย์ (Passkey) คืออะไร กันเว็บปลอมได้ดีกว่ารหัสผ่าน+OTP อย่างไร พร้อมวิธีตั้งค่า Google, iPhone, Facebook และ LINE</h1>
+<p class="meta">เผยแพร่ 23 พฤศจิกายน 2569 · ทีมงาน SpamInThai · อ้างอิง<a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a></p>
+<figure class="post-hero"><img src="/assets/blog/passkey-what-is-how-to-set-up.webp" width="1200" height="630" alt="พาสคีย์ (Passkey) คืออะไร กันเว็บปลอมได้ดีกว่ารหัสผ่าน+OTP อย่างไร พร้อมวิธีตั้งค่า Google, iPhone, Facebook และ LINE" fetchpriority="high"></figure>
+<div class="share-bar share-bar--top" data-url="https://spaminthai.com/blog/passkey-what-is-how-to-set-up" data-title="พาสคีย์ (Passkey) คืออะไร กันเว็บปลอมได้ดีกว่ารหัสผ่าน+OTP อย่างไร พร้อมวิธีตั้งค่า Google, iPhone, Facebook และ LINE"><span>แชร์บทความนี้:</span><a class="s-line" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fspaminthai.com%2Fblog%2Fpasskey-what-is-how-to-set-up%3Futm_source%3Dline%26utm_medium%3Dshare%26utm_campaign%3Dblog" target="_blank" rel="noopener noreferrer">LINE</a><a class="s-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fspaminthai.com%2Fblog%2Fpasskey-what-is-how-to-set-up%3Futm_source%3Dfacebook%26utm_medium%3Dshare%26utm_campaign%3Dblog" target="_blank" rel="noopener noreferrer">Facebook</a><a class="s-x" href="https://x.com/intent/post?url=https%3A%2F%2Fspaminthai.com%2Fblog%2Fpasskey-what-is-how-to-set-up&amp;text=%E0%B8%9E%E0%B8%B2%E0%B8%AA%E0%B8%84%E0%B8%B5%E0%B8%A2%E0%B9%8C%20%28Passkey%29%20%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3%20%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%9B%E0%B8%A5%E0%B8%AD%E0%B8%A1%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%94%E0%B8%B5%E0%B8%81%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%AB%E0%B8%B1%E0%B8%AA%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%99%2BOTP%20%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B9%84%E0%B8%A3%20%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%84%E0%B9%88%E0%B8%B2%20Google%2C%20iPhone%2C%20Facebook%20%E0%B9%81%E0%B8%A5%E0%B8%B0%20LINE" target="_blank" rel="noopener noreferrer">X</a><button type="button" class="s-copy">คัดลอกลิงก์</button><button type="button" class="s-native" hidden>แชร์…</button></div>
+<p class="lead"><strong>คำตอบสั้น:</strong> พาสคีย์ (Passkey) คือวิธีล็อกอินแบบใหม่ที่ใช้ใบหน้า ลายนิ้วมือ หรือรหัสปลดล็อกหน้าจอมือถือแทนการพิมพ์รหัสผ่าน มันกันเว็บปลอมได้ดีกว่ารหัสผ่านบวก OTP เพราะพาสคีย์ผูกกับชื่อเว็บไซต์จริง เว็บที่สะกดชื่อเลียนแบบจึงขอใช้พาสคีย์ของคุณไม่ได้ และไม่มีรหัสให้คุณเผลอพิมพ์หรืออ่านให้ใครฟัง เริ่มจากเปิดพาสคีย์ให้บัญชี Google หรือบัญชี Apple ของมือถือ แล้วต่อด้วย Facebook และ LINE ใช้เวลาบัญชีละไม่กี่นาที</p>
+
+<p>บทความนี้เจาะเฉพาะเรื่องพาสคีย์ ถ้าคุณยังไม่ได้จัดการรหัสผ่านและการยืนยันตัวตนสองชั้นพื้นฐาน แนะนำให้อ่าน<a href="/blog/strong-password-2fa">วิธีตั้งรหัสผ่านและเปิด 2FA</a>ก่อน แล้วค่อยกลับมาอัปเกรดเป็นพาสคีย์ตามขั้นตอนด้านล่าง</p>
+
+<h2>พาสคีย์คืออะไร อธิบายแบบไม่ต้องรู้เรื่องคอมพิวเตอร์</h2>
+<p>ลองนึกภาพกุญแจบ้านกับแม่กุญแจ เวลาคุณสร้างพาสคีย์ให้บัญชีหนึ่ง มือถือของคุณจะสร้างกุญแจขึ้นมาหนึ่งคู่ ส่วนที่เป็น "แม่กุญแจ" ถูกส่งไปเก็บไว้ที่เว็บไซต์หรือแอปนั้น ส่วนที่เป็น "ลูกกุญแจ" อยู่ในมือถือของคุณเท่านั้น ทุกครั้งที่ล็อกอิน เว็บจะส่งคำถามมา มือถือใช้ลูกกุญแจตอบ โดยที่ลูกกุญแจไม่เคยถูกส่งออกไปไหน</p>
+<p>สิ่งที่คุณต้องทำมีแค่ปลดล็อกมือถือตามปกติ เช่น สแกนหน้า แตะลายนิ้วมือ หรือใส่รหัสหน้าจอ เพื่อยืนยันว่าคนที่ถือเครื่องคือเจ้าของจริง ใบหน้าและลายนิ้วมือของคุณไม่ได้ถูกส่งไปให้เว็บไซต์ มันใช้แค่ปลดล็อกกุญแจที่อยู่ในเครื่อง</p>
+<ul>
+<li><strong>ไม่มีอะไรต้องจำ</strong> ไม่ต้องคิดรหัสยาวๆ หรือจดไว้ในกระดาษ</li>
+<li><strong>ไม่มีอะไรให้บอกใคร</strong> ไม่มีรหัส 6 หลักที่มิจฉาชีพจะโทรมาขอ</li>
+<li><strong>หนึ่งบัญชีหนึ่งกุญแจ</strong> พาสคีย์ของแต่ละเว็บแยกกัน ถ้าเว็บหนึ่งข้อมูลรั่ว ก็ไม่มีรหัสหลุดไปใช้กับเว็บอื่น</li>
+<li><strong>เป็นมาตรฐานกลาง</strong> Google, Apple และ Microsoft รองรับมาตรฐานเดียวกัน จึงใช้ได้ทั้ง Android, iPhone และคอมพิวเตอร์</li>
+</ul>
+
+<h2>ทำไมพาสคีย์กันเว็บปลอมได้ ทั้งที่รหัสผ่าน+OTP กันไม่อยู่</h2>
+<p>หลายคนคิดว่าเปิด OTP แล้วปลอดภัย แต่ลองดูว่ามิจฉาชีพยึดบัญชีที่มี OTP ได้อย่างไร ตัวอย่างนี้เป็นสถานการณ์สมมติที่เราเรียบเรียงเองจากรูปแบบที่พบบ่อย</p>
+<ol>
+<li>คุณได้รับข้อความว่า "บัญชีของคุณจะถูกระงับ กรุณายืนยันตัวตนภายใน 24 ชั่วโมง" พร้อมลิงก์</li>
+<li>ลิงก์พาไปหน้าล็อกอินที่หน้าตาเหมือนของจริงทุกอย่าง แต่ชื่อเว็บต่างไปนิดเดียว</li>
+<li>คุณพิมพ์รหัสผ่าน ระบบของมิจฉาชีพนำรหัสนั้นไปกรอกที่เว็บจริงทันที</li>
+<li>เว็บจริงส่ง OTP มาที่มือถือคุณ หน้าเว็บปลอมก็ขึ้นช่องให้กรอก OTP เหมือนกัน</li>
+<li>คุณกรอก OTP ลงไป มิจฉาชีพนำไปใช้ต่อภายในไม่กี่วินาที แล้วเปลี่ยนรหัส เปลี่ยนอีเมลกู้คืน บัญชีก็ไม่ใช่ของคุณอีกต่อไป</li>
+</ol>
+<p>จุดอ่อนอยู่ที่ "คน" เป็นคนตัดสินว่าเว็บไหนจริงเว็บไหนปลอม และคนตัดสินผิดได้ โดยเฉพาะบนจอมือถือที่เห็นชื่อเว็บไม่ครบ</p>
+<p>พาสคีย์เปลี่ยนจุดนี้ เพราะ <strong>มือถือเป็นคนตรวจชื่อเว็บแทนคุณ</strong> พาสคีย์ที่สร้างให้เว็บจริงจะใช้ได้กับชื่อเว็บนั้นเท่านั้น เมื่อคุณเข้าเว็บปลอม มือถือจะไม่เสนอพาสคีย์ให้เลย เพราะชื่อไม่ตรง ต่อให้หน้าตาเว็บเหมือนแค่ไหนก็ตาม และเนื่องจากไม่มีรหัสให้พิมพ์ เว็บปลอมจึงไม่มีอะไรให้ขโมย Apple อธิบายว่าพาสคีย์ทนต่อฟิชชิ่งสูงเพราะไม่มีความลับที่ต้องส่งผ่านเครือข่าย ส่วน Google ระบุว่าพาสคีย์คัดลอก จดลงกระดาษ หรือเผลอให้คนอื่นไม่ได้</p>
+<p class="box"><strong>จำง่ายๆ:</strong> ถ้าวันหนึ่งคุณเข้าเว็บที่เคยล็อกอินด้วยพาสคีย์ แล้วจู่ๆ หน้าเว็บกลับขอให้พิมพ์รหัสผ่านและ OTP แทน ให้หยุดก่อน นั่นอาจเป็นสัญญาณว่าคุณอยู่ในเว็บปลอม ปิดหน้านั้นแล้วเข้าแอปหรือเว็บจริงด้วยตัวเอง (ดูเพิ่ม<a href="/blog/check-link-safe-before-click">วิธีเช็กลิงก์ก่อนกด</a>)</p>
+
+<h2>ตั้งค่าพาสคีย์บัญชี Google (Android, Gmail, YouTube)</h2>
+<p>บัญชี Google คือบัญชีที่ควรทำก่อน เพราะเป็นทั้งอีเมล ที่เก็บรูป และบัญชีหลักของมือถือ Android ถ้าบัญชีนี้หลุด บัญชีอื่นที่ใช้อีเมลนี้รีเซ็ตรหัสก็หลุดตาม</p>
+<p><strong>สิ่งที่ต้องมีก่อน:</strong> มือถือ Android 9 ขึ้นไป หรือ iPhone ที่ใช้ iOS 16 ขึ้นไป หรือคอมพิวเตอร์ Windows 10 หรือ macOS Ventura ขึ้นไป และต้องตั้งรหัสล็อกหน้าจอไว้แล้ว ถ้าใช้ iPhone ต้องเปิด iCloud Keychain ด้วย</p>
+<ol>
+<li>เปิดหน้าบัญชี Google (ในแอปการตั้งค่าของ Android เลือก Google แล้วเลือกจัดการบัญชี Google หรือเข้า myaccount.google.com ในเบราว์เซอร์)</li>
+<li>ไปที่แท็บ <strong>ความปลอดภัยและการลงชื่อเข้าใช้</strong> (Security &amp; sign-in)</li>
+<li>เลือก <strong>พาสคีย์และคีย์ความปลอดภัย</strong> (Passkeys and security keys)</li>
+<li>กด <strong>สร้างพาสคีย์</strong> แล้วปลดล็อกเครื่องตามที่ระบบขอ</li>
+<li>ถ้ามีหลายเครื่อง เช่น มือถือกับคอมพิวเตอร์ ให้ทำซ้ำบนแต่ละเครื่อง หรือใช้พาสคีย์ที่ซิงก์ผ่านตัวจัดการรหัสผ่านของ Google</li>
+</ol>
+<p>เรื่องที่ควรรู้:</p>
+<ul>
+<li><strong>ซิงก์ข้ามเครื่องได้</strong> ตัวจัดการรหัสผ่านของ Google ซิงก์พาสคีย์ระหว่าง Android กับคอมพิวเตอร์ที่ใช้ Chrome โดยเข้ารหัสแบบต้นทางถึงปลายทาง Google แจ้งว่าตัวเองก็เปิดดูไม่ได้ เมื่อใช้บนเครื่องใหม่ต้องยืนยันด้วยรหัสหน้าจอ Android เดิมหรือ PIN ของตัวจัดการรหัสผ่าน</li>
+<li><strong>ล็อกอินบนคอมพิวเตอร์คนอื่น</strong> เลือกลองวิธีอื่นแล้วเลือกใช้พาสคีย์ จะมี QR Code ขึ้นบนจอคอมพิวเตอร์ ใช้มือถือสแกน เปิดบลูทูธไว้ แล้วยืนยันบนมือถือ</li>
+<li><strong>ห้ามสร้างพาสคีย์บนเครื่องที่ใช้ร่วมกัน</strong> Google เตือนว่าใครก็ตามที่ปลดล็อกเครื่องนั้นได้จะเข้าบัญชีคุณได้ แม้คุณจะออกจากระบบแล้วก็ตาม</li>
+</ul>
+<p>ถ้าบัญชี Google ของคุณเคยถูกยึดหรือมีการเข้าใช้แปลกๆ ให้กู้บัญชีก่อนตาม<a href="/blog/google-account-hacked-recovery">ขั้นตอนกู้บัญชี Google</a> แล้วค่อยเพิ่มพาสคีย์</p>
+
+<h2>iPhone และบัญชี Apple: พาสคีย์เก็บไว้ที่ไหน</h2>
+<p>บน iPhone พาสคีย์ของทุกเว็บและทุกแอปจะถูกเก็บไว้ใน iCloud Keychain ซึ่งผูกกับบัญชี Apple (Apple ID) ของคุณ ดังนั้นสิ่งแรกที่ต้องทำไม่ใช่ไปสร้างพาสคีย์ทีละเว็บ แต่คือ <strong>ทำให้ที่เก็บกุญแจนี้แข็งแรง</strong></p>
+<ol>
+<li>ตั้งรหัสหน้าจอ iPhone ที่เดายาก ไม่ใช่ 123456 หรือวันเกิด และเปิด Face ID หรือ Touch ID</li>
+<li>ไปที่ <strong>การตั้งค่า</strong> แตะชื่อของคุณ เลือก <strong>iCloud</strong> แล้วเลือก <strong>รหัสผ่านและพวงกุญแจ</strong> (Passwords and Keychain) เปิด iCloud Keychain</li>
+<li>ตรวจว่าบัญชี Apple เปิดการยืนยันตัวตนสองชั้นแล้ว และเบอร์โทรที่ลงทะเบียนไว้ยังเป็นเบอร์ที่คุณใช้อยู่จริง</li>
+<li>เมื่อเว็บหรือแอปใดเสนอให้ "บันทึกพาสคีย์" หรือ "สร้างพาสคีย์" ให้ยืนยันด้วย Face ID พาสคีย์จะถูกเก็บใน iCloud Keychain อัตโนมัติ</li>
+</ol>
+<p>ใน iOS 18 ขึ้นไป มีแอป <strong>รหัสผ่าน</strong> (Passwords) แยกออกมา ใช้ดูรายการรหัสผ่านและพาสคีย์ทั้งหมดได้ในที่เดียว และยังแจ้งเตือนรหัสผ่านที่อ่อนหรือใช้ซ้ำ หรือรหัสที่พบในข้อมูลรั่วด้วย</p>
+<ul>
+<li><strong>ซิงก์ปลอดภัย</strong> Apple ระบุว่า iCloud Keychain เข้ารหัสแบบต้นทางถึงปลายทาง และ Apple ไม่ได้ถือกุญแจถอดรหัส</li>
+<li><strong>ใช้กับคอมพิวเตอร์ที่ไม่ใช่ Apple ได้</strong> เมื่อมือถืออยู่ใกล้เครื่องนั้น เช่น สแกน QR บนจอคอมพิวเตอร์แล้วยืนยันบน iPhone</li>
+<li><strong>แชร์ให้ครอบครัวได้</strong> แอปรหัสผ่านมีฟีเจอร์กลุ่มที่ใช้ร่วมกัน (Shared Group) สำหรับแชร์รหัสผ่านและพาสคีย์กับคนในครอบครัวที่ไว้ใจ เหมาะกับบัญชีที่ใช้ร่วมกันจริงๆ เช่น บัญชีดูหนังของบ้าน ไม่ควรแชร์บัญชีส่วนตัวหรือบัญชีที่เกี่ยวกับเงิน</li>
+</ul>
+
+<h2>ตั้งค่าพาสคีย์ Facebook, Messenger, LINE และบริการอื่น</h2>
+<p>ชื่อเมนูอาจต่างกันเล็กน้อยตามเวอร์ชันแอปและภาษา ถ้าไม่เห็นตัวเลือก ให้อัปเดตแอปจาก Store ทางการก่อน บางฟีเจอร์ทยอยเปิดทีละประเทศ</p>
+<p><strong>Facebook และ Messenger:</strong> Meta เปิดให้ใช้พาสคีย์กับแอป Facebook บน iOS และ Android และพาสคีย์ที่ตั้งไว้ใช้กับ Messenger ได้ด้วย</p>
+<ol>
+<li>เปิดแอป Facebook แตะ <strong>เมนู</strong> แล้วไปที่ <strong>การตั้งค่าและความเป็นส่วนตัว</strong> เลือก <strong>การตั้งค่า</strong></li>
+<li>เข้า <strong>ศูนย์บัญชี</strong> (Accounts Center) เลือก <strong>รหัสผ่านและความปลอดภัย</strong></li>
+<li>เลือก <strong>พาสคีย์</strong> แล้วกด <strong>สร้างพาสคีย์</strong> ระบบอาจขอรหัสผ่าน Facebook ก่อน แล้วให้ยืนยันด้วยใบหน้า ลายนิ้วมือ หรือรหัสหน้าจอ</li>
+<li>ลองออกจากระบบแล้วล็อกอินใหม่ด้วยพาสคีย์ เพื่อให้แน่ใจว่าใช้งานได้</li>
+</ol>
+<p>Facebook ยังเก็บรหัสผ่านไว้เป็นทางสำรองสำหรับอุปกรณ์ที่ไม่รองรับพาสคีย์ จึงยังต้องดูแลรหัสผ่านให้ดี ถ้าบัญชีเคยถูกยึด ดู<a href="/blog/facebook-account-hacked-recovery">วิธีกู้บัญชี Facebook</a></p>
+<p><strong>LINE:</strong> ศูนย์ช่วยเหลือของ LINE ระบุว่าลงทะเบียนพาสคีย์ได้บนเครื่องหลัก (มือถือ) โดยต้องลงทะเบียนอีเมลในบัญชี LINE ไว้ก่อน</p>
+<ol>
+<li>เปิดแท็บ <strong>หน้าหลัก</strong> แตะไอคอนเฟือง <strong>ตั้งค่า</strong></li>
+<li>เลือก <strong>บัญชี</strong> แล้วเลือก <strong>พาสคีย์</strong></li>
+<li>กด <strong>สร้างพาสคีย์</strong> แล้วทำตามขั้นตอนบนหน้าจอ</li>
+</ol>
+<p>พาสคีย์ของ LINE ใช้ทั้งล็อกอินและตอนย้ายบัญชีไปเครื่องใหม่ได้โดยไม่ต้องพิมพ์รหัสผ่าน หนึ่งบัญชีมีพาสคีย์ได้สูงสุด 10 อัน เครื่องละหนึ่งอัน ถ้าต้องการตั้งค่าด้านอื่นของ LINE เพิ่ม ดู<a href="/blog/line-privacy-security-settings">การตั้งค่าความเป็นส่วนตัวและความปลอดภัย LINE</a></p>
+<p><strong>บริการอื่นที่รองรับ:</strong> บัญชี Microsoft (Outlook, Hotmail) รองรับพาสคีย์สำหรับบัญชีผู้ใช้ทั่วไป X รองรับบน iOS และ Android และ TikTok เริ่มรองรับบน iOS ส่วนบริการอื่น วิธีดูง่ายที่สุดคือเข้าเมนูความปลอดภัยของแอปนั้น แล้วหาคำว่า "พาสคีย์" หรือ "Passkey" ถ้ามีให้เปิด ถ้าไม่มีก็ใช้รหัสผ่านที่ไม่ซ้ำร่วมกับ 2FA ไปก่อน</p>
+<p class="box">แอปธนาคารในไทยส่วนใหญ่มีระบบยืนยันตัวตนของตัวเอง เช่น ผูกเครื่อง PIN และสแกนใบหน้า ซึ่งไม่ใช่พาสคีย์แบบที่อธิบายในบทความนี้ ให้ตั้งค่าตามคำแนะนำของธนาคารโดยตรง และอย่าเชื่อคนที่โทรมาบอกให้ "อัปเกรดเป็นพาสคีย์" ผ่านลิงก์หรือแอปที่เขาส่งมา</p>
+
+<h2>มือถือหาย เสีย หรือเปลี่ยนเครื่อง จะเกิดอะไรขึ้น</h2>
+<p>คำถามนี้ทำให้หลายคนลังเลไม่กล้าเปิดพาสคีย์ ความจริงคือถ้าเตรียมไว้ก่อน การเสียเครื่องไม่ได้แปลว่าเสียบัญชี แยกตามสถานการณ์ได้ดังนี้</p>
+<ul>
+<li><strong>เปลี่ยนเครื่องใหม่ ระบบเดิม (Android ไป Android, iPhone ไป iPhone):</strong> ล็อกอินบัญชี Google หรือบัญชี Apple เดิมบนเครื่องใหม่ พาสคีย์ที่ซิงก์ไว้จะตามมา ฝั่ง Google ต้องยืนยันด้วยรหัสหน้าจอเครื่องเดิมหรือ PIN ของตัวจัดการรหัสผ่าน จึงควรจำรหัสหน้าจอเครื่องเก่าไว้จนย้ายเสร็จ</li>
+<li><strong>ย้ายข้ามระบบ (Android ไป iPhone หรือกลับกัน):</strong> ล็อกอินบัญชีบนเครื่องใหม่ด้วยวิธีเดิม เช่น สแกน QR จากเครื่องเก่าที่ยังอยู่ หรือใช้รหัสผ่าน แล้วสร้างพาสคีย์ใหม่บนเครื่องใหม่ จากนั้นลบพาสคีย์ของเครื่องเก่าออกจากหน้าตั้งค่าของแต่ละบริการ</li>
+<li><strong>มือถือหายหรือถูกขโมย:</strong> คนที่เก็บได้ต้องปลดล็อกเครื่องให้ได้ก่อนจึงจะใช้พาสคีย์ได้ ให้รีบล็อกอินจากอุปกรณ์อื่น เข้าหน้าพาสคีย์ของบัญชี Google แล้วลบพาสคีย์ของเครื่องที่หาย หรือออกจากระบบเครื่องนั้นในหน้าจัดการอุปกรณ์ ทำแบบเดียวกันกับ Facebook และ LINE แล้วทำตาม<a href="/blog/lost-stolen-phone-what-to-do">เช็กลิสต์มือถือหาย</a>ต่อ</li>
+<li><strong>เสียทุกเครื่องของ Apple พร้อมกัน:</strong> Apple มีระบบกู้คืน iCloud Keychain ที่ต้องใช้ข้อมูลบัญชี iCloud รหัสที่ส่งทาง SMS ไปยังเบอร์ที่ลงทะเบียน และรหัสหน้าจอของเครื่อง ลองผิดได้จำกัดจำนวนครั้ง และตั้ง "ผู้ติดต่อกู้คืนบัญชี" เป็นคนในครอบครัวไว้ล่วงหน้าได้</li>
+</ul>
+<p class="box"><strong>เตรียมไว้วันนี้:</strong> (1) มีพาสคีย์อย่างน้อยสองที่ เช่น มือถือกับคอมพิวเตอร์ หรือมือถือกับแท็บเล็ต (2) เบอร์โทรและอีเมลกู้คืนต้องเป็นของคุณและยังใช้งานอยู่ ถ้าเพิ่งเปลี่ยนเบอร์ ดู<a href="/blog/change-phone-number-checklist">เช็กลิสต์เปลี่ยนเบอร์</a> (3) เก็บรหัสสำรองที่บริการให้มาไว้ในที่ปลอดภัยนอกมือถือ</p>
+
+<h2>มิจฉาชีพยังหลอกคนที่ใช้พาสคีย์ได้ไหม</h2>
+<p>พาสคีย์ปิดช่องทางที่ใหญ่ที่สุดคือเว็บปลอมขโมยรหัส แต่ไม่ได้ทำให้คุณปลอดภัยจากทุกอย่าง มิจฉาชีพจะหันไปหาช่องอื่นที่ยังต้องอาศัยการตัดสินใจของคน ต่อไปนี้คือจุดที่ควรระวัง</p>
+<ul>
+<li><strong>QR Code ที่ส่งมาให้สแกน</strong> การสแกน QR เพื่อใช้พาสคีย์ออกแบบมาให้ทำเฉพาะตอนที่มือถืออยู่ใกล้คอมพิวเตอร์ ระบบจึงใช้บลูทูธตรวจระยะ ในปี 2568 มีรายงานจากบริษัทความปลอดภัยว่ากลุ่มคนร้ายนำ QR จากหน้าล็อกอินจริงมาแสดงบนเว็บปลอมเพื่อให้เหยื่อสแกน แต่ภายหลังบริษัทเดียวกันแก้ไขรายงานว่าการโจมตีนั้นไม่สำเร็จ เพราะการตรวจระยะใกล้ทำให้คำขอล้มเหลว บทเรียนคือ ถ้าคุณไม่ได้กำลังล็อกอินบนเครื่องที่อยู่ตรงหน้า ก็ไม่มีเหตุผลต้องสแกน QR ใดๆ</li>
+<li><strong>QR สำหรับเชื่อมอุปกรณ์ในแอปแชท</strong> แอปแชทหลายตัวใช้ QR ให้ล็อกอินบนคอมพิวเตอร์ ซึ่งไม่ใช่พาสคีย์และไม่มีการตรวจชื่อเว็บแบบเดียวกัน ถ้ามีคนส่ง QR มาบอกว่า "สแกนเพื่อรับรางวัล" หรือ "สแกนเพื่อยืนยันตัวตน" อย่าสแกนด้วยแอปแชทหรือแอปการเงิน</li>
+<li><strong>หลอกให้ "เพิ่มอุปกรณ์" หรือ "อนุมัติการเข้าสู่ระบบ"</strong> ถ้ามีหน้าต่างบนมือถือถามว่าจะอนุญาตให้ลงชื่อเข้าใช้หรือไม่ ทั้งที่คุณไม่ได้กำลังล็อกอิน ให้ปฏิเสธเสมอ ไม่ว่าคนที่โทรมาจะอ้างว่าเป็นเจ้าหน้าที่ใดก็ตาม</li>
+<li><strong>ช่องทางกู้คืนบัญชี</strong> ถ้ายังมีรหัสผ่านและ SMS เป็นทางสำรอง มิจฉาชีพก็ยังพยายามหลอกเอารหัสผ่านหรือ OTP เพื่อเข้าทางนั้น และอาจเพิ่มพาสคีย์ของตัวเองเข้าไปในบัญชีคุณ ให้เปิดดูรายการพาสคีย์และอุปกรณ์เป็นระยะ ถ้ามีชื่อที่ไม่รู้จักให้ลบทันที และระวัง<a href="/blog/sim-swap-otp">การยึดซิมเพื่อรับ OTP</a></li>
+<li><strong>แอปควบคุมเครื่องจากระยะไกล</strong> ถ้าถูกหลอกให้ติดตั้งแอปที่ควบคุมมือถือได้ คนร้ายเห็นทุกอย่างบนจอและอาจกดยืนยันแทนคุณ พาสคีย์ช่วยไม่ได้ในกรณีนี้ (ดู<a href="/blog/fake-app-remote-access">แอปปลอมควบคุมเครื่อง</a>)</li>
+<li><strong>หลอกให้โอนเงินเอง</strong> พาสคีย์ปกป้องบัญชี ไม่ได้ปกป้องการตัดสินใจโอนเงิน สายที่อ้างเป็นตำรวจหรือธนาคารให้วางแล้วโทรกลับเบอร์ทางการเสมอ</li>
+</ul>
+<p>สรุปคือ <strong>ไม่มีบริการจริงที่จะโทรมาขอให้คุณสแกน QR เพิ่มอุปกรณ์ หรือสร้างพาสคีย์ผ่านลิงก์ที่ส่งมา</strong> การตั้งพาสคีย์ทำเองได้จากหน้าตั้งค่าของแอปเท่านั้น</p>
+
+<h2>เช็กลิสต์ตั้งพาสคีย์ให้พ่อแม่และผู้สูงอายุ</h2>
+<p>พาสคีย์เหมาะกับผู้สูงอายุมาก เพราะไม่ต้องจำรหัส และลดโอกาสพิมพ์รหัสลงเว็บปลอม แต่ควรนั่งทำด้วยกันกับท่าน ไม่ควรทำแทนแล้วยื่นเครื่องคืนโดยไม่อธิบาย ใช้ลำดับนี้</p>
+<ol>
+<li><strong>ตั้งรหัสหน้าจอใหม่ที่ท่านจำได้แต่คนอื่นเดายาก</strong> ไม่ใช่วันเกิด ไม่ใช่เลขเรียง และลงทะเบียนใบหน้าหรือลายนิ้วมือ เพราะรหัสหน้าจอคือกุญแจของทุกพาสคีย์</li>
+<li><strong>ตรวจเบอร์โทรและอีเมลกู้คืน</strong> ในบัญชี Google หรือบัญชี Apple ของท่านว่ายังใช้งานอยู่ อาจใส่อีเมลของลูกเป็นอีเมลกู้คืนสำรอง</li>
+<li><strong>สร้างพาสคีย์ให้บัญชีหลักก่อน</strong> คือ Google หรือ Apple แล้วตามด้วย LINE และ Facebook ที่ท่านใช้คุยกับคนอื่น</li>
+<li><strong>ลองล็อกอินด้วยพาสคีย์ให้ท่านดูหนึ่งครั้ง</strong> ให้ท่านเห็นว่าหน้าตาของจริงเป็นแบบไหน คือเด้งให้สแกนหน้าเฉยๆ ไม่มีช่องให้พิมพ์รหัส</li>
+<li><strong>อย่าสร้างพาสคีย์บนเครื่องที่หลานหรือคนอื่นใช้ร่วม</strong> ถ้าคนอื่นปลดล็อกเครื่องได้ ก็เข้าบัญชีท่านได้</li>
+<li><strong>จดรายการไว้ให้ลูก</strong> ว่าบัญชีไหนตั้งพาสคีย์ไว้ในเครื่องใด เพื่อถ้าเครื่องหาย จะได้รู้ว่าต้องลบพาสคีย์ที่ไหน (จดชื่อบัญชี ไม่ต้องจดรหัส)</li>
+<li><strong>ตั้งกฎกลางของบ้าน</strong> ถ้ามีใครโทรหรือทักมาให้สแกน QR กดอนุมัติ หรือเพิ่มอุปกรณ์ ให้วางสายแล้วโทรหาลูกก่อนทุกครั้ง</li>
+</ol>
+<p class="box"><strong>ประโยคสั้นๆ ไว้บอกพ่อแม่:</strong> "ตอนนี้เข้าแอปแค่ส่องหน้า ไม่ต้องพิมพ์รหัสแล้วนะ ถ้าวันไหนแอปหรือเว็บขอให้พิมพ์รหัส หรือมีคนโทรมาบอกให้สแกนคิวอาร์ กดยืนยัน หรือบอกเลข อย่าเพิ่งทำ โทรหาหนูก่อน" ดูวิธีตั้งค่ามือถือพ่อแม่ด้านอื่นเพิ่มได้ที่<a href="/blog/setup-parents-phone-safety">ตั้งค่ามือถือพ่อแม่ให้ปลอดภัย</a> และ<a href="/blog/elderly-parents-scam-guide">คู่มือกันพ่อแม่โดนหลอก</a></p>
+
+<h2>ข้อจำกัดของพาสคีย์ที่ควรรู้ก่อนเปิด</h2>
+<ul>
+<li><strong>ยังไม่ใช่ทุกบริการที่รองรับ</strong> และบางบริการรองรับแค่บนมือถือ หรือแค่บางระบบปฏิบัติการ</li>
+<li><strong>รหัสผ่านยังไม่หายไปไหน</strong> หลายบริการยังเก็บรหัสผ่านไว้เป็นทางสำรอง ถ้ารหัสผ่านอ่อนหรือซ้ำกับที่อื่น บัญชีก็ยังเสี่ยงจากช่องนั้น</li>
+<li><strong>ความปลอดภัยขึ้นกับรหัสหน้าจอ</strong> ถ้ามีคนรู้รหัสปลดล็อกมือถือคุณและได้เครื่องไป เขาใช้พาสคีย์ได้ จึงไม่ควรบอกรหัสหน้าจอใคร และระวังคนแอบมองตอนกดในที่สาธารณะ</li>
+<li><strong>ย้ายข้ามระบบยังไม่ราบรื่นนัก</strong> คนที่ใช้ Android กับ iPhone สลับกันอาจต้องสร้างพาสคีย์ใหม่ในแต่ละระบบ หรือใช้ตัวจัดการรหัสผ่านที่ใช้ได้ทั้งสองฝั่ง</li>
+<li><strong>ไม่ช่วยเรื่องการหลอกให้โอนเงินหรือหลอกให้ทำตามคำสั่ง</strong> ภัยอย่างแก๊งคอลเซ็นเตอร์ สินค้าไม่ส่ง หรือการลงทุนปลอม ยังต้องรับมือด้วยการตรวจสอบก่อนเชื่อ</li>
+</ul>
+<p>ถ้าคุณได้รับสายหรือข้อความที่ขอให้ตั้งค่าบัญชี สแกน QR หรือบอกรหัส ให้<a href="/check">เช็คเบอร์</a>ที่ติดต่อมา และ<a href="/report">รายงานเบอร์</a>เพื่อเตือนคนอื่น ถ้าบัญชีถูกยึดแล้วมีความเสียหายทางการเงิน ติดต่อธนาคารผ่านเบอร์ทางการทันที แล้วทำตาม<a href="/blog/scammed-what-to-do">เช็กลิสต์โดนหลอกโอนเงิน</a> หรือโทรสายด่วน AOC 1441</p>
+<p class="box">ข้อมูลในบทความนี้เป็นข้อมูลทั่วไป อ้างอิงจากหน้าช่วยเหลือและประกาศของผู้ให้บริการ ณ วันที่เผยแพร่ ชื่อเมนูและเงื่อนไขอาจเปลี่ยนตามเวอร์ชันแอปและประเทศ ไม่ใช่คำแนะนำทางกฎหมายหรือการเงิน ดู<a href="/editorial-policy">นโยบายบรรณาธิการ</a>ของเรา</p>
+<aside class="app-cta"><img src="/assets/logo-180.webp" alt="แอป SpamInThai" width="96" height="96" loading="lazy"><div><h3>เตือนเบอร์มิจฉาชีพก่อนรับสาย</h3><p>แอป SpamInThai ใช้ฐานข้อมูลรายงานเดียวกับเว็บนี้ ขึ้นเตือนอัตโนมัติเมื่อเบอร์ที่โทรเข้ามีคนรายงาน ฟรี ไม่ต้องสมัคร</p><a class="play-btn" href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker&amp;referrer=utm_source%3Dblog%26utm_medium%3Darticle%26utm_campaign%3Dpasskey-what-is-how-to-set-up" target="_blank" rel="noopener noreferrer" data-download>ดาวน์โหลดบน Google Play</a></div></aside>
+<h2>คำถามที่พบบ่อย</h2>
+<details><summary>พาสคีย์กับรหัสผ่านต่างกันอย่างไร</summary><p>รหัสผ่านคือสิ่งที่คุณจำแล้วพิมพ์ จึงถูกหลอกให้พิมพ์ลงเว็บปลอมได้ ส่วนพาสคีย์เป็นกุญแจดิจิทัลที่เครื่องของคุณสร้างและเก็บไว้ ปลดล็อกด้วยใบหน้า ลายนิ้วมือ หรือรหัสหน้าจอ ไม่มีอะไรให้พิมพ์หรือบอกใคร และใช้ได้เฉพาะกับเว็บหรือแอปที่สร้างมันขึ้นมาเท่านั้น</p></details><details><summary>ถ้าตั้งพาสคีย์แล้ว ยังต้องมีรหัสผ่านอยู่ไหม</summary><p>บริการส่วนใหญ่ยังเก็บรหัสผ่านไว้เป็นทางสำรอง เช่น Facebook ยังให้ใช้รหัสผ่านบนอุปกรณ์ที่ไม่รองรับพาสคีย์ จึงควรตั้งรหัสผ่านที่ยาวและไม่ซ้ำไว้ด้วย และอย่ากรอกรหัสผ่านนั้นในลิงก์ที่ส่งมาทางข้อความ</p></details><details><summary>มือถือหายแล้วคนเก็บได้จะเข้าบัญชีด้วยพาสคีย์ได้ไหม</summary><p>ต้องปลดล็อกเครื่องให้ได้ก่อน ด้วยใบหน้า ลายนิ้วมือ หรือรหัสหน้าจอของคุณ จึงสำคัญมากที่ต้องตั้งรหัสหน้าจอที่เดายาก และเมื่อเครื่องหาย ให้ล็อกอินจากอุปกรณ์อื่นแล้วลบพาสคีย์หรือออกจากระบบเครื่องที่หายทันที</p></details><details><summary>เปลี่ยนมือถือใหม่ พาสคีย์จะหายไหม</summary><p>ถ้าพาสคีย์เก็บไว้ในตัวจัดการรหัสผ่านของ Google หรือ iCloud Keychain ของ Apple จะซิงก์ไปเครื่องใหม่ที่ล็อกอินบัญชีเดียวกัน โดยต้องยืนยันด้วยรหัสหน้าจอของเครื่องเดิมหรือ PIN ที่ตั้งไว้ ถ้าย้ายจาก Android ไป iPhone หรือกลับกัน ให้ล็อกอินบนเครื่องใหม่แล้วสร้างพาสคีย์ใหม่</p></details><details><summary>มีคนส่ง QR Code มาให้สแกนเพื่อยืนยันตัวตน ควรสแกนไหม</summary><p>ไม่ควร การสแกน QR เพื่อใช้พาสคีย์จะทำเฉพาะตอนที่คุณกำลังล็อกอินบนคอมพิวเตอร์ที่อยู่ตรงหน้าคุณเองเท่านั้น ถ้า QR ส่งมาทางแชท อีเมล หรือคนโทรมาบอกให้สแกน ให้ปฏิเสธทุกกรณี</p></details><details><summary>พาสคีย์ช่วยกันโดนหลอกโอนเงินได้ไหม</summary><p>ไม่ได้ พาสคีย์ช่วยกันบัญชีออนไลน์ถูกยึดผ่านเว็บปลอม แต่ถ้ามิจฉาชีพโทรมาหลอกให้คุณโอนเงินเอง หรือหลอกให้ติดตั้งแอปควบคุมเครื่อง พาสคีย์ช่วยไม่ได้ ยังต้องยึดหลักวางสายแล้วโทรกลับเบอร์ทางการ</p></details>
+<p style="margin-top:24px">อ่านต่อ: <a href="/blog/strong-password-2fa">ตั้งรหัสผ่านให้ปลอดภัยและเปิด 2FA</a> · <a href="/blog/google-account-hacked-recovery">บัญชี Google ถูกแฮก กู้คืนอย่างไร</a> · <a href="/blog/lost-stolen-phone-what-to-do">มือถือหายหรือถูกขโมย ต้องทำอะไร</a> · <a href="/blog/check-link-safe-before-click">เช็กลิงก์ก่อนกด</a></p>
+<div class="share-bar" data-url="https://spaminthai.com/blog/passkey-what-is-how-to-set-up" data-title="พาสคีย์ (Passkey) คืออะไร กันเว็บปลอมได้ดีกว่ารหัสผ่าน+OTP อย่างไร พร้อมวิธีตั้งค่า Google, iPhone, Facebook และ LINE"><span>แชร์บทความนี้:</span><a class="s-line" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fspaminthai.com%2Fblog%2Fpasskey-what-is-how-to-set-up%3Futm_source%3Dline%26utm_medium%3Dshare%26utm_campaign%3Dblog" target="_blank" rel="noopener noreferrer">LINE</a><a class="s-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fspaminthai.com%2Fblog%2Fpasskey-what-is-how-to-set-up%3Futm_source%3Dfacebook%26utm_medium%3Dshare%26utm_campaign%3Dblog" target="_blank" rel="noopener noreferrer">Facebook</a><a class="s-x" href="https://x.com/intent/post?url=https%3A%2F%2Fspaminthai.com%2Fblog%2Fpasskey-what-is-how-to-set-up&amp;text=%E0%B8%9E%E0%B8%B2%E0%B8%AA%E0%B8%84%E0%B8%B5%E0%B8%A2%E0%B9%8C%20%28Passkey%29%20%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3%20%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%9B%E0%B8%A5%E0%B8%AD%E0%B8%A1%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%94%E0%B8%B5%E0%B8%81%E0%B8%A7%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%AB%E0%B8%B1%E0%B8%AA%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%99%2BOTP%20%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B9%84%E0%B8%A3%20%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%84%E0%B9%88%E0%B8%B2%20Google%2C%20iPhone%2C%20Facebook%20%E0%B9%81%E0%B8%A5%E0%B8%B0%20LINE" target="_blank" rel="noopener noreferrer">X</a><button type="button" class="s-copy">คัดลอกลิงก์</button><button type="button" class="s-native" hidden>แชร์…</button></div>
+<p class="editor-credit" data-editor="1" style="margin-top:20px;font-size:.9rem;color:#64748b">บรรณาธิการ: <a href="/about#editor">WOE</a> (นามปากกา) · SpamInThai · <a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a></p>
+</article>
+</main>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <p class="site-footer__title">SpamInThai — หยุดสแปมในไทยร่วมกัน</p>
+      <p class="site-footer__desc">ฐานข้อมูลเบอร์ร้องเรียน คัดกรองภัยสังคมออนไลน์ ด้วยพลังประชาชน</p>
+      <p class="site-footer__copy">© 2026 spaminthai · Web <span id="siteVer">v1.2.0</span> · App <span id="appVer">v3.1.7</span></p>
+    </div>
+    <nav class="site-footer__links" aria-label="ลิงก์">
+      <a href="/check">เช็คเบอร์โทร</a>
+      <a href="/thailand">เช็คเบอร์ 77 จังหวัด</a>
+      <a href="/report">แจ้งเบาะแส</a>
+      <a href="https://play.google.com/store/apps/details?id=com.jarvis.callblocker" target="_blank" rel="noopener noreferrer">ดาวน์โหลดแอป</a>
+      <a href="/news">ข่าวสาร</a>
+      <a href="/blog">บทความ</a>
+      <a href="https://t.me/spaminthaich" target="_blank" rel="noopener noreferrer">Telegram เตือนภัย</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/about">เกี่ยวกับเรา</a>
+      <a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a>
+      <a href="/contact">ติดต่อเรา</a>
+    </nav>
+  </div>
+</footer>
+<script src="/assets/site.js"></script>
+<script src="/assets/blog-share.js" defer></script>
+</body>
+</html>

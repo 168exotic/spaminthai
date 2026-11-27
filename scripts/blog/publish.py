@@ -128,12 +128,13 @@ def build_html(m, header, footer):
 {faq_html}
 <p style="margin-top:24px">อ่านต่อ: {m.related}</p>
 {share_bar(url, m.title)}
+<p class="editor-credit" data-editor="1" style="margin-top:20px;font-size:.9rem;color:#64748b">บรรณาธิการ: <a href="/about#editor">WOE</a> (นามปากกา) · SpamInThai · <a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a></p>
 </article>'''
     strip = lambda s: re.sub(r'<[^>]+>', '', s)
     ld = [
         {"@context": "https://schema.org", "@type": "Article", "image": img, "headline": m.title, "description": m.desc,
          "datePublished": m.date, "dateModified": m.date, "inLanguage": "th-TH",
-         "author": {"@type": "Organization", "name": "SpamInThai", "url": "https://spaminthai.com/about"},
+         "author": {"@type": "Person", "name": "WOE", "url": "https://spaminthai.com/about#editor"},
          "publisher": {"@type": "Organization", "name": "SpamInThai",
                        "logo": {"@type": "ImageObject", "url": "https://spaminthai.com/assets/logo.png"}},
          "mainEntityOfPage": url},

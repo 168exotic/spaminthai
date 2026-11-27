@@ -1,0 +1,37 @@
+name: Signals — hourly aggregate
+
+# Passive Spam Signal Collection (v3.1.6): rebuild number_risk from call_signals
+# and purge data past retention. Cloudflare Pages has no native cron, so the
+# hourly job runs here. lookupSignalRisk() also refreshes a number lazily on
+# read, so scores stay correct even if a run is skipped or the secret is absent.
+#
+# Requires repo secret SIGNAL_ADMIN_KEY (same value as the Cloudflare Pages
+# secret SIGNAL_ADMIN_KEY). Until it is set, this job no-ops safely.
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: signals-aggregate
+  cancel-in-progress: false
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger aggregation
+        env:
+          SIGNAL_ADMIN_KEY: ${{ secrets.SIGNAL_ADMIN_KEY }}
+        run: |
+          if [ -z "$SIGNAL_ADMIN_KEY" ]; then
+            echo "No SIGNAL_ADMIN_KEY secret set — skipping (lazy on-read refresh keeps scores current)."
+            exit 0
+          fi
+          code=$(curl -sS -o /tmp/agg.json -w '%{http_code}' -X POST \
+            "https://spaminthai.com/api/v1/aggregate" \
+            -H "X-App-Key: $SIGNAL_ADMIN_KEY")
+          echo "aggregate HTTP $code"
+          cat /tmp/agg.json; echo
+          test "$code" = "200"

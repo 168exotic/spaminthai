@@ -71,7 +71,7 @@ $('disputeForm').addEventListener('submit', async (e) => {
     if (res.ok && data.ok) {
       $('refCode').textContent = data.ref || 'DSP-------';
       const chTxt = CHANNEL_TH[channel];
-      $('successMsg').textContent = 'ทีมงานจะรีวิวภายใน 24-48 ชั่วโมง'
+      $('successMsg').textContent = 'ทีมงานจะรีวิวภายใน 48 ชั่วโมง'
         + (chTxt ? ' และแจ้งผลผ่าน ' + chTxt : '');
       $('formView').classList.add('hidden');
       $('successView').classList.remove('hidden');

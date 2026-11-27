@@ -35,7 +35,11 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 - **Deploy:** push `main` (หรือ `workflow_dispatch`) → `deploy.yml` รัน `scripts/apply-play-store-links.sh` เป็น safety net แล้ว **fail build ถ้ายังเจอลิงก์ APK/`/download` ใน `<a>`** หรือถ้า `ads.txt`/`_headers`/AdSense tag หาย จากนั้น `wrangler pages deploy .` และตรวจหน้าแรกที่ deploy แล้ว (ลิงก์ Google Play ต้องอยู่, ห้ามมี APK)
 - **เพิ่มบทความใหม่ใน `blog/`:** ใส่รายการไว้ **บนสุด** ของ `BLOG_POSTS` ใน `functions/api/blog-posts.js` (หน้าแรกส่วน "บทความล่าสุด" ดึง 3 อันแรกจาก `/api/blog/latest` อัตโนมัติ), เพิ่ม slug ใน `BLOG_SLUGS` ของ `functions/api/sitemap.js`, เพิ่มการ์ดใน `blog/index.html` และทำรูปปก `assets/blog/<slug>.webp` + `.jpg` (1200x630)
 - **เพิ่ม/แก้ข่าวใน `news/`:** รัน `node scripts/build-news-index.mjs` ให้ `functions/news/news-index.js` อัปเดต (หน้า 77 จังหวัดและหน้าเบอร์ใช้ลิงก์ "ข่าวเตือนภัยที่เกี่ยวข้อง" จากไฟล์นี้) และเพิ่ม slug ใน `NEWS_SLUGS` ของ `functions/api/sitemap.js` ตามเดิม
-- **Google AdSense (ห้ามลบ):** `ca-pub-2455374115304550` — meta + `adsbygoogle.js` ใน `index.html`, `check.html`, `news-1..9.html`, ทุกหน้า `news/*.html` (หน้าข่าวใหม่ต้องใส่ทั้ง meta และ script ก่อน `</head>`); `ads.txt`; CSP ใน `_headers` ต้องมี `pagead2.googlesyndication.com` — ห้ามนำออกจนกว่า AdSense จะอนุมัติและแสดงโฆษณาจริง
+- **หน้ารวมข่าว `news-N.html` (Nov 2026):** เพิ่มการ์ดข่าวใหม่ไว้บนสุดของ `news-1.html` แล้วรัน `node scripts/paginate-news.mjs` — จัดหน้าใหม่ 20 ข่าว/หน้า, ตัดพาดหัวยาวที่ช่องว่างระหว่างวลี (ส่วนที่เหลือเป็นคำโปรย จึงไม่ซ้ำพาดหัว), อัปเดตปุ่มเปลี่ยนหน้า, `_redirects` และ `NEWS_PAGE_COUNT` ให้เอง (deploy รันซ้ำเป็น safety net) — พาดหัวการ์ดควรสั้นไม่เกิน ~100 ตัวอักษร และคำโปรยต้องไม่ซ้ำพาดหัว
+- **Template กลางทุกหน้า (Nov 2026):** `functions/site-chrome.js` (เรียกจาก `_worker.js`) ปรับทุกหน้า HTML สาธารณะอัตโนมัติ — ใส่ `assets/consent.js` (แบนเนอร์คุกกี้/Consent Mode) เป็นสคริปต์แรก, เติม AdSense meta + `adsbygoogle.js` ถ้าหน้าไม่มี, แทนเมนู `.site-nav`/`.site-header__mobile` ด้วยชุดมาตรฐาน (ไม่มีปุ่ม Play ซ้ำ, `/#official`, ไฮไลต์แท็บตามหมวด), แทน/เติม footer มาตรฐาน (มี "ตั้งค่าคุกกี้"), ใส่ header ให้หน้าบทความ/ข่าวที่ไม่มี และตรึง `layout.css?v=` — **แก้เมนู/footer ที่ไฟล์นี้ที่เดียว** อย่าแก้ทีละหน้า
+- **หน้าบาง (noindex ชั่วคราว):** บทความ/ข่าวที่สั้นกว่า ~500 คำมี `<meta name="robots" content="noindex, follow">` และอยู่ใน `THIN_NOINDEX` ใน `functions/api/sitemap.js` — เขียนเพิ่มเป็น 500+ คำแล้วลบทั้งสองจุด · ข่าวใหม่ควรมีส่วน "จุดสังเกต / วิธีป้องกัน" ที่เขียนเอง 500+ คำ
+- **ห้ามส่งข้อมูลส่วนบุคคลให้ AdSense (Nov 2026):** หน้า `/check`, `/check/<เบอร์>`, `/search` และทุก URL ที่มีตัวเลข 6 หลักขึ้นไปใน query จะถูก `functions/site-chrome.js` (`urlMayCarryPII`) ตัดสคริปต์ `adsbygoogle.js` และ `<ins class="adsbygoogle">` ออกตอนเสิร์ฟ (meta ยืนยันยังอยู่) — ห้ามวางโฆษณาในหน้าที่ URL มีเบอร์โทร
+- **Google AdSense (ห้ามลบ):** `ca-pub-2455374115304550` — meta + `adsbygoogle.js` ใน `index.html`, `check.html`, `news-N.html`, ทุกหน้า `news/*.html` (หน้าข่าวใหม่ต้องใส่ทั้ง meta และ script ก่อน `</head>`); `ads.txt`; CSP ใน `_headers` ต้องมี `pagead2.googlesyndication.com` — ห้ามนำออกจนกว่า AdSense จะอนุมัติและแสดงโฆษณาจริง
 
 ### Mail token / tokens ที่กำลังหมดอายุ (handoff สำหรับ agent อื่น)
 
@@ -74,3 +78,18 @@ No build step. Deploy notes in `DEPLOY-GUIDE.md`.
 | `VPS_SSH_*` | deploy `vps/www/` ไป www.เบอร์ใคร.com |
 | `TIP_ADMIN_PASSWORD` | admin API (Cloudflare Pages env ไม่ใช่ GitHub) |
 | `SAFE_BROWSING_KEY` | `/api/linkcheck` ถาม Google Safe Browsing (Cloudflare Pages env, Production+Preview) — คีย์จาก GCP project `warm-rock-511923-j5` ต้องเปิด "Safe Browsing API" (ไม่ใช่ตัว Legacy); ไม่มีคีย์ = endpoint ตอบ `unavailable` แต่ยังใช้รายชื่อ `linkcheck:block:<host>` / `linkcheck:allow:<host>` ใน KV ได้ |
+
+## 404 page
+
+`404.html` must stay at the repo root. Without it Cloudflare Pages serves the homepage with HTTP 200 for every unknown URL (soft 404). `normalizePage` adds the shared header/footer to 404 responses and removes ad tags from them — never put AdSense code on the 404 page.
+
+## Ads only on content pages (AdSense review)
+
+- `normalizePage` removes the ad script (never the `google-adsense-account` meta) from: 404s, URLs that may carry a phone number, the paths in `NO_AD_PATHS` (forms, policy, contact, hub pages), `/news-2+`, and any worker-rendered page served `noindex` (detected through the `X-Robots-Tag` header that `html()` sets). New utility pages belong in `NO_AD_PATHS`.
+- Province and prefix pages are indexable and listed in the sitemap only with at least `MIN_REPORTED_FOR_INDEX` (5) reported numbers.
+- `LIST_NUMBER_PAGES` in `functions/api/sitemap.js` is `false` while the site is under AdSense review: `/check/<number>` pages stay live but are not advertised in `sitemap.xml` or `robots.txt`. After approval set it to `true` and restore the `Sitemap: https://spaminthai.com/sitemap-numbers.xml` line in `robots.txt`.
+
+## Editor credit
+
+Every blog and news article ends with the editor credit `<p class="editor-credit" data-editor="1">` (pen name **WOE**, linking to `/about#editor`) just before `</article>`, and its Article schema uses `"author":{"@type":"Person","name":"WOE","url":"https://spaminthai.com/about#editor"}`. Copy both from an existing article when adding a new one (`scripts/blog/publish.py` already does). Do not put BOSS's real name on the site.
+
