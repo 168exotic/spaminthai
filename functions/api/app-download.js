@@ -1,13 +1,13 @@
 // Canonical Android app install URL for download pages and /api/app (Google Play).
 
-export const ANDROID_INSTALL_VERSION = '3.1.5';
-export const ANDROID_INSTALL_VERSION_CODE = ''; // unknown for 3.1.5 — empty hides it on the site;
+export const ANDROID_INSTALL_VERSION = '3.1.7';
+export const ANDROID_INSTALL_VERSION_CODE = ''; // unknown for 3.1.7 — empty hides it on the site;
 export const ANDROID_LATEST_API_VERSION = '1.0.21';
 export const PLAY_STORE_URL =
   'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
 export const ANDROID_INSTALL_URL = PLAY_STORE_URL;
 export const ANDROID_INSTALL_GITHUB_URL = PLAY_STORE_URL;
-export const ANDROID_INSTALL_RELEASE_TAG = '3.1.5';
+export const ANDROID_INSTALL_RELEASE_TAG = '3.1.7';
 export const ANDROID_INSTALL_UPDATED_AT = '2026-11-03T03:00:00Z';
 export const ANDROID_INSTALL_CHANGELOG =
   'ติดตั้งจาก Google Play — บล็อกสายมิจฉาชีพอัตโนมัติ';

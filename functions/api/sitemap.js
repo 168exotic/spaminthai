@@ -1,12 +1,18 @@
 // GET /sitemap.xml — dynamic sitemap with top reported numbers from KV.
 
-import { PROVINCES } from '../province/provinces.js';
+import { PROVINCES, isPrimaryProvince } from '../province/provinces.js';
+import { codeHasReports, MIN_REPORTED_FOR_INDEX } from '../province/render-province-page.js';
 import { MOBILE_PREFIXES } from './carrier.js';
 import { getAllNumbersCached } from './kv-scan.js';
 import { listMonths } from '../monthly/render-monthly-page.js';
 
 const SITE = 'https://spaminthai.com';
-const CACHE_KEY = 'seo:sitemap:xml';
+const CACHE_KEY = 'seo:sitemap:xml:v2';
+
+// Number pages (/check/<number>) are templated pages. While the site is under AdSense review they are not
+// advertised in the sitemap or robots.txt (they stay live and indexable). Set to true after approval and
+// restore the "Sitemap: https://spaminthai.com/sitemap-numbers.xml" line in robots.txt.
+export const LIST_NUMBER_PAGES = false;
 const CACHE_TTL_SEC = 60 * 60; // 1h (per spec) — sitemap refreshes hourly
 
 const STATIC_PAGES = [
@@ -14,7 +20,6 @@ const STATIC_PAGES = [
   { loc: '/check', priority: '0.95', changefreq: 'daily' },
   { loc: '/guide/check-phone', priority: '0.9', changefreq: 'weekly' },
   { loc: '/guide/block-spam-android', priority: '0.88', changefreq: 'weekly' },
-  { loc: '/guide/spam-numbers', priority: '0.87', changefreq: 'daily' },
   { loc: '/report', priority: '0.9', changefreq: 'weekly' },
   { loc: '/download', priority: '0.8', changefreq: 'weekly' },
   { loc: '/guide/call-center-scam', priority: '0.85', changefreq: 'monthly' },
@@ -31,93 +36,39 @@ const STATIC_PAGES = [
 // Thin pages marked noindex (Nov 2026, AdSense quality) — kept out of the sitemap until expanded to 500+ words.
 // When you expand one, remove its <meta name="robots" content="noindex, follow"> AND its slug here.
 const THIN_NOINDEX = new Set([
-  "blog/berkhrai-check-caller",
-  "blog/best-spam-checker-apps-2568",
-  "blog/call-center-scam-guide-2568",
-  "blog/fake-bank-sms",
-  "blog/new-scam-tricks-2568-07",
-  "blog/numbers-065-scam",
-  "blog/pdpa-reporting-numbers",
-  "blog/report-hotlines-1441-1155-1212",
-  "blog/scammed-what-to-do",
-  "blog/silent-unknown-callers-android-iphone",
-  "blog/truat-ber-free",
-  "blog/voip-697-698-scam",
-  "news/acsc-august-weekly-2569",
-  "news/acsc-cib-dark-empire-corporate-mule-farm-2569",
-  "news/acsc-elderly-protection-2569",
-  "news/acsc-july-summer-spike-2569",
-  "news/acsc-june-monthly-2569",
-  "news/acsc-may-monthly-2569",
-  "news/acsc-rescue-students-2-7m-2569",
-  "news/acsc-september-stats-2569",
-  "news/acsc-stats-aug-sep-2569",
-  "news/acsc-stats-february-2569",
-  "news/acsc-stats-january-2569",
-  "news/acsc-weekly-492m-march-2569",
-  "news/acsc-weekly-6-12-sep-2569",
-  "news/acsc-weekly-april-2569",
-  "news/aoc-1441-scam-report-guide-2025",
-  "news/call-center-account-mule-2569",
-  "news/call-center-bangkok-raid-2569",
-  "news/call-center-bust-9-suspects-2569",
-  "news/call-center-chiang-rai-network-2569",
-  "news/call-center-khon-kaen-bust-2569",
-  "news/cib-fake-cyber-police-page-chonburi-2569",
-  "news/cib-money-laundering-ring-2569",
-  "news/cib-online-investment-chumphon-arrest-2569",
-  "news/cib-romance-scam-2569",
-  "news/cib-sim-box-raid-2569",
-  "news/cib-spell-investment-admin-korat-2569",
-  "news/crime-suppression-mule-owner-fake-police-refund-2569",
-  "news/cyber-police-buriram-teacher-cash-mule-2569",
-  "news/cyber-police-corporate-mule-directors-2569",
-  "news/cyber-police-khonkaen-refund-2569",
-  "news/cyber-police-mule-handlers-chinese-boss-2569",
-  "news/cyber-police-student-scam-sapan-sung-2569",
-  "news/deepfake-politician-impersonation-2569",
-  "news/deepfake-scam-warning-2025",
-  "news/deepfake-video-call-scam-2569",
-  "news/dsi-fake-police-kabinburi-mule-2569",
-  "news/ecd-amata-stock-scam-mule-2569",
-  "news/fake-concert-ticket-bts-2569",
-  "news/fake-concert-ticket-kpop-2569",
-  "news/gen-z-scam-surge-2569",
-  "news/highway-police-phangnga-mule-account-2569",
-  "news/hotline-1441-report-guide-2569",
-  "news/hotline-1441-success-stories-2569",
-  "news/immigration-loei-laos-handover-40-call-center-suspects-2569",
-  "news/investment-scam-crypto-app-2569",
-  "news/investment-scam-forex-2569",
-  "news/investment-scam-gold-trading-2569",
-  "news/investment-scam-line-group-2025",
-  "news/job-scam-line-recruitment-2569",
-  "news/job-scam-package-delivery-2569",
-  "news/job-scam-remote-work-2569",
-  "news/korean-scam-center-samut-prakan-2025-09",
-  "news/lopburi-cash-mule-fake-cyber-police-student-2569",
-  "news/maesot-broker-teen-mule-account-2569",
-  "news/mgronline-online-shopping-scam-2569",
-  "news/money-laundering-crypto-exchange-2569",
-  "news/money-laundering-sim-box-2569",
-  "news/off-platform-shopping-scam-2569",
-  "news/parcel-redelivery-scam-2569",
-  "news/pattaya-fake-cyber-police-qr-refund-2569",
-  "news/pattaya-sim-box-ceiling-rental-room-2569",
-  "news/poipet-border-rescue-2569",
-  "news/poipet-scam-compound-2569",
-  "news/poipet-thai-workers-trapped-2569",
-  "news/romance-scam-dating-app-2569",
-  "news/sim-box-mae-sot-raid-2569",
-  "news/sim-box-sms-banking-2569",
-  "news/student-scam-part-time-job-2569",
-  "news/student-scam-poipet-trick-2569",
-  "news/student-scam-university-victim-2569",
-  "news/thaipbs-scam-awareness-campaign-2569",
-  "news/tourist-police-pattaya-fake-pea-qr-2569"
 ]);
 
 const BLOG_SLUGS = [
+  'new-device-login-alert-what-to-do',
+  'fake-shop-website-year-end-sale',
+  'sim-mule-renting-sim-card-in-your-name',
+  'separate-online-spending-account-virtual-card',
+  'callback-phishing-call-this-number-scam',
+  'private-number-no-caller-id',
+  'game-topup-id-trading-scam',
+  'fake-boss-line-urgent-transfer',
+  'spam-risk-label-incoming-call',
+  'free-sticker-new-year-card-link-scam',
+  'wrong-number-text-friendly-chat-scam',
+  'cash-gold-handover-courier-scam',
+  'face-scan-selfie-verification-safety',
+  'added-to-unknown-line-telegram-group',
+  'used-car-motorcycle-online-deposit-scam',
+  'seller-fake-buyer-payment-link-scam',
+  'check-credit-bureau-identity-misuse',
+  'lost-id-card-what-to-do',
+  'invoice-bank-account-change-email-scam',
+  'fake-transfer-slip-check-for-sellers',
+  'esim-qr-code-scam-safety',
+  'illegal-loan-app-harassment',
+  'sextortion-video-call-blackmail',
+  'job-application-fee-deposit-scam',
+  'online-pet-purchase-scam',
+  'phone-repair-shop-data-safety',
+  'passkey-what-is-how-to-set-up',
+  'fake-hospital-health-rights-call',
+  'fake-debt-collector-call',
+  'money-transferred-by-mistake-scam',
   'fake-thaid-digital-id-scam',
   'fake-social-security-sms-call',
   'customs-fee-parcel-scam',
@@ -210,6 +161,12 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cib-special-ops-bangkok-chatuchak-mule-account-21-three-warrants-nan-ubon-surat-2-2m-2569',
+  'cib-dsi-loy-krathong-online-fake-link-warning-aoc-1441-2569',
+  'cib-crime-suppression-chiangmai-fang-sold-account-2500-fake-taiwan-businessman-crypto-7m-2569',
+  'cyber-police-rayong-pluakdaeng-mule-controller-47-fake-customs-deposit-protection-retiree-62-4m-2569',
+  'cib-commando-pathumthani-thanyaburi-mule-account-38-fake-cib-test-system-transfer-3-accounts-9000-baht-2569',
+  'cyber-police-phetchaburi-exchange-company-mule-network-11-warrants-7-arrests-350m-2569',
   'cyber-police-nakhonphanom-gold-laundering-cannabis-warehouse-5-suspects-430-cases-109m-2569',
   'cyber-police-chiangmai-nominee-exchange-usdt-24-mule-accounts-9-4m-2569',
   'cib-pathumthani-mule-account-beauty-business-investment-scam-saraburi-194000-baht-2569',
@@ -314,7 +271,7 @@ const NEWS_SLUGS = [
   'thaipbs-scam-awareness-campaign-2569',
 ];
 
-const NEWS_PAGE_COUNT = 9;
+const NEWS_PAGE_COUNT = 6;
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -388,12 +345,23 @@ export async function buildSitemapXml(env) {
   }
 
   lines.push(urlEntry('/thailand', { priority: '0.85', changefreq: 'weekly', lastmod }));
-  for (const slug of PROVINCES.keys()) {
+  // Only list the main province of each area code, and only when that code has reports; the rest are served noindex (see render-province-page.js).
+  const codeCache = new Map();
+  for (const [slug, prov] of PROVINCES) {
+    if (!codeCache.has(prov.code)) codeCache.set(prov.code, await codeHasReports(env, prov.code));
+    if (!codeCache.get(prov.code) || !isPrimaryProvince(slug)) continue;
     lines.push(urlEntry(`/${slug}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
   lines.push(urlEntry('/prefix', { priority: '0.85', changefreq: 'weekly', lastmod }));
   for (const p of MOBILE_PREFIXES) {
+    // prefixes with fewer than MIN_REPORTED_FOR_INDEX reported numbers are served noindex (render-prefix-page.js) — keep them out of the sitemap
+    let hasReports = true;
+    try {
+      const page = await env.SPAM_KV.list({ prefix: 'num:' + p, limit: MIN_REPORTED_FOR_INDEX });
+      hasReports = page.keys.length >= MIN_REPORTED_FOR_INDEX;
+    } catch { /* keep listed on error */ }
+    if (!hasReports) continue;
     lines.push(urlEntry(`/prefix/${p}`, { priority: '0.8', changefreq: 'daily', lastmod }));
   }
 
@@ -412,11 +380,10 @@ export async function buildSitemapXml(env) {
     lines.push(urlEntry(`/news/${slug}`, { priority: '0.78', changefreq: 'weekly', lastmod }));
   }
 
-  for (let p = 1; p <= NEWS_PAGE_COUNT; p++) {
-    lines.push(urlEntry(`/news-${p}`, { priority: p === 1 ? '0.8' : '0.72', changefreq: 'daily', lastmod }));
-  }
+  // Only page 1 of the news listing is indexable; pages 2..NEWS_PAGE_COUNT are noindex,follow (scripts/paginate-news.mjs).
+  // (/news-1 is already in STATIC_PAGES)
 
-  const numbers = await getTopNumbers(env, 500);
+  const numbers = LIST_NUMBER_PAGES ? await getTopNumbers(env, 500) : [];
   for (const num of numbers) {
     if (!isValidThaiNumber(num)) continue;
     lines.push(urlEntry(`/check/${num}`, {
