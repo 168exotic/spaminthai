@@ -160,6 +160,8 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  'cib-special-ops-bangkoknoi-mule-account-50-fake-buyer-secondhand-clothes-line-group-2-1m-2569',
+  'cib-special-ops-chatuchak-mule-account-woman-27-fake-job-group-otp-vitamin-page-556978-baht-2569',
   'cib-special-ops-bangkok-chatuchak-mule-account-21-three-warrants-nan-ubon-surat-2-2m-2569',
   'cib-dsi-loy-krathong-online-fake-link-warning-aoc-1441-2569',
   'cib-crime-suppression-chiangmai-fang-sold-account-2500-fake-taiwan-businessman-crypto-7m-2569',
