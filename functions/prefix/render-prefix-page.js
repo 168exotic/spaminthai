@@ -6,6 +6,7 @@ import { assess } from '../api/risk-assess.js';
 import { summarizeReports, statsSentence, renderStatsSection } from '../seo/area-stats.js';
 import { identifyCarrier, MOBILE_PREFIXES } from '../api/carrier.js';
 import { esc, fmt, page, html, MIN_REPORTED_FOR_INDEX } from '../province/render-province-page.js';
+import { relatedNews, thaiShortDate } from '../news/related-news.js';
 
 const SITE = 'https://spaminthai.com';
 const PLAY = 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
@@ -154,6 +155,7 @@ export async function renderPrefixPage(prefix, env) {
   const title = `เบอร์ ${prefix} มิจฉาชีพ? เช็คเบอร์ขึ้นต้น ${prefix} ค่าย ${carrierLabel} | SpamInThai`;
   const desc = `เบอร์ขึ้นต้น ${prefix} เป็นเบอร์มือถือที่ออกให้ค่าย ${carrierLabel}${items.length ? ` — มีเบอร์ ${prefix} ถูกรายงานในระบบ ${total} เบอร์` : ''} ดูรายการเบอร์ ${prefix} ที่ถูกรายงานว่าเป็นมิจฉาชีพ/สแปมล่าสุด และเช็คเบอร์ฟรี`;
   const blog = RELATED_BLOG[prefix];
+  const news = relatedNews([], 3); // mobile numbers are nationwide: newest nationwide news
   const summary = buildPrefixSummary(prefix, carrierLabel, items.length ? total : 0);
   const faq = buildPrefixFaq(prefix, carrierLabel, items.length ? total : 0);
 
@@ -207,6 +209,13 @@ ${renderStatsSection(stats, `เบอร์ ${prefix}`)}
 </section>
 
 ${carrierSection(prefix, carrierLabel)}
+
+${news.length ? `<section class="pv-sec pv-news">
+  <h2>ข่าวเตือนภัยล่าสุด</h2>
+  <p>เบอร์มือถือใช้ได้ทั่วประเทศ ข่าวด้านล่างจึงเป็นข่าวเตือนภัยล่าสุดทั่วประเทศ ไม่ได้เกี่ยวกับเบอร์ ${esc(prefix)} โดยตรง ใช้ดูว่ามิจฉาชีพกำลังใช้มุกอะไรอยู่ตอนนี้</p>
+  <ul>${news.map((n) => `<li><a href="${esc(n.href)}">${esc(n.title)}</a><br><small>${esc(thaiShortDate(n.date))}</small></li>`).join('')}</ul>
+  <p><a href="/news-1">ข่าวเตือนภัยทั้งหมด →</a></p>
+</section>` : ''}
 
 <section class="pv-sec pv-faq">
   <h2>คำถามที่พบบ่อยเกี่ยวกับเบอร์ ${esc(prefix)}</h2>

@@ -38,6 +38,8 @@ check('prefix list cached', store.has('seo:prefix:065'));
 const res = await renderPrefixPage('065', env);
 const html = await res.text();
 check('page 200', res.status === 200);
+check('prefix page links latest news (internal links prefix -> news)', /<section class="pv-sec pv-news">[\s\S]*href="\/news\/[^"]+"/.test(html) && html.includes('href="/news-1"'));
+check('prefix news: max 3 items', (html.match(/<section class="pv-sec pv-news">[\s\S]*?<\/section>/)?.[0].match(/href="\/news\//g) || []).length === 3);
 check('title targets "เบอร์ 065 มิจฉาชีพ"', /<title>เบอร์ 065 มิจฉาชีพ/.test(html));
 check('carrier shown (AIS)', html.includes('ค่าย AIS'));
 check('lists reported number', html.includes('/check/0655084765') && html.includes('065-508-4765'));
