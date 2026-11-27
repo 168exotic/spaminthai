@@ -23,4 +23,10 @@ for (const u of links) {
   ok(!/\.apk|\/download(\/|$)/.test(u), `no APK/download link: ${u}`);
 }
 
+// Every published blog article must be listed so AI assistants can find and cite it.
+const { BLOG_POSTS } = await import('../functions/api/blog-posts.js');
+for (const { slug } of BLOG_POSTS) {
+  ok(txt.includes(`](https://spaminthai.com/blog/${slug})`), `llms.txt lists blog/${slug} (add it under the right "### " section)`);
+}
+
 console.log(`test-llms-txt: ${n} checks passed`);
