@@ -38,6 +38,9 @@ const THIN_NOINDEX = new Set([
 ]);
 
 const BLOG_SLUGS = [
+  'new-device-login-alert-what-to-do',
+  'fake-shop-website-year-end-sale',
+  'sim-mule-renting-sim-card-in-your-name',
   'separate-online-spending-account-virtual-card',
   'callback-phishing-call-this-number-scam',
   'private-number-no-caller-id',
