@@ -5,7 +5,27 @@ Disallow: /admin/
 Disallow: /site/
 Disallow: /search
 
+# AI search / answer engines (ค้นหาและอ้างอิงลิงก์ ไม่ใช่การเทรนโมเดล)
+# อนุญาตให้ ChatGPT Search, Perplexity, Claude, Apple, DuckDuckGo, Mistral
+# ดึงหน้าเพื่อตอบคำถามผู้ใช้พร้อมลิงก์กลับมาที่เว็บ
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: Applebot
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /admin/
+Disallow: /site/
+Disallow: /search
+
 Sitemap: https://spaminthai.com/sitemap.xml
 
+# สรุปเว็บสำหรับ AI: https://spaminthai.com/llms.txt
 # RSS for social schedulers (IFTTT, Zapier)
 # https://spaminthai.com/feed.xml
