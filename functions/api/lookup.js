@@ -3,6 +3,7 @@
 
 import { assess } from './risk-assess.js';
 import { identifyCarrier, isValidThaiPhone, normalizeThaiNumber } from './carrier.js';
+import { lookupSignalRisk, thaiLocalToE164 } from './signals.js';
 import {
   checkRateLimit,
   clientIp,
@@ -81,8 +82,17 @@ export async function onRequestGet({ request, env }) {
   );
 
   const hits = results.filter(Boolean);
+
+  // Crowdsourced passive signal risk (v3.1.6): hashed, aggregated — never raw signals.
+  let signalRisk = null;
+  if (type === 'phone') {
+    signalRisk = await lookupSignalRisk(env, thaiLocalToE164(value));
+  }
+
   if (hits.length === 0) {
-    return json({ ok: true, found: false, query: value, type }, 200, request);
+    const base = { ok: true, found: false, query: value, type };
+    if (signalRisk) base.signal = signalRisk;
+    return json(base, 200, request);
   }
 
   // ดึง related entities มาแสดงด้วย (1 ชั้น)
@@ -148,6 +158,8 @@ export async function onRequestGet({ request, env }) {
       });
     }
   }
+
+  if (signalRisk) payload.signal = signalRisk;
 
   return json(payload, 200, request);
 }

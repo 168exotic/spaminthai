@@ -842,3 +842,16 @@
 .hero2__badge{position:absolute;left:1.25rem;bottom:1rem;display:inline-flex;align-items:center;gap:.5rem;background:rgba(2,11,26,.75);backdrop-filter:blur(8px);border:1px solid rgba(34,211,238,.22);padding:.45rem .8rem;border-radius:.75rem;font-size:.78rem;color:#e2e8f0}
 .hero2__badge strong{color:#22d3ee}
 @media (min-width:768px){.hero2__badge{left:auto;right:1.5rem;bottom:1.25rem}}
+
+/* —— Pink glow: main CTA only (Nov 2026) ——
+   Reduced to the single hero button while Google AdSense review is pending (avoid animated
+   elements near ad slots). Off for visitors whose device asks for reduced motion. */
+@keyframes sitPinkGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.55), 0 4px 14px rgba(244, 63, 94, 0.25); }
+  50%      { box-shadow: 0 0 0 7px rgba(244, 63, 94, 0), 0 0 22px 4px rgba(244, 63, 94, 0.55); }
+}
+.hero2__btn--primary { animation: sitPinkGlow 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .hero2__btn--primary { animation: none; } }
+
+/* Blog/news article pages: keep text off the screen edge on mobile. */
+body > article.wrap { padding-left: clamp(16px, 4vw, 24px); padding-right: clamp(16px, 4vw, 24px); }

@@ -5,7 +5,7 @@
 import { assess } from '../api/risk-assess.js';
 import { summarizeReports, statsSentence, renderStatsSection } from '../seo/area-stats.js';
 import { identifyCarrier, MOBILE_PREFIXES } from '../api/carrier.js';
-import { esc, fmt, page, html } from '../province/render-province-page.js';
+import { esc, fmt, page, html, MIN_REPORTED_FOR_INDEX } from '../province/render-province-page.js';
 
 const SITE = 'https://spaminthai.com';
 const PLAY = 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
@@ -236,12 +236,13 @@ ${carrierSection(prefix, carrierLabel)}
       { '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
     ],
   };
-  return html(page({ title, desc, canonical, schema, body }));
+  // Prefix pages with no reported numbers are near-identical to each other — keep them out of the index until data arrives.
+  return html(page({ title, desc, canonical, schema, body, robots: total >= MIN_REPORTED_FOR_INDEX ? '' : 'noindex, follow' }));
 }
 
 export function renderPrefixIndex() {
   const canonical = `${SITE}/prefix`;
-  const title = 'เบอร์มือถือขึ้นต้น 06 08 09 เป็นค่ายไหน? เช็คเบอร์มิจฉาชีพตามเลขขึ้นต้น | SpamInThai';
+  const title = 'เบอร์มือถือขึ้นต้น 06 08 09 เดิมจัดสรรให้ค่ายไหน และบอกอะไรได้บ้าง | SpamInThai';
   const desc = 'รวมเลขขึ้นต้นเบอร์มือถือไทย 060–099 ว่าเป็นค่าย AIS ทรู ดีแทค หรือ NT พร้อมรายการเบอร์ที่ถูกรายงานว่าเป็นมิจฉาชีพ/สแปมในแต่ละเลขขึ้นต้น เช็คฟรี';
   const groups = ['6', '8', '9']
     .map((d) => {
@@ -254,13 +255,28 @@ export function renderPrefixIndex() {
   const body = `
 <section class="pv-hero">
   <h1>เช็คเบอร์มือถือตามเลขขึ้นต้น</h1>
-  <p class="lead">เลือกเลขขึ้นต้นเพื่อดูว่าเป็นค่ายไหน และเบอร์ที่ถูกรายงานว่าเป็นมิจฉาชีพล่าสุด</p>
+  <p class="lead">เลือกเลขขึ้นต้นเพื่อดูว่าเลขหมายช่วงนั้นเดิมจัดสรรให้ค่ายใด และมีหมายเลขใดที่ผู้ใช้รายงานเข้ามาล่าสุด</p>
   <form class="pv-form" action="/check" method="get" role="search">
     <input type="tel" name="number" inputmode="tel" maxlength="16" placeholder="ใส่เบอร์ที่ต้องการตรวจ" aria-label="เบอร์ที่ต้องการตรวจ" required>
     <button type="submit">ตรวจสอบ</button>
   </form>
 </section>
+<section class="pv-sec">
+  <h2>เลขขึ้นต้นบอกอะไรได้ และบอกอะไรไม่ได้</h2>
+  <p>หมายเลขมือถือไทยมี 10 หลัก ขึ้นต้นด้วย 06, 08 หรือ 09 สามหลักแรกเป็นช่วงเลขหมายที่ กสทช. จัดสรรให้ผู้ให้บริการแต่ละราย ชื่อค่ายที่แสดงใต้เลขขึ้นต้นในหน้านี้จึงหมายถึง <b>ค่ายที่ได้รับจัดสรรเลขหมายช่วงนั้นแต่แรก</b> ไม่ได้ยืนยันว่าหมายเลขนั้นใช้งานอยู่กับค่ายใดในวันนี้</p>
+  <p>เหตุผลคือผู้ใช้ย้ายค่ายโดยใช้หมายเลขเดิมได้ (บริการคงสิทธิเลขหมาย) หมายเลขที่ขึ้นต้นด้วยเลขของค่ายหนึ่งจึงอาจใช้งานอยู่กับอีกค่ายหนึ่งแล้ว และเลขขึ้นต้นบางช่วงถูกแบ่งให้มากกว่าหนึ่งค่าย ซึ่งหน้านี้แสดงว่า "หลายค่าย"</p>
+  <p>เลขขึ้นต้นยังบอกจังหวัดของผู้โทรไม่ได้ เพราะหมายเลขมือถือใช้ได้ทั่วประเทศ ต่างจากเบอร์บ้านที่มีรหัสพื้นที่ และไม่ได้บอกว่าหมายเลขนั้นน่าไว้ใจหรือไม่ หมายเลขที่ถูกรายงานมีอยู่ในทุกช่วงเลขหมายและทุกค่าย</p>
+</section>
 ${groups}
+<section class="pv-sec">
+  <h2>ใช้หน้านี้อย่างไร</h2>
+  <ul class="pv-tips">
+    <li>กดเลขขึ้นต้นที่ตรงกับสายที่โทรเข้ามา เพื่อดูหมายเลขในช่วงนั้นที่ผู้ใช้รายงานล่าสุดและประเภทที่ถูกรายงานบ่อย</li>
+    <li>ถ้ามีหมายเลขครบ 10 หลักแล้ว พิมพ์ในช่องด้านบนเพื่อดูผลของหมายเลขนั้นโดยตรง ซึ่งแม่นกว่าการดูทั้งช่วง</li>
+    <li>ช่วงเลขหมายที่ยังไม่มีรายงานไม่ได้แปลว่าปลอดภัย เพียงแต่ยังไม่มีผู้ใช้รายงานเข้ามา</li>
+    <li>ข้อมูลทั้งหมดเป็นรายงานจากผู้ใช้ ไม่ใช่ข้อมูลจากผู้ให้บริการหรือหน่วยงานรัฐ อ่านวิธีคัดกรองได้ใน<a href="/editorial-policy">นโยบายการตรวจสอบข้อมูล</a></li>
+  </ul>
+</section>
 <section class="pv-sec">
   <h2>เบอร์บ้าน / สำนักงาน</h2>
   <p><a href="/thailand">ดูรหัสเบอร์บ้านครบ 77 จังหวัด →</a></p>

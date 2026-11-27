@@ -2,3 +2,8 @@
 # Do NOT add /check -> /check.html rewrites here — they loop with Pages' own
 # /check.html -> /check redirect (ERR_TOO_MANY_REDIRECTS). See AGENTS.md.
 /news /news-1 301
+# >>> news pagination (managed by scripts/paginate-news.mjs)
+/news-7 /news-1 301
+/news-8 /news-1 301
+/news-9 /news-1 301
+# <<< news pagination
