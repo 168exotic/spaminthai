@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Tests for /monthly pages and the numbers sitemap (no real KV). */
-import { listMonths, matchMonthlyPath, thaiMonthLabel, bangkokMonth, computeMonthlyStats, renderMonthlyPage, renderMonthlyIndex } from '../functions/monthly/render-monthly-page.js';
+import { monthNews, listMonths, matchMonthlyPath, thaiMonthLabel, bangkokMonth, computeMonthlyStats, renderMonthlyPage, renderMonthlyIndex } from '../functions/monthly/render-monthly-page.js';
 import { buildNumbersSitemapIndexXml, buildNumbersSitemapXml, handleNumbersSitemapGet, buildSitemapXml } from '../functions/api/sitemap.js';
 import { bulkGetJson } from '../functions/api/kv-scan.js';
 
@@ -48,6 +48,19 @@ const july = await (await renderMonthlyPage('2026-07', env, NOW)).text();
 check('empty month is noindex', july.includes('<meta name="robots" content="noindex,follow">'));
 check('future month 404', (await renderMonthlyPage('2027-01', env, NOW)).status === 404);
 check('index lists months', renderMonthlyIndex && (await renderMonthlyIndex().text()).includes('href="/monthly/2026-07"'));
+
+const FAKE_NEWS = [
+  { slug: 'a-2569', title: 'ข่าว A', date: '2026-10-05', provinces: [] },
+  { slug: 'b-2569', title: 'ข่าว B', date: '2026-10-20', provinces: [] },
+  { slug: 'c-2569', title: 'ข่าว C', date: '2026-09-30', provinces: [] },
+];
+const mn = monthNews('2026-10', 5, FAKE_NEWS);
+check('monthNews filters by month, newest first', mn.length === 2 && mn[0].href === '/news/b-2569' && mn[1].href === '/news/a-2569', JSON.stringify(mn));
+check('monthNews respects limit', monthNews('2026-10', 1, FAKE_NEWS).length === 1);
+check('monthNews empty month -> []', monthNews('2026-08', 5, FAKE_NEWS).length === 0);
+const nov = await (await renderMonthlyPage('2026-10', env, NOW)).text();
+const octNews = monthNews('2026-10');
+check('monthly page links month news when any', octNews.length === 0 ? !nov.includes('ข่าวเตือนภัยเดือน') : nov.includes('ข่าวเตือนภัยเดือนตุลาคม 2569') && nov.includes(`href="${octNews[0].href}"`) && nov.includes('href="/news-1"'));
 
 const idx = await buildNumbersSitemapIndexXml(env);
 check('numbers sitemap index', idx.includes('<sitemapindex') && idx.includes('/sitemap-numbers-1.xml'));

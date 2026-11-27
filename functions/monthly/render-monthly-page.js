@@ -7,6 +7,8 @@ import { assess } from '../api/risk-assess.js';
 import { identifyCarrier, MOBILE_PREFIXES } from '../api/carrier.js';
 import { getAllNumbersCached, bulkGetJson } from '../api/kv-scan.js';
 import { esc, fmt, page, html } from '../province/render-province-page.js';
+import { NEWS } from '../news/news-index.js';
+import { thaiShortDate } from '../news/related-news.js';
 
 const SITE = 'https://spaminthai.com';
 const PLAY = 'https://play.google.com/store/apps/details?id=com.jarvis.callblocker';
@@ -16,6 +18,30 @@ const BKK_OFFSET_MS = 7 * 60 * 60 * 1000;
 
 const TH_MONTHS = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
 const CATEGORY_LABELS = { scam: 'มิจฉาชีพ/หลอกโอนเงิน', callcenter: 'แก๊งคอลเซ็นเตอร์', loan: 'เงินกู้', ads: 'โฆษณา/ขายของ', safe: 'เบอร์ปกติ' };
+
+/**
+ * News articles published in month `ym` (newest first, up to `limit`) for
+ * internal links monthly ↔ news. Nationwide context only — not tied to the
+ * numbers listed on the page.
+ */
+export function monthNews(ym, limit = 5, news = NEWS) {
+  return news
+    .filter((n) => String(n.date || '').startsWith(ym + '-'))
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+    .slice(0, limit)
+    .map((n) => ({ href: `/news/${n.slug}`, title: n.title, date: n.date }));
+}
+
+function newsSection(ym, label) {
+  const items = monthNews(ym);
+  if (!items.length) return '';
+  return `<section class="pv-sec pv-news">
+  <h2>ข่าวเตือนภัยเดือน${esc(label)}</h2>
+  <p class="lead" style="margin:0 0 8px">ข่าวที่ทีมงานเรียบเรียงจากแหล่งทางการในเดือนนี้ เป็นภาพรวมทั่วประเทศ ไม่ได้เกี่ยวกับเบอร์ในรายการด้านบนโดยตรง</p>
+  <ul>${items.map((n) => `<li><a href="${esc(n.href)}">${esc(n.title)}</a><br><small>${esc(thaiShortDate(n.date))}</small></li>`).join('')}</ul>
+  <p><a href="/news-1">ข่าวเตือนภัยทั้งหมด →</a></p>
+</section>`;
+}
 
 /** "YYYY-MM" in Bangkok time. */
 export function bangkokMonth(ts = Date.now()) {
@@ -178,6 +204,8 @@ ${s.categories.length ? `<section class="pv-sec"><h2>หลอกแบบไห
   </ul>
 </section>
 
+${newsSection(ym, label)}
+
 <div class="pv-app">
   <p><b>บล็อกเบอร์มิจฉาชีพอัตโนมัติ</b><br>แอป SpamInThai เตือนเบอร์อันตรายก่อนรับสาย ใช้ฟรีบน Android</p>
   <a href="${PLAY}" target="_blank" rel="noopener noreferrer">▶ ดาวน์โหลดบน Google Play</a>
@@ -189,6 +217,7 @@ ${s.categories.length ? `<section class="pv-sec"><h2>หลอกแบบไห
   <h1>เบอร์มิจฉาชีพเดือน${esc(label)}</h1>
   <p class="lead">ยังไม่มีรายงานในเดือนนี้ เจอเบอร์แปลก <a href="/report">แจ้งเบาะแสที่นี่</a> หรือ <a href="/check">เช็คเบอร์</a></p>
 </section>
+${newsSection(ym, label)}
 <section class="pv-sec"><h2>สรุปเดือนอื่น</h2>${monthNav(ym)}</section>`;
 
   const schema = {
