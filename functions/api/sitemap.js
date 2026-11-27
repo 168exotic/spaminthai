@@ -38,6 +38,18 @@ const THIN_NOINDEX = new Set([
 ]);
 
 const BLOG_SLUGS = [
+  'new-device-login-alert-what-to-do',
+  'fake-shop-website-year-end-sale',
+  'sim-mule-renting-sim-card-in-your-name',
+  'separate-online-spending-account-virtual-card',
+  'callback-phishing-call-this-number-scam',
+  'private-number-no-caller-id',
+  'game-topup-id-trading-scam',
+  'fake-boss-line-urgent-transfer',
+  'spam-risk-label-incoming-call',
+  'free-sticker-new-year-card-link-scam',
+  'wrong-number-text-friendly-chat-scam',
+  'cash-gold-handover-courier-scam',
   'face-scan-selfie-verification-safety',
   'added-to-unknown-line-telegram-group',
   'used-car-motorcycle-online-deposit-scam',
@@ -150,6 +162,9 @@ const BLOG_SLUGS = [
 const NEWS_SLUGS = [
   'acsc-weekly-15-21-nov-5674-cases-288m-fake-police-dsi-amlo-ceo-fraud-warning-2569',
   'cyber-police-huaikhwang-sting-teen-17-fake-police-gold-25-baht-1-5m-fake-hospital-amlo-2569',
+  'cib-special-ops-bangkok-chatuchak-mule-account-21-three-warrants-nan-ubon-surat-2-2m-2569',
+  'cib-dsi-loy-krathong-online-fake-link-warning-aoc-1441-2569',
+  'cib-crime-suppression-chiangmai-fang-sold-account-2500-fake-taiwan-businessman-crypto-7m-2569',
   'cyber-police-rayong-pluakdaeng-mule-controller-47-fake-customs-deposit-protection-retiree-62-4m-2569',
   'cib-commando-pathumthani-thanyaburi-mule-account-38-fake-cib-test-system-transfer-3-accounts-9000-baht-2569',
   'cyber-police-phetchaburi-exchange-company-mule-network-11-warrants-7-arrests-350m-2569',

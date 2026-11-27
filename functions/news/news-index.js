@@ -2,6 +2,32 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "cib-crime-suppression-chiangmai-fang-sold-account-2500-fake-taiwan-businessman-crypto-7m-2569",
+    "title": "กองปราบรวบผู้ต้องหาหญิงวัย 36 ที่ อ.ฝาง จ.เชียงใหม่ 2 หมายจับ ตำรวจระบุบัญชีรับเงินแก๊งอ้างนักธุรกิจอสังหาฯ ชวนลงทุนคริปโต เสียหายกว่า 7 ล้าน ตามรายงานข่าวผู้ต้องหารับว่าขายบัญชี 2,500 บาท",
+    "date": "2026-11-25",
+    "provinces": [
+      "bangkok",
+      "chiang-mai"
+    ]
+  },
+  {
+    "slug": "cib-dsi-loy-krathong-online-fake-link-warning-aoc-1441-2569",
+    "title": "ตำรวจสอบสวนกลางและ DSI เตือนลอยกระทงออนไลน์ 2569 ระวังลิงก์ปลอมขโมยข้อมูล-ดูดเงิน แนะเช็ก 5 ข้อก่อนกดเข้าเว็บ หากถูกหลอก ให้รีบโทร 1441",
+    "date": "2026-11-25",
+    "provinces": []
+  },
+  {
+    "slug": "cib-special-ops-bangkok-chatuchak-mule-account-21-three-warrants-nan-ubon-surat-2-2m-2569",
+    "title": "บก.ปพ.รวบผู้ต้องหาชายวัย 21 คดีบัญชีม้าริมถนนพหลโยธิน เขตจตุจักร 3 หมายจับน่าน-อุบลฯ-สุราษฎร์ฯ ตำรวจระบุบัญชีรับเงินแก๊งหลอกลงทุนและเงินกู้ปลอม รวมเสียหาย 2,207,180 บาท",
+    "date": "2026-11-25",
+    "provinces": [
+      "bangkok",
+      "nan",
+      "ubon-ratchathani",
+      "surat-thani"
+    ]
+  },
+  {
     "slug": "acsc-weekly-15-21-nov-5674-cases-288m-fake-police-dsi-amlo-ceo-fraud-warning-2569",
     "title": "ACSC รายงานสัปดาห์ 15–21 พ.ย. 2569 คดีโกงออนไลน์ 5,674 คดี เสียหายกว่า 288 ล้านบาท กลโกงอ้างเป็นตำรวจ-DSI-ปปง. เสียหายสูงสุด 81.24 ล้าน พร้อมเตือนภัยใหม่ปลอมเป็นผู้บริหารสั่งโอนด่วน (CEO Fraud/BEC)",
     "date": "2026-11-24",
