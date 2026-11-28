@@ -2,6 +2,29 @@
 // Re-run after adding news:  node scripts/build-news-index.mjs
 export const NEWS = [
   {
+    "slug": "2026-11-28-aoc-1441-openchat-merchant-card-scam-online-sellers-6m",
+    "title": "AOC 1441 เตือนกลโกง OpenChat หลอกแม่ค้าทำบัตรร้านค้า สูญกว่า 6 ล้าน",
+    "date": "2026-11-26",
+    "provinces": []
+  },
+  {
+    "slug": "2026-11-28-cib-bangkoknoi-mule-account-50-second-hand-clothes-line-group-2-1m",
+    "title": "บก.ปพ.รวบผู้ต้องหาวัย 50 คดีบัญชีม้าโยงหลอกคนขายเสื้อมือสอง 2.1 ล้าน",
+    "date": "2026-11-26",
+    "provinces": [
+      "bangkok"
+    ]
+  },
+  {
+    "slug": "2026-11-28-cyber-police-khonkaen-sichomphu-mule-account-car-3-suspects-1500-baht",
+    "title": "ตร.ไซเบอร์รวบ 3 ผู้ต้องหาคดีตระเวนชวนชาวบ้านขอนแก่นเปิดบัญชี 1,500 บาท",
+    "date": "2026-11-26",
+    "provinces": [
+      "khon-kaen",
+      "nong-khai"
+    ]
+  },
+  {
     "slug": "cib-crime-suppression-chiangmai-fang-sold-account-2500-fake-taiwan-businessman-crypto-7m-2569",
     "title": "กองปราบรวบผู้ต้องหาหญิงวัย 36 ที่ อ.ฝาง จ.เชียงใหม่ 2 หมายจับ ตำรวจระบุบัญชีรับเงินแก๊งอ้างนักธุรกิจอสังหาฯ ชวนลงทุนคริปโต เสียหายกว่า 7 ล้าน ตามรายงานข่าวผู้ต้องหารับว่าขายบัญชี 2,500 บาท",
     "date": "2026-11-25",
