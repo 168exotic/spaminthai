@@ -34,7 +34,7 @@ STATIC_LINKS = {'/', '/check', '/report', '/dispute', '/editorial-policy', '/abo
                 '/terms', '/blog', '/news', '/guide/call-center-scam', '/guide/block-spam-android',
                 '/guide/check-phone', '/guide/spam-numbers', '/prefix', '/monthly', '/thailand'}
 OFFICIAL_SHORT = {'1111', '1129', '1130', '1125', '1155', '1161', '1186', '1200', '1202', '1207', '1212',
-                  '1213', '1441', '1545', '1599', '1662', '1300', '1323', '1669', '191', '199', '1784'}
+                  '1213', '1441', '137', '1545', '1599', '1662', '1300', '1323', '1669', '191', '199', '1784'}
 
 
 def load(path):
