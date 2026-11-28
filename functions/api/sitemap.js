@@ -160,6 +160,9 @@ const BLOG_SLUGS = [
 ];
 
 const NEWS_SLUGS = [
+  '2026-11-28-cyber-police-khonkaen-sichomphu-mule-account-car-3-suspects-1500-baht',
+  '2026-11-28-cib-bangkoknoi-mule-account-50-second-hand-clothes-line-group-2-1m',
+  '2026-11-28-aoc-1441-openchat-merchant-card-scam-online-sellers-6m',
   'cib-special-ops-bangkok-chatuchak-mule-account-21-three-warrants-nan-ubon-surat-2-2m-2569',
   'cib-dsi-loy-krathong-online-fake-link-warning-aoc-1441-2569',
   'cib-crime-suppression-chiangmai-fang-sold-account-2500-fake-taiwan-businessman-crypto-7m-2569',
