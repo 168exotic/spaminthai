@@ -38,6 +38,9 @@ const THIN_NOINDEX = new Set([
 ]);
 
 const BLOG_SLUGS = [
+  'fake-hr-bonus-salary-email-phishing',
+  'home-security-camera-privacy-settings',
+  'mobile-value-added-service-sms-charges',
   'new-device-login-alert-what-to-do',
   'fake-shop-website-year-end-sale',
   'sim-mule-renting-sim-card-in-your-name',
